@@ -5,14 +5,18 @@ class WxLandingPlugin extends WebsitePlugin {
   constructor(name) {
     super(name);
   }
+
+  // 创建项目模板
+  async create() {}
+
   async build(...args) {
     console.log('wxlanding build');
-    return await super.build(...args);
+    return super.build(...args);
   }
 
   async deploy(...args) {
     console.log('wxlanding deploy');
-    return await super.deploy(...args);
+    return super.deploy(...args);
   }
 }
 

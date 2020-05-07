@@ -17,6 +17,11 @@ interface PluginData {
   api?: PluginServiceApi;
 }
 
+/**
+ * 插件管理器
+ *
+ * @description 管理插件的生命周期，为插件注入 api 和参数
+ */
 export default class PluginManager {
   context: Context;
   plugins: PluginData[];
@@ -64,7 +69,11 @@ export default class PluginManager {
     );
   }
 
-  resolvePlugins(config: Config) {
+  /**
+   * 解析插件
+   * @param config
+   */
+  private resolvePlugins(config: Config) {
     const allPlugins = Object.entries(config.plugins).map(
       ([id, pluginConfig]) => {
         const { use, inputs } = pluginConfig;
@@ -79,7 +88,12 @@ export default class PluginManager {
     return allPlugins;
   }
 
-  async loadPlugin(pluginData: PluginData): Promise<Plugin> {
+  /**
+   * 加载插件代码
+   *
+   * @param pluginData
+   */
+  private async loadPlugin(pluginData: PluginData): Promise<Plugin> {
     if (pluginData.pluginInstance) {
       return pluginData.pluginInstance;
     }
@@ -121,12 +135,23 @@ export default class PluginManager {
     return pluginData.pluginInstance as Plugin;
   }
 
+  /**
+   * 筛选插件
+   * @param id
+   */
   private pickPlugins(id?: string): PluginData[] {
     return id
       ? this.plugins.filter((plugin) => plugin.id === id)
       : this.plugins;
   }
 
+  /**
+   * 通过 NPM 安装插件
+   *
+   * 全局安装是考虑其他非 JavaScript 项目底下尽量不产生 node_modules
+   *
+   * @param packageName
+   */
   private async installPackageFromNpm(packageName: string) {
     await promisify(npm.load as (cli: any, callback: () => void) => void)({});
     await promisify(npm.commands.install)([packageName, "-g"]);
