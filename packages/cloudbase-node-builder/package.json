@@ -1,0 +1,20 @@
+{
+  "name": "@cloudbase/node-builder",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf cloudbase-node-build-*"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@zeit/node-file-trace": "^0.5.1",
+    "archiver": "^4.0.1",
+    "express": "^4.17.1",
+    "fs-extra": "^9.0.0",
+    "jszip": "^3.4.0",
+    "serverless-http": "^2.3.2"
+  }
+}
