@@ -1,6 +1,12 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "dev": "tsc -w",
+    "build": "tsc",
+    "publish": "lerna publish"
+  },
   "devDependencies": {
     "lerna": "^3.20.2"
   }
