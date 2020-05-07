@@ -1,10 +1,9 @@
+import npm from "npm";
+import { promisify } from "util";
 import { Config } from "../types";
 import Context from "../context";
 import Plugin from "../plugin";
-
 import PluginServiceApi from "../plugin-sevice-api";
-import { exec } from "child_process";
-import { promisify } from "util";
 
 interface PluginData {
   id: string;
@@ -85,18 +84,39 @@ export default class PluginManager {
       return pluginData.pluginInstance;
     }
 
-    let PluginCode;
+    let PluginCode: Plugin | undefined;
 
     try {
       PluginCode = require(pluginData.name);
     } catch (e) {
-      // @todo 自动安装依赖
+      PluginCode = undefined;
+    }
+
+    if (typeof PluginCode === "undefined") {
+      try {
+        await this.installPackageFromNpm(pluginData.name);
+      } catch (e) {
+        throw new Error(
+          `CloudBase Framwork: can't install plugin npm package '${pluginData.name}'`
+        );
+      }
+
+      try {
+        PluginCode = require(pluginData.name);
+      } catch (e) {
+        throw new Error(
+          `CloudBase Framwork: can't find plugin '${pluginData.name}'`
+        );
+      }
+    }
+
+    if (!(PluginCode instanceof Plugin)) {
       throw new Error(
-        `CloudBase Framwork: can't find plugin '${pluginData.name}'`
+        `CloudBase Framwork: plugin '${pluginData.name}' isn't a valid plugin`
       );
     }
 
-    pluginData.pluginInstance = new PluginCode(pluginData.name);
+    pluginData.pluginInstance = new (PluginCode as any)(pluginData.name);
     pluginData.api = new PluginServiceApi(this);
     return pluginData.pluginInstance as Plugin;
   }
@@ -105,5 +125,10 @@ export default class PluginManager {
     return id
       ? this.plugins.filter((plugin) => plugin.id === id)
       : this.plugins;
+  }
+
+  private async installPackageFromNpm(packageName: string) {
+    await promisify(npm.load as (cli: any, callback: () => void) => void)({});
+    await promisify(npm.commands.install)([packageName, "-g"]);
   }
 }

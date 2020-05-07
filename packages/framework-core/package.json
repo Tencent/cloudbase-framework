@@ -28,10 +28,12 @@
   },
   "devDependencies": {
     "@types/node": "^13.13.5",
-    "jest": "^26.0.1"
+    "jest": "^26.0.1",
+    "npm": "^6.14.5"
   },
   "dependencies": {
     "@cloudbase/manager-node": "^3.2.2",
-    "@types/jest": "^25.2.1"
+    "@types/jest": "^25.2.1",
+    "@types/npm": "^2.0.31"
   }
 }
