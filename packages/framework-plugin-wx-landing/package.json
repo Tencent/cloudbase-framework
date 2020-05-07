@@ -1,11 +1,11 @@
 {
-  "name": "@cloudbase/framework-test-project",
+  "name": "@cloudbase/framework-plugin-wx-landing",
   "version": "0.0.0",
   "description": "> TODO: description",
   "author": "Booker Zhao <bookerzhao@tencent.com>",
-  "homepage": "https://github.com/binggg/cloudbase-framework#readme",
+  "homepage": "",
   "license": "ISC",
-  "main": "lib/framework-test-project.js",
+  "main": "lib/framework-plugin-wx-landing.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -18,16 +18,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/binggg/cloudbase-framework.git"
+    "url": "http://git.code.oa.com/QBase/cloudbase-framework.git"
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
-  "bugs": {
-    "url": "https://github.com/binggg/cloudbase-framework/issues"
-  },
   "dependencies": {
-    "@cloudbase/framework-core": "^0.0.0",
-    "@cloudbase/framework-plugin-wx-landing": "^0.0.0"
+    "@cloudbase/framework-plugin-website": "^0.0.0"
   }
 }

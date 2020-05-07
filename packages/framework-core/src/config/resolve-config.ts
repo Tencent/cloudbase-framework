@@ -6,6 +6,7 @@ export default function resolveConfig(currentPath: string) {
   try {
     config = require(path.join(currentPath, "cloudbase-framework"));
   } catch (e) {
+    console.log(e);
     config = defaultConfig;
   }
 
