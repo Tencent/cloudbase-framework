@@ -110,7 +110,7 @@ export default class PluginManager {
       }
     }
 
-    if (!(PluginCode instanceof Plugin)) {
+    if (!(PluginCode && (PluginCode as any).prototype instanceof Plugin)) {
       throw new Error(
         `CloudBase Framwork: plugin '${pluginData.name}' isn't a valid plugin`
       );
