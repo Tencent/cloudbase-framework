@@ -9,7 +9,7 @@ export * from "./types";
 const SUPPORT_COMMANDS = ["build", "deploy"];
 
 export async function run(
-  { projectPath, cloudbaseConfig }: CloudbaseFrameworkConfig,
+  { projectPath, cloudbaseConfig, logLevel = "info" }: CloudbaseFrameworkConfig,
   command?: "build" | "deploy",
   module?: string
 ) {
@@ -22,6 +22,7 @@ export async function run(
     appConfig: config,
     cloudbaseConfig,
     projectPath,
+    logLevel,
   });
 
   const pluginManager = new PluginManager(context);

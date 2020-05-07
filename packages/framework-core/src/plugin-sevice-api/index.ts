@@ -14,4 +14,8 @@ export default class PluginServiceApi {
   get projectPath() {
     return this.pluginManager.context.projectPath;
   }
+
+  get logger() {
+    return this.pluginManager.context.logger;
+  }
 }
