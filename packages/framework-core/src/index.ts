@@ -18,7 +18,11 @@ export async function run(
   }
 
   const config = resolveConfig(projectPath);
-  const context = new Context(config, cloudbaseConfig);
+  const context = new Context({
+    appConfig: config,
+    cloudbaseConfig,
+    projectPath,
+  });
 
   const pluginManager = new PluginManager(context);
 

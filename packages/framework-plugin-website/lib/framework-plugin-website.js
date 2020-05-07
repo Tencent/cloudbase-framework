@@ -6,7 +6,7 @@ module.exports = class WebsitePlugin extends Plugin {
     console.log('build');
     console.log(api, inputs);
     return {
-      test: 123,
+      test: 1,
     };
   }
 

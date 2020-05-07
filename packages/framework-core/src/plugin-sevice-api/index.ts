@@ -10,4 +10,8 @@ export default class PluginServiceApi {
   get cloudBaseManager() {
     return this.pluginManager.context.cloudbaseManager;
   }
+
+  get projectPath() {
+    return this.pluginManager.context.projectPath;
+  }
 }
