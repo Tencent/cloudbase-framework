@@ -21,7 +21,8 @@
     "url": "git+https://github.com/binggg/cloudbase-framework.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "dev": "tsc -w",
+    "build": "tsc"
   },
   "bugs": {
     "url": "https://github.com/binggg/cloudbase-framework/issues"

@@ -2,7 +2,6 @@
   "extends": "./tsconfig.build.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "lib",
     "paths": {
       "@cloudbase/*": ["packages/*/src"]
     }
