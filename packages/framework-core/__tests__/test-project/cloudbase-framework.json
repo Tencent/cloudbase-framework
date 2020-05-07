@@ -1,0 +1,11 @@
+{
+  "name": "test-cloudbase-framework",
+  "plugins": {
+    "website": {
+      "use": "@cloudbase/framework-plugin-website",
+      "inputs": {
+        "src": "./"
+      }
+    }
+  }
+}
