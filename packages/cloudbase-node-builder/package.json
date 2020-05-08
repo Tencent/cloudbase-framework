@@ -2,10 +2,11 @@
   "name": "@cloudbase/node-builder",
   "version": "0.0.1",
   "description": "",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "clean": "rm -rf cloudbase-node-build-*",
-    "test": "node test/index.js"
+    "test": "node test/index.js",
+    "dev": "tsc -w"
   },
   "author": "",
   "license": "ISC",
@@ -17,5 +18,11 @@
     "fs-extra": "^9.0.0",
     "jszip": "^3.4.0",
     "serverless-http": "^2.3.2"
+  },
+  "devDependencies": {
+    "@types/archiver": "^3.1.0",
+    "@types/fs-extra": "^8.1.0",
+    "@types/node": "^13.13.5",
+    "typescript": "^3.8.3"
   }
 }

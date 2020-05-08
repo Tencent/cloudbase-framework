@@ -2,15 +2,21 @@
   "name": "@cloudbase/static-builder",
   "version": "0.0.1",
   "description": "云开发Static Builder",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "clean": "rm -rf cloudbase-static-build-*",
-    "test": "node test/index.js"
+    "test": "node test/index.js",
+    "dev": "tsc -w"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@cloudbase/framework-core": "^0.0.0",
     "fs-extra": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^8.1.0",
+    "@types/node": "^13.13.5",
+    "typescript": "^3.8.3"
   }
 }
