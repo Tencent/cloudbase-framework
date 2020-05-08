@@ -3,18 +3,18 @@ const fs = require('fs-extra')
 const archiver = require('archiver');
 const __launcher = fs.readFileSync(path.resolve(__dirname, './__launcher.js'), 'utf-8')
 const nodeFileTrace = require('@zeit/node-file-trace');
+const { Builder } = require('@cloudbase/framework-core')
 
-module.exports = class NodeBuilder {
+module.exports = class NodeBuilder extends Builder {
     constructor() {
-        this.targetDir = `cloudbase-node-build-${new Date().getTime()}`
+        super('node')
         this.dependencies = {
             'express': '^4.17.1',
             'serverless-http': '^2.3.2'
         }
-        this.execPath = process.cwd()
     }
     async build(entry, options = {}) {
-        const { targetDir, execPath } = this
+        const { targetDir, execDir } = this
         const entryFile = path.resolve(__dirname, entry)
         const functionName = this.generateFunctionName(entryFile)
 
@@ -23,7 +23,7 @@ module.exports = class NodeBuilder {
         })
 
         // 入口文件的相对路径（相对于项目根路径）
-        const entryRelativePath = path.relative(execPath, path.resolve(__dirname, entryFile));
+        const entryRelativePath = path.relative(execDir, path.resolve(__dirname, entryFile));
 
         await fs.ensureDir(targetDir)
         await fs.ensureDir(targetDir + '/api')
@@ -86,7 +86,7 @@ module.exports = class NodeBuilder {
     }
 
     generateFunctionName(entryFile) {
-        const entryRelativePath = path.relative(this.execPath, path.resolve(__dirname, entryFile));
+        const entryRelativePath = path.relative(this.execDir, path.resolve(__dirname, entryFile));
         const name = entryRelativePath.replace(/\//g, '-').split('.')[0]
         return name
     }
