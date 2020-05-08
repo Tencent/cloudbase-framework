@@ -20,13 +20,12 @@
     "type": "git",
     "url": "git+https://github.com/binggg/cloudbase-framework.git"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "bugs": {
     "url": "https://github.com/binggg/cloudbase-framework/issues"
   },
   "dependencies": {
     "@cloudbase/framework-core": "^0.0.0",
-    "@cloudbase/framework-test-project": "^0.0.0"
+    "@cloudbase/static-builder": "^0.0.1"
   }
 }

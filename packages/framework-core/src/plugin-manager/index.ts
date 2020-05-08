@@ -43,6 +43,7 @@ export default class PluginManager {
           pluginData.api as PluginServiceApi,
           pluginData.inputs
         );
+        console.log("pluginData.outputs.build", pluginData.outputs.build);
         return pluginData.outputs.build;
       })
     );
