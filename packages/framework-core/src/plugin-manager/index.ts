@@ -4,7 +4,6 @@ import { Config } from "../types";
 import Context from "../context";
 import Plugin from "../plugin";
 import PluginServiceApi from "../plugin-sevice-api";
-
 interface PluginData {
   id: string;
   name: string;
@@ -104,6 +103,7 @@ export default class PluginManager {
     try {
       PluginCode = require(pluginData.name);
     } catch (e) {
+      this.context.logger.warn(e);
       PluginCode = undefined;
     }
 
@@ -111,6 +111,7 @@ export default class PluginManager {
       try {
         await this.installPackageFromNpm(pluginData.name);
       } catch (e) {
+        this.context.logger.error(e);
         throw new Error(
           `CloudBase Framwork: can't install plugin npm package '${pluginData.name}'`
         );

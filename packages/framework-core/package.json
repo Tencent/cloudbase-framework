@@ -23,7 +23,7 @@
   "scripts": {
     "dev": "tsc -w",
     "build": "tsc",
-    "test": "node framework-test-project/lib/framework-test-project"
+    "test": "node framework-test-project/index"
   },
   "bugs": {
     "url": "https://github.com/binggg/cloudbase-framework/issues"
