@@ -22,4 +22,5 @@ export interface CloudbaseFrameworkConfig {
   projectPath: string;
   cloudbaseConfig: CloudBaseConfig;
   logLevel?: string;
+  config?: Config;
 }
