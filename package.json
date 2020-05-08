@@ -1,6 +1,13 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "dev": "lerna run dev --stream",
+    "build": "lerna run build",
+    "prepublish": "npm run build",
+    "publish": "lerna publish"
+  },
   "devDependencies": {
     "lerna": "^3.20.2"
   }

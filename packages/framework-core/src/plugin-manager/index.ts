@@ -1,10 +1,9 @@
+import npm from "npm";
+import { promisify } from "util";
 import { Config } from "../types";
 import Context from "../context";
 import Plugin from "../plugin";
-
 import PluginServiceApi from "../plugin-sevice-api";
-import { exec } from "child_process";
-import { promisify } from "util";
 
 interface PluginData {
   id: string;
@@ -18,6 +17,11 @@ interface PluginData {
   api?: PluginServiceApi;
 }
 
+/**
+ * 插件管理器
+ *
+ * @description 管理插件的生命周期，为插件注入 api 和参数
+ */
 export default class PluginManager {
   context: Context;
   plugins: PluginData[];
@@ -65,7 +69,11 @@ export default class PluginManager {
     );
   }
 
-  resolvePlugins(config: Config) {
+  /**
+   * 解析插件
+   * @param config
+   */
+  private resolvePlugins(config: Config) {
     const allPlugins = Object.entries(config.plugins).map(
       ([id, pluginConfig]) => {
         const { use, inputs } = pluginConfig;
@@ -80,30 +88,72 @@ export default class PluginManager {
     return allPlugins;
   }
 
-  async loadPlugin(pluginData: PluginData): Promise<Plugin> {
+  /**
+   * 加载插件代码
+   *
+   * @param pluginData
+   */
+  private async loadPlugin(pluginData: PluginData): Promise<Plugin> {
     if (pluginData.pluginInstance) {
       return pluginData.pluginInstance;
     }
 
-    let PluginCode;
+    let PluginCode: Plugin | undefined;
 
     try {
       PluginCode = require(pluginData.name);
     } catch (e) {
-      // @todo 自动安装依赖
+      PluginCode = undefined;
+    }
+
+    if (typeof PluginCode === "undefined") {
+      try {
+        await this.installPackageFromNpm(pluginData.name);
+      } catch (e) {
+        throw new Error(
+          `CloudBase Framwork: can't install plugin npm package '${pluginData.name}'`
+        );
+      }
+
+      try {
+        PluginCode = require(pluginData.name);
+      } catch (e) {
+        throw new Error(
+          `CloudBase Framwork: can't find plugin '${pluginData.name}'`
+        );
+      }
+    }
+
+    if (!(PluginCode && (PluginCode as any).prototype instanceof Plugin)) {
       throw new Error(
-        `CloudBase Framwork: can't find plugin '${pluginData.name}'`
+        `CloudBase Framwork: plugin '${pluginData.name}' isn't a valid plugin`
       );
     }
 
-    pluginData.pluginInstance = new PluginCode(pluginData.name);
+    pluginData.pluginInstance = new (PluginCode as any)(pluginData.name);
     pluginData.api = new PluginServiceApi(this);
     return pluginData.pluginInstance as Plugin;
   }
 
+  /**
+   * 筛选插件
+   * @param id
+   */
   private pickPlugins(id?: string): PluginData[] {
     return id
       ? this.plugins.filter((plugin) => plugin.id === id)
       : this.plugins;
+  }
+
+  /**
+   * 通过 NPM 安装插件
+   *
+   * 全局安装是考虑其他非 JavaScript 项目底下尽量不产生 node_modules
+   *
+   * @param packageName
+   */
+  private async installPackageFromNpm(packageName: string) {
+    await promisify(npm.load as (cli: any, callback: () => void) => void)({});
+    await promisify(npm.commands.install)([packageName, "-g"]);
   }
 }
