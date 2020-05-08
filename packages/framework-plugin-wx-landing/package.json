@@ -21,7 +21,6 @@
     "url": "http://git.code.oa.com/QBase/cloudbase-framework.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
     "@cloudbase/framework-plugin-website": "^0.0.0"

@@ -6,7 +6,8 @@
     "dev": "lerna run dev --stream",
     "build": "lerna run build",
     "prepublish": "npm run build",
-    "publish": "lerna publish"
+    "publish": "lerna publish",
+    "test": "lerna run test"
   },
   "devDependencies": {
     "lerna": "^3.20.2"
