@@ -4,11 +4,13 @@
   "description": "云开发Static Builder",
   "main": "src/index.js",
   "scripts": {
-    "clean": "rm -rf cloudbase-static-build-*"
+    "clean": "rm -rf cloudbase-static-build-*",
+    "test": "node test/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@cloudbase/framework-core": "^0.0.0",
     "fs-extra": "^9.0.0"
   }
 }

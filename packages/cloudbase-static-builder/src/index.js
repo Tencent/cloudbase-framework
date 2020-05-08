@@ -1,9 +1,9 @@
 const fs = require('fs-extra')
 const path = require('path')
-module.exports = class StaticBuilder {
+const { Builder } = require('@cloudbase/framework-core')
+module.exports = class StaticBuilder extends Builder {
     constructor() {
-        this.targetDir = `cloudbase-static-build-${new Date().getTime()}`
-        this.execDir = process.cwd()
+        super('static')
     }
     async build(entry, options = {}) {
         await fs.copy(entry, path.resolve(this.execDir, this.targetDir))

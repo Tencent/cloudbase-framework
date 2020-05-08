@@ -4,11 +4,13 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "clean": "rm -rf cloudbase-node-build-*"
+    "clean": "rm -rf cloudbase-node-build-*",
+    "test": "node test/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@cloudbase/framework-core": "^0.0.0",
     "@zeit/node-file-trace": "^0.5.1",
     "archiver": "^4.0.1",
     "express": "^4.17.1",

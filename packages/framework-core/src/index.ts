@@ -3,6 +3,8 @@ import resolveConfig from "./config/resolve-config";
 import Context from "./context";
 import { CloudbaseFrameworkConfig } from "./types";
 export { default as Plugin } from "./plugin";
+
+export { Builder } from "./builder";
 export * from "./types";
 
 const SUPPORT_COMMANDS = ["build", "deploy"];
