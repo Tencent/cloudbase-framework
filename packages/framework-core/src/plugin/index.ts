@@ -23,7 +23,7 @@ export default abstract class Plugin {
    * @param api
    * @param inputs
    */
-  abstract gencode(
+  abstract genCode(
     api: PluginServiceApi,
     inputs: any,
     params: any
