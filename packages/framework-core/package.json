@@ -6,6 +6,7 @@
   "homepage": "https://github.com/binggg/cloudbase-framework#readme",
   "license": "ISC",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"

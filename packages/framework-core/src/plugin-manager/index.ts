@@ -4,6 +4,7 @@ import { Config } from "../types";
 import Context from "../context";
 import Plugin from "../plugin";
 import PluginServiceApi from "../plugin-sevice-api";
+
 interface PluginData {
   id: string;
   name: string;
@@ -38,11 +39,14 @@ export default class PluginManager {
     return Promise.all(
       this.pickPlugins(id).map(async (pluginData) => {
         const pluginInstance = await this.loadPlugin(pluginData);
+
+        this.context.logger.info(`🔨 build: ${pluginData.id}...`);
+
         pluginData.outputs.build = await pluginInstance.build(
           pluginData.api as PluginServiceApi,
           pluginData.inputs
         );
-        console.log("pluginData.outputs.build", pluginData.outputs.build);
+
         return pluginData.outputs.build;
       })
     );
@@ -58,6 +62,7 @@ export default class PluginManager {
         const pluginInstance = await this.loadPlugin(pluginData);
 
         if (!pluginInstance.deploy) return;
+        this.context.logger.info(`🚀 deploy: ${pluginData.id}...`);
 
         pluginData.outputs.build = await pluginInstance.deploy(
           pluginData.api as PluginServiceApi,
@@ -103,7 +108,7 @@ export default class PluginManager {
     try {
       PluginCode = require(pluginData.name);
     } catch (e) {
-      this.context.logger.warn(e);
+      this.context.logger.debug(e);
       PluginCode = undefined;
     }
 
@@ -120,6 +125,7 @@ export default class PluginManager {
       try {
         PluginCode = require(pluginData.name);
       } catch (e) {
+        this.context.logger.error(e);
         throw new Error(
           `CloudBase Framwork: can't find plugin '${pluginData.name}'`
         );
@@ -127,6 +133,9 @@ export default class PluginManager {
     }
 
     if (!(PluginCode && (PluginCode as any).prototype instanceof Plugin)) {
+      this.context.logger.error(
+        `CloudBase Framwork: plugin '${pluginData.name}' isn't a valid plugin`
+      );
       throw new Error(
         `CloudBase Framwork: plugin '${pluginData.name}' isn't a valid plugin`
       );

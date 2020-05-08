@@ -42,10 +42,12 @@ export async function run(
     if (!SUPPORT_COMMANDS.includes(command)) {
       throw new Error(`CloudBase Framwork: not support command '${command}'`);
     }
-    return await pluginManager[command](module);
+    await pluginManager[command](module);
   } else {
     // run all commands
     await pluginManager.build(module);
-    return await pluginManager.deploy(module);
+    await pluginManager.deploy(module);
   }
+
+  logger.info("✨ done");
 }

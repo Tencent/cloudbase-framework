@@ -1,5 +1,7 @@
 'use strict';
 const path = require('path');
+const { exec } = require('child_process');
+const { promisify } = require('util');
 
 const { Plugin } = require('@cloudbase/framework-core');
 const { StaticBuilder } = require('@cloudbase/static-builder');
@@ -13,10 +15,15 @@ const DEFAULT_INPUTS = {
 
 class WebsitePlugin extends Plugin {
   async build(api, inputs) {
-    api.logger.info('WebsitePlugin: build', inputs);
+    api.logger.debug('WebsitePlugin: build', inputs);
     const resolvedInputs = resolveInputs(inputs);
 
-    const { outputPath, cloudPath } = resolvedInputs;
+    const { outputPath, cloudPath, buildCommand } = resolvedInputs;
+
+    if (buildCommand) {
+      await promisify(exec)(buildCommand);
+    }
+
     const staticBuilder = new StaticBuilder({
       projectPath: api.projectPath,
     });
@@ -27,8 +34,7 @@ class WebsitePlugin extends Plugin {
   }
 
   async deploy(api, inputs, buildOutput) {
-    console.log('deploy');
-    console.log(api, inputs, buildOutput);
+    api.logger.debug('WebsitePlugin: deploy', inputs, buildOutput);
   }
 }
 
