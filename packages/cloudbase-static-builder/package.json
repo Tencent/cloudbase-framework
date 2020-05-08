@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "clean": "rm -rf cloudbase-static-build-*",
+    "build": "tsc",
     "test": "node test/index.js",
     "dev": "tsc -w"
   },

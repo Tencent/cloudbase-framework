@@ -2,7 +2,7 @@
 const path = require('path');
 
 const { Plugin } = require('@cloudbase/framework-core');
-const StaticBuilder = require('@cloudbase/static-builder');
+const { StaticBuilder } = require('@cloudbase/static-builder');
 
 const DEFAULT_INPUTS = {
   outputPath: 'dist',
@@ -17,7 +17,9 @@ class WebsitePlugin extends Plugin {
     const resolvedInputs = resolveInputs(inputs);
 
     const { outputPath, cloudPath } = resolvedInputs;
-    const staticBuilder = new StaticBuilder();
+    const staticBuilder = new StaticBuilder({
+      projectPath: api.projectPath,
+    });
 
     return staticBuilder.build(path.join(api.projectPath, outputPath), {
       cloudPath,

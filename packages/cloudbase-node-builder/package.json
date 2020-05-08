@@ -6,6 +6,7 @@
   "scripts": {
     "clean": "rm -rf cloudbase-node-build-*",
     "test": "node test/index.js",
+    "build": "tsc",
     "dev": "tsc -w"
   },
   "author": "",
