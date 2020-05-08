@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-
+import fs from 'fs-extra'
 interface BuilderOptions {
     type: 'node' | 'static'
     projectPath: string
@@ -13,5 +13,9 @@ export class Builder {
         this.distDirName = `cloudbase-${type}-build-${new Date().getTime()}`
         this.projectDir = projectPath
         this.distDir = resolve(projectPath, this.distDirName)
+    }
+
+    async clean() {
+        return fs.remove(this.distDir)
     }
 }
