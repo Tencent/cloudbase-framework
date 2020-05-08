@@ -1,4 +1,5 @@
 'use strict';
+const path = require('path');
 
 const { Plugin } = require('@cloudbase/framework-core');
 const StaticBuilder = require('@cloudbase/static-builder');
@@ -10,8 +11,6 @@ const DEFAULT_INPUTS = {
   ignore: ['.git', '.github', 'node_modules'],
 };
 
-console.log(StaticBuilder);
-
 class WebsitePlugin extends Plugin {
   async build(api, inputs) {
     api.logger.info('WebsitePlugin: build', inputs);
@@ -20,7 +19,7 @@ class WebsitePlugin extends Plugin {
     const { outputPath, cloudPath } = resolvedInputs;
     const staticBuilder = new StaticBuilder();
 
-    return staticBuilder.build(outputPath, {
+    return staticBuilder.build(path.join(api.projectPath, outputPath), {
       cloudPath,
     });
   }

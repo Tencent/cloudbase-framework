@@ -1,13 +1,29 @@
-import winston from "winston";
+import winston, { format } from "winston";
 export { Logger } from "winston";
+import chalk from "chalk";
 
-export default function createLogger(level?: string) {
-  const logger = winston.createLogger({
-    level: level || "info",
-    format: winston.format.simple(),
-    defaultMeta: { service: "cloudbase-framework" },
-    transports: [new winston.transports.Console()],
-  });
+const chalkInstance = new chalk.Instance({
+  level: 1,
+});
+
+let logger: winston.Logger;
+
+export default function getLogger(level?: string) {
+  if (!logger) {
+    logger = winston.createLogger({
+      level: level || "info",
+      format: format.combine(
+        format.cli(),
+        format.printf(
+          (info) =>
+            `${chalkInstance.bgBlack(" Cloudbase Framework ")} ${info.level} ${
+              info.message
+            }`
+        )
+      ),
+      transports: [new winston.transports.Console()],
+    });
+  }
 
   return logger;
 }

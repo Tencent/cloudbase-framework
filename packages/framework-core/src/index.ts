@@ -2,11 +2,13 @@ import PluginManager from "./plugin-manager";
 import resolveConfig from "./config/resolve-config";
 import Context from "./context";
 import { CloudbaseFrameworkConfig } from "./types";
-export { default as Plugin } from "./plugin";
+import getLogger from "./logger";
 
+export { default as Plugin } from "./plugin";
 export { Builder } from "./builder";
 export * from "./types";
 
+const packageInfo = require("../package");
 const SUPPORT_COMMANDS = ["build", "deploy"];
 
 export async function run(
@@ -19,6 +21,8 @@ export async function run(
   command?: "build" | "deploy",
   module?: string
 ) {
+  const logger = getLogger(logLevel);
+  logger.info(`version v${packageInfo.version}`);
   if (!projectPath || !cloudbaseConfig) {
     throw new Error("CloudBase Framework: config info missing");
   }
