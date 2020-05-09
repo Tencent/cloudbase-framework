@@ -1,14 +1,9 @@
-import CloudBase from '@cloudbase/manager-node'
-
-interface DeployerOptions {
-    secretId: string
-    secretKey: string
-    envId: string
-}
+import { DeployerOptions } from "../types";
+import CloubaseManager from "@cloudbase/manager-node";
 
 export class Deployer {
-    protected app: CloudBase
-    constructor(options: DeployerOptions) {
-        this.app = CloudBase.init(options)
-    }
+  protected app: CloubaseManager;
+  constructor(options: DeployerOptions) {
+    this.app = options.cloudbaseManager;
+  }
 }

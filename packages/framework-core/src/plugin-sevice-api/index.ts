@@ -15,7 +15,7 @@ export default class PluginServiceApi {
   /**
    * 获取 manager 实例
    */
-  get cloudBaseManager(): CloudbaseManager {
+  get cloudbaseManager(): CloudbaseManager {
     return this.pluginManager.context.cloudbaseManager;
   }
 

@@ -9,10 +9,6 @@ interface PluginData {
   id: string;
   name: string;
   inputs: any;
-  outputs: {
-    build?: any;
-    deploy?: any;
-  };
   pluginInstance?: Plugin;
   api?: PluginServiceApi;
 }
@@ -42,12 +38,7 @@ export default class PluginManager {
 
         this.context.logger.info(`🔨 build: ${pluginData.id}...`);
 
-        pluginData.outputs.build = await pluginInstance.build(
-          pluginData.api as PluginServiceApi,
-          pluginData.inputs
-        );
-
-        return pluginData.outputs.build;
+        return pluginInstance.build();
       })
     );
   }
@@ -64,12 +55,7 @@ export default class PluginManager {
         if (!pluginInstance.deploy) return;
         this.context.logger.info(`🚀 deploy: ${pluginData.id}...`);
 
-        pluginData.outputs.build = await pluginInstance.deploy(
-          pluginData.api as PluginServiceApi,
-          pluginData.inputs,
-          pluginData.outputs.build
-        );
-        return pluginData.outputs.build;
+        return pluginInstance.deploy();
       })
     );
   }
@@ -86,7 +72,6 @@ export default class PluginManager {
           id,
           name: use,
           inputs: inputs,
-          outputs: {},
         };
       }
     );
@@ -141,8 +126,11 @@ export default class PluginManager {
       );
     }
 
-    pluginData.pluginInstance = new (PluginCode as any)(pluginData.name);
-    pluginData.api = new PluginServiceApi(this);
+    pluginData.pluginInstance = new (PluginCode as any)(
+      pluginData.name,
+      new PluginServiceApi(this),
+      pluginData.inputs
+    );
     return pluginData.pluginInstance as Plugin;
   }
 

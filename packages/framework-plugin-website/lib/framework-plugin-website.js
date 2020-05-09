@@ -5,6 +5,7 @@ const { promisify } = require('util');
 
 const { Plugin } = require('@cloudbase/framework-core');
 const { StaticBuilder } = require('@cloudbase/static-builder');
+const { StaticDeployer } = require('@cloudbase/static-deployer');
 
 const DEFAULT_INPUTS = {
   outputPath: 'dist',
@@ -14,27 +15,50 @@ const DEFAULT_INPUTS = {
 };
 
 class WebsitePlugin extends Plugin {
-  async build(api, inputs) {
-    api.logger.debug('WebsitePlugin: build', inputs);
-    const resolvedInputs = resolveInputs(inputs);
+  constructor(...args) {
+    super(...args);
 
-    const { outputPath, cloudPath, buildCommand } = resolvedInputs;
+    this.resolvedInputs = resolveInputs(this.inputs);
+    this.builder = new StaticBuilder({
+      projectPath: this.api.projectPath,
+    });
+    this.deployer = new StaticDeployer({
+      cloudbaseManager: this.api.cloudbaseManager,
+    });
+  }
+
+  async build() {
+    this.api.logger.debug('WebsitePlugin: build', this.resolvedInputs);
+
+    const { outputPath, cloudPath, buildCommand } = this.resolvedInputs;
 
     if (buildCommand) {
       await promisify(exec)(buildCommand);
     }
 
-    const staticBuilder = new StaticBuilder({
-      projectPath: api.projectPath,
-    });
-
-    return staticBuilder.build(path.join(api.projectPath, outputPath), {
-      cloudPath,
-    });
+    this.buildOutput = await this.builder.build(
+      path.join(this.api.projectPath, outputPath),
+      {
+        cloudPath,
+      }
+    );
   }
 
-  async deploy(api, inputs, buildOutput) {
-    api.logger.debug('WebsitePlugin: deploy', inputs, buildOutput);
+  async deploy() {
+    this.api.logger.debug(
+      'WebsitePlugin: deploy',
+      this.resolvedInputs,
+      this.buildOutput
+    );
+
+    return Promise.all(
+      this.buildOutput.static.map((item) =>
+        this.deployer.deploy({
+          localPath: item.src,
+          cloudPath: item.cloudPath,
+        })
+      )
+    );
   }
 }
 

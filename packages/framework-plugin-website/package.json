@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@cloudbase/framework-core": "^0.0.0",
-    "@cloudbase/static-builder": "^0.0.1"
+    "@cloudbase/static-builder": "^0.0.1",
+    "@cloudbase/static-deployer": "^0.0.0"
   }
 }

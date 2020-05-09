@@ -1,3 +1,9 @@
+import CloudBaseManager from "@cloudbase/manager-node";
+
+export interface DeployerOptions {
+  cloudbaseManager: CloudBaseManager;
+}
+
 export interface Config {
   name: string;
   plugins: {

@@ -1,28 +1,25 @@
-import { Deployer } from '@cloudbase/framework-core'
+import { Deployer, DeployerOptions } from "@cloudbase/framework-core";
 
-interface StaticDeployerOptions {
-    secretId: string
-    secretKey: string
-    envId: string
-}
+interface StaticDeployerOptions extends DeployerOptions {}
 
 interface StaticDeployerDeployOptions {
-    localPath: string
-    cloudPath: string
-    ignore: string | string[]
+  localPath: string;
+  cloudPath: string;
+  ignore: string | string[];
 }
 
 export class StaticDeployer extends Deployer {
-    constructor(options: StaticDeployerOptions) {
-        super(options)
-    }
+  constructor(options: StaticDeployerOptions) {
+    super(options);
+  }
 
-    async deploy(options: StaticDeployerDeployOptions) {
-        const { localPath, cloudPath, ignore } = options
-        this.app.hosting.uploadFiles({
-            localPath,
-            cloudPath,
-            ignore
-        })
-    }
+  async deploy(options: StaticDeployerDeployOptions) {
+    const { localPath, cloudPath, ignore } = options;
+
+    return this.app.hosting.uploadFiles({
+      localPath,
+      cloudPath,
+      ignore,
+    });
+  }
 }
