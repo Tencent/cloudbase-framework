@@ -29,7 +29,7 @@ export async function run(
     throw new Error("CloudBase Framework: config info missing");
   }
 
-  const appConfig = resolveConfig(config);
+  const appConfig = await resolveConfig(projectPath, config);
   const context = new Context({
     appConfig,
     cloudbaseConfig,
