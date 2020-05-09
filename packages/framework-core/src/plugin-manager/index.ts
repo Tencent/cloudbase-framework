@@ -13,6 +13,14 @@ interface PluginData {
   api?: PluginServiceApi;
 }
 
+interface PluginHookOption {
+  id?: string | undefined;
+  params?: any;
+  icon?: string;
+}
+
+type PluginHookName = "init" | "build" | "deploy";
+
 /**
  * 插件管理器
  *
@@ -29,33 +37,60 @@ export default class PluginManager {
 
   /**
    * 构建
+   *
+   * @param id
+   */
+  async init(id?: string) {
+    return this.callPluginHook("init", {
+      id,
+    });
+  }
+
+  /**
+   * 构建
+   *
    * @param id
    */
   async build(id?: string) {
-    return Promise.all(
-      this.pickPlugins(id).map(async (pluginData) => {
-        const pluginInstance = await this.loadPlugin(pluginData);
-
-        this.context.logger.info(`🔨 build: ${pluginData.id}...`);
-
-        return pluginInstance.build();
-      })
-    );
+    return this.callPluginHook("build", {
+      id,
+      icon: "🔨",
+    });
   }
 
   /**
    * 部署
+   *
    * @param id
    */
   async deploy(id?: string) {
+    return this.callPluginHook("deploy", {
+      id,
+      icon: "🚀",
+    });
+  }
+
+  /**
+   * 调用插件钩子
+   * @param id
+   */
+  private callPluginHook(
+    hook: PluginHookName,
+    { id, params, icon }: PluginHookOption
+  ) {
     return Promise.all(
       this.pickPlugins(id).map(async (pluginData) => {
         const pluginInstance = await this.loadPlugin(pluginData);
 
-        if (!pluginInstance.deploy) return;
-        this.context.logger.info(`🚀 deploy: ${pluginData.id}...`);
+        if (typeof pluginInstance[hook] !== "function") {
+          return;
+        }
 
-        return pluginInstance.deploy();
+        this.context.logger.info(
+          `${icon || "🔧"} ${hook}: ${pluginData.id}...`
+        );
+
+        return pluginInstance.build(params);
       })
     );
   }

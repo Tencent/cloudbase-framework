@@ -44,6 +44,7 @@ export async function run(
   }
 
   if (command === "deploy") {
+    await pluginManager.init(module);
     await pluginManager.build(module);
     await pluginManager.deploy(module);
   }

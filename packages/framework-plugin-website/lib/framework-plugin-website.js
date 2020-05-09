@@ -27,6 +27,8 @@ class WebsitePlugin extends Plugin {
     });
   }
 
+  async init() {}
+
   async build() {
     this.api.logger.debug('WebsitePlugin: build', this.resolvedInputs);
 
