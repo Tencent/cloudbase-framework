@@ -51,6 +51,11 @@ cloudbase framework deploy
 
 ## <a name="plugins"></a>插件
 
+| 插件 |  最新版本  | 插件介绍       |
+| ------ | ------ | ----------- |
+|   [@cloudbase/framework-plugin-website](packages/framework-plugin-website)  |  [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-website)](https://www.npmjs.com/package/@cloudbase/framework-plugin-website)     | 前端页面插件 |
+
+
 ## <a name="license"></a>License
 
 [Apache License 2.0](./LICENSE)

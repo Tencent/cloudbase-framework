@@ -9,7 +9,7 @@ export { Builder } from "./builder";
 export * from "./types";
 
 const packageInfo = require("../package");
-const SUPPORT_COMMANDS = ["build", "deploy"];
+const SUPPORT_COMMANDS = ["deploy"];
 
 export async function run(
   {
@@ -18,11 +18,12 @@ export async function run(
     logLevel = "info",
     config,
   }: CloudbaseFrameworkConfig,
-  command?: "build" | "deploy",
+  command: "deploy" = "deploy",
   module?: string
 ) {
   const logger = getLogger(logLevel);
   logger.info(`version v${packageInfo.version}`);
+
   if (!projectPath || !cloudbaseConfig) {
     throw new Error("CloudBase Framework: config info missing");
   }
@@ -37,15 +38,14 @@ export async function run(
 
   const pluginManager = new PluginManager(context);
 
-  // run command
-  if (command) {
-    if (!SUPPORT_COMMANDS.includes(command)) {
-      throw new Error(`CloudBase Framwork: not support command '${command}'`);
-    }
-    return await pluginManager[command](module);
-  } else {
-    // run all commands
-    await pluginManager.build(module);
-    return await pluginManager.deploy(module);
+  if (!SUPPORT_COMMANDS.includes(command)) {
+    throw new Error(`CloudBase Framwork: not support command '${command}'`);
   }
+
+  if (command === "deploy") {
+    await pluginManager.build(module);
+    await pluginManager.deploy(module);
+  }
+
+  logger.info("✨ done");
 }
