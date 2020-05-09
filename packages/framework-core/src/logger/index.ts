@@ -16,7 +16,7 @@ export default function getLogger(level?: string) {
         format.cli(),
         format.printf(
           (info) =>
-            `${chalkInstance.bgBlack(" Cloudbase Framework ")} ${info.level} ${
+            `${chalkInstance.bgBlack(" cloudbase framework ")} ${info.level} ${
               info.message
             }`
         )
