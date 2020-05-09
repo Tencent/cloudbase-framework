@@ -2,7 +2,7 @@
   "name": "@cloudbase/framework-plugin-wx-landing",
   "version": "0.0.0",
   "description": "> TODO: description",
-  "author": "Booker Zhao <bookerzhao@tencent.com>",
+  "author": "Tencent CloudBase Team",
   "homepage": "",
   "license": "ISC",
   "main": "lib/framework-plugin-wx-landing.js",
@@ -20,8 +20,7 @@
     "type": "git",
     "url": "http://git.code.oa.com/QBase/cloudbase-framework.git"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "dependencies": {
     "@cloudbase/framework-plugin-website": "^0.0.0"
   }
