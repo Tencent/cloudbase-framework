@@ -6,6 +6,7 @@ import getLogger from "./logger";
 
 export { default as Plugin } from "./plugin";
 export { Builder } from "./builder";
+export { Deployer } from "./deployer";
 export * from "./types";
 
 const packageInfo = require("../package");
