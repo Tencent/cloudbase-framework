@@ -27,7 +27,9 @@ class WebsitePlugin extends Plugin {
     });
   }
 
-  async init() {}
+  async init() {
+    this.api.logger.debug('WebsitePlugin: init', this.resolvedInputs);
+  }
 
   async build() {
     this.api.logger.debug('WebsitePlugin: build', this.resolvedInputs);
@@ -53,7 +55,7 @@ class WebsitePlugin extends Plugin {
       this.buildOutput
     );
 
-    return Promise.all(
+    const deployResult = await Promise.all(
       this.buildOutput.static.map((item) =>
         this.deployer.deploy({
           localPath: item.src,
@@ -61,6 +63,10 @@ class WebsitePlugin extends Plugin {
         })
       )
     );
+
+    await this.builder.clean();
+
+    return deployResult;
   }
 }
 

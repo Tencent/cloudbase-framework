@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@cloudbase/manager-node": "^3.2.2",
+    "@types/inquirer": "^6.5.0",
     "@types/jest": "^25.2.1",
     "@types/npm": "^2.0.31",
     "chalk": "^4.0.0",

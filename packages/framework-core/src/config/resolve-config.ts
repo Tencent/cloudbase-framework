@@ -11,7 +11,7 @@ export default async function resolveConfig(
   projectPath: string,
   config: Config | undefined
 ) {
-  if (config) {
+  if (!config) {
     const framework = await detect(projectPath);
 
     if (framework) {

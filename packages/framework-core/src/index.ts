@@ -30,6 +30,12 @@ export async function run(
   }
 
   const appConfig = await resolveConfig(projectPath, config);
+
+  if (!appConfig) {
+    logger.info("⚠️ 未识别到框架配置");
+    return;
+  }
+
   const context = new Context({
     appConfig,
     cloudbaseConfig,
