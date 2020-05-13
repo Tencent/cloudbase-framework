@@ -3,10 +3,29 @@ import fs from "fs-extra";
 import getLogger, { Logger } from "../logger";
 
 interface BuilderOptions {
-  type: "node" | "static";
+  type: string;
   projectPath: string;
 }
-export class Builder {
+interface BuildResult {
+  functions?: {
+    name: string
+    options: any
+    source: string
+    entry: string
+  }[],
+  routes?: {
+    path: string
+    targetType: string
+    target: string
+  }[],
+  static?: {
+    src: string
+    cloudPath: string
+  }[]
+
+}
+
+export abstract class Builder {
   protected distDir: string;
   protected projectDir: string;
   protected distDirName: string;
@@ -18,6 +37,8 @@ export class Builder {
     this.distDir = resolve(projectPath, this.distDirName);
     this.logger = getLogger();
   }
+
+  abstract async build(...args: any): Promise<BuildResult>
 
   async clean() {
     return fs.remove(this.distDir);

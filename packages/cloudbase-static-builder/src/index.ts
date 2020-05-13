@@ -36,8 +36,9 @@ export class StaticBuilder extends Builder {
         {
           path: options ? options.path || '/' : '/',
           targetType: 'static',
+          target: options ? options.path || '/' : '/',
         },
-      ],
+      ]
     };
   }
 };

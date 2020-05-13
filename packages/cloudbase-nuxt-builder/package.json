@@ -1,0 +1,25 @@
+{
+  "name": "@cloudbase/nuxt-builder",
+  "version": "0.0.1",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "clean": "rm -rf test/project/cloudbase-nuxt-build-*",
+    "test": "node test/index.js",
+    "build": "tsc",
+    "dev": "tsc -w"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@cloudbase/framework-core": "^0.0.0",
+    "archiver": "^4.0.1",
+    "fs-extra": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/archiver": "^3.1.0",
+    "@types/fs-extra": "^8.1.0",
+    "@types/node": "^13.13.5",
+    "typescript": "^3.8.3"
+  }
+}
