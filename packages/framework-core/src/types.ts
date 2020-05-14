@@ -5,7 +5,7 @@ export interface DeployerOptions {
 }
 
 export interface Config {
-  name: string;
+  name?: string;
   plugins: {
     [name: string]: {
       use: string;

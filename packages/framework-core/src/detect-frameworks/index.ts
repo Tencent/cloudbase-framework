@@ -6,6 +6,7 @@ import getLogger from "../logger";
 const logger = getLogger();
 
 export async function detect(projectRootPath: string) {
+  let frameworks: any = [];
   for (const framework of frameworksInfo) {
     for (const { path, match } of framework.detect) {
       try {
@@ -16,11 +17,19 @@ export async function detect(projectRootPath: string) {
 
         const matchedFramework = content.match(new RegExp(match));
         if (matchedFramework) {
-          return framework;
+          if (
+            frameworks.findIndex(
+              (item: any) => item.plugin === framework.plugin
+            ) < 0
+          ) {
+            frameworks.push(framework);
+          }
         }
       } catch (e) {
         logger.debug(e);
       }
     }
   }
+
+  return frameworks;
 }
