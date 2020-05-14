@@ -5,6 +5,7 @@ import { CloudbaseFrameworkConfig } from "./types";
 import getLogger from "./logger";
 
 export { default as Plugin } from "./plugin";
+export { default as PluginServiceApi } from "./plugin-sevice-api";
 export { Builder } from "./builder";
 export { Deployer } from "./deployer";
 export * from "./types";

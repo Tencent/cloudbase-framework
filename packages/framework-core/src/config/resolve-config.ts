@@ -1,4 +1,3 @@
-import defaultConfig from "./default-config";
 import { Config } from "../types";
 import { detect } from "../detect-frameworks";
 import inquirer from "inquirer";
@@ -12,47 +11,52 @@ export default async function resolveConfig(
   config: Config | undefined
 ) {
   if (!config) {
-    const framework = await detect(projectPath);
+    const frameworks = await detect(projectPath);
+    let plugins: any = {};
 
-    if (framework) {
-      const anwser = await inquirer.prompt({
-        type: "confirm",
-        name: "isModifyConfig",
-        message: `检测到当前是 ${framework.name} 项目
+    if (frameworks.length) {
+      for (let framework of frameworks) {
+        const anwser = await promptModify(framework);
+
+        let inputs;
+
+        if (anwser.isModifyConfig) {
+          inputs = await modifyFrameworkConfig(framework.config);
+        } else {
+          inputs = Object.entries(framework.config).reduce(
+            (prev: any, cur: any) => {
+              prev[cur[0] as string] = cur.value;
+              return prev;
+            },
+            {} as any
+          );
+        }
+        plugins[framework.key] = {
+          use: framework.plugin,
+          inputs,
+        };
+      }
+    }
+
+    // @todo 写入配置文件
+    return {
+      plugins,
+    };
+  }
+  return config;
+}
+
+function promptModify(framework: any) {
+  return inquirer.prompt({
+    type: "confirm",
+    name: "isModifyConfig",
+    message: `检测到当前项目包含 ${framework.name} 项目
 
 ${formatFrameworkConfig(framework.config)}
 
   是否需要修改默认配置`,
-        default: false,
-      });
-
-      let inputs;
-
-      if (anwser.isModifyConfig) {
-        inputs = await modifyFrameworkConfig(framework.config);
-      } else {
-        inputs = Object.entries(framework.config).reduce(
-          (prev: any, cur: any) => {
-            prev[cur[0] as string] = cur.value;
-            return prev;
-          },
-          {} as any
-        );
-      }
-
-      return {
-        name: framework.name,
-        plugins: {
-          [framework.key]: {
-            use: framework.plugin,
-            inputs,
-          },
-        },
-      };
-    }
-  }
-
-  return config;
+    default: false,
+  });
 }
 
 function formatFrameworkConfig(config: any) {

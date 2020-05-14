@@ -8,6 +8,7 @@
     // These settings are totally up to you
     "esModuleInterop": true,
     "target": "es2015",
+    "lib": ["ES6", "ScriptHost"],
     "module": "commonjs",
     "strict": true
   }

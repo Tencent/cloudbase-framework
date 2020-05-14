@@ -21,7 +21,8 @@
     "url": "http://git.code.oa.com/QBase/cloudbase-framework.git"
   },
   "scripts": {
-    "dev": "tsc -w"
+    "dev": "tsc -w",
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.0",

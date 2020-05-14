@@ -5,7 +5,8 @@
   "author": "Tencent CloudBase Team",
   "homepage": "https://github.com/TencentCloudBase/cloudbase-framework#readme",
   "license": "ISC",
-  "main": "lib/framework-plugin-website.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -20,7 +21,10 @@
     "type": "git",
     "url": "git+https://github.com/binggg/cloudbase-framework.git"
   },
-  "scripts": {},
+  "scripts": {
+    "dev": "tsc -w",
+    "build": "tsc"
+  },
   "bugs": {
     "url": "https://github.com/binggg/cloudbase-framework/issues"
   },
@@ -28,5 +32,8 @@
     "@cloudbase/framework-core": "^0.0.0",
     "@cloudbase/static-builder": "^0.0.1",
     "@cloudbase/static-deployer": "^0.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.2"
   }
 }

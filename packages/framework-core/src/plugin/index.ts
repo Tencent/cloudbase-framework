@@ -35,7 +35,7 @@ export default abstract class Plugin {
    *
    * @param params 参数信息
    */
-  abstract genCode(params: any): Promise<any>;
+  abstract genCode?(params: any): Promise<any>;
 
   /**
    *
@@ -70,7 +70,7 @@ export default abstract class Plugin {
    * @param params 参数信息
    *
    */
-  abstract compile(params: any): Promise<any>;
+  abstract compile?(params: any): Promise<any>;
 
   /**
    *
@@ -80,5 +80,5 @@ export default abstract class Plugin {
    *
    * @param params 参数信息
    */
-  abstract remove(params: any): Promise<any>;
+  abstract remove?(params: any): Promise<any>;
 }
