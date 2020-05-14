@@ -13,13 +13,13 @@
 
 ## 使用方法
 
-### 步骤一. 准备云开发环境和 CloudBase CLI 命令工具
+### 步骤一. 准备工作
 
 具体步骤请参照 [准备云开发环境和 CloudBase CLI 命令工具](../../CLI_GUIDE.md)
 
 ### 步骤二. 进入网站项目目录进行初始化
 
-如果目前已经有项目
+如果目前已有网站应用项目
 
 ```bash
 cloudbase init --without-template
@@ -37,29 +37,11 @@ cloudbase init
 cloudbase framework:deploy
 ```
 
-## 参数配置
+## 配置
 
-> 默认情况下不需要任何配置即可使用，以下配置参数针对有特殊需求的场景
+默认情况下不需要任何配置即可使用，以下配置参数针对有特殊需求的场景
 
-### `buildCommand`
-
-构建命令，如`npm run build`，没有可不传
-
-### `outputPath`
-
-网站静态文件的路径。
-
-### `cloudPath`
-
-静态资源部署到云开发环境的路径，默认为根目录。
-
-### `ignore`
-
-静态资源部署时忽略的文件路径，支持通配符
-
-默认值 `['.git', '.github', 'node_modules', 'cloudbaserc.js']`
-
-## 配置示例
+### 配置示例
 
 `cloudbase init` 之后会创建云开发的配置文件 `cloudbaserc.js`，可在配置文件的 plugins 里 写入插件配置
 
@@ -81,6 +63,26 @@ module.exports = {
   },
 };
 ```
+
+### 配置参数说明
+
+### `buildCommand`
+
+构建命令，如`npm run build`，没有可不传
+
+### `outputPath`
+
+网站静态文件的路径。
+
+### `cloudPath`
+
+静态资源部署到云开发环境的路径，默认为根目录。
+
+### `ignore`
+
+静态资源部署时忽略的文件路径，支持通配符
+
+默认值 `['.git', '.github', 'node_modules', 'cloudbaserc.js']`
 
 ## 文档资料
 
