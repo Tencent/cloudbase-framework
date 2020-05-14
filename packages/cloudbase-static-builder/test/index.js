@@ -6,9 +6,8 @@ const builder = new StaticBuilder({
 })
 
 async function main() {
-    const result = await builder.build('./', {
-        path: '/',
-        exclude: ['node_modules/**']
+    const result = await builder.build(['**', '!**/node_modules/**'], {
+        path: '/'
     })
     console.log(result)
 }
