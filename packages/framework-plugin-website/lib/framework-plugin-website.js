@@ -10,8 +10,7 @@ const { StaticDeployer } = require('@cloudbase/static-deployer');
 const DEFAULT_INPUTS = {
   outputPath: 'dist',
   cloudPath: '/',
-  buildCommand: 'npm run build',
-  ignore: ['.git', '.github', 'node_modules'],
+  ignore: ['.git', '.github', 'node_modules', 'cloudbaserc.js'],
 };
 
 class WebsitePlugin extends Plugin {
