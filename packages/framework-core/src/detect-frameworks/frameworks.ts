@@ -85,4 +85,21 @@ export default [
       },
     },
   },
+  {
+    name: "静态网站",
+    key: "website",
+    detect: [
+      {
+        path: "index.html",
+        match: "html",
+      },
+    ],
+    plugin: "@cloudbase/framework-plugin-website",
+    config: {
+      outputPath: {
+        value: "./",
+        desc: "📦 本地静态文件目录",
+      },
+    },
+  },
 ];
