@@ -8,8 +8,7 @@ interface StaticBuilderBuildOptions {
   /**
    * 云接入路径
    */
-  path?: string,
-  exclude?: string[]
+  path?: string
 }
 
 interface StaticBuilderOptions {
@@ -26,20 +25,13 @@ export class StaticBuilder extends Builder {
       ...options
     });
   }
-  async build(entry: string, options: StaticBuilderBuildOptions = {}) {
-    const exclude = options.exclude || []
+  async build(includes: string[], options: StaticBuilderBuildOptions = {}) {
     await cpy(
-      entry,
+      includes,
       this.distDir,
       {
         cwd: this.projectDir,
-        parents: true,
-        filter: (file) => {
-          const matchers = [...exclude]
-          const relaticePath = path.relative(path.resolve(this.projectDir, entry), file.path)
-          console.log(matchers, relaticePath, !anymatch(matchers, relaticePath))
-          return !anymatch(matchers, relaticePath);
-        }
+        parents: true
       }
     )
     return {
