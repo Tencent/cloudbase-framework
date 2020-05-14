@@ -24,7 +24,10 @@ export class StaticBuilder extends Builder {
     });
   }
   async build(entry: string, options?: StaticBuilderBuildOptions) {
-    await fs.copy(entry, this.distDir);
+    const fileList = await fs.readdir(entry)
+    for (const file of fileList) {
+      await fs.copy(path.resolve(entry, file), path.resolve(this.distDir, file))
+    }
     return {
       static: [
         {
