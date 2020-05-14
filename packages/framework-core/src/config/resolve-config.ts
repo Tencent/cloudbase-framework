@@ -25,7 +25,7 @@ export default async function resolveConfig(
         } else {
           inputs = Object.entries(framework.config).reduce(
             (prev: any, cur: any) => {
-              prev[cur[0] as string] = cur.value;
+              prev[cur[0] as string] = cur[1].value;
               return prev;
             },
             {} as any
