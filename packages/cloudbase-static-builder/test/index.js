@@ -6,7 +6,10 @@ const builder = new StaticBuilder({
 })
 
 async function main() {
-    const result = await builder.build(path.resolve(__dirname, './static'))
+    const result = await builder.build(path.resolve(__dirname, './static'), {
+        path: '/',
+        exclude: ['node_modules/**']
+    })
     console.log(result)
 }
 
