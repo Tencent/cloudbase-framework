@@ -90,7 +90,7 @@ export default class PluginManager {
           `${icon || "🔧"} ${hook}: ${pluginData.id}...`
         );
 
-        return pluginInstance.build(params);
+        return pluginInstance[hook](params);
       })
     );
   }

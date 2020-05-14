@@ -52,10 +52,7 @@ class WebsitePlugin extends Plugin {
     }
 
     this.buildOutput = await this.builder.build(
-      [
-        path.join(this.api.projectPath, outputPath),
-        '!**/node_modules/**'
-      ],
+      [outputPath, "!**/node_modules/**"],
       {
         path: cloudPath,
       }
