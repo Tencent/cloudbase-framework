@@ -27,20 +27,21 @@ export class StaticBuilder extends Builder {
     });
   }
   async build(entry: string, options: StaticBuilderBuildOptions = {}) {
-    const fileList = await fs.readdir(entry)
     const exclude = options.exclude || []
-    for (const file of fileList) {
-      await cpy(
-        [path.resolve(entry, file)],
-        this.distDir,
-        {
-          filter: () => {
-            const matchers = [...exclude]
-            return !anymatch(matchers, file);
-          }
+    await cpy(
+      entry,
+      this.distDir,
+      {
+        cwd: this.projectDir,
+        parents: true,
+        filter: (file) => {
+          const matchers = [...exclude]
+          const relaticePath = path.relative(path.resolve(this.projectDir, entry), file.path)
+          console.log(matchers, relaticePath, !anymatch(matchers, relaticePath))
+          return !anymatch(matchers, relaticePath);
         }
-      )
-    }
+      }
+    )
     return {
       static: [
         {
