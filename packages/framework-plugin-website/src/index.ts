@@ -35,15 +35,32 @@ class WebsitePlugin extends Plugin {
     });
   }
 
+  /**
+   * 初始化
+   */
   async init() {
     this.api.logger.debug("WebsitePlugin: init", this.resolvedInputs);
     await this.installPackage();
   }
 
+  /**
+   * 编译为 SAM 模板
+   */
   async compile() {}
+
+  /**
+   * 删除资源
+   */
   async remove() {}
+
+  /**
+   * 生成代码
+   */
   async genCode() {}
 
+  /**
+   * 构建
+   */
   async build() {
     this.api.logger.debug("WebsitePlugin: build", this.resolvedInputs);
 
@@ -61,6 +78,9 @@ class WebsitePlugin extends Plugin {
     );
   }
 
+  /**
+   * 部署
+   */
   async deploy() {
     this.api.logger.debug(
       "WebsitePlugin: deploy",
@@ -83,6 +103,9 @@ class WebsitePlugin extends Plugin {
     return deployResult;
   }
 
+  /**
+   * 安装依赖
+   */
   installPackage() {
     if (fs.statSync("package.json")) {
       this.api.logger.info("npm install");
