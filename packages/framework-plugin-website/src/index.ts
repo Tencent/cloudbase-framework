@@ -1,4 +1,5 @@
 import path from "path";
+import fs from "fs";
 import { exec } from "child_process";
 import { promisify } from "util";
 
@@ -36,6 +37,7 @@ class WebsitePlugin extends Plugin {
 
   async init() {
     this.api.logger.debug("WebsitePlugin: init", this.resolvedInputs);
+    await this.installPackage();
   }
 
   async compile() {}
@@ -79,6 +81,13 @@ class WebsitePlugin extends Plugin {
     await this.builder.clean();
 
     return deployResult;
+  }
+
+  installPackage() {
+    if (fs.statSync("package.json")) {
+      this.api.logger.info("npm install");
+      return promisify(exec)("npm install");
+    }
   }
 }
 
