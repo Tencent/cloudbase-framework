@@ -18,6 +18,8 @@ class WebsitePlugin extends Plugin {
   protected deployer: StaticDeployer;
   protected resolvedInputs: any;
   protected buildOutput: any;
+  // 静态托管信息
+  protected website: any;
 
   constructor(
     public name: string,
@@ -40,7 +42,7 @@ class WebsitePlugin extends Plugin {
    */
   async init() {
     this.api.logger.debug("WebsitePlugin: init", this.resolvedInputs);
-    await this.installPackage();
+    await Promise.all([this.ensureEnableHosting(), this.installPackage()]);
   }
 
   /**
@@ -98,6 +100,12 @@ class WebsitePlugin extends Plugin {
       )
     );
 
+    this.api.logger.info(
+      `🚀 网站已经发布成功, 访问地址： https://${
+        this.website.cdnDomain + this.resolvedInputs.cloudPath
+      }`
+    );
+
     await this.builder.clean();
 
     return deployResult;
@@ -106,16 +114,61 @@ class WebsitePlugin extends Plugin {
   /**
    * 安装依赖
    */
-  installPackage() {
-    if (fs.statSync("package.json")) {
-      this.api.logger.info("npm install");
-      return promisify(exec)("npm install");
+  async installPackage() {
+    try {
+      if (fs.statSync("package.json")) {
+        this.api.logger.info("npm install");
+        return promisify(exec)("npm install");
+      }
+    } catch (e) {}
+  }
+
+  /**
+   * 确保开启了静态托管
+   */
+  async ensureEnableHosting(): Promise<any> {
+    const Hosting = this.api.resourceProviders?.hosting;
+    const envId = this.api.envId;
+
+    if (!Hosting) {
+      return;
     }
+
+    let website;
+
+    try {
+      const hostingRes = await Hosting.getHostingInfo({ envId });
+
+      if (!hostingRes.data.length) {
+        throw new Error("未开通静态托管");
+      }
+
+      website = hostingRes.data[0];
+    } catch (e) {
+      this.api.logger.debug(e);
+
+      await Hosting.enableHosting({ envId });
+
+      this.api.logger.info("⏳ 托管资源初始化中, 预计等待 3 分钟");
+
+      await wait(3 * 60 * 1000);
+      return this.ensureEnableHosting();
+    }
+
+    this.website = website;
+
+    return website;
   }
 }
 
 function resolveInputs(inputs: any) {
   return Object.assign({}, DEFAULT_INPUTS, inputs);
+}
+
+function wait(time: number) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, time);
+  });
 }
 
 module.exports = WebsitePlugin;

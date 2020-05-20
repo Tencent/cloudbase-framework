@@ -1,6 +1,7 @@
 import PluginManager from "../plugin-manager";
 import CloudbaseManager from "@cloudbase/manager-node";
 import { Logger } from "../Logger";
+import { ResourceProviders } from "../types";
 
 /**
  * 插件服务注入为插件提供的 API
@@ -20,10 +21,17 @@ export default class PluginServiceApi {
   }
 
   /**
-   * 获取项目跟路径
+   * 获取项目根路径
    */
   get projectPath(): string {
     return this.pluginManager.context.projectPath;
+  }
+
+  /**
+   * 项目环境id
+   */
+  get envId(): string {
+    return this.pluginManager.context.envId;
   }
 
   /**
@@ -31,5 +39,12 @@ export default class PluginServiceApi {
    */
   get logger(): Logger {
     return this.pluginManager.context.logger;
+  }
+
+  /**
+   * 获取资源操作 API
+   */
+  get resourceProviders(): ResourceProviders | undefined {
+    return this.pluginManager.context.resourceProviders;
   }
 }
