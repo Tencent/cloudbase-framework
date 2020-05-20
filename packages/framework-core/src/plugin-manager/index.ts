@@ -152,7 +152,7 @@ export default class PluginManager {
       }
     }
 
-    if (!(PluginCode && (PluginCode as any).prototype instanceof Plugin)) {
+    if (!PluginCode) {
       this.context.logger.error(
         `CloudBase Framwork: plugin '${pluginData.name}' isn't a valid plugin`
       );
@@ -187,7 +187,10 @@ export default class PluginManager {
    * @param packageName
    */
   private async installPackageFromNpm(packageName: string) {
+    const cwd = process.cwd();
+    process.chdir(__dirname);
     await promisify(npm.load as (cli: any, callback: () => void) => void)({});
-    await promisify(npm.commands.install)([packageName, "-g"]);
+    await promisify(npm.commands.install)([packageName]);
+    process.chdir(cwd);
   }
 }
