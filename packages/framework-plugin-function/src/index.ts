@@ -84,9 +84,9 @@ class FunctionPlugin extends Plugin {
           force: true,
           functionRootPath,
         });
-        this.api.logger.info(`[${func.name}] 云函数部署成功`);
+        this.api.logger.info(`🚀 [${func.name}] 云函数部署成功`);
       } catch (e) {
-        this.api.logger.error(`[${func.name}] 函数部署失败`);
+        this.api.logger.error(`🙅‍♂️ [${func.name}] 函数部署失败`);
         throw new Error(e.message);
       }
     });

@@ -101,7 +101,7 @@ class WebsitePlugin extends Plugin {
     );
 
     this.api.logger.info(
-      `🚀 网站已经发布成功, 访问地址： https://${
+      `🚀 网站部署成功, 访问地址： https://${
         this.website.cdnDomain + this.resolvedInputs.cloudPath
       }`
     );
