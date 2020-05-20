@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/framework-core",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "CloudBase Framework 云开发 Serverless 应用开发框架，开箱即用，方便开发和部署多端+全栈的 Serverless 应用",
   "author": "Tencent CloudBase Team",
   "homepage": "https://github.com/TencentCloudBase/cloudbase-framework#readme",
@@ -45,5 +45,6 @@
     "fs-extra": "^9.0.0",
     "inquirer": "^7.1.0",
     "winston": "^3.2.1"
-  }
+  },
+  "gitHead": "c4bb252d689547412ebe18b285d0e7569504e559"
 }
