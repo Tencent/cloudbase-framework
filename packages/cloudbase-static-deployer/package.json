@@ -1,7 +1,7 @@
 {
   "name": "@cloudbase/static-deployer",
   "version": "0.1.0",
-  "description": "> TODO: description",
+  "description": "云开发静态文件部署工具",
   "author": "Weijia Wang <starkwang@126.com>",
   "homepage": "",
   "license": "ISC",
