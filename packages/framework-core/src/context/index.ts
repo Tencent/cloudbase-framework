@@ -1,4 +1,9 @@
-import { Config, CloudBaseConfig, ResourceProviders } from "../types";
+import {
+  Config,
+  CloudBaseConfig,
+  ResourceProviders,
+  ICloudBaseConfig,
+} from "../types";
 import CloudBaseManager from "@cloudbase/manager-node";
 import createLogger, { Logger } from "../logger";
 
@@ -8,6 +13,7 @@ interface ContextOption {
   projectPath: string;
   logLevel?: string;
   resourceProviders?: ResourceProviders;
+  projectConfig: ICloudBaseConfig | undefined;
 }
 
 export default class Context {
@@ -17,11 +23,13 @@ export default class Context {
   projectPath: string;
   logger: Logger;
   resourceProviders?: ResourceProviders;
+  projectConfig: ICloudBaseConfig | undefined;
 
   constructor({
     appConfig,
     cloudbaseConfig,
     projectPath,
+    projectConfig,
     logLevel,
     resourceProviders,
   }: ContextOption) {
@@ -31,5 +39,6 @@ export default class Context {
     this.envId = cloudbaseConfig.envId;
     this.logger = createLogger(logLevel);
     this.resourceProviders = resourceProviders;
+    this.projectConfig = projectConfig;
   }
 }

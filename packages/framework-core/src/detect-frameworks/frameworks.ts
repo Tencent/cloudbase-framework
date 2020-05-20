@@ -102,4 +102,21 @@ export default [
       },
     },
   },
+  {
+    name: "云函数",
+    key: "function",
+    detect: [
+      {
+        path: "cloudbaserc.js",
+        match: "functions",
+      },
+    ],
+    plugin: "@cloudbase/framework-plugin-function",
+    config: {
+      outputPath: {
+        value: "`${data.projectConfig.functionRoot || 'function'}`",
+        desc: "📁 云函数根目录",
+      },
+    },
+  },
 ];
