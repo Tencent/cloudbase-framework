@@ -73,7 +73,7 @@ class WebsitePlugin extends Plugin {
     }
 
     this.buildOutput = await this.builder.build(
-      [outputPath, "!**/node_modules/**"],
+      [ensureWithSlash(outputPath), "!**/node_modules/**"],
       {
         path: cloudPath,
       }
@@ -169,6 +169,11 @@ function wait(time: number) {
   return new Promise((resolve) => {
     setTimeout(resolve, time);
   });
+}
+
+function ensureWithSlash(dir: string): string {
+  if (!dir) return "";
+  return dir[dir.length - 1] === "/" ? dir : dir + "/";
 }
 
 module.exports = WebsitePlugin;
