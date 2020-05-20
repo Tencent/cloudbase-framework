@@ -45,7 +45,7 @@ cloudbase init
 4. **部署应用**
 
 ```bash
-cloudbase framework deploy
+cloudbase framework:deploy
 ```
 
 ## <a name="examples"></a>示例

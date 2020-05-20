@@ -1,7 +1,7 @@
 {
   "name": "@cloudbase/static-builder",
   "version": "0.1.0",
-  "description": "云开发Static Builder",
+  "description": "云开发 Static Builder，静态文件构建工具",
   "main": "lib/index.js",
   "scripts": {
     "clean": "rm -rf test/static/cloudbase-static-build-*",

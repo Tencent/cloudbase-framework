@@ -1,7 +1,7 @@
 {
   "name": "@cloudbase/nuxt-builder",
   "version": "0.1.0",
-  "description": "",
+  "description": "云开发 Nuxt 构建工具",
   "main": "lib/index.js",
   "scripts": {
     "clean": "rm -rf test/project/cloudbase-nuxt-build-*",

@@ -1,7 +1,7 @@
 {
   "name": "@cloudbase/node-builder",
   "version": "0.1.0",
-  "description": "",
+  "description": "云开发 Node 应用构建工具",
   "main": "lib/index.js",
   "scripts": {
     "clean": "rm -rf cloudbase-node-build-*",
