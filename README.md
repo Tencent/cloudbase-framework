@@ -52,9 +52,9 @@ cloudbase framework:deploy
 
 ## <a name="plugins"></a>插件
 
-| 插件                                                                     | 最新版本                                                                                                                                              | 插件介绍     |
-| ------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| [@cloudbase/framework-plugin-website](packages/framework-plugin-website) | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-website)](https://www.npmjs.com/package/@cloudbase/framework-plugin-website) | 前端页面插件 |
+| 插件                                                                     | 最新版本                                                                                                                                              | 插件介绍         |
+| ------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| [@cloudbase/framework-plugin-website](packages/framework-plugin-website) | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-website)](https://www.npmjs.com/package/@cloudbase/framework-plugin-website) | 一键部署网站应用 |
 
 ## <a name="roadmap"></a>Roadmap
 
@@ -64,7 +64,7 @@ cloudbase framework:deploy
 | 开发 Website plugin 支持部署前端静态项目                               | 🚀   |
 | 自动检测前端框架 (Vue/React 等主流框架) 使用 Website plugin            | 🚀   |
 | 开发 Nuxt plugin 支持 Nuxt SSR 项目                                    |      |
-| 开发 Function plugin 支持自动部署函数                                  |      |
+| 开发 Function plugin 支持自动部署函数                                  | 🚀   |
 | 开发 Node Api Plugin 支持一键部署 Node 应用                            |      |
 | 自动检测 Express/ Koa 等主流 Node 框架使用 Node Api Plugin             |      |
 | 腾讯内部全栈框架插件支持                                               |      |
