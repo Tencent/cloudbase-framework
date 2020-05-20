@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/nuxt-builder",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@cloudbase/framework-core": "^0.0.0",
+    "@cloudbase/framework-core": "^0.1.0",
     "archiver": "^4.0.1",
     "fs-extra": "^9.0.0"
   },

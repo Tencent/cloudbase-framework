@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/static-deployer",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "> TODO: description",
   "author": "Weijia Wang <starkwang@126.com>",
   "homepage": "",
@@ -30,6 +30,6 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@cloudbase/framework-core": "^0.0.0"
+    "@cloudbase/framework-core": "^0.1.0"
   }
 }
