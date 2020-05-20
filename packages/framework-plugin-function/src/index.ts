@@ -68,7 +68,33 @@ class FunctionPlugin extends Plugin {
       this.resolvedInputs,
       this.buildOutput
     );
-    console.log(this.api.resourceProviders?.function);
+    const config = this.api.projectConfig;
+    const functions = config?.functions || [];
+    const Function = this.api.resourceProviders?.function;
+    const functionRootPath = path.join(
+      process.cwd(),
+      config?.functionRoot || "functions"
+    );
+
+    // 批量部署云函数
+    const promises = functions.map(async (func: any) => {
+      try {
+        await Function.createFunction({
+          func,
+          envId: this.api.envId,
+          force: true,
+          functionRootPath,
+        });
+        this.api.logger.info(`[${func.name}] 云函数部署成功`);
+      } catch (e) {
+        this.api.logger.error(`[${func.name}] 函数部署失败`);
+        throw new Error(e.message);
+      }
+    });
+
+    await Promise.all(promises);
+
+    this.api.logger.info(`🚀 云函数发布成功`);
   }
 }
 

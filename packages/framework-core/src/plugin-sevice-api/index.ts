@@ -47,4 +47,11 @@ export default class PluginServiceApi {
   get resourceProviders(): ResourceProviders | undefined {
     return this.pluginManager.context.resourceProviders;
   }
+
+  /**
+   * 获取云开发 CLI 配置文件
+   */
+  get projectConfig() {
+    return this.pluginManager.context.projectConfig;
+  }
 }
