@@ -68,6 +68,7 @@ class FunctionPlugin extends Plugin {
       this.resolvedInputs,
       this.buildOutput
     );
+    console.log(this.api.resourceProviders?.function);
   }
 }
 
