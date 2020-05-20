@@ -107,6 +107,14 @@ export default [
     key: "function",
     detect: [
       {
+        path: "functions",
+        exists: true,
+      },
+      {
+        path: "cloudfunctions",
+        exists: true,
+      },
+      {
         path: "cloudbaserc.js",
         match: "functions",
       },
@@ -114,7 +122,7 @@ export default [
     plugin: "@cloudbase/framework-plugin-function",
     config: {
       outputPath: {
-        value: "`${data.projectConfig.functionRoot || 'function'}`",
+        value: "`${data.projectConfig.functionRoot || 'functions'}`",
         desc: "📁 云函数根目录",
       },
     },
