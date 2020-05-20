@@ -19,6 +19,7 @@ export async function run(
     cloudbaseConfig,
     logLevel = "info",
     config,
+    resourceProviders,
   }: CloudbaseFrameworkConfig,
   command: "deploy" = "deploy",
   module?: string
@@ -42,6 +43,7 @@ export async function run(
     cloudbaseConfig,
     projectPath,
     logLevel,
+    resourceProviders,
   });
 
   const pluginManager = new PluginManager(context);

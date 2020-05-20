@@ -20,8 +20,12 @@ export interface CloudBaseConfig {
   secretId?: string;
   secretKey?: string;
   token?: string;
-  envId?: string;
+  envId: string;
   proxy?: string;
+}
+
+export interface ResourceProviders {
+  [key: string]: any;
 }
 
 export interface CloudbaseFrameworkConfig {
@@ -29,4 +33,5 @@ export interface CloudbaseFrameworkConfig {
   cloudbaseConfig: CloudBaseConfig;
   logLevel?: string;
   config?: Config;
+  resourceProviders?: ResourceProviders;
 }
