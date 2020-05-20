@@ -1,4 +1,4 @@
-import { Config } from "../types";
+import { ICloudBaseConfig } from "../types";
 import { detect } from "../detect-frameworks";
 import inquirer from "inquirer";
 import chalk from "chalk";
@@ -8,10 +8,10 @@ const chalkInstance = new chalk.Instance({
 
 export default async function resolveConfig(
   projectPath: string,
-  config: Config | undefined
+  config: ICloudBaseConfig | undefined
 ) {
-  if (!config) {
-    const frameworks = await detect(projectPath);
+  if (!config?.framework) {
+    const frameworks = await detect(projectPath, config);
     let plugins: any = {};
 
     if (frameworks.length) {
@@ -43,7 +43,7 @@ export default async function resolveConfig(
       plugins,
     };
   }
-  return config;
+  return config.framework;
 }
 
 function promptModify(framework: any) {

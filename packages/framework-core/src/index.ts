@@ -40,6 +40,7 @@ export async function run(
 
   const context = new Context({
     appConfig,
+    projectConfig: config,
     cloudbaseConfig,
     projectPath,
     logLevel,
