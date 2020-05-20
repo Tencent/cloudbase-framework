@@ -32,7 +32,6 @@ class FunctionPlugin extends Plugin {
    */
   async init() {
     this.api.logger.debug("FunctionPlugin: init", this.resolvedInputs);
-    console.log(this.api.resourceProviders);
   }
 
   /**
@@ -94,7 +93,7 @@ class FunctionPlugin extends Plugin {
 
     await Promise.all(promises);
 
-    this.api.logger.info(`🚀 云函数发布成功`);
+    this.api.logger.info(`🚀 云函数部署成功`);
   }
 }
 
