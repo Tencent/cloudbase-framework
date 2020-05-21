@@ -29,8 +29,16 @@ class WebsitePlugin extends Plugin {
     super(name, api, inputs);
 
     this.resolvedInputs = resolveInputs(this.inputs);
+    console.log(
+      this.api.projectPath,
+      path.resolve(this.api.projectPath, this.resolvedInputs.outputPath)
+    );
     this.builder = new StaticBuilder({
       projectPath: this.api.projectPath,
+      copyRoot: path.resolve(
+        this.api.projectPath,
+        this.resolvedInputs.outputPath
+      ),
     });
     this.deployer = new StaticDeployer({
       cloudbaseManager: this.api.cloudbaseManager,
@@ -72,12 +80,9 @@ class WebsitePlugin extends Plugin {
       await promisify(exec)(buildCommand);
     }
 
-    this.buildOutput = await this.builder.build(
-      [ensureWithSlash(outputPath), "!**/node_modules/**"],
-      {
-        path: cloudPath,
-      }
-    );
+    this.buildOutput = await this.builder.build(["**", "!**/node_modules/**"], {
+      path: cloudPath,
+    });
   }
 
   /**
