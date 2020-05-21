@@ -20,18 +20,21 @@ export async function detect(
     for (const detect of framework.detect) {
       try {
         const { path, match, exists } = detect;
-        const content = await fs.promises.readFile(
-          resolve(projectRootPath, path),
-          "utf-8"
-        );
 
         let matchedFramework;
 
         if (typeof match !== "undefined") {
-          matchedFramework = content.match(new RegExp(match));
+          const content = await fs.promises.readFile(
+            resolve(projectRootPath, path),
+            "utf-8"
+          );
+          const matchResult = content.match(new RegExp(match));
+
+          if (matchResult) {
+            matchedFramework = matchResult;
+          }
         } else if (typeof exists === "boolean") {
           const fileExists = fs.existsSync(resolve(projectRootPath, path));
-          console.log(fileExists);
           matchedFramework = exists ? fileExists : !fileExists;
         }
 
