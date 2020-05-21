@@ -2,7 +2,8 @@ const { StaticBuilder } = require('../')
 const path = require('path')
 
 const builder = new StaticBuilder({
-    projectPath: path.resolve(__dirname, './static')
+    projectPath: path.resolve(__dirname),
+    copyRoot: path.resolve(__dirname, './static')
 })
 
 async function main() {
