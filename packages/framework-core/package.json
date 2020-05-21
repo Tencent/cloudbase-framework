@@ -33,7 +33,6 @@
     "@types/fs-extra": "^8.1.0",
     "@types/node": "^13.13.5",
     "jest": "^26.0.1",
-    "npm": "^6.14.5",
     "typescript": "^3.8.3"
   },
   "dependencies": {
@@ -45,7 +44,8 @@
     "chalk": "^4.0.0",
     "fs-extra": "^9.0.0",
     "inquirer": "^7.1.0",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "npm": "^6.14.5"
   },
   "gitHead": "c4bb252d689547412ebe18b285d0e7569504e559"
 }
