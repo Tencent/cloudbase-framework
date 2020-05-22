@@ -50,6 +50,17 @@ cloudbase framework:deploy
 
 ## <a name="examples"></a>示例
 
+| 名称               | 应用示例介绍                         |
+| ------------------ | ------------------------------------ |
+| Vue 应用           | Vue + 云函数 + 静态网站部署          |
+| React 应用         | React + 云函数 + 静态网站部署        |
+| Nuxt SPA 应用      | Nuxt SPA + 云函数 + 静态网站部署     |
+| Nuxt SSR 应用      | Nuxt SSR + 服务端部署 + 静态网站部署 |
+| Next SPA 应用      | Nuxt SPA + 云函数 + 静态网站部署     |
+| Next SSR 应用      | Next SSR + 服务端部署 + 静态网站部署 |
+| Node.js 云函数示例 | Node.js 云函数                       |
+| PHP 云函数示例     | PHP 云函数                           |
+
 ## <a name="plugins"></a>插件
 
 | 插件                                                                     | 最新版本                                                                                                                                              | 插件介绍         |
