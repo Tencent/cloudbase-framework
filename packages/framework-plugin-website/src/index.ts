@@ -56,7 +56,20 @@ class WebsitePlugin extends Plugin {
   /**
    * 编译为 SAM 模板
    */
-  async compile() {}
+  async compile() {
+    return {
+      Resources: {
+        Website: {
+          Type: "CloudBase::StaticStore",
+        },
+        Properties: {
+          Description:
+            "为开发者提供静态网页托管的能力，包括HTML、CSS、JavaScript、字体等常见资源。",
+          // @TODO 指定构建产物，云端路径，过滤文件
+        },
+      },
+    };
+  }
 
   /**
    * 删除资源

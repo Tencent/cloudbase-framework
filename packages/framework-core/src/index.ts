@@ -3,6 +3,7 @@ import resolveConfig from "./config/resolve-config";
 import Context from "./context";
 import { CloudbaseFrameworkConfig } from "./types";
 import getLogger from "./logger";
+import { genSAM } from "./sam";
 
 export { default as Plugin } from "./plugin";
 export { default as PluginServiceApi } from "./plugin-sevice-api";
@@ -11,7 +12,7 @@ export { Deployer } from "./deployer";
 export * from "./types";
 
 const packageInfo = require("../package");
-const SUPPORT_COMMANDS = ["deploy"];
+const SUPPORT_COMMANDS = ["deploy", "compile"];
 
 export async function run(
   {
@@ -57,6 +58,11 @@ export async function run(
     await pluginManager.init(module);
     await pluginManager.build(module);
     await pluginManager.deploy(module);
+  } else if (command === "compile") {
+    await pluginManager.init(module);
+    await pluginManager.build(module);
+    const compileResult = await pluginManager.compile(module);
+    genSAM(projectPath, ...compileResult);
   }
 
   logger.info("✨ done");
