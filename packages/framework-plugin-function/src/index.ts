@@ -38,6 +38,7 @@ class FunctionPlugin extends Plugin {
   }
 
   async compile() {
+    this.api.logger.debug("FunctionPlugin: compile", this.resolvedInputs);
     return {
       Resources: this.functions.reduce((resouces, func) => {
         resouces[this.toConstantCase(func.name)] = this.functionConfigToSAM(

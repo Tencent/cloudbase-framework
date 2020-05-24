@@ -62,7 +62,7 @@ export async function run(
     await pluginManager.init(module);
     await pluginManager.build(module);
     const compileResult = await pluginManager.compile(module);
-    genSAM(projectPath, ...compileResult);
+    genSAM(projectPath, ...JSON.parse(JSON.stringify(compileResult)));
   }
 
   logger.info("✨ done");
