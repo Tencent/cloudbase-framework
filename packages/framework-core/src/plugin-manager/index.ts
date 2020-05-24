@@ -202,7 +202,7 @@ export default class PluginManager {
     const cwd = process.cwd();
     process.chdir(__dirname);
     await promisify(npm.load as (cli: any, callback: () => void) => void)({});
-    await promisify(npm.commands.install)([packageName]);
+    await promisify(npm.commands.install)([packageName + "@latest"]);
     process.chdir(cwd);
   }
 }
