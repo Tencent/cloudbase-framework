@@ -36,6 +36,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "@cloudbase/framework-plugin-function": "^0.1.11",
     "@cloudbase/manager-node": "^3.2.2",
     "@types/inquirer": "^6.5.0",
     "@types/jest": "^25.2.1",
