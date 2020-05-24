@@ -43,6 +43,7 @@ class FunctionPlugin extends Plugin {
         resouces[this.toConstantCase(func.name)] = this.functionConfigToSAM(
           func
         );
+        return resouces;
       }, {}),
     };
   }
