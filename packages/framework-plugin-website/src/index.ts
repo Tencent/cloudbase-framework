@@ -29,10 +29,6 @@ class WebsitePlugin extends Plugin {
     super(name, api, inputs);
 
     this.resolvedInputs = resolveInputs(this.inputs);
-    console.log(
-      this.api.projectPath,
-      path.resolve(this.api.projectPath, this.resolvedInputs.outputPath)
-    );
     this.builder = new StaticBuilder({
       projectPath: this.api.projectPath,
       copyRoot: path.resolve(
