@@ -1,7 +1,7 @@
 {
   "name": "@cloudbase/static-deployer",
   "version": "0.1.15",
-  "description": "云开发静态文件部署工具",
+  "description": "云开发 CloudBase 静态网站部署工具",
   "author": "Weijia Wang <starkwang@126.com>",
   "homepage": "",
   "license": "ISC",
@@ -32,5 +32,5 @@
   "dependencies": {
     "@cloudbase/framework-core": "^0.1.15"
   },
-  "gitHead": "c4bb252d689547412ebe18b285d0e7569504e559"
+  "gitHead": "130ad825ae5fc900b7f859be3ac627e86b363d5a"
 }

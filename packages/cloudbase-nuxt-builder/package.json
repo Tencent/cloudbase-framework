@@ -1,7 +1,7 @@
 {
   "name": "@cloudbase/nuxt-builder",
   "version": "0.1.15",
-  "description": "云开发 Nuxt 构建工具",
+  "description": "云开发 CloudBase Nuxt 构建工具",
   "main": "lib/index.js",
   "scripts": {
     "clean": "rm -rf test/project/cloudbase-nuxt-build-*",
@@ -23,5 +23,5 @@
     "@types/node": "^13.13.5",
     "typescript": "^3.8.3"
   },
-  "gitHead": "c4bb252d689547412ebe18b285d0e7569504e559"
+  "gitHead": "130ad825ae5fc900b7f859be3ac627e86b363d5a"
 }
