@@ -138,7 +138,7 @@ export default class PluginManager {
     let PluginCode: Plugin | undefined;
 
     try {
-      PluginCode = require(pluginData.name);
+      PluginCode = require(pluginData.name).plugin;
     } catch (e) {
       this.context.logger.debug(e);
       PluginCode = undefined;
