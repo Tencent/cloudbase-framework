@@ -168,4 +168,4 @@ function wait(time: number) {
   });
 }
 
-module.exports = FunctionPlugin;
+export const plugin = FunctionPlugin;

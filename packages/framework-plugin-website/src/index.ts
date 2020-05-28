@@ -192,4 +192,4 @@ function ensureWithSlash(dir: string): string {
   return dir[dir.length - 1] === "/" ? dir : dir + "/";
 }
 
-module.exports = WebsitePlugin;
+export const plugin = WebsitePlugin;
