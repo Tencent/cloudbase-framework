@@ -77,7 +77,7 @@ export class NodeBuilder extends Builder {
         {
           name: functionName,
           options: {},
-          source: distDir,
+          source: distDirName,
           entry: "index.main",
         },
       ],
