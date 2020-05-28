@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/static-builder",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "description": "云开发 CloudBase Static Builder，静态文件构建工具",
   "main": "lib/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@cloudbase/framework-core": "^0.1.16",
+    "@cloudbase/framework-core": "^0.1.17",
     "anymatch": "^3.1.1",
     "cpy": "^8.1.0",
     "fs-extra": "^9.0.0"
