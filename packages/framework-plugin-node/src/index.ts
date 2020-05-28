@@ -72,6 +72,7 @@ class NodePlugin extends Plugin {
           name: srcFunction.name,
           handler: srcFunction.entry,
           runtime: this.resolvedInputs.runtime,
+          installDependency: true,
         },
       ],
       servicePaths: {
