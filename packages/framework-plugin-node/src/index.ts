@@ -24,8 +24,6 @@ class NodePlugin extends Plugin {
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
 
-    console.log(this.resolvedInputs);
-
     this.nodeBuilder = new NodeBuilder({
       projectPath: this.api.projectPath,
     });
@@ -62,17 +60,20 @@ class NodePlugin extends Plugin {
 
     this.buildOutput = await this.nodeBuilder.build(this.resolvedInputs.entry, {
       path: this.resolvedInputs.path,
+      name: this.resolvedInputs.name,
     });
 
+    const srcFunction = this.buildOutput.functions[0];
+
     this.functionPlugin = new FunctionPlugin("function", this.api, {
-      functionRootPath: this.api.projectPath,
-      functions: this.buildOutput.functions.map((item: any) => {
-        return {
-          name: this.resolvedInputs.name,
-          handler: item.entry,
+      functionRootPath: srcFunction.source,
+      functions: [
+        {
+          name: srcFunction.name,
+          handler: srcFunction.entry,
           runtime: this.resolvedInputs.runtime,
-        };
-      }),
+        },
+      ],
       servicePaths: {
         [this.resolvedInputs.name]: this.resolvedInputs.path,
       },
