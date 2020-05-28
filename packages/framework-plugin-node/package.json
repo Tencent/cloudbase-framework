@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/framework-plugin-node",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "description": "云开发 Tencent CloudBase Framework Node Plugin 插件，将项目下的Node应用一键部署云开发环境，提供自动弹性伸缩的高性能Node服务。",
   "author": "Tencent CloudBase Team",
   "homepage": "https://github.com/TencentCloudBase/cloudbase-framework#readme",
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@cloudbase/framework-core": "^0.1.17",
-    "@cloudbase/framework-plugin-function": "^0.1.19",
+    "@cloudbase/framework-plugin-function": "^0.1.20",
     "@cloudbase/node-builder": "^0.1.19"
   },
   "devDependencies": {
