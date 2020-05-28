@@ -155,7 +155,7 @@ export default class PluginManager {
       }
 
       try {
-        PluginCode = require(pluginData.name);
+        PluginCode = require(pluginData.name).plugin;
       } catch (e) {
         this.context.logger.error(e);
         throw new Error(
