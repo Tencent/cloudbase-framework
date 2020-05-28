@@ -103,8 +103,8 @@ class FunctionPlugin extends Plugin {
 
     const servicePromises = Object.entries(
       this.resolvedInputs.servicePaths
-    ).map(([functionName, servicePath]) => {
-      return this.api.cloudbaseManager.commonService().call({
+    ).map(async ([functionName, servicePath]) => {
+      const res = await this.api.cloudbaseManager.commonService().call({
         Action: "CreateCloudBaseGWAPI",
         Param: {
           ServiceId: this.api.envId,
@@ -113,6 +113,17 @@ class FunctionPlugin extends Plugin {
           Name: functionName,
         },
       });
+
+      const { Domain } = await this.api.cloudbaseManager.commonService().call({
+        Action: "DescribeCloudBaseGWService",
+        Param: {
+          ServiceId: this.api.envId,
+        },
+      });
+
+      this.api.logger.info(
+        `🚀 Node应用部署成功, 访问地址：https://${Domain}${servicePath}`
+      );
     });
 
     await Promise.all(promises);
