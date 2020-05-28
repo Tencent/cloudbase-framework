@@ -14,6 +14,7 @@ interface NodeBuilderBuildOptions {
    * 云接入路径
    */
   path: string;
+  name: string;
 }
 
 interface NodeBuilderOptions {
@@ -38,7 +39,8 @@ export class NodeBuilder extends Builder {
   async build(entry: string, options?: NodeBuilderBuildOptions) {
     const { distDir, projectDir, distDirName } = this;
     const entryFile = path.resolve(projectDir, entry);
-    const functionName = this.generateFunctionName(entryFile);
+    const functionName = options?.name || "nodeapp";
+    const appDir = path.join(distDir, functionName);
 
     const packageJsonContent = await this.generatePackageJson(functionName);
 
@@ -48,22 +50,34 @@ export class NodeBuilder extends Builder {
       path.resolve(projectDir, entryFile)
     );
 
-    await fs.ensureDir(distDir);
+    await fs.ensureDir(appDir);
     await fs.writeFile(
-      path.resolve(distDir, "./index.js"),
+      path.resolve(appDir, "./index.js"),
       __launcher.replace("/*entryPath*/", entryRelativePath)
     );
     await fs.writeFile(
-      path.resolve(distDir, "./package.json"),
+      path.resolve(appDir, "./package.json"),
       packageJsonContent
     );
+
+    const { fileList } = await nodeFileTrace([entryFile], {
+      ignore: ["node_modules/**"],
+      base: projectDir,
+    });
+
+    for (const file of fileList) {
+      await fs.copy(
+        path.resolve(projectDir, file),
+        path.join(appDir, "./", file)
+      );
+    }
 
     return {
       functions: [
         {
           name: functionName,
           options: {},
-          source: functionName,
+          source: distDir,
           entry: "index.main",
         },
       ],
@@ -109,14 +123,5 @@ export class NodeBuilder extends Builder {
       },
     };
     return JSON.stringify(json, null, 4);
-  }
-
-  generateFunctionName(entryFile: string) {
-    const entryRelativePath = path.relative(
-      this.projectDir,
-      path.resolve(this.projectDir, entryFile)
-    );
-    const name = entryRelativePath.replace(/\//g, "-").split(".")[0];
-    return name;
   }
 }
