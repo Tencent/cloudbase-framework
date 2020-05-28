@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/node-builder",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "云开发 CloudBase Node 应用构建工具",
   "main": "lib/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@cloudbase/framework-core": "^0.1.15",
+    "@cloudbase/framework-core": "^0.1.16",
     "@zeit/node-file-trace": "^0.5.1",
     "archiver": "^4.0.1",
     "express": "^4.17.1",
