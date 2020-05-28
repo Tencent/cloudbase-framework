@@ -5,8 +5,6 @@ import { promisify } from "util";
 
 import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
 
-const DEFAULT_INPUTS = {};
-
 class FunctionPlugin extends Plugin {
   protected resolvedInputs: any;
   protected buildOutput: any;
@@ -20,13 +18,20 @@ class FunctionPlugin extends Plugin {
   ) {
     super(name, api, inputs);
 
-    this.resolvedInputs = resolveInputs(this.inputs);
     const config = this.api.projectConfig;
 
-    this.functions = config?.functions || [];
+    const DEFAULT_INPUTS = {
+      functionRootPath: config?.functionRoot || "cloudfunctions",
+      functions: config?.functions,
+      servicePaths: {},
+    };
+
+    this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
+
+    this.functions = this.resolvedInputs.functions;
     this.functionRootPath = path.join(
-      process.cwd(),
-      config?.functionRoot || "functions"
+      this.api.projectPath,
+      this.resolvedInputs.functionRootPath
     );
   }
 
@@ -96,7 +101,22 @@ class FunctionPlugin extends Plugin {
       }
     });
 
+    const servicePromises = Object.entries(
+      this.resolvedInputs.servicePaths
+    ).map(([functionName, servicePath]) => {
+      return this.api.cloudbaseManager.commonService().call({
+        Action: "CreateCloudBaseGWAPI",
+        Param: {
+          ServiceId: this.api.envId,
+          Path: servicePath,
+          Type: 1,
+          Name: functionName,
+        },
+      });
+    });
+
     await Promise.all(promises);
+    await Promise.all(servicePromises);
 
     this.api.logger.info(`🚀 云函数部署成功`);
   }
@@ -113,6 +133,7 @@ class FunctionPlugin extends Plugin {
         Timeout: funcitonConfig.timeout || 3,
         Environment: funcitonConfig.envVariables,
         VpcConfig: funcitonConfig.vpc,
+        HttpPath: this.resolvedInputs.servicePaths[funcitonConfig.name],
       },
     };
   }
@@ -137,8 +158,8 @@ class FunctionPlugin extends Plugin {
   }
 }
 
-function resolveInputs(inputs: any) {
-  return Object.assign({}, DEFAULT_INPUTS, inputs);
+function resolveInputs(inputs: any, defaultInputs: any) {
+  return Object.assign({}, defaultInputs, inputs);
 }
 
 function wait(time: number) {
