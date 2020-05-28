@@ -61,7 +61,23 @@ module.exports = {
 
 ### 配置参数说明
 
-### `service`
+### `functionRoot`
+
+函数根目录
+
+### `functions`
+
+函数配置
+
+### `servicePaths`
+
+服务路径配置
+
+如
+
+{
+'hello-world': '/helloworld'
+}
 
 ## 文档资料
 
