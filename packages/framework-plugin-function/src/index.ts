@@ -115,7 +115,7 @@ class FunctionPlugin extends Plugin {
       });
 
       this.api.logger.info(
-        `🚀 Node应用部署成功, 访问地址：https://${this.api.envId}/service.tcloudbase.com${servicePath}`
+        `🚀 服务发布成功，访问地址: https://${this.api.envId}.service.tcloudbase.com${servicePath}`
       );
     });
 
