@@ -93,6 +93,8 @@ class NodePlugin extends Plugin {
 
     await this.functionPlugin.deploy();
 
+    await this.nodeBuilder.clean();
+
     this.api.logger.info(`🚀 Node 应用部署成功`);
   }
 }
