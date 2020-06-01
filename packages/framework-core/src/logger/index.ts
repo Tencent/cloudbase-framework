@@ -2,11 +2,9 @@ import winston, { format } from "winston";
 import { inspect } from "util";
 import chalk from "chalk";
 
-export { Logger } from "winston";
+chalk.level = 1;
 
-const chalkInstance = new chalk.Instance({
-  level: 1,
-});
+export { Logger } from "winston";
 
 let logger: winston.Logger;
 
@@ -19,9 +17,9 @@ export default function getLogger(level?: string) {
         format.printf((info) => {
           const splat = info[Symbol.for("splat") as any];
           return (
-            `${chalkInstance.bgBlack(
-              chalkInstance.cyanBright(" cloudbase framework ")
-            )} ${info.level} ${info.message}` +
+            `${chalk.bgBlack(chalk.cyanBright(" cloudbase framework "))} ${
+              info.level
+            } ${info.message}` +
             (splat ? ` ${splat.map(inspect).join(" ")} ` : "")
           );
         })

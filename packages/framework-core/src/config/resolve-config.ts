@@ -6,9 +6,8 @@ import fs from "fs";
 import merge from "lodash.merge";
 import path from "path";
 
-const chalkInstance = new chalk.Instance({
-  level: 1,
-});
+chalk.level = 1;
+
 const FRAMEWORK_CONFIG_FILENAME = "cloudbase-framework.json";
 
 export default async function resolveConfig(
@@ -83,9 +82,7 @@ function formatFrameworkConfig(config: any) {
   return Object.entries(config)
     .map(
       ([, config]) =>
-        `  ${(config as any).desc} \`${chalkInstance.green(
-          (config as any).value
-        )}\``
+        `  ${(config as any).desc} \`${chalk.green((config as any).value)}\``
     )
     .join("\n");
 }
