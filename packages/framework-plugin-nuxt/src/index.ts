@@ -19,7 +19,6 @@ class NuxtPlugin extends Plugin {
       runtime: "Nodejs10.15",
       entry: "app.js",
       path: "/nuxt",
-      name: "nuxt",
     };
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
@@ -60,7 +59,6 @@ class NuxtPlugin extends Plugin {
 
     this.buildOutput = await this.builder.build(this.resolvedInputs.entry, {
       path: this.resolvedInputs.path,
-      name: this.resolvedInputs.name,
     });
 
     const srcFunction = this.buildOutput.functions[0];
