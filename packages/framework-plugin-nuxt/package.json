@@ -1,0 +1,42 @@
+{
+  "name": "@cloudbase/framework-plugin-nuxt",
+  "version": "0.1.20",
+  "description": "云开发 Tencent CloudBase Framework Nuxt SSR Plugin 插件，将项目下的 Nuxt 应用一键部署云开发环境，提供自动弹性伸缩的高性能 Nuxt 服务。",
+  "author": "Tencent CloudBase Team",
+  "homepage": "https://github.com/TencentCloudBase/cloudbase-framework#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/binggg/cloudbase-framework.git"
+  },
+  "scripts": {
+    "dev": "tsc -w",
+    "build": "tsc",
+    "test": "jest"
+  },
+  "bugs": {
+    "url": "https://github.com/binggg/cloudbase-framework/issues"
+  },
+  "dependencies": {
+    "@cloudbase/framework-core": "^0.1.17",
+    "@cloudbase/framework-plugin-function": "^0.1.20",
+    "@cloudbase/nuxt-builder": "^0.1.19"
+  },
+  "devDependencies": {
+    "jest": "^26.0.1",
+    "typescript": "^3.9.2"
+  },
+  "gitHead": "130ad825ae5fc900b7f859be3ac627e86b363d5a"
+}
