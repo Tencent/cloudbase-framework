@@ -40,11 +40,11 @@ export default class PluginManager {
     this.context = context;
     this.plugins = this.resolvePlugins(this.context.appConfig);
 
-    this.pluginRegisty = path.join(os.homedir(), ".cloudbase-framework");
-
-    if (!fs.existsSync(this.pluginRegisty)) {
-      fs.mkdirSync(this.pluginRegisty);
-    }
+    this.pluginRegisty = path.join(
+      os.homedir(),
+      ".cloudbase-framework/registry"
+    );
+    this.initRegistry();
   }
 
   /**
@@ -149,9 +149,11 @@ export default class PluginManager {
 
     let PluginCode: Plugin | undefined;
 
+    const currentNodePath = process.env.NODE_PATH;
+    process.env.NODE_PATH += ":" + this.pluginRegisty;
+
     try {
-      PluginCode = require(path.join(this.pluginRegisty, pluginData.name))
-        .plugin;
+      PluginCode = require(pluginData.name).plugin;
     } catch (e) {
       this.context.logger.debug(e);
       PluginCode = undefined;
@@ -168,8 +170,7 @@ export default class PluginManager {
       }
 
       try {
-        PluginCode = require(path.join(this.pluginRegisty, pluginData.name))
-          .plugin;
+        PluginCode = require(pluginData.name).plugin;
       } catch (e) {
         this.context.logger.error(e);
         throw new Error(
@@ -186,6 +187,8 @@ export default class PluginManager {
         `CloudBase Framwork: plugin '${pluginData.name}' isn't a valid plugin`
       );
     }
+
+    process.env.NODE_PATH = currentNodePath;
 
     pluginData.pluginInstance = new (PluginCode as any)(
       pluginData.name,
@@ -218,5 +221,23 @@ export default class PluginManager {
     await promisify(npm.load as (cli: any, callback: () => void) => void)({});
     await promisify(npm.commands.install)([packageName + "@latest"]);
     process.chdir(cwd);
+  }
+
+  /**
+   * 初始化插件仓库
+   */
+  initRegistry() {
+    if (!fs.existsSync(this.pluginRegisty)) {
+      fs.mkdirSync(this.pluginRegisty, { recursive: true });
+    }
+    const packageJSON = path.join(this.pluginRegisty, "package.json");
+    if (!fs.existsSync(packageJSON)) {
+      fs.writeFileSync(
+        packageJSON,
+        JSON.stringify({
+          name: "cloudbase-framework-registry",
+        })
+      );
+    }
   }
 }
