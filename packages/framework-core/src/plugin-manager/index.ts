@@ -1,4 +1,9 @@
+import os from "os";
+import path from "path";
+import fs from "fs";
+
 import npm from "npm";
+
 import { promisify } from "util";
 import { Config } from "../types";
 import Context from "../context";
@@ -29,10 +34,17 @@ type PluginHookName = "init" | "build" | "deploy" | "compile";
 export default class PluginManager {
   context: Context;
   plugins: PluginData[];
+  pluginRegisty: string;
 
   constructor(context: Context) {
     this.context = context;
     this.plugins = this.resolvePlugins(this.context.appConfig);
+
+    this.pluginRegisty = path.join(os.homedir(), ".cloudbase-framework");
+
+    if (!fs.existsSync(this.pluginRegisty)) {
+      fs.mkdirSync(this.pluginRegisty);
+    }
   }
 
   /**
@@ -138,7 +150,8 @@ export default class PluginManager {
     let PluginCode: Plugin | undefined;
 
     try {
-      PluginCode = require(pluginData.name).plugin;
+      PluginCode = require(path.join(this.pluginRegisty, pluginData.name))
+        .plugin;
     } catch (e) {
       this.context.logger.debug(e);
       PluginCode = undefined;
@@ -155,7 +168,8 @@ export default class PluginManager {
       }
 
       try {
-        PluginCode = require(pluginData.name).plugin;
+        PluginCode = require(path.join(this.pluginRegisty, pluginData.name))
+          .plugin;
       } catch (e) {
         this.context.logger.error(e);
         throw new Error(
@@ -200,7 +214,7 @@ export default class PluginManager {
    */
   private async installPackageFromNpm(packageName: string) {
     const cwd = process.cwd();
-    process.chdir(__dirname);
+    process.chdir(this.pluginRegisty);
     await promisify(npm.load as (cli: any, callback: () => void) => void)({});
     await promisify(npm.commands.install)([packageName + "@latest"]);
     process.chdir(cwd);
