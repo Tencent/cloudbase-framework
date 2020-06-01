@@ -19,9 +19,10 @@ export default function getLogger(level?: string) {
         format.printf((info) => {
           const splat = info[Symbol.for("splat") as any];
           return (
-            `${chalkInstance.bgBlack(" cloudbase framework ")} ${info.level} ${
-              info.message
-            }` + (splat ? ` ${splat.map(inspect).join(" ")} ` : "")
+            `${chalkInstance.bgBlack(
+              chalkInstance.cyanBright(" cloudbase framework ")
+            )} ${info.level} ${info.message}` +
+            (splat ? ` ${splat.map(inspect).join(" ")} ` : "")
           );
         })
       ),
