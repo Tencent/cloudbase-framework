@@ -1,32 +1,36 @@
-require = require("esm")(module)
-const Koa = require('koa')
-const { Nuxt } = require('nuxt')
-const serverless = require('serverless-http')
+require = require('esm')(module);
+const path = require('path');
+const Koa = require('koa');
+const { Nuxt } = require('nuxt');
+const serverless = require('serverless-http');
 
-const app = new Koa()
-let config = require('./nuxt.config.js')
+const app = new Koa();
+let config = require('./nuxt.config.js');
 if (config.default) {
-  config = config.default
+  config = config.default;
 }
 
-config.dev = false
+config.dev = false;
 async function main(...args) {
-  const nuxt = new Nuxt(config)
-  await nuxt.ready()
+  let event = args[0];
+  event.path = path.join('/*path*/', event.path);
+  const nuxt = new Nuxt(config);
+  await nuxt.ready();
   app.use((ctx) => {
-    ctx.status = 200
-    ctx.respond = false
-    ctx.req.ctx = ctx
+    ctx.status = 200;
+    ctx.respond = false;
+    ctx.req.ctx = ctx;
 
     try {
-      nuxt.render(ctx.req, ctx.res)
+      nuxt.render(ctx.req, ctx.res);
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  })
+  });
 
   return serverless(app, {
-    binary: ['application/javascript',
+    binary: [
+      'application/javascript',
       'application/json',
       'application/octet-stream',
       'application/xml',
@@ -41,8 +45,9 @@ async function main(...args) {
       'text/javascript',
       'text/plain',
       'text/text',
-      'text/xml']
-  })(...args)
+      'text/xml',
+    ],
+  })(...args);
 }
 
-exports.main = main
+exports.main = main;

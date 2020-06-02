@@ -68,7 +68,10 @@ export class NuxtBuilder extends Builder {
     );
 
     // launcher
-    await fs.writeFile(path.resolve(serviceDir, "index.js"), __launcher);
+    await fs.writeFile(
+      path.resolve(serviceDir, "index.js"),
+      __launcher.replace("/*path*/", options.path)
+    );
 
     // TODO: static files
 
