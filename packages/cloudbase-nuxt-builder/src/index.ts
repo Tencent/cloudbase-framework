@@ -20,6 +20,11 @@ interface NuxtBuilderBuildOptions {
    * 项目根目录的绝对路径
    */
   path: string;
+
+  /**
+   * 函数名或者服务名
+   */
+  name: string;
 }
 
 export class NuxtBuilder extends Builder {
@@ -35,39 +40,42 @@ export class NuxtBuilder extends Builder {
       esm: "^3.2.25",
     };
   }
+
   async build(entry: string, options: NuxtBuilderBuildOptions) {
     const { distDir, distDirName } = this;
     const nuxtDistPath = path.resolve(entry, ".nuxt");
+
+    const serviceName = options.name;
+    const serviceDir = path.join(distDir, serviceName);
+
     if (!(await fs.pathExists(nuxtDistPath))) {
       throw new Error("没有找到 .nuxt 目录，请先执行构建");
     }
 
-    await fs.ensureDir(distDir);
+    await fs.ensureDir(serviceDir);
 
     // 移动 .nuxt
-    await fs.copy(nuxtDistPath, path.resolve(distDir, ".nuxt"));
+    await fs.copy(nuxtDistPath, path.resolve(serviceDir, ".nuxt"));
 
     // package.json
     const packageJson = await this.generatePackageJson();
-    await fs.writeFile(path.resolve(distDir, "package.json"), packageJson);
+    await fs.writeFile(path.resolve(serviceDir, "package.json"), packageJson);
 
     // nuxt.config.js，需要babel转为es5
     await fs.copy(
       path.resolve(entry, "nuxt.config.js"),
-      path.resolve(distDir, "nuxt.config.js")
+      path.resolve(serviceDir, "nuxt.config.js")
     );
 
     // launcher
-    await fs.writeFile(path.resolve(distDir, "index.js"), __launcher);
+    await fs.writeFile(path.resolve(serviceDir, "index.js"), __launcher);
 
     // TODO: static files
-
-    const { name: functionName } = await this.resolveOriginalPackageJson();
 
     return {
       functions: [
         {
-          name: functionName,
+          name: serviceName,
           options: {},
           source: distDirName,
           entry: "index.main",
@@ -77,7 +85,7 @@ export class NuxtBuilder extends Builder {
         {
           path: options.path,
           targetType: "function",
-          target: functionName,
+          target: serviceName,
         },
       ],
     };
