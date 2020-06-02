@@ -21,7 +21,7 @@ class NuxtPlugin extends Plugin {
 
     const DEFAULT_INPUTS = {
       runtime: "Nodejs10.15",
-      entry: "app.js",
+      entry: "./",
       name: "nuxt-ssr",
       path: "/nuxt-ssr",
       buildCommand: "npm run build",
