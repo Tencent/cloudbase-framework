@@ -65,6 +65,27 @@ export default [
     },
   },
   {
+    name: "VuePress",
+    key: "vuepress",
+    detect: [
+      {
+        path: "package.json",
+        match: '"(dev)?(d|D)ependencies":\\s*{[^}]*"vuepress":\\s*".+?"[^}]*}',
+      },
+    ],
+    plugin: "@cloudbase/framework-plugin-website",
+    config: {
+      buildCommand: {
+        value: "npm run build",
+        desc: "🔨 构建脚本",
+      },
+      outputPath: {
+        value: ".vuepress/dist",
+        desc: "📦 本地静态文件目录",
+      },
+    },
+  },
+  {
     name: "Nuxt.js",
     key: "nuxtjs",
     detect: [
