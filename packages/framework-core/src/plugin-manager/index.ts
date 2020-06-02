@@ -149,11 +149,12 @@ export default class PluginManager {
 
     let PluginCode: Plugin | undefined;
 
-    const currentNodePath = process.env.NODE_PATH;
-    process.env.NODE_PATH += ":" + this.pluginRegisty;
-
     try {
-      PluginCode = require(pluginData.name).plugin;
+      PluginCode = require(path.join(
+        this.pluginRegisty,
+        "node_modules",
+        pluginData.name
+      )).plugin;
     } catch (e) {
       this.context.logger.debug(e);
       PluginCode = undefined;
@@ -170,7 +171,11 @@ export default class PluginManager {
       }
 
       try {
-        PluginCode = require(pluginData.name).plugin;
+        PluginCode = require(path.join(
+          this.pluginRegisty,
+          "node_modules",
+          pluginData.name
+        )).plugin;
       } catch (e) {
         this.context.logger.error(e);
         throw new Error(
@@ -187,8 +192,6 @@ export default class PluginManager {
         `CloudBase Framwork: plugin '${pluginData.name}' isn't a valid plugin`
       );
     }
-
-    process.env.NODE_PATH = currentNodePath;
 
     pluginData.pluginInstance = new (PluginCode as any)(
       pluginData.name,
