@@ -1,10 +1,15 @@
+import { promisify } from "util";
+import figlet from "figlet";
+import chalk from "chalk";
+
+chalk.level = 1;
+
 import PluginManager from "./plugin-manager";
 import resolveConfig from "./config/resolve-config";
 import Context from "./context";
 import { CloudbaseFrameworkConfig } from "./types";
 import getLogger from "./logger";
 import { genSAM } from "./sam";
-
 export { default as Plugin } from "./plugin";
 export { default as PluginServiceApi } from "./plugin-sevice-api";
 export { Builder } from "./builder";
@@ -26,7 +31,21 @@ export async function run(
   module?: string
 ) {
   const logger = getLogger(logLevel);
-  logger.info(`version v${packageInfo.version}`);
+
+  try {
+    const data = await promisify(figlet.text as any)("CloudBase Framework", {
+      font: "Slant",
+    });
+    console.log(chalk.bgBlack(chalk.cyan(data + "\n")));
+  } catch (e) {}
+
+  logger.info(`Version ${chalk.green(`v${packageInfo.version}`)}`);
+  logger.info(
+    `Github: ${chalk.green(
+      "https://github.com/TencentCloudBase/cloudbase-framework"
+    )}
+`
+  );
 
   if (!projectPath || !cloudbaseConfig) {
     throw new Error("CloudBase Framework: config info missing");
