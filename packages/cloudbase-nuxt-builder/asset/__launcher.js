@@ -13,10 +13,8 @@ if (config.default) {
 config.dev = false;
 async function main(...args) {
   let event = args[0];
-  // 针对部署在子路径的情况静态资源需要手动带上路径前缀
-  event.path = event.path.includes('_nuxt')
-    ? path.join('/*path*/', event.path)
-    : event.path;
+  // 针对部署在子路径的情况需要手动带上路径前缀
+  event.path = path.join('/*path*/', event.path);
   const nuxt = new Nuxt(config);
   await nuxt.ready();
   app.use((ctx) => {
