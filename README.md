@@ -74,13 +74,13 @@ cloudbase framework:deploy
 | 框架核心功能支持插件机制，适配 Cloudbase CLI                           | 🚀   |
 | 开发 Website plugin 支持部署前端静态项目                               | 🚀   |
 | 自动检测前端框架 (Vue/React 等主流框架) 使用 Website plugin            | 🚀   |
-| 开发 Nuxt plugin 支持 Nuxt SSR 项目                                    |      |
+| 开发 Nuxt plugin 支持 Nuxt SSR 项目                                    | 🚀 |
 | 开发 Function plugin 支持自动部署函数                                  | 🚀   |
-| 开发 Node Api Plugin 支持一键部署 Node 应用                            |      |
+| 开发 Node Api Plugin 支持一键部署 Node 应用                            | 🚀 |
 | 自动检测 Express/ Koa 等主流 Node 框架使用 Node Api Plugin             |      |
 | 腾讯内部全栈框架插件支持                                               |      |
 | Node Api Plugin 支持建模和代码生成                                     |      |
-| 插件支持编译成 SAM 描述                                                |      |
+| 插件支持编译成 SAM 描述                                                | 🚀 |
 | 结合 Github Action、Coding 等平台的 CI/CD 功能                         |      |
 | 支持后端部分 Docker 化构建，提供服务函数化构建的另一个选项             |      |
 | 开发 SAM Plugin 支持 SAM 扩展插件，框架可引入第三方 SAM 扩展（如 CMS） |      |
