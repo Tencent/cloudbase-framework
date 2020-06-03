@@ -1,6 +1,7 @@
 import winston, { format } from "winston";
 import { inspect } from "util";
 import chalk from "chalk";
+const gradient = require("gradient-string");
 
 chalk.level = 1;
 
@@ -17,9 +18,11 @@ export default function getLogger(level?: string) {
         format.printf((info) => {
           const splat = info[Symbol.for("splat") as any];
           return (
-            `${chalk.bgBlack(chalk.cyanBright(" cloudbase framework "))} ${
-              info.level
-            } ${info.message}` +
+            `${chalk.bold(
+              gradient(["cyan", "rgb(0, 111, 150)", "rgb(0, 246,136)"])(
+                " CloudBase Framework "
+              )
+            )} ${info.level} ${info.message}` +
             (splat ? ` ${splat.map(inspect).join(" ")} ` : "")
           );
         })

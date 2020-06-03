@@ -116,11 +116,10 @@ class WebsitePlugin extends Plugin {
       )
     );
 
-    this.api.logger.info(
-      `🚀 网站部署成功, 访问地址： https://${
-        this.website.cdnDomain + this.resolvedInputs.cloudPath
-      }`
+    const url = this.api.genClickableLink(
+      `https://${this.website.cdnDomain + this.resolvedInputs.cloudPath}`
     );
+    this.api.logger.info(`🚀 网站部署成功, 访问地址：${url}`);
 
     await this.builder.clean();
 
