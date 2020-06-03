@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/nuxt-builder",
-  "version": "0.1.26",
+  "version": "0.1.27",
   "description": "云开发 CloudBase Nuxt 构建工具",
   "main": "lib/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@cloudbase/framework-core": "^0.1.26",
+    "@cloudbase/framework-core": "^0.1.27",
     "@types/fs-extra": "^9.0.1",
     "archiver": "^4.0.1",
     "fs-extra": "^9.0.0"
