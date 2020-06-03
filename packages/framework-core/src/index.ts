@@ -1,6 +1,8 @@
 import { promisify } from "util";
 import figlet from "figlet";
 import chalk from "chalk";
+import { genClickableLink } from "./utils/link";
+const gradient = require("gradient-string");
 
 chalk.level = 1;
 
@@ -33,15 +35,23 @@ export async function run(
   const logger = getLogger(logLevel);
 
   try {
-    const data = await promisify(figlet.text as any)("CloudBase Framework", {
+    const data = await promisify(figlet.text as any)(" CloudBase Framework ", {
       font: "Slant",
     });
-    console.log(chalk.bgBlack(chalk.cyan(data + "\n")));
+    console.log(
+      chalk.bold(
+        // chalk.bgBlack(
+        gradient(["cyan", "rgb(0, 111, 150)", "rgb(0, 246,136)"]).multiline(
+          data + "\n"
+        )
+        // )
+      )
+    );
   } catch (e) {}
 
   logger.info(`Version ${chalk.green(`v${packageInfo.version}`)}`);
   logger.info(
-    `Github: ${chalk.green(
+    `Github: ${genClickableLink(
       "https://github.com/TencentCloudBase/cloudbase-framework"
     )}
 `

@@ -86,41 +86,46 @@ class FunctionPlugin extends Plugin {
     const Function = this.api.resourceProviders?.function;
 
     // 批量部署云函数
-    const promises = this.functions.map(async (func: any) => {
-      try {
-        await Function.createFunction({
-          func,
-          envId: this.api.envId,
-          force: true,
-          functionRootPath: this.functionRootPath,
-        });
-        this.api.logger.info(`🚀 [${func.name}] 云函数部署成功`);
-      } catch (e) {
-        this.api.logger.error(`🙅‍♂️ [${func.name}] 函数部署失败`);
-        throw new Error(e.message);
-      }
-    });
+    await Promise.all(
+      this.functions.map(async (func: any) => {
+        try {
+          await Function.createFunction({
+            func,
+            envId: this.api.envId,
+            force: true,
+            functionRootPath: this.functionRootPath,
+          });
+          this.api.logger.info(`🚀 [${func.name}] 云函数部署成功`);
+        } catch (e) {
+          this.api.logger.error(`🙅‍♂️ [${func.name}] 函数部署失败`);
+          throw new Error(e.message);
+        }
+      })
+    );
 
-    const servicePromises = Object.entries(
-      this.resolvedInputs.servicePaths
-    ).map(async ([functionName, servicePath]) => {
-      const res = await this.api.cloudbaseManager.commonService().call({
-        Action: "CreateCloudBaseGWAPI",
-        Param: {
-          ServiceId: this.api.envId,
-          Path: servicePath,
-          Type: 1,
-          Name: functionName,
-        },
-      });
+    // 批量处理云接入
+    await Promise.all(
+      Object.entries(this.resolvedInputs.servicePaths).map(
+        async ([functionName, servicePath]) => {
+          const res = await this.api.cloudbaseManager.commonService().call({
+            Action: "CreateCloudBaseGWAPI",
+            Param: {
+              ServiceId: this.api.envId,
+              Path: servicePath,
+              Type: 1,
+              Name: functionName,
+            },
+          });
 
-      this.api.logger.info(
-        `🚀 服务发布成功，访问地址: https://${this.api.envId}.service.tcloudbase.com${servicePath}`
-      );
-    });
-
-    await Promise.all(promises);
-    await Promise.all(servicePromises);
+          let url = `https://${this.api.envId}.service.tcloudbase.com${servicePath}`;
+          if (url[url.length - 1] !== "/") {
+            url = url + "/";
+          }
+          url = this.api.genClickableLink(url);
+          this.api.logger.info(`🚀 服务发布成功，访问地址: ${url}`);
+        }
+      )
+    );
 
     this.api.logger.info(`🚀 云函数部署成功`);
   }
