@@ -36,7 +36,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@cloudbase/manager-node": "^3.2.2",
+    "@cloudbase/manager-node": "^3.3.1",
     "@types/inquirer": "^6.5.0",
     "@types/jest": "^25.2.1",
     "@types/js-yaml": "^3.12.4",
