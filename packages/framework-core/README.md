@@ -1,4 +1,4 @@
-<a href="https://github.com/TencentCloudBase/cloudbase-framework">![](assets/cloudbase-framework.png)</a>
+<a href="https://github.com/TencentCloudBase/cloudbase-framework">![](https://github.com/TencentCloudBase/cloudbase-framework/raw/master/assets/cloudbase-framework.png)</a>
 
 [官网](http://cloudbase.net) / [文档](https://docs.cloudbase.net/) / [社区](https://cloudbase.net/community.html)
 
