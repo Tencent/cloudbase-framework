@@ -1,15 +1,23 @@
-![Tecent CloudBase](https://github.com/TencentCloudBase/cloudbase-action/raw/master/assets/logo.png)
+<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-node">![Tencent CloudBase Framework Node Plugin](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd8pz72zj318g0p0npd.jpg)</a>
 
 # Tencent CloudBase Framework Node Plugin
 
-`@cloudbase/framework-plugin-node`
+[![Github License](https://img.shields.io/github/license/TencentCloudBase/cloudbase-framework)](LICENSE)
+[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-node)](https://www.npmjs.com/package/@cloudbase/framework-plugin-node)
+[![issue](https://img.shields.io/github/issues/TencentCloudBase/cloudbase-framework)](https://github.com/TencentCloudBase/cloudbase-framework/issues)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/TencentCloudBase/cloudbase-framework/pulls)
+[![star](https://img.shields.io/github/stars/TencentCloudBase/cloudbase-framework?style=social)](https://github.com/TencentCloudBase/cloudbase-framework)
 
-云开发 Tencent CloudBase Framework Node Plugin 插件，可以通过云开发 [CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework) 将项目下的云函数一键部署云开发环境，提供自动弹性伸缩的高性能 Node 应用服务。
+**云开发 CloudBase Framework 框架「Node.js App」插件**： 通过云开发 **[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework)** 框架将 Node 应用一键部署云开发环境，提供自动弹性伸缩的高性能 Node 应用服务。可以搭配其他插件如 Website 插件、函数插件实现云端一体开发。
 
 ## 功能特性
 
-- 无须关心底层架构
-- 支持原生 Node.js、Express、Koa 等框架
+- 无须关心底层架构: 只需要开发业务服务，不用适配函数或者容器
+- 节约成本: 资源伸缩，弹性扩缩容，灵活计费，极大节约资源成本
+- 框架支持: 无缝支持原生和前端框架构建的项目
+  - `原生 Node.js`
+  - `Express`
+  - `Koa`
 
 ## 使用方法
 
@@ -43,41 +51,58 @@ cloudbase framework:deploy
 
 ### 配置示例
 
-`cloudbase init` 之后会创建云开发的配置文件 `cloudbaserc.js`，可在配置文件的 plugins 里 写入插件配置
+`cloudbase init` 之后会创建云开发的配置文件 `cloudbaserc.json`，可在配置文件的 plugins 里修改和写入插件配置
 
-```js
-module.exports = {
-  // ...
-  plugins: {
-    // 别名
-    function: {
-      // 使用 function 插件
-      use: "@cloudbase/framework-plugin-node",
-      inputs: {},
-    },
-  },
-};
+```json
+{
+  "envId": "{{envId}}",
+  "framework": {
+    "plugins": {
+      "client": {
+        "use": "@cloudbase/framework-plugin-node",
+        "inputs": {
+          "entry": "app.js",
+          "path": "/nodeapp",
+          "name": "nodeapp"
+        }
+      }
+    }
+  }
+}
 ```
 
 ### 配置参数说明
 
-### `functionRoot`
+### `entry`
 
-函数根目录
+默认 `app.js`
 
-### `functions`
+Node 服务入口文件，需要导出 app 或者 server 实例
 
-函数配置
+如 koa 服务的 `app.js`
 
-### `servicePaths`
+```javascript
+const Koa = require("koa");
+const { router } = require("./routes/");
 
-服务路径配置
+const app = new Koa();
 
-如
+app.use(router.routes());
 
-{
-'hello-world': '/helloworld'
-}
+module.exports = app;
+```
+
+### `path`
+
+访问子路径，如 `/node-app`
+
+### `name`
+
+服务名，如`node-app`
+
+## 更多插件
+
+请访问 [CloudBase Framework 插件列表](https://github.com/TencentCloudBase/cloudbase-framework#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84%E6%8F%92%E4%BB%B6%E5%88%97%E8%A1%A8) 搭配使用其他插件
 
 ## 文档资料
 
