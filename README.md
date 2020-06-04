@@ -10,11 +10,11 @@
 
 [官网](http://cloudbase.net) / [文档](https://docs.cloudbase.net/) / [社区](https://cloudbase.net/community.html)
 
-<img align="right" width="500" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgdcbtk4nj30mu0ilwg0.jpg" />
-
 **云开发 CloudBase Framework** ： 打造云端一体化小程序、Web 应用、移动应用的更快方法
 
 基于云开发 CloudBase Framework 可以方便和应用进行无缝配合，快速接入，为应用引入弹性伸缩、高可用的云服务支持。
+
+<img width="500" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgdcbtk4nj30mu0ilwg0.jpg" />
 
 云开发 CloudBase Framework 整体包含 CLI 工具层、应用框架层和 CI/CD 层
 
