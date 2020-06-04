@@ -135,16 +135,16 @@ cloudbase framework:deploy
 
 ## <a name="examples"></a>应用模板示例
 
-| 名称               | 应用示例介绍                         |
-| ------------------ | ------------------------------------ |
-| Vue 应用           | Vue + 云函数 + 静态网站部署          |
-| React 应用         | React + 云函数 + 静态网站部署        |
-| Nuxt SPA 应用      | Nuxt SPA + 云函数 + 静态网站部署     |
-| Nuxt SSR 应用      | Nuxt SSR + 服务端部署 + 静态网站部署 |
-| Next SPA 应用      | Nuxt SPA + 云函数 + 静态网站部署     |
-| Next SSR 应用      | Next SSR + 服务端部署 + 静态网站部署 |
-| Node.js 云函数示例 | Node.js 云函数                       |
-| PHP 云函数示例     | PHP 云函数                           |
+|                                                              | 名称               | 应用示例介绍                         |      |
+| ------------------------------------------------------------ | ------------------ | ------------------------------------ | ---- |
+| ![1](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgmrgjibij318g0p07gr.jpg) | Vue 应用           | Vue + 云函数 + 静态网站部署          |      |
+| ![2](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgmrk6o3wj318g0p015c.jpg) | React 应用         | React + 云函数 + 静态网站部署        |      |
+| ![3](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgmrnufufj318g0p0gyb.jpg) | Nuxt SPA 应用      | Nuxt SPA + 云函数 + 静态网站部署     |      |
+| ![4](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgmrqbhnlj318g0p07gz.jpg) | Nuxt SSR 应用      | Nuxt SSR + 服务端部署 + 静态网站部署 |      |
+| ![5](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgmrvg94wj318g0p0n9l.jpg) | Next SPA 应用      | Nuxt SPA + 云函数 + 静态网站部署     |      |
+| ![6](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgmrxfiddj318g0p0gyt.jpg) | Next SSR 应用      | Next SSR + 服务端部署 + 静态网站部署 |      |
+| ![7](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgms012ouj318g0p0wrg.jpg) | Node.js 云函数示例 | Node.js 云函数                       |      |
+| ![8](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgms39r7tj318g0p0gxx.jpg) | PHP 云函数示例     | PHP 云函数                           |      |
 
 ## <a name="architect"> 整体架构
 
