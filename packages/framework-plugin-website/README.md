@@ -2,13 +2,24 @@
 
 # Tencent CloudBase Framework Website Plugin
 
+[![Github License](https://img.shields.io/github/license/TencentCloudBase/cloudbase-framework)](LICENSE)
+[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-website)](https://www.npmjs.com/package/@cloudbase/framework-plugin-website)
+[![issue](https://img.shields.io/github/issues/TencentCloudBase/cloudbase-framework)](https://github.com/TencentCloudBase/cloudbase-framework/issues)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/TencentCloudBase/cloudbase-framework/pulls)
+[![star](https://img.shields.io/github/stars/TencentCloudBase/cloudbase-framework?style=social)](https://github.com/TencentCloudBase/cloudbase-framework)
+
 **云开发 CloudBase Framework 框架「Website」插件**： 通过云开发 **[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework)** 框架将静态网站一键部署云开发环境，提供生产环境可用的 CDN 加速、自动弹性伸缩的高性能网站服务。可以搭配其他插件如 Node 插件、函数插件实现云端一体开发。
 
 ## 功能特性
 
 - 节约成本: 资源伸缩，弹性扩缩容，灵活计费，极大节约资源成本
-- 框架支持: 无缝支持 `Vue`、`React`、`Nuxt SPA` 等前端框架构建的项目
 - 极简配置：自动检测框架，无须配置，同时支持没有使用框架的纯静态项目
+- 框架支持: 无缝支持原生和前端框架构建的项目
+  - `Vue`
+  - `React`
+  - `Next SPA`
+  - `Nuxt SPA`
+  - `VuePress`
 
 ## 使用方法
 
@@ -29,8 +40,6 @@ cloudbase init --without-template
 ```bash
 cloudbase init
 ```
-
-如选择 Vue 应用
 
 ### 步骤三. 一键部署
 
@@ -87,7 +96,7 @@ cloudbase framework:deploy
 
 ## 更多插件
 
-请查看 ![CloudBase Framework 插件列表](https://github.com/TencentCloudBase/cloudbase-framework#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84%E6%8F%92%E4%BB%B6%E5%88%97%E8%A1%A8)
+请访问 [CloudBase Framework 插件列表](https://github.com/TencentCloudBase/cloudbase-framework#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84%E6%8F%92%E4%BB%B6%E5%88%97%E8%A1%A8) 搭配使用其他插件
 
 ## 文档资料
 
