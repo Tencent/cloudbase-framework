@@ -156,7 +156,7 @@ cloudbase framework:deploy
 
 云开发 CloudBase Framework 基于云开发底层资源和云开发资源编排管理，整体包含 CLI 工具层、应用框架层和 CI/CD 层。
 
-![image-20200604153201359](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgakae0n8j30ym0o60uv.jpg)
+![](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgakae0n8j30ym0o60uv.jpg)
 
 ## <a name="roadmap"></a>Roadmap
 
