@@ -10,7 +10,7 @@
 
 [官网](http://cloudbase.net) / [文档](https://docs.cloudbase.net/) / [社区](https://cloudbase.net/community.html)
 
-<img align="right" width="350" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgdcbtk4nj30mu0ilwg0.jpg" />
+<img align="right" width="500" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgdcbtk4nj30mu0ilwg0.jpg" />
 
 **云开发 CloudBase Framework** ： 打造云端一体化小程序、Web 应用、移动应用的更快方法
 
@@ -28,9 +28,9 @@
 
 **云开发 CloudBase Framework 部分官方插件**
 
-| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-website"><img width="300" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd99vym4j318g0p0npd.jpg"></a> | <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-node"><img width="300" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd8pz72zj318g0p0npd.jpg"></a> |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-nuxt"><img width="300" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd8wamuqj318g0p0npd.jpg"></a> | <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-function"><img width="300" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd956tlqj318g0p0npd.jpg"></a> |
+| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-website"><img width="400" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd99vym4j318g0p0npd.jpg"></a> | <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-node"><img width="400" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd8pz72zj318g0p0npd.jpg"></a>     |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-nuxt"><img width="400" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd8wamuqj318g0p0npd.jpg"></a>    | <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-function"><img width="400" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd956tlqj318g0p0npd.jpg"></a> |
 
 ## Table of Contents
 
@@ -86,14 +86,12 @@ cloudbase framework:deploy
 
 ### 目前支持的插件列表
 
-|                                                              | 插件                                                         | 最新版本                                                     | 插件介绍               |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ---------------------- |
-|       <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-website"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd99vym4j318g0p0npd.jpg"></a>                                                        | [@cloudbase/framework-plugin-website](packages/framework-plugin-website) | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-website)](https://www.npmjs.com/package/@cloudbase/framework-plugin-website) | 一键部署网站应用       |
-| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-node"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd8pz72zj318g0p0npd.jpg"></a> | [@cloudbase/framework-plugin-node](packages/framework-plugin-website) | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-node)](https://www.npmjs.com/package/@cloudbase/framework-plugin-node) | 一键部署 Node 应用     |
-|              <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-nuxt"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd8wamuqj318g0p0npd.jpg"></a>                                                | [@cloudbase/framework-plugin-nuxt](packages/framework-plugin-website) | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-nuxt)](https://www.npmjs.com/package/@cloudbase/framework-plugin-nuxt) | 一键部署 Nuxt SSR 应用 |
-|                    <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-function"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd956tlqj318g0p0npd.jpg"></a>                                          | [@cloudbase/framework-plugin-function](packages/framework-plugin-website) | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-nuxt)](https://www.npmjs.com/package/@cloudbase/framework-plugin-function) | 一键部署函数资源       |
-
-
+|                                                                                                                                                                                                                 | 插件                                                                      | 最新版本                                                                                                                                              | 插件介绍               |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-website"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd99vym4j318g0p0npd.jpg"></a>  | [@cloudbase/framework-plugin-website](packages/framework-plugin-website)  | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-website)](https://www.npmjs.com/package/@cloudbase/framework-plugin-website) | 一键部署网站应用       |
+| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-node"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd8pz72zj318g0p0npd.jpg"></a>     | [@cloudbase/framework-plugin-node](packages/framework-plugin-website)     | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-node)](https://www.npmjs.com/package/@cloudbase/framework-plugin-node)       | 一键部署 Node 应用     |
+| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-nuxt"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd8wamuqj318g0p0npd.jpg"></a>     | [@cloudbase/framework-plugin-nuxt](packages/framework-plugin-website)     | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-nuxt)](https://www.npmjs.com/package/@cloudbase/framework-plugin-nuxt)       | 一键部署 Nuxt SSR 应用 |
+| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-function"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd956tlqj318g0p0npd.jpg"></a> | [@cloudbase/framework-plugin-function](packages/framework-plugin-website) | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-nuxt)](https://www.npmjs.com/package/@cloudbase/framework-plugin-function)   | 一键部署函数资源       |
 
 ## <a name="conf"></a> 配置示例
 
@@ -162,7 +160,7 @@ cloudbase framework:deploy
 
 ## <a name="roadmap"></a>Roadmap
 
-🚀 表示已经实现的功能 
+🚀 表示已经实现的功能
 
 | 里程碑                                                                 | 状态 |
 | ---------------------------------------------------------------------- | ---- |
@@ -173,7 +171,7 @@ cloudbase framework:deploy
 | 开发 Function plugin 支持自动部署函数                                  | 🚀   |
 | 开发 Node Api Plugin 支持一键部署 Node 应用                            | 🚀   |
 | 插件支持编译成 SAM 描述                                                | 🚀   |
-| 自动检测 Express/ Koa 等主流 Node 框架使用 Node Api Plugin             |  |
+| 自动检测 Express/ Koa 等主流 Node 框架使用 Node Api Plugin             |      |
 | 云开发全栈框架支持                                                     |      |
 | Node Api Plugin 支持建模和代码生成                                     |      |
 | 结合 Github Action、Coding 等平台的 CI/CD 功能                         |      |
