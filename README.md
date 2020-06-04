@@ -28,9 +28,9 @@
 
 **云开发 CloudBase Framework 部分官方插件**
 
-| ![1](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd8pz72zj318g0p0npd.jpg) | ![2](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd8wamuqj318g0p0npd.jpg) |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| ![3](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd956tlqj318g0p0npd.jpg) | ![4](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd99vym4j318g0p0npd.jpg) |
+| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-website"><img width="300" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd99vym4j318g0p0npd.jpg"></a> | <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-node"><img width="300" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd8pz72zj318g0p0npd.jpg"></a> |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-nuxt"><img width="300" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd8wamuqj318g0p0npd.jpg"></a> | <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-function"><img width="300" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd956tlqj318g0p0npd.jpg"></a> |
 
 ## Table of Contents
 
@@ -68,31 +68,44 @@ cloudbase init
 cloudbase framework:deploy
 ```
 
-## <a name="examples"></a>应用模板示例
-
-| 名称               | 应用示例介绍                         |
-| ------------------ | ------------------------------------ |
-| Vue 应用           | Vue + 云函数 + 静态网站部署          |
-| React 应用         | React + 云函数 + 静态网站部署        |
-| Nuxt SPA 应用      | Nuxt SPA + 云函数 + 静态网站部署     |
-| Nuxt SSR 应用      | Nuxt SSR + 服务端部署 + 静态网站部署 |
-| Next SPA 应用      | Nuxt SPA + 云函数 + 静态网站部署     |
-| Next SSR 应用      | Next SSR + 服务端部署 + 静态网站部署 |
-| Node.js 云函数示例 | Node.js 云函数                       |
-| PHP 云函数示例     | PHP 云函数                           |
-
 ## <a name="plugins"></a>插件
 
-| 插件                                                                      | 最新版本                                                                                                                                                | 插件介绍               |
-| ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
-| [@cloudbase/framework-plugin-website](packages/framework-plugin-website)  | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-website)](https://www.npmjs.com/package/@cloudbase/framework-plugin-website)   | 一键部署网站应用       |
-| [@cloudbase/framework-plugin-node](packages/framework-plugin-website)     | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-node)](https://www.npmjs.com/package/@cloudbase/framework-plugin-node)         | 一键部署 Node 应用     |
-| [@cloudbase/framework-plugin-nuxt](packages/framework-plugin-website)     | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-nuxt)](https://www.npmjs.com/package/@cloudbase/framework-plugin-nuxt)         | 一键部署 Nuxt SSR 应用 |
-| [@cloudbase/framework-plugin-function](packages/framework-plugin-website) | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-function)](https://www.npmjs.com/package/@cloudbase/framework-plugin-function) | 一键部署函数资源       |
+云开发 CloudBase Framework 支持插件机制，提供了多种应用框架和云资源的插件，只需要很少的配置甚至 0 配置就可以现有应用和云开发 CloudBase Framework 框架进行集成。
+
+插件可以处理应用中的一些独立单元的构建、部署、开发、调试等流程。例如 website 插件可以处理静态网站等单元，node 插件可以处理 koa 、express 等 node 应用。插件可以组合使用。
+
+插件的配置写在 cloudbaserc 文件中，目前仅支持 JSON 文件，后续会支持 YAML。
+
+插件的配置可以手动填写，也可以自动生成，目前针对前端框架支持自动识别填写插件。
+
+### 自动检测生成插件配置流程
+
+- `cloudbase init` 生成项目配置
+
+- `cloudbase framework:deploy` 进行自动检测生成插件配置文件并部署
+
+### 目前支持的插件列表
+
+|                                                              | 插件                                                         | 最新版本                                                     | 插件介绍               |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ---------------------- |
+|       <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-website"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd99vym4j318g0p0npd.jpg"></a>                                                        | [@cloudbase/framework-plugin-website](packages/framework-plugin-website) | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-website)](https://www.npmjs.com/package/@cloudbase/framework-plugin-website) | 一键部署网站应用       |
+| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-node"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd8pz72zj318g0p0npd.jpg"></a> | [@cloudbase/framework-plugin-node](packages/framework-plugin-website) | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-node)](https://www.npmjs.com/package/@cloudbase/framework-plugin-node) | 一键部署 Node 应用     |
+|              <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-nuxt"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd8wamuqj318g0p0npd.jpg"></a>                                                | [@cloudbase/framework-plugin-nuxt](packages/framework-plugin-website) | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-nuxt)](https://www.npmjs.com/package/@cloudbase/framework-plugin-nuxt) | 一键部署 Nuxt SSR 应用 |
+|                    <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-function"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd956tlqj318g0p0npd.jpg"></a>                                          | [@cloudbase/framework-plugin-function](packages/framework-plugin-website) | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-nuxt)](https://www.npmjs.com/package/@cloudbase/framework-plugin-function) | 一键部署函数资源       |
+
+
 
 ## <a name="conf"></a> 配置示例
 
-例如 Vue 全栈项目配置如下
+例如一个 Vue 的全栈项目，包含网站前端和云函数
+
+可以在在项目下手动创建一个 `cloudbaserc.json`，填写如下配置文件，调用 `cloudbase framework:deploy` 进行部署
+
+或者直接运行
+
+- `cloudbase init`
+
+- `cloudbase framework:deploy` 进行自动检测并部署
 
 ```json
 {
@@ -128,11 +141,28 @@ cloudbase framework:deploy
 }
 ```
 
+## <a name="examples"></a>应用模板示例
+
+| 名称               | 应用示例介绍                         |
+| ------------------ | ------------------------------------ |
+| Vue 应用           | Vue + 云函数 + 静态网站部署          |
+| React 应用         | React + 云函数 + 静态网站部署        |
+| Nuxt SPA 应用      | Nuxt SPA + 云函数 + 静态网站部署     |
+| Nuxt SSR 应用      | Nuxt SSR + 服务端部署 + 静态网站部署 |
+| Next SPA 应用      | Nuxt SPA + 云函数 + 静态网站部署     |
+| Next SSR 应用      | Next SSR + 服务端部署 + 静态网站部署 |
+| Node.js 云函数示例 | Node.js 云函数                       |
+| PHP 云函数示例     | PHP 云函数                           |
+
 ## <a name="architect"> 整体架构
+
+云开发 CloudBase Framework 基于云开发底层资源和云开发资源编排管理，整体包含 CLI 工具层、应用框架层和 CI/CD 层。
 
 ![image-20200604153201359](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgakae0n8j30ym0o60uv.jpg)
 
 ## <a name="roadmap"></a>Roadmap
+
+🚀 表示已经实现的功能 
 
 | 里程碑                                                                 | 状态 |
 | ---------------------------------------------------------------------- | ---- |
@@ -143,7 +173,7 @@ cloudbase framework:deploy
 | 开发 Function plugin 支持自动部署函数                                  | 🚀   |
 | 开发 Node Api Plugin 支持一键部署 Node 应用                            | 🚀   |
 | 插件支持编译成 SAM 描述                                                | 🚀   |
-| 自动检测 Express/ Koa 等主流 Node 框架使用 Node Api Plugin             |      |
+| 自动检测 Express/ Koa 等主流 Node 框架使用 Node Api Plugin             |  |
 | 云开发全栈框架支持                                                     |      |
 | Node Api Plugin 支持建模和代码生成                                     |      |
 | 结合 Github Action、Coding 等平台的 CI/CD 功能                         |      |

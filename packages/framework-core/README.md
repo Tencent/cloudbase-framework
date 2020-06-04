@@ -10,7 +10,7 @@
 
 [官网](http://cloudbase.net) / [文档](https://docs.cloudbase.net/) / [社区](https://cloudbase.net/community.html)
 
-<img align="right" width="350" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgdcbtk4nj30mu0ilwg0.jpg" />
+![](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgdcbtk4nj30mu0ilwg0.jpg)
 
 **云开发 CloudBase Framework** ： 打造云端一体化小程序、Web 应用、移动应用的更快方法
 
@@ -130,7 +130,7 @@ cloudbase framework:deploy
 
 ## <a name="architect"> 整体架构
 
-![image-20200604153201359](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgakae0n8j30ym0o60uv.jpg)
+![architect](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgakae0n8j30ym0o60uv.jpg)
 
 ## <a name="roadmap"></a>Roadmap
 
