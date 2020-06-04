@@ -10,7 +10,7 @@
 
 [官网](http://cloudbase.net) / [文档](https://docs.cloudbase.net/) / [社区](https://cloudbase.net/community.html)
 
-<img align="right" width="350" src="./assets/quickstart.png" />
+<img align="right" width="350" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgdcbtk4nj30mu0ilwg0.jpg" />
 
 **云开发 CloudBase Framework** ： 打造云端一体化小程序、Web 应用、移动应用的更快方法
 
@@ -35,14 +35,14 @@
 ## Table of Contents
 
 - [快速开始](#quick-start)
-- [示例](#examples)
+- [项目示例](#examples)
 - [插件](#plugins)
-- [插件](#roadmap)
+- [配置示例](#conf)
+- [整体架构](#architect)
+- [Roadmap](#roadmap)
 - [License](#license)
 
 ## <a name="quick-start"></a> 快速开始
-
-![image-20200604170816588](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgdcbtk4nj30mu0ilwg0.jpg)
 
 1. **安装 CLI**
 
@@ -90,7 +90,7 @@ cloudbase framework:deploy
 | [@cloudbase/framework-plugin-nuxt](packages/framework-plugin-website)     | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-nuxt)](https://www.npmjs.com/package/@cloudbase/framework-plugin-nuxt)         | 一键部署 Nuxt SSR 应用 |
 | [@cloudbase/framework-plugin-function](packages/framework-plugin-website) | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-function)](https://www.npmjs.com/package/@cloudbase/framework-plugin-function) | 一键部署函数资源       |
 
-## <a name="example"> 配置示例
+## <a name="conf"></a> 配置示例
 
 例如 Vue 全栈项目配置如下
 
