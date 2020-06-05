@@ -135,18 +135,18 @@ cloudbase framework:deploy
 
 ## <a name="examples"></a>应用模板示例
 
-|                                                              | 名称               | 应用示例介绍                         | 基于模板创建项目 |
-| ------------------------------------------------------------ | ------------------ | ------------------------------------ | ------------------ |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgmrgjibij318g0p07gr.jpg"></a> | Vue 应用           | Vue + 云函数 + 静态网站部署          | `cloudbase init  --template vue` |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgmrk6o3wj318g0p015c.jpg"></a> | React 应用         | React + 云函数 + 静态网站部署        | `cloudbase init  --template react-demo` |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgmrnufufj318g0p0gyb.jpg"></a> | Nuxt SPA 应用      | Nuxt SPA + 云函数 + 静态网站部署     | `cloudbase init  --template nuxt-spa` |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgmrqbhnlj318g0p07gz.jpg"></a> | Nuxt SSR 应用      | Nuxt SSR + 服务端部署 + 静态网站部署 | `cloudbase init  --template nuxt-ssr` |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgmrvg94wj318g0p0n9l.jpg"></a> | Koa 应用           | Koa + 服务端部署                     | `cloudbase init  --template koa-starter` |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgmrxfiddj318g0p0gyt.jpg"></a> | Express 应用       | Express + 服务端部署                 | `cloudbase init  --template express-starter` |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgms012ouj318g0p0wrg.jpg"></a> | Node.js 云函数示例 | Node.js 云函数                       | `cloudbase init  --template node-starter` |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgms39r7tj318g0p0gxx.jpg"></a> | PHP 云函数示例     | PHP 云函数                           | `cloudbase init  --template php-starter` |
+|                                                                                                                                                                  | 名称               | 应用示例介绍                         | 基于模板创建项目                            |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ------------------------------------ | ------------------------------------------- |
+| <a href="https://github.com/TencentCloudBase/cloudbase-templates"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgmrgjibij318g0p07gr.jpg"></a> | Vue 应用           | Vue + 云函数 + 静态网站部署          | `cloudbase init --template vue`             |
+| <a href="https://github.com/TencentCloudBase/cloudbase-templates"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgmrk6o3wj318g0p015c.jpg"></a> | React 应用         | React + 云函数 + 静态网站部署        | `cloudbase init --template react-demo`      |
+| <a href="https://github.com/TencentCloudBase/cloudbase-templates"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgmrnufufj318g0p0gyb.jpg"></a> | Nuxt SPA 应用      | Nuxt SPA + 云函数 + 静态网站部署     | `cloudbase init --template nuxt-spa`        |
+| <a href="https://github.com/TencentCloudBase/cloudbase-templates"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgmrqbhnlj318g0p07gz.jpg"></a> | Nuxt SSR 应用      | Nuxt SSR + 服务端部署 + 静态网站部署 | `cloudbase init --template nuxt-ssr`        |
+| <a href="https://github.com/TencentCloudBase/cloudbase-templates"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgmrvg94wj318g0p0n9l.jpg"></a> | Koa 应用           | Koa + 服务端部署                     | `cloudbase init --template koa-starter`     |
+| <a href="https://github.com/TencentCloudBase/cloudbase-templates"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgmrxfiddj318g0p0gyt.jpg"></a> | Express 应用       | Express + 服务端部署                 | `cloudbase init --template express-starter` |
+| <a href="https://github.com/TencentCloudBase/cloudbase-templates"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgms012ouj318g0p0wrg.jpg"></a> | Node.js 云函数示例 | Node.js 云函数                       | `cloudbase init --template node-starter`    |
+| <a href="https://github.com/TencentCloudBase/cloudbase-templates"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgms39r7tj318g0p0gxx.jpg"></a> | PHP 云函数示例     | PHP 云函数                           | `cloudbase init --template php-starter`     |
 
-## <a name="architect"> 整体架构
+## <a name="architect"></a> 整体架构
 
 云开发 CloudBase Framework 基于云开发底层资源和云开发资源编排管理，整体包含 CLI 工具层、应用框架层和 CI/CD 层。
 
