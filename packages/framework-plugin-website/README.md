@@ -1,4 +1,4 @@
-<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-website"><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd99vym4j318g0p0npd.jpg"></a>
+<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-website"><img src="https://main.qcloudimg.com/raw/66df82a9a980f542f48f9858a3de7549.jpg"></a>
 
 # Tencent CloudBase Framework Website Plugin
 
