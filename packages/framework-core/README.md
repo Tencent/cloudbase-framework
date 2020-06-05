@@ -146,7 +146,7 @@ cloudbase framework:deploy
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgms012ouj318g0p0wrg.jpg"></a> | Node.js 云函数示例 | Node.js 云函数                       | `cloudbase init --template node-starter`    |
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates"><img width="200" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgms39r7tj318g0p0gxx.jpg"></a> | PHP 云函数示例     | PHP 云函数                           | `cloudbase init --template php-starter`     |
 
-## <a name="architect"> 整体架构
+## <a name="architect"></a> 整体架构
 
 云开发 CloudBase Framework 基于云开发底层资源和云开发资源编排管理，整体包含 CLI 工具层、应用框架层和 CI/CD 层。
 
