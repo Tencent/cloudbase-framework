@@ -1,4 +1,4 @@
-<a href="https://github.com/TencentCloudBase/cloudbase-framework">![](https://github.com/TencentCloudBase/cloudbase-framework/raw/master/assets/cloudbase-framework.png)</a>
+<a href="https://github.com/TencentCloudBase/cloudbase-framework">![](https://main.qcloudimg.com/raw/af3fd4efce90f1a753f93daddb3d45ef.png)</a>
 
 [官网](http://cloudbase.net) / [文档](https://docs.cloudbase.net/) / [社区](https://cloudbase.net/community.html)
 
@@ -8,7 +8,7 @@
 
 基于云开发 CloudBase Framework 可以方便和应用进行无缝配合，快速接入，为应用引入弹性伸缩、高可用的云服务支持。
 
-<img width="800" src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgdcbtk4nj30mu0ilwg0.jpg" />
+![](https://main.qcloudimg.com/raw/18f05eadb428fb281a8ff78ae79087fe.png)
 
 云开发 CloudBase Framework 整体包含 CLI 工具层、应用框架层和 CI/CD 层
 
@@ -150,7 +150,7 @@ cloudbase framework:deploy
 
 云开发 CloudBase Framework 基于云开发底层资源和云开发资源编排管理，整体包含 CLI 工具层、应用框架层和 CI/CD 层。
 
-![image-20200604153201359](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgakae0n8j30ym0o60uv.jpg)
+![](https://main.qcloudimg.com/raw/e7c525c09ce3197996924a2b70ac0c87.png)
 
 ## <a name="roadmap"></a>Roadmap
 
