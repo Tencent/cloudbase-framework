@@ -1,4 +1,4 @@
-<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-node">![Tencent CloudBase Framework Node Plugin](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd8pz72zj318g0p0npd.jpg)</a>
+<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-node">![Tencent CloudBase Framework Node Plugin](https://main.qcloudimg.com/raw/80526dcba2f27ed2619ac43b9b623d5a.jpg)</a>
 
 # Tencent CloudBase Framework Node Plugin
 

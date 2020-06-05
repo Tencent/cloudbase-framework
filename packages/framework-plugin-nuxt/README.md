@@ -1,4 +1,4 @@
-<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-nuxt">![Tencent CloudBase Framework Nuxt SSR Plugin](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd8wamuqj318g0p0npd.jpg)</a>
+<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-nuxt">![Tencent CloudBase Framework Nuxt SSR Plugin](https://main.qcloudimg.com/raw/6d48ab8bc29c38558cd258b28b14f94e.jpg)</a>
 
 # Tencent CloudBase Framework Nuxt SSR Plugin
 

@@ -1,4 +1,4 @@
-<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-function">![Tencent CloudBase Framework Function Plugin](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfgd956tlqj318g0p0npd.jpg)</a>
+<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-function">![Tencent CloudBase Framework Function Plugin](https://main.qcloudimg.com/raw/2cd529a816464f59684515f73b0a5622.jpg)</a>
 
 # Tencent CloudBase Framework Function Plugin
 
