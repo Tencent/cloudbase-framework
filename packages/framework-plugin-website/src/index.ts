@@ -46,7 +46,7 @@ class WebsitePlugin extends Plugin {
    */
   async init() {
     this.api.logger.debug("WebsitePlugin: init", this.resolvedInputs);
-    await Promise.all([this.ensureEnableHosting(), this.installPackage()]);
+    await Promise.all([this.ensureEnableHosting()]);
   }
 
   /**
@@ -84,6 +84,7 @@ class WebsitePlugin extends Plugin {
     // @todo
     // cloudPath 会影响publicpath 和 baseroute 等配置，需要处理
     this.api.logger.debug("WebsitePlugin: build", this.resolvedInputs);
+    await this.installPackage();
 
     const { outputPath, cloudPath, buildCommand } = this.resolvedInputs;
 
@@ -144,6 +145,10 @@ class WebsitePlugin extends Plugin {
   async ensureEnableHosting(): Promise<any> {
     const Hosting = this.api.resourceProviders?.hosting;
     const envId = this.api.envId;
+
+    const res = await this.api.cloudbaseManager.env.getEnvInfo();
+    const { EnvInfo } = res;
+    console.log(EnvInfo);
 
     if (!Hosting) {
       return;
