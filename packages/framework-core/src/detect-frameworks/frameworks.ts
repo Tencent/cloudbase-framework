@@ -142,7 +142,7 @@ export default [
     ],
     plugin: "@cloudbase/framework-plugin-function",
     config: {
-      functionRoot: {
+      functionRootPath: {
         value: "`${data.projectConfig.functionRoot || 'functions'}`",
         desc: "📁 云函数根目录",
       },
