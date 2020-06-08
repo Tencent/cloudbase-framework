@@ -146,10 +146,6 @@ class WebsitePlugin extends Plugin {
     const Hosting = this.api.resourceProviders?.hosting;
     const envId = this.api.envId;
 
-    const res = await this.api.cloudbaseManager.env.getEnvInfo();
-    const { EnvInfo } = res;
-    console.log(EnvInfo);
-
     if (!Hosting) {
       return;
     }
