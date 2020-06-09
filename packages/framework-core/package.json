@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/binggg/cloudbase-framework.git"
+    "url": "git+https://github.com/TencentCloudBase/cloudbase-framework.git"
   },
   "scripts": {
     "dev": "tsc -w",
@@ -27,7 +27,7 @@
     "test": "node framework-test-project/index"
   },
   "bugs": {
-    "url": "https://github.com/binggg/cloudbase-framework/issues"
+    "url": "https://github.com/TencentCloudBase/cloudbase-framework/issues"
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.0",
@@ -54,5 +54,5 @@
     "terminal-link": "^2.1.1",
     "winston": "^3.2.1"
   },
-  "gitHead": "5c8ea4067c61fdecfced45b3106ae57d9e0066f0"
+  "gitHead": "c7dd5b481d51dfa611dd84c4404c5e6aa2f5bac0"
 }
