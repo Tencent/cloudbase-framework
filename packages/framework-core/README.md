@@ -147,6 +147,7 @@ cloudbase framework:deploy
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/express-starter"><img width="200" src="https://main.qcloudimg.com/raw/ce7fa0617399ac5e7f7bdbef5efb29d9.png"></a> | Express 应用       | Express + 服务端部署                 | `cloudbase init --template express-starter` |
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/node-starter"><img width="200" src="https://main.qcloudimg.com/raw/7b50431d8cef29d9ebb82c4ff2e6032c.png"></a>    | Node.js 云函数示例 | Node.js 云函数                       | `cloudbase init --template node-starter`    |
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates/php-starter"><img width="200" src="https://main.qcloudimg.com/raw/63782b30178cf5666fdd1e15501aba9b.png"></a>                 | PHP 云函数示例     | PHP 云函数                           | `cloudbase init --template php-starter`     |
+| <a href="https://github.com/TencentCloudBase/cloudbase-templates/Java-starter"><img width="200" src="https://main.qcloudimg.com/raw/20510a20be999a59458204afcf0fe205.png"></a>                | Java 云函数示例    | Java 云函数                          | `cloudbase init --template java-starter`    |
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/vuepress"><img width="200" src="https://main.qcloudimg.com/raw/230c115bee4300384fa557710daa2928.jpg"></a>        | VuePresss 网站应用 | VuePresss + 静态网站部署             | `cloudbase init --template vuepress`        |
 
 ## <a name="architect"></a> 整体架构
