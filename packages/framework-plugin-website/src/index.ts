@@ -47,10 +47,10 @@ class WebsitePlugin extends Plugin {
   async init() {
     this.api.logger.debug("WebsitePlugin: init", this.resolvedInputs);
     this.api.logger.info(
-      "Website 插件会自动开启静态网页托管能力，需要当前环境切换为按量计费模式"
+      "Website 插件会自动开启静态网页托管能力，需要当前环境为 [按量计费] 模式"
     );
     this.api.logger.info(
-      `Website 插件将会部署静态资源到当前静态托管的 ${this.resolvedInputs.cloudPath} 目录`
+      `Website 插件会部署应用资源到当前静态托管的 ${this.resolvedInputs.cloudPath} 目录下`
     );
     await Promise.all([this.ensureEnableHosting()]);
   }
