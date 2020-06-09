@@ -74,7 +74,7 @@ cloudbase framework:deploy
 
 ### 配置参数说明
 
-### `functionRoot`
+### `functionRootPath`
 
 函数根目录
 
