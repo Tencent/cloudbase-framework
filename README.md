@@ -95,7 +95,7 @@ cloudbase framework:deploy
 
 或者直接运行
 
-- `cloudbase init`
+- `cloudbase init --without-template`
 
 - `cloudbase framework:deploy` 进行自动检测并部署
 
