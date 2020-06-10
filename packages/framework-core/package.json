@@ -36,12 +36,14 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "@cloudbase/cloud-api": "^0.1.4",
     "@cloudbase/manager-node": "^3.3.1",
     "@types/figlet": "^1.2.0",
     "@types/inquirer": "^6.5.0",
     "@types/jest": "^25.2.1",
     "@types/js-yaml": "^3.12.4",
     "@types/lodash.merge": "^4.6.6",
+    "@types/node-fetch": "^2.5.7",
     "@types/npm": "^2.0.31",
     "chalk": "^4.0.0",
     "figlet": "^1.4.0",

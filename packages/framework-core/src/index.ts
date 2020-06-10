@@ -11,7 +11,7 @@ import resolveConfig from "./config/resolve-config";
 import Context from "./context";
 import { CloudbaseFrameworkConfig } from "./types";
 import getLogger from "./logger";
-import { genSAM } from "./sam";
+import { SamManager } from "./sam";
 export { default as Plugin } from "./plugin";
 export { default as PluginServiceApi } from "./plugin-sevice-api";
 export { Builder } from "./builder";
@@ -57,7 +57,12 @@ export async function run(
 `
   );
 
-  if (!projectPath || !cloudbaseConfig) {
+  if (
+    !projectPath ||
+    !cloudbaseConfig ||
+    !cloudbaseConfig.secretId ||
+    !cloudbaseConfig.secretKey
+  ) {
     throw new Error("CloudBase Framework: config info missing");
   }
 
@@ -78,6 +83,20 @@ export async function run(
   });
 
   const pluginManager = new PluginManager(context);
+  const samManager = new SamManager({
+    projectPath,
+    secretId: cloudbaseConfig.secretId,
+    secretKey: cloudbaseConfig.secretKey,
+    token: cloudbaseConfig.token || "",
+    envId: cloudbaseConfig.envId,
+  });
+
+  const samMeta = {
+    Name: `framework-${appConfig.name || "app"}`,
+    Version: appConfig.version || "1.0.0",
+    DisplayName: appConfig.displayName || "云开发应用",
+    Description: appConfig.description || "基于 CloudBase Framework 构建",
+  };
 
   if (!SUPPORT_COMMANDS.includes(command)) {
     throw new Error(`CloudBase Framwork: not support command '${command}'`);
@@ -87,11 +106,22 @@ export async function run(
     await pluginManager.init(module);
     await pluginManager.build(module);
     await pluginManager.deploy(module);
+
+    const compileResult = await pluginManager.compile(module);
+    await samManager.generate(
+      samMeta,
+      JSON.parse(JSON.stringify(compileResult))
+    );
+    await samManager.install();
   } else if (command === "compile") {
     await pluginManager.init(module);
     await pluginManager.build(module);
+
     const compileResult = await pluginManager.compile(module);
-    genSAM(projectPath, ...JSON.parse(JSON.stringify(compileResult)));
+    await samManager.generate(
+      samMeta,
+      JSON.parse(JSON.stringify(compileResult))
+    );
   }
 
   logger.info("✨ done");
