@@ -8,21 +8,20 @@ interface BuilderOptions {
 }
 interface BuildResult {
   functions?: {
-    name: string
-    options: any
-    source: string
-    entry: string
-  }[],
+    name: string;
+    options: any;
+    source: string;
+    entry: string;
+  }[];
   routes?: {
-    path: string
-    targetType: string
-    target: string
-  }[],
+    path: string;
+    targetType: string;
+    target: string;
+  }[];
   static?: {
-    src: string
-    cloudPath: string
-  }[]
-
+    src: string;
+    cloudPath: string;
+  }[];
 }
 
 export abstract class Builder {
@@ -38,7 +37,7 @@ export abstract class Builder {
     this.logger = getLogger();
   }
 
-  abstract async build(...args: any): Promise<BuildResult>
+  abstract async build(...args: any): Promise<BuildResult>;
 
   async clean() {
     return fs.remove(this.distDir);

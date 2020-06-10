@@ -8,7 +8,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/TencentCloudBase/cloudbase-framework/pulls)
 [![star](https://img.shields.io/github/stars/TencentCloudBase/cloudbase-framework?style=social)](https://github.com/TencentCloudBase/cloudbase-framework)
 
-**云开发 CloudBase Framework 框架「Website」插件**： 通过云开发 **[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework)** 框架将项目下的云函数一键部署到云开发环境，提供生产环境可用的自动弹性伸缩的高性能事件驱动的函数计算服务。可以搭配其他插件如 Website 插件、Node 插件实现云端一体开发。
+**云开发 CloudBase Framework 框架「Function」插件**： 通过云开发 **[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework)** 框架将项目下的云函数一键部署到云开发环境，提供生产环境可用的自动弹性伸缩的高性能事件驱动的函数计算服务。可以搭配其他插件如 Website 插件、Node 插件实现云端一体开发。
 
 ## 功能特性
 
