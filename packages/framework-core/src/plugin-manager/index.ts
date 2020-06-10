@@ -48,7 +48,7 @@ export default class PluginManager {
   }
 
   /**
-   * 构建
+   * 初始化检测
    *
    * @param id
    */

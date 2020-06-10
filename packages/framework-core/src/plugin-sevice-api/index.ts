@@ -36,6 +36,27 @@ export default class PluginServiceApi {
   }
 
   /**
+   * secretId
+   */
+  get secretId(): string {
+    return this.pluginManager.context.cloudbaseConfig.secretId || "";
+  }
+
+  /**
+   * secretKey
+   */
+  get secretKey(): string {
+    return this.pluginManager.context.cloudbaseConfig.secretKey || "";
+  }
+
+  /**
+   * token
+   */
+  get token(): string {
+    return this.pluginManager.context.cloudbaseConfig.token || "";
+  }
+
+  /**
    * 获取 logger 实例
    */
   get logger(): Logger {
