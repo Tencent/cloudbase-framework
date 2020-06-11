@@ -5,7 +5,7 @@ import { plugin as NodeContainerPlugin } from "./node-function-impl";
 import { INodePluginInputs } from "./types";
 
 class NodePlugin extends Plugin {
-  protected resolvedInputs: Record<string, any>;
+  protected resolvedInputs: INodePluginInputs;
   protected buildOutput: any;
   protected pluginImpl: Plugin;
 

@@ -2,11 +2,12 @@ import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
 import { NodeBuilder } from "@cloudbase/node-builder";
 import { plugin as ContainerPlugin } from "@cloudbase/framework-plugin-container";
 import { INodePluginInputs } from "./types";
+import { NodeContainerBuilder } from "./node-container-builder";
 
 class NodeContainerPlugin extends Plugin {
   protected resolvedInputs: INodePluginInputs;
   protected buildOutput: any;
-  protected nodeBuilder: NodeBuilder;
+  protected nodeBuilder: NodeContainerBuilder;
   protected containerPlugin: any;
 
   constructor(
@@ -25,7 +26,7 @@ class NodeContainerPlugin extends Plugin {
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
 
-    this.nodeBuilder = new NodeBuilder({
+    this.nodeBuilder = new NodeContainerBuilder({
       projectPath: this.api.projectPath,
     });
   }
@@ -53,6 +54,13 @@ class NodeContainerPlugin extends Plugin {
    * 构建
    */
   async build() {
+    const res = await this.nodeBuilder.build({
+      dockerImage: "node:12",
+      entry: this.resolvedInputs.entry || "app.js",
+      installDeps: this.resolvedInputs.installDeps,
+      port: this.resolvedInputs.containerOptions?.containerPort,
+    });
+
     this.containerPlugin = new ContainerPlugin(
       "NodeContainerPlugin",
       this.api,
@@ -60,6 +68,7 @@ class NodeContainerPlugin extends Plugin {
         serviceName: this.resolvedInputs.name || "node",
         servicePath: this.resolvedInputs.path || "/node-app",
         ...(this.resolvedInputs.containerOptions || {}),
+        localAbsolutePath: res.container[0].source,
       }
     );
     return this.containerPlugin.build();

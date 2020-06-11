@@ -1,4 +1,4 @@
-FROM <%= tag %>
+FROM <%= dockerImage %>
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -19,6 +19,6 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-EXPOSE <%= tag || 80 %>
+EXPOSE <%= port || 80 %>
 
 CMD [ "node", "__launcher.js" ]

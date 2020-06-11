@@ -1,3 +1,3 @@
-const entry = require('./app.js');
+const entry = require('./<%= entry %>');
 
-entry.listen(80);
+entry.listen(<%= port || 80 %>);
