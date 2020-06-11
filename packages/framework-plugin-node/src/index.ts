@@ -1,6 +1,6 @@
 import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
 import { plugin as NodeFunctionPlugin } from "./node-function-impl";
-import { plugin as NodeContainerPlugin } from "./node-function-impl";
+import { plugin as NodeContainerPlugin } from "./node-container-impl";
 
 import { INodePluginInputs } from "./types";
 
