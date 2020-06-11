@@ -19,6 +19,7 @@ export class SamApi {
         token,
       },
       baseParams: { EnvId: envId },
+      ...(process.env.http_proxy ? { proxy: process.env.http_proxy } : {}),
     });
   }
 
