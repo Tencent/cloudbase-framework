@@ -37,6 +37,7 @@
 - [整体架构](#architect)
 - [Roadmap](#roadmap)
 - [License](#license)
+- [交流QQ群](#qq)
 
 ## <a name="quick-start"></a> 快速开始
 
@@ -180,3 +181,7 @@ cloudbase framework:deploy
 ## <a name="license"></a>License
 
 [Apache License 2.0](./LICENSE)
+
+## <a name="qq"></a> 交流 QQ 群
+
+![](https://main.qcloudimg.com/raw/52e3e5062e01cc9058689138c9e8f02f.jpg)
