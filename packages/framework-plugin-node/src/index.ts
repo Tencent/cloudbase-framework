@@ -1,17 +1,18 @@
 import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
-import { plugin as FunctionPlugin } from "@cloudbase/framework-plugin-function";
-import { NodeBuilder } from "@cloudbase/node-builder";
+import { plugin as NodeFunctionPlugin } from "./node-function-impl";
+import { plugin as NodeContainerPlugin } from "./node-function-impl";
+
+import { INodePluginInputs } from "./types";
 
 class NodePlugin extends Plugin {
-  protected resolvedInputs: any;
+  protected resolvedInputs: Record<string, any>;
   protected buildOutput: any;
-  protected nodeBuilder: NodeBuilder;
-  protected functionPlugin: any;
+  protected pluginImpl: Plugin;
 
   constructor(
     public name: string,
     public api: PluginServiceApi,
-    public inputs: any
+    public inputs: INodePluginInputs
   ) {
     super(name, api, inputs);
 
@@ -20,80 +21,87 @@ class NodePlugin extends Plugin {
       entry: "app.js",
       path: "/nodeapp",
       name: "node",
+      platform: "function",
     };
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
 
-    this.nodeBuilder = new NodeBuilder({
-      projectPath: this.api.projectPath,
-    });
+    if (this.resolvedInputs.platform === "container") {
+      this.pluginImpl = new NodeContainerPlugin(
+        "NodeContainer",
+        this.api,
+        this.resolvedInputs
+      );
+    } else {
+      this.pluginImpl = new NodeFunctionPlugin(
+        "NodeFunction",
+        this.api,
+        this.resolvedInputs
+      );
+    }
   }
 
   /**
    * 初始化
    */
-  async init() {
+  async init(params: any) {
     this.api.logger.debug("NodePlugin: init", this.resolvedInputs);
+    return this.pluginImpl.init(params);
   }
 
-  async compile() {
+  /**
+   * 编译成 SAM
+   * @param params
+   */
+  async compile(params: any) {
     this.api.logger.debug("NodePlugin: compile", this.resolvedInputs);
 
-    return this.functionPlugin.compile();
+    if (!this.pluginImpl.compile) {
+      return null;
+    }
+
+    return this.pluginImpl.compile(params);
   }
 
   /**
    * 删除资源
    */
-  async remove() {}
+  async remove(params: any) {
+    if (!this.pluginImpl.remove) {
+      return null;
+    }
+    return this.pluginImpl.remove(params);
+  }
 
   /**
    * 生成代码
    */
-  async genCode() {}
+  async genCode(params: any) {
+    if (!this.pluginImpl.genCode) {
+      return null;
+    }
+    return this.pluginImpl.genCode(params);
+  }
 
   /**
    * 构建
    */
-  async build() {
+  async build(params: any) {
     this.api.logger.debug("NodePlugin: build", this.resolvedInputs);
-
-    this.buildOutput = await this.nodeBuilder.build(this.resolvedInputs.entry, {
-      path: this.resolvedInputs.path,
-      name: this.resolvedInputs.name,
-    });
-
-    const srcFunction = this.buildOutput.functions[0];
-
-    this.functionPlugin = new FunctionPlugin("function", this.api, {
-      functionRootPath: srcFunction.source,
-      functions: [
-        {
-          name: srcFunction.name,
-          handler: srcFunction.entry,
-          runtime: this.resolvedInputs.runtime,
-          installDependency: true,
-        },
-      ],
-      servicePaths: {
-        [this.resolvedInputs.name]: this.resolvedInputs.path,
-      },
-    });
+    return this.pluginImpl.build(params);
   }
 
   /**
    * 部署
    */
-  async deploy() {
+  async deploy(params: any) {
     this.api.logger.debug(
       "NodePlugin: deploy",
       this.resolvedInputs,
       this.buildOutput
     );
 
-    await this.functionPlugin.deploy();
-
-    await this.nodeBuilder.clean();
+    await this.pluginImpl.deploy(params);
 
     this.api.logger.info(`🚀 Node 应用部署成功`);
   }

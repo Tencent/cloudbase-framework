@@ -2,6 +2,25 @@ import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
 import { ContainerApi } from "./api";
 import { ContainerBuilder } from "./builder";
 
+export interface IContainerPluginInputs {
+  serviceName: string;
+  servicePath: string;
+  description?: string;
+  isPublic?: boolean;
+  flowRatio?: number;
+  cpu?: number;
+  mem?: number;
+  minNum?: number;
+  maxNum?: number;
+  policyType?: "cpu";
+  policyThreshold?: number;
+  containerPort?: number;
+  dockerfilePath?: string;
+  buildDir?: string;
+  version?: string;
+  localPath?: string;
+}
+
 class ContainerPlugin extends Plugin {
   protected resolvedInputs: any;
   protected buildOutput: any;
@@ -11,7 +30,7 @@ class ContainerPlugin extends Plugin {
   constructor(
     public name: string,
     public api: PluginServiceApi,
-    public inputs: any
+    public inputs: IContainerPluginInputs
   ) {
     super(name, api, inputs);
 
@@ -75,7 +94,9 @@ class ContainerPlugin extends Plugin {
 
     const distFileName = result.containers[0].source;
 
-    return this.containerApi.upload(serviceName, version, distFileName);
+    await this.containerApi.upload(serviceName, version, distFileName);
+
+    this.builder.clean();
   }
 
   /**
