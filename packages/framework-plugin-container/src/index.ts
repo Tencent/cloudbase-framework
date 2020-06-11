@@ -1,6 +1,7 @@
 import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
 import { ContainerApi } from "./container-api";
 import { ContainerBuilder } from "./builder";
+import path from "path";
 
 export interface IContainerPluginInputs {
   serviceName: string;
@@ -19,6 +20,7 @@ export interface IContainerPluginInputs {
   buildDir?: string;
   version?: string;
   localPath?: string;
+  localAbsolutePath?: string;
 }
 
 class ContainerPlugin extends Plugin {
@@ -86,8 +88,11 @@ class ContainerPlugin extends Plugin {
     this.api.logger.debug("ContainerPlugin: build", this.resolvedInputs);
 
     const { serviceName, version } = this.resolvedInputs;
+    const localPath =
+      this.resolvedInputs.localAbsolutePath ||
+      path.join(this.api.projectPath, this.resolvedInputs.localPath);
 
-    const result = await this.builder.build(this.resolvedInputs.localPath, {
+    const result = await this.builder.build(localPath, {
       path: this.resolvedInputs.servicePath,
       name: this.resolvedInputs.serviceName,
     });
