@@ -1,6 +1,8 @@
 import { resolve } from "path";
 import fs from "fs-extra";
 import getLogger, { Logger } from "../logger";
+import path from "path";
+import os from "os";
 
 interface BuilderOptions {
   type: string;
@@ -33,7 +35,14 @@ export abstract class Builder {
     const { type, projectPath } = options;
     this.distDirName = `cloudbase-${type}-build-${new Date().getTime()}`;
     this.projectDir = projectPath;
-    this.distDir = resolve(projectPath, this.distDirName);
+
+    const buildsDir = path.join(os.homedir(), ".cloudbase-framework/builds");
+
+    if (!fs.existsSync(buildsDir)) {
+      fs.mkdirSync(buildsDir, { recursive: true });
+    }
+
+    this.distDir = resolve(buildsDir, this.distDirName);
     this.logger = getLogger();
   }
 
