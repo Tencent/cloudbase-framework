@@ -3,6 +3,7 @@ import CloudbaseManager from "@cloudbase/manager-node";
 import { Logger } from "../Logger";
 import { ResourceProviders } from "../types";
 import { genClickableLink } from "../utils/link";
+import { Generator } from "../generator";
 
 /**
  * 插件服务注入为插件提供的 API
@@ -75,6 +76,13 @@ export default class PluginServiceApi {
    */
   get projectConfig() {
     return this.pluginManager.context.projectConfig;
+  }
+
+  /**
+   * 获取generator实例
+   */
+  get generator() {
+    return new Generator();
   }
 
   /**

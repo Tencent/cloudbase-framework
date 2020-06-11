@@ -7,4 +7,5 @@ export interface INodePluginInputs {
   name?: string;
   platform?: "function" | "container";
   containerOptions?: IContainerPluginInputs;
+  installDeps: boolean;
 }
