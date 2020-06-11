@@ -2,8 +2,6 @@ import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
 import { ContainerApi } from "./container-api";
 import { ContainerBuilder } from "./builder";
 
-console.log(ContainerApi);
-
 export interface IContainerPluginInputs {
   serviceName: string;
   servicePath: string;
@@ -37,7 +35,7 @@ class ContainerPlugin extends Plugin {
     super(name, api, inputs);
 
     const DEFAULT_INPUTS = {
-      description: "基于云开发 CloudBase 部署的云应用",
+      description: "基于云开发 CloudBase Framework 部署的云应用",
       isPublic: true,
       flowRatio: 100,
       cpu: 1,
