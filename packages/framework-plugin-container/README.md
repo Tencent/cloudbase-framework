@@ -1,4 +1,4 @@
-<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-container">![Tencent CloudBase Framework Container Plugin](https://main.qcloudimg.com/raw/2cd529a816464f59684515f73b0a5622.jpg)</a>
+<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-container">![Tencent CloudBase Framework Container Plugin](https://main.qcloudimg.com/raw/7e5e467a45bdfb5f5f4cc2eb27ea71bb.jpg)</a>
 
 # Tencent CloudBase Framework Container Plugin
 

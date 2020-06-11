@@ -18,14 +18,14 @@ class DartPlugin extends Plugin {
     const DEFAULT_INPUTS = {
       servicePath: "/dart-api",
       serviceName: "dart-api",
-      localPath: "./"
+      localPath: "./",
     };
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
 
     this.dartBuilder = new DartBuilder({
       projectPath: this.api.projectPath,
-    })
+    });
   }
 
   /**
@@ -72,9 +72,12 @@ class DartPlugin extends Plugin {
     const container = this.buildOutput.containers[0];
 
     this.containerPlugin = new ContainerPlugin(
-      "container", 
-      this.api, 
-      resolveInputs({localAbsolutePath: container.source} , this.resolvedInputs)
+      "container",
+      this.api,
+      resolveInputs(
+        { localAbsolutePath: container.source },
+        this.resolvedInputs
+      )
     );
 
     // 构建 container 最终产物
@@ -89,7 +92,7 @@ class DartPlugin extends Plugin {
       "DartPlugin: deploy",
       this.resolvedInputs,
       this.buildOutput
-    )
+    );
 
     await this.containerPlugin.deploy();
 
@@ -97,9 +100,10 @@ class DartPlugin extends Plugin {
 
     this.api.logger.info(`🚀 Dart 应用部署成功`);
   }
-  
 }
 
 function resolveInputs(inputs: any, defaultInputs: any) {
   return Object.assign({}, defaultInputs, inputs);
 }
+
+export const plugin = DartPlugin;
