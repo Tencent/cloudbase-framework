@@ -1,6 +1,8 @@
 import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
-import { ContainerApi } from "./api";
+import { ContainerApi } from "./container-api";
 import { ContainerBuilder } from "./builder";
+
+console.log(ContainerApi);
 
 export interface IContainerPluginInputs {
   serviceName: string;
