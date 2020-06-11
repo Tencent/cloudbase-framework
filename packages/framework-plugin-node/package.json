@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@cloudbase/framework-core": "^0.1.48-alpha.0",
+    "@cloudbase/framework-plugin-container": "^0.1.48-alpha.0",
     "@cloudbase/framework-plugin-function": "^0.1.48-alpha.0",
     "@cloudbase/node-builder": "^0.1.48-alpha.0"
   },
