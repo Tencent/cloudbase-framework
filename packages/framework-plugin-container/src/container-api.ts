@@ -60,6 +60,7 @@ export class ContainerApi {
     );
 
     if ((await response.text()) !== "success") {
+      console.error(response.text());
       throw new Error("部署云应用代码失败");
     }
   }
