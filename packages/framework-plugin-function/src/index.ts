@@ -2,8 +2,14 @@ import path from "path";
 
 import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
 
+export interface IFunctionPluginInputs {
+  functionRootPath: string;
+  functions: any[];
+  servicePaths?: Record<string, string>;
+}
+
 class FunctionPlugin extends Plugin {
-  protected resolvedInputs: any;
+  protected resolvedInputs: IFunctionPluginInputs;
   protected buildOutput: any;
   protected functions: any[];
   protected functionRootPath: string;
@@ -11,7 +17,7 @@ class FunctionPlugin extends Plugin {
   constructor(
     public name: string,
     public api: PluginServiceApi,
-    public inputs: any
+    public inputs: IFunctionPluginInputs
   ) {
     super(name, api, inputs);
 
@@ -29,7 +35,7 @@ class FunctionPlugin extends Plugin {
     this.functionRootPath = path.isAbsolute(
       this.resolvedInputs.functionRootPath
     )
-      ? this.resolvedInputs
+      ? this.resolvedInputs.functionRootPath
       : path.join(this.api.projectPath, this.resolvedInputs.functionRootPath);
   }
 
