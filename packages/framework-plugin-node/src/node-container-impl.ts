@@ -83,7 +83,7 @@ class NodeContainerPlugin extends Plugin {
    * 部署
    */
   async deploy() {
-    return this.containerPlugin.build();
+    return this.containerPlugin.deploy();
   }
 }
 
