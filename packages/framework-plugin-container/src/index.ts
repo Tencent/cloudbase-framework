@@ -111,7 +111,7 @@ class ContainerPlugin extends Plugin {
     this.api.logger.debug("ContainerPlugin: compile", this.resolvedInputs);
     return {
       Resources: {
-        [this.toConstantCase(this.resolvedInputs.name)]: this.toSAM(),
+        [this.toConstantCase(this.resolvedInputs.serviceName)]: this.toSAM(),
       },
     };
   }
