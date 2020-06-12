@@ -1,5 +1,5 @@
 import path from "path";
-import fs from "fs-extra";
+import fse from "fs-extra";
 import archiver from "archiver";
 import { Builder } from "@cloudbase/framework-core";
 
@@ -32,7 +32,7 @@ export class ContainerBuilder extends Builder {
 
   async build(localDir: string, options: BuilderBuildOptions) {
     const { distDir } = this;
-
+    await fse.ensureDir(distDir);
     const distFileName = path.join(
       distDir,
       `${options.name || "container"}.zip`
@@ -61,7 +61,7 @@ export class ContainerBuilder extends Builder {
   async zipDir(src: string, dest: string) {
     return new Promise((resolve, reject) => {
       // create a file to stream archive data to.
-      var output = fs.createWriteStream(dest);
+      var output = fse.createWriteStream(dest);
       var archive = archiver("zip", {
         zlib: { level: 9 }, // Sets the compression level.
       });
