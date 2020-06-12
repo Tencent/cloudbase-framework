@@ -1,5 +1,7 @@
+import fs from "fs";
+import path from "path";
+
 import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
-import { NodeBuilder } from "@cloudbase/node-builder";
 import { plugin as ContainerPlugin } from "@cloudbase/framework-plugin-container";
 import { INodePluginInputs } from "./types";
 import { NodeContainerBuilder } from "./node-container-builder";
@@ -59,6 +61,9 @@ class NodeContainerPlugin extends Plugin {
       entry: this.resolvedInputs.entry || "app.js",
       installDeps: this.resolvedInputs.installDeps,
       port: this.resolvedInputs.containerOptions?.containerPort,
+      hasPackage: fs.existsSync(
+        path.join(this.api.projectPath, "package.json")
+      ),
     });
 
     this.containerPlugin = new ContainerPlugin(
