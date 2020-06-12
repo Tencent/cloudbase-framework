@@ -30,12 +30,7 @@ export class NodeContainerBuilder extends Builder {
 
     await Promise.all([
       this.generator.generate(
-        path.join(__dirname, "../assets/Dockerfile"),
-        distDir,
-        options || {}
-      ),
-      this.generator.generate(
-        path.join(__dirname, "../assets/__launcher.js"),
+        path.join(__dirname, "../assets"),
         distDir,
         options || {}
       ),
