@@ -80,7 +80,7 @@ export class NuxtBuilder extends Builder {
         {
           name: serviceName,
           options: {},
-          source: distDirName,
+          source: distDir,
           entry: "index.main",
         },
       ],

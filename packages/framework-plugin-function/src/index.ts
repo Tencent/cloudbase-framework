@@ -1,7 +1,4 @@
 import path from "path";
-import fs from "fs";
-import { exec } from "child_process";
-import { promisify } from "util";
 
 import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
 
@@ -29,10 +26,11 @@ class FunctionPlugin extends Plugin {
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
 
     this.functions = this.resolvedInputs.functions;
-    this.functionRootPath = path.join(
-      this.api.projectPath,
+    this.functionRootPath = path.isAbsolute(
       this.resolvedInputs.functionRootPath
-    );
+    )
+      ? this.resolvedInputs
+      : path.join(this.api.projectPath, this.resolvedInputs.functionRootPath);
   }
 
   /**
