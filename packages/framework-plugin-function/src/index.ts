@@ -9,7 +9,7 @@ export interface IFunctionPluginInputs {
 }
 
 class FunctionPlugin extends Plugin {
-  protected resolvedInputs: IFunctionPluginInputs;
+  protected resolvedInputs: any;
   protected buildOutput: any;
   protected functions: any[];
   protected functionRootPath: string;
@@ -73,8 +73,6 @@ class FunctionPlugin extends Plugin {
    */
   async build() {
     this.api.logger.debug("FunctionPlugin: build", this.resolvedInputs);
-
-    const { outputPath, cloudPath, buildCommand } = this.resolvedInputs;
   }
 
   /**
