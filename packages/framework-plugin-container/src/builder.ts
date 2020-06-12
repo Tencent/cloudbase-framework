@@ -38,7 +38,7 @@ export class ContainerBuilder extends Builder {
       `${options.name || "container"}.zip`
     );
 
-    this.zipDir(localDir, distFileName);
+    await this.zipDir(localDir, distFileName);
 
     return {
       containers: [
