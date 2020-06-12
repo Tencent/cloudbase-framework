@@ -59,7 +59,7 @@ export class ContainerApi {
       process.env.http_proxy
     );
 
-    const text = await response.text();
+    const text = await (await response.text()).trim();
     if (text !== "success") {
       console.error(text);
       throw new Error("部署云应用代码失败");
