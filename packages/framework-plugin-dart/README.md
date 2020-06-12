@@ -1,4 +1,4 @@
-<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-function">![Tencent CloudBase Framework Function Plugin](https://main.qcloudimg.com/raw/2cd529a816464f59684515f73b0a5622.jpg)</a>
+<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-function">![Tencent CloudBase Framework Function Plugin](https://main.qcloudimg.com/raw/fabde81e6232f0eccf4914721ee2a55c.jpg)</a>
 
 # Tencent CloudBase Framework Function Plugin
 
@@ -8,16 +8,13 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/TencentCloudBase/cloudbase-framework/pulls)
 [![star](https://img.shields.io/github/stars/TencentCloudBase/cloudbase-framework?style=social)](https://github.com/TencentCloudBase/cloudbase-framework)
 
-**云开发 CloudBase Framework 框架「Website」插件**： 通过云开发 **[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework)** 框架将项目下的云函数一键部署到云开发环境，提供生产环境可用的自动弹性伸缩的高性能事件驱动的函数计算服务。可以搭配其他插件如 Website 插件、Node 插件实现云端一体开发。
+**云开发 CloudBase Framework 框架「Dart Server」插件**： 通过云开发 **[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework)** 框架将 Dart Server 一键部署到云开发环境，提供生产环境可用的自动弹性伸缩的高性能 Dart Server 应用服务。可以搭配Flutter框架，实现云端一体开发。
 
 ## 功能特性
 
+- 无须关心底层架构: 只需要开发业务服务，不用适配底层架构
 - 节约成本: 资源伸缩，弹性扩缩容，灵活计费，极大节约资源成本
-- 极简配置：自动检测框架，无须配置
-- 语言支持:
-  - `Node.JS`
-  - `PHP`
-  - `Java`
+- 框架支持: 无缝支持 Dart Server 框架构建的项目
 
 ## 使用方法
 
@@ -27,7 +24,7 @@
 
 ### 步骤二. 进入项目目录进行初始化
 
-如果目前已有函数应用项目
+如果目前已有 Dart Server 应用项目
 
 ```bash
 cloudbase init --without-template
@@ -59,12 +56,11 @@ cloudbase framework:deploy
   "framework": {
     "plugins": {
       "client": {
-        "use": "@cloudbase/framework-plugin-function",
+        "use": "@cloudbase/framework-plugin-dart",
         "inputs": {
-          "buildCommand": "npm run build",
-          "outputPath": "dist",
-          "cloudPath": "/path",
-          "ignore": [".git", ".github", "node_modules", "cloudbaserc.js"]
+          "serviceName": "dartapp",
+          "servicePath": "/dartapp",
+          "localPath": "./"
         }
       }
     }
@@ -74,55 +70,29 @@ cloudbase framework:deploy
 
 ### 配置参数说明
 
-### `functionRootPath`
+### `serviceName`
 
-函数根目录
+必填，服务名，字符串格式，如 `node-api`
 
-### `functions`
+### `servicePath`
 
-函数配置数组，每个函数的配置格式要求如下：
+必填，服务路径配置, 字符串格式, 如 `/node-api`
 
-|     是否必填      | 类型 |                                         描述                                          |                                                               |
-| :---------------: | :--: | :-----------------------------------------------------------------------------------: | ------------------------------------------------------------- |
-|       name        |  是  |                                        String                                         | 云函数名称，即为函数部署后的名称                              |
-|      params       |  否  |                                   Object/JSONObject                                   | CIL 调用云函数时的函数入参                                    |
-|     triggers      |  否  | [`Array`](https://docs.cloudbase.net/cli/functions/configs.html#cloudfunctiontrigger) | 触发器配置                                                    |
-|      handler      |  否  |                                        String                                         | 函数处理方法名称，名称格式支持“文件名称.函数名称”形式         |
-|      ignore       |  否  |                                `String/Array<String>`                                 | 部署/更新云函数代码时的忽略文件，支持 glob 匹配规则           |
-|      timeout      |  否  |                                        Number                                         | 函数超时时间（1 - 60S）                                       |
-|   envVariables    |  否  |                                        Object                                         | 包含环境变量的键值对对象                                      |
-|        vpc        |  否  |           [VPC](https://docs.cloudbase.net/cli/functions/configs.html#vpc)            | 私有网络配置                                                  |
-|      runtime      |  否  |                                        String                                         | 运行时环境配置，可选值： `Nodejs8.9, Nodejs10.15 Php7, Java8` |
-| installDependency |  否  |                                        Boolean                                        | 是否云端安装依赖，目前仅支持 Node.js                          |
+### `localPath`
 
-**注：`runtime` 默认为 `Nodejs10.15`，使用 Node 运行时可不填，使用 Php 和 Java 则必填。**
+选填，本地代码文件夹相对于项目根目录的路径，默认值 `./`
 
-#### [#](https://docs.cloudbase.net/cli/functions/configs.html#cloudfunctiontrigger)CloudFunctionTrigger
+### `localAbsolutePath`
 
-|  名称  | 是否必填 |  类型  |                         描述                          |
-| :----: | :------: | :----: | :---------------------------------------------------: |
-|  name  |    是    | String |                      触发器名称                       |
-|  type  |    是    | String |               触发器类型，可选值：timer               |
-| config |    是    | String | 触发器配置，在定时触发器下，config 格式为 cron 表达式 |
+选填，本地代码文件夹的绝对路径
 
-#### [#](https://docs.cloudbase.net/cli/functions/configs.html#vpc)VPC
+### `version`
 
-|   名称   | 是否必填 |  类型  |    描述     |
-| :------: | :------: | :----: | :---------: |
-|  vpcId   |    是    | String |   VPC Id    |
-| subnetId |    是    | String | VPC 子网 Id |
+选填，版本名，默认值 `1.0.0`
 
-### `servicePaths`
+### `isPublic`
 
-服务路径配置
-
-如
-
-```json
-{
-  "hello-world": "/helloworld"
-}
-```
+选填，是否对外网开放访问，默认值 `true`
 
 ## 更多插件
 
