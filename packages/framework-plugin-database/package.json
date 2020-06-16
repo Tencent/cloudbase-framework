@@ -1,5 +1,5 @@
 {
-  "name": "@cloudbase/framework-plugin-container",
+  "name": "@cloudbase/framework-plugin-database",
   "version": "0.2.6-alpha.0",
   "description": "云开发 Tencent CloudBase Framework Database Plugin 插件，将项目下的后端应用一键部署云开发云应用环境，提供自动弹性伸缩的高性能服务。",
   "author": "Tencent CloudBase Team",
