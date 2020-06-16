@@ -8,7 +8,7 @@
 
 > **云开发 CloudBase Framework** ： 打造云端一体化小程序、Web 应用、移动应用的更快方法
 
-基于云开发 CloudBase Framework 可以方便和应用进行无缝配合，快速接入，为应用引入弹性伸缩、高可用的云服务支持。
+基于云开发 CloudBase Framework 可以方便和应用进行无缝配合，快速接入，为应用引入弹性伸缩、高可用的云服务支持
 
 ![](https://main.qcloudimg.com/raw/18f05eadb428fb281a8ff78ae79087fe.png)
 
