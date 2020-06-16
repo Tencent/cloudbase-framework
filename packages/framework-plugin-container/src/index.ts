@@ -47,7 +47,7 @@ class ContainerPlugin extends Plugin {
       policyType: "cpu",
       policyThreshold: 60,
       containerPort: 80,
-      dockerfilePath: "./Dockfile",
+      dockerfilePath: "./Dockerfile",
       buildDir: "./",
       version: "1.0.0",
       localPath: "./",
