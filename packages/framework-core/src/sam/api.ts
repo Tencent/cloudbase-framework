@@ -1,27 +1,7 @@
-import { CloudApiService } from "@cloudbase/cloud-api";
-
-export interface ISamApiOptions {
-  secretId: string;
-  secretKey: string;
-  token: string;
-  envId: string;
-}
+import { CloudApi } from "../api";
 
 export class SamApi {
-  protected tcbService: CloudApiService;
-
-  constructor({ secretId, secretKey, token, envId }: ISamApiOptions) {
-    this.tcbService = new CloudApiService({
-      service: "tcb",
-      credential: {
-        secretId,
-        secretKey,
-        token,
-      },
-      baseParams: { EnvId: envId },
-      ...(process.env.http_proxy ? { proxy: process.env.http_proxy } : {}),
-    });
-  }
+  constructor() {}
 
   /**
    *
@@ -33,7 +13,7 @@ export class SamApi {
    */
 
   createAndInstall(template: string) {
-    return this.tcbService.request("CreatePrivateExtensionAndInstall", {
+    return CloudApi.tcbService.request("CreatePrivateExtensionAndInstall", {
       Template: template,
     });
   }
@@ -42,7 +22,7 @@ export class SamApi {
    * 查询扩展任务的状态
    */
   fetchExtensionTaskStatus(ids: string[]) {
-    return this.tcbService.request("DescribeExtensionTaskStatus", {
+    return CloudApi.tcbService.request("DescribeExtensionTaskStatus", {
       ExtensionIds: ids,
     });
   }

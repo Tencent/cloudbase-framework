@@ -9,10 +9,6 @@ import { SUPPORTS_TYPE } from "./sam-supports";
 import { SamApi } from "./api";
 
 export interface ISamManagerOptions {
-  secretId: string;
-  secretKey: string;
-  token: string;
-  envId: string;
   projectPath: string;
 }
 
@@ -21,20 +17,9 @@ export class SamManager {
   protected projectPath: string;
   protected samApi: SamApi;
 
-  constructor({
-    secretId,
-    secretKey,
-    token,
-    envId,
-    projectPath,
-  }: ISamManagerOptions) {
+  constructor({ projectPath }: ISamManagerOptions) {
     this.projectPath = projectPath;
-    this.samApi = new SamApi({
-      secretId,
-      secretKey,
-      token,
-      envId,
-    });
+    this.samApi = new SamApi();
   }
 
   /**

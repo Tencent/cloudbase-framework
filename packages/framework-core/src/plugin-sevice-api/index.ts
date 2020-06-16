@@ -4,6 +4,7 @@ import { Logger } from "../Logger";
 import { ResourceProviders } from "../types";
 import { genClickableLink } from "../utils/link";
 import { Generator } from "../generator";
+import { CloudApi } from "../api";
 
 /**
  * 插件服务注入为插件提供的 API
@@ -83,6 +84,11 @@ export default class PluginServiceApi {
    */
   get generator() {
     return new Generator();
+  }
+
+  /** 云API */
+  get cloudApi() {
+    return CloudApi;
   }
 
   /**
