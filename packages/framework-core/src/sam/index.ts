@@ -29,6 +29,10 @@ export class SamManager {
   generate(meta: Record<string, any>, samSections: Record<string, any>[]) {
     // @todo sam support check
     this.samObj = merge(DEFAULT_SAM, meta, ...samSections);
+
+    // this.samObj.Resources = this.samObj.Resources.filter(
+    //   (resource: Record<string, any>) => (SUPPORTS_TYPE as any)[resource.Type]
+    // );
     const samYaml = JSYaml.safeDump(this.samObj);
     fs.writeFileSync(path.join(this.projectPath, "TCBSAM.yaml"), samYaml);
   }
@@ -36,11 +40,43 @@ export class SamManager {
   /**
    * 安装
    */
-  install() {
+  async install() {
     const template = this.readSam();
     // @todo
     // progress
-    return this.samApi.createAndInstall(template);
+    const res = await this.samApi.createAndInstall(JSON.stringify(template));
+    const extensionId = res.ExtensionId;
+
+    this.waitUntil(async () => {
+      const statusRes = await this.samApi.fetchExtensionTaskStatus([
+        extensionId,
+      ]);
+      console.log(statusRes);
+      const taskInfos = statusRes.ExtensionTaskInfo;
+
+      return (
+        taskInfos.filter((item: any) =>
+          ["installing", "uninstalling", "running"].includes(item.Status)
+        ).length === 0
+      );
+    });
+  }
+
+  async waitUntil(fn: () => Promise<boolean>, interval?: 5000) {
+    return new Promise((resolve, reject) => {
+      const timer = setInterval(async () => {
+        try {
+          const result = await fn();
+          if (result) {
+            resolve();
+            clearInterval(timer);
+          }
+        } catch (e) {
+          clearInterval(timer);
+          reject(e);
+        }
+      }, interval || 5000);
+    });
   }
 
   /**
