@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/static-deployer",
-  "version": "0.2.8-alpha.0",
+  "version": "0.2.9-alpha.0",
   "description": "云开发 CloudBase 静态网站部署工具",
   "author": "Weijia Wang <starkwang@126.com>",
   "homepage": "",
@@ -30,7 +30,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@cloudbase/framework-core": "^0.2.8-alpha.0"
+    "@cloudbase/framework-core": "^0.2.9-alpha.0"
   },
   "gitHead": "121d8d09dfdba8a999df3633a991c74c754947d8"
 }
