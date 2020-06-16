@@ -53,12 +53,7 @@ class ContainerPlugin extends Plugin {
       localPath: "./",
     };
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
-    this.containerApi = new ContainerApi({
-      secretId: this.api.secretId,
-      secretKey: this.api.secretKey,
-      token: this.api.token,
-      envId: this.api.envId,
-    });
+    this.containerApi = new ContainerApi(this.api.cloudApi);
     this.builder = new ContainerBuilder({
       projectPath: this.api.projectPath,
     });

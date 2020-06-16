@@ -2,20 +2,23 @@ import { promisify } from "util";
 import figlet from "figlet";
 import chalk from "chalk";
 import { genClickableLink } from "./utils/link";
-const gradient = require("gradient-string");
 
+const gradient = require("gradient-string");
 chalk.level = 1;
 
 import PluginManager from "./plugin-manager";
+import { CloudApi } from "./api";
 import resolveConfig from "./config/resolve-config";
 import Context from "./context";
 import { CloudbaseFrameworkConfig } from "./types";
 import getLogger from "./logger";
 import { SamManager } from "./sam";
+
 export { default as Plugin } from "./plugin";
 export { default as PluginServiceApi } from "./plugin-sevice-api";
 export { Builder } from "./builder";
 export { Deployer } from "./deployer";
+export { CloudApi } from "./api";
 export * from "./types";
 
 const packageInfo = require("../package");
@@ -40,11 +43,9 @@ export async function run(
     });
     console.log(
       chalk.bold(
-        // chalk.bgBlack(
         gradient(["cyan", "rgb(0, 111, 150)", "rgb(0, 246,136)"]).multiline(
           data + "\n"
         )
-        // )
       )
     );
   } catch (e) {}
@@ -73,6 +74,13 @@ export async function run(
     return;
   }
 
+  CloudApi.init({
+    secretId: cloudbaseConfig.secretId,
+    secretKey: cloudbaseConfig.secretKey,
+    token: cloudbaseConfig.token || "",
+    envId: cloudbaseConfig.envId,
+  });
+
   const context = new Context({
     appConfig,
     projectConfig: config,
@@ -85,10 +93,6 @@ export async function run(
   const pluginManager = new PluginManager(context);
   const samManager = new SamManager({
     projectPath,
-    secretId: cloudbaseConfig.secretId,
-    secretKey: cloudbaseConfig.secretKey,
-    token: cloudbaseConfig.token || "",
-    envId: cloudbaseConfig.envId,
   });
 
   const samMeta = {

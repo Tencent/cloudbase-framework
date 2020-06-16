@@ -1,4 +1,4 @@
-import { CloudApiService, fetchStream } from "@cloudbase/cloud-api";
+import { CloudApi } from "@cloudbase/framework-core";
 import fs from "fs";
 
 export interface IApiOptions {
@@ -9,19 +9,10 @@ export interface IApiOptions {
 }
 
 export class ContainerApi {
-  protected tcbService: CloudApiService;
+  protected cloudApi: typeof CloudApi;
 
-  constructor({ secretId, secretKey, token, envId }: IApiOptions) {
-    this.tcbService = new CloudApiService({
-      service: "tcb",
-      credential: {
-        secretId,
-        secretKey,
-        token,
-      },
-      baseParams: { EnvId: envId },
-      ...(process.env.http_proxy ? { proxy: process.env.http_proxy } : ""),
-    });
+  constructor(cloudApi: typeof CloudApi) {
+    this.cloudApi = cloudApi;
   }
 
   /**
@@ -46,7 +37,7 @@ export class ContainerApi {
       `${ProjectGlobalKey}:${ProjectToken}`
     ).toString("base64");
 
-    const response = await fetchStream(
+    const response = await this.cloudApi.fetchStream(
       url,
       {
         method: "PUT",
@@ -70,6 +61,6 @@ export class ContainerApi {
    * 查询 Coding 部署信息
    */
   describeCloudBaseRunBuildServer() {
-    return this.tcbService.request("DescribeCloudBaseRunBuildServer");
+    return this.cloudApi.tcbService.request("DescribeCloudBaseRunBuildServer");
   }
 }
