@@ -62,7 +62,7 @@ export class ContainerApi {
    */
   describeCloudBaseRunBuildServer() {
     return this.cloudApi.tcbService.request("DescribeCloudBaseRunBuildServer", {
-      Bussiness: "framework",
+      Business: "framework",
     });
   }
 }
