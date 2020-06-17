@@ -57,7 +57,7 @@ class NodeContainerPlugin extends Plugin {
    */
   async build() {
     const res = await this.nodeBuilder.build({
-      dockerImage: "node:12",
+      dockerImage: "node:10",
       entry: this.resolvedInputs.entry || "app.js",
       installDeps: this.resolvedInputs.installDeps,
       port: this.resolvedInputs.containerOptions?.containerPort,

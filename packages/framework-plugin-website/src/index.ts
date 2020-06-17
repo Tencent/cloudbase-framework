@@ -87,7 +87,6 @@ class WebsitePlugin extends Plugin {
    * 构建
    */
   async build() {
-    // @todo
     // cloudPath 会影响publicpath 和 baseroute 等配置，需要处理
     this.api.logger.debug("WebsitePlugin: build", this.resolvedInputs);
     await this.installPackage();
