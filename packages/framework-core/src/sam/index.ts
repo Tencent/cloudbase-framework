@@ -8,6 +8,9 @@ import ProgressBar from "progress";
 import { DEFAULT_SAM } from "./default-sam";
 import { SUPPORTS_TYPE } from "./sam-supports";
 import { SamApi } from "./api";
+import getLogger from "../logger";
+
+const logger = getLogger();
 
 export interface ISamManagerOptions {
   projectPath: string;
@@ -46,12 +49,10 @@ export class SamManager {
    */
   async install() {
     const template = this.readSam();
-    // @todo
-    // progress
     let extensionId: string;
+
     try {
       const res = await this.samApi.createAndInstall(JSON.stringify(template));
-      // ResourceInUse;
       extensionId = res.ExtensionId;
     } catch (e) {
       if (e.code === "ResourceInUse") {
@@ -59,11 +60,10 @@ export class SamManager {
       } else {
         throw e;
       }
-      console.log(e, extensionId);
     }
 
-    const bar = new ProgressBar("正在准备部署[:bar] :percent :elapsed s", {
-      complete: "=",
+    const bar = new ProgressBar("正在部署[:bar] :percent :elapsed s", {
+      complete: "░",
       incomplete: " ",
       width: 40,
       total: 100,
@@ -74,13 +74,24 @@ export class SamManager {
       const statusRes = await this.samApi.fetchExtensionTaskStatus([
         extensionId,
       ]);
-      console.log(statusRes);
+
       const taskInfos = statusRes.ExtensionTaskInfo;
 
-      if (taskInfos.length) {
-        const delta = (taskInfos[0].Percent || 0) - percent;
-        percent = taskInfos[0].Percent || 0;
+      const taskInfo = taskInfos[0];
+
+      if (taskInfo) {
+        const delta = (taskInfo.Percent || 0) - percent;
+        percent = taskInfo.Percent || 0;
         bar.tick(delta);
+
+        if (taskInfo.Status === "running") {
+          return true;
+        } else if (taskInfo.Detail) {
+          logger.error(statusRes);
+          throw new Error(
+            `部署失败，错误信息：${taskInfo.Detail}， 请求RequestId：${statusRes.RequestId}`
+          );
+        }
       }
 
       return taskInfos.filter((item: any) => ["running"].includes(item.Status))
