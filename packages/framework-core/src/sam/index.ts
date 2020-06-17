@@ -62,7 +62,7 @@ export class SamManager {
       }
     }
 
-    const bar = new ProgressBar("正在部署[:bar] :percent :elapsed s", {
+    const bar = new ProgressBar("正在部署[:bar] :percent :elapsed s\n", {
       complete: "░",
       incomplete: " ",
       width: 40,

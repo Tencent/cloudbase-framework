@@ -151,38 +151,25 @@ export default class PluginManager {
     let PluginCode: Plugin | undefined;
 
     try {
+      await this.installPackage(pluginData.name);
+    } catch (e) {
+      this.context.logger.error(e);
+      throw new Error(
+        `CloudBase Framwork: can't install plugin npm package '${pluginData.name}'`
+      );
+    }
+
+    try {
       PluginCode = require(path.join(
         this.pluginRegisty,
         "node_modules",
         pluginData.name
       )).plugin;
     } catch (e) {
-      this.context.logger.debug(e);
-      PluginCode = undefined;
-    }
-
-    if (typeof PluginCode === "undefined") {
-      try {
-        await this.installPackage(pluginData.name);
-      } catch (e) {
-        this.context.logger.error(e);
-        throw new Error(
-          `CloudBase Framwork: can't install plugin npm package '${pluginData.name}'`
-        );
-      }
-
-      try {
-        PluginCode = require(path.join(
-          this.pluginRegisty,
-          "node_modules",
-          pluginData.name
-        )).plugin;
-      } catch (e) {
-        this.context.logger.error(e);
-        throw new Error(
-          `CloudBase Framwork: can't find plugin '${pluginData.name}'`
-        );
-      }
+      this.context.logger.error(e);
+      throw new Error(
+        `CloudBase Framwork: can't find plugin '${pluginData.name}'`
+      );
     }
 
     if (!PluginCode) {
@@ -220,17 +207,15 @@ export default class PluginManager {
    * @param packageName
    */
   private async installPackage(packageName: string) {
-    const cwd = process.cwd();
-    process.chdir(this.pluginRegisty);
     await install(
       {
         [packageName]: "latest",
       },
       {
         prefer: "yarn",
+        cwd: this.pluginRegisty,
       }
     );
-    process.chdir(cwd);
   }
 
   /**
