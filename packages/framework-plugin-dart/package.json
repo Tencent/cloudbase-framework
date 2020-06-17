@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/framework-plugin-dart",
-  "version": "0.2.14-alpha.0",
+  "version": "0.2.15-alpha.0",
   "description": "云开发 Tencent CloudBase Framework Dart Server Plugin 插件，将项目下的 Dart Server 一键部署云开发环境，提供自动弹性伸缩的高性能 Dart Server 服务。",
   "author": "Tencent CloudBase Team",
   "homepage": "https://github.com/TencentCloudBase/cloudbase-framework#readme",
@@ -30,8 +30,8 @@
     "url": "https://github.com/TencentCloudBase/cloudbase-framework/issues"
   },
   "dependencies": {
-    "@cloudbase/framework-core": "^0.2.14-alpha.0",
-    "@cloudbase/framework-plugin-container": "^0.2.14-alpha.0",
+    "@cloudbase/framework-core": "^0.2.15-alpha.0",
+    "@cloudbase/framework-plugin-container": "^0.2.15-alpha.0",
     "@types/fs-extra": "^9.0.1",
     "fs-extra": "^9.0.1"
   },
