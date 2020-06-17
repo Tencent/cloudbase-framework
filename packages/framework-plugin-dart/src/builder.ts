@@ -34,19 +34,16 @@ export class DartBuilder extends Builder {
     const containerName = options?.name || "dartapp";
     const appDir = path.join(distDir, containerName);
 
-    await fs.ensureDir(appDir);
+    fs.ensureDirSync(appDir);
 
     // 拷贝整个 dart 项目目录
-    await fs.copy(
-      path.join(projectDir, localDir),
-      appDir
-    )
+    await fs.copy(path.join(projectDir, localDir), appDir);
 
     // 加入 Dockerfile
     await fs.copy(
       path.resolve(__dirname, "../asset/Dockerfile"),
       path.join(appDir, "Dockerfile")
-    )
+    );
 
     return {
       containers: [
@@ -60,10 +57,9 @@ export class DartBuilder extends Builder {
         {
           path: options.path,
           targetType: "container",
-          target: containerName
+          target: containerName,
         },
       ],
     };
   }
-
 }

@@ -50,7 +50,7 @@ export class NodeBuilder extends Builder {
       path.resolve(projectDir, entryFile)
     );
 
-    await fs.ensureDir(appDir);
+    await fs.ensureDirSync(appDir);
     await fs.writeFile(
       path.resolve(appDir, "./index.js"),
       __launcher.replace("/*entryPath*/", entryRelativePath)
