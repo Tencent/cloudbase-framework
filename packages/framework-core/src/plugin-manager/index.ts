@@ -3,6 +3,7 @@ import path from "path";
 import fs from "fs";
 
 import npm from "npm";
+import { install } from "pkg-install";
 
 import { promisify } from "util";
 import { Config } from "../types";
@@ -162,7 +163,7 @@ export default class PluginManager {
 
     if (typeof PluginCode === "undefined") {
       try {
-        await this.installPackageFromNpm(pluginData.name);
+        await this.installPackage(pluginData.name);
       } catch (e) {
         this.context.logger.error(e);
         throw new Error(
@@ -209,6 +210,27 @@ export default class PluginManager {
     return id
       ? this.plugins.filter((plugin) => plugin.id === id)
       : this.plugins;
+  }
+
+  /**
+   * 通过 NPM 安装插件
+   *
+   * 全局安装是考虑其他非 JavaScript 项目底下尽量不产生 node_modules
+   *
+   * @param packageName
+   */
+  private async installPackage(packageName: string) {
+    const cwd = process.cwd();
+    process.chdir(this.pluginRegisty);
+    await install(
+      {
+        [packageName]: "latest",
+      },
+      {
+        prefer: "yarn",
+      }
+    );
+    process.chdir(cwd);
   }
 
   /**
