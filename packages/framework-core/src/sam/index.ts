@@ -3,6 +3,7 @@ import path from "path";
 
 import merge from "lodash.merge";
 import JSYaml from "js-yaml";
+import ProgressBar from "progress";
 
 import { DEFAULT_SAM } from "./default-sam";
 import { SUPPORTS_TYPE } from "./sam-supports";
@@ -27,12 +28,15 @@ export class SamManager {
    *
    */
   generate(meta: Record<string, any>, samSections: Record<string, any>[]) {
-    // @todo sam support check
     this.samObj = merge(DEFAULT_SAM, meta, ...samSections);
 
-    // this.samObj.Resources = this.samObj.Resources.filter(
-    //   (resource: Record<string, any>) => (SUPPORTS_TYPE as any)[resource.Type]
-    // );
+    this.samObj.Resources = Object.entries(this.samObj.Resources)
+      .filter(([, resource]: any) => (SUPPORTS_TYPE as any)[resource.Type])
+      .reduce((prev: Record<string, any>, cur) => {
+        const [name, resource] = cur;
+        prev[name] = resource;
+        return prev;
+      }, {});
     const samYaml = JSYaml.safeDump(this.samObj);
     fs.writeFileSync(path.join(this.projectPath, "TCBSAM.yaml"), samYaml);
   }
@@ -44,21 +48,43 @@ export class SamManager {
     const template = this.readSam();
     // @todo
     // progress
-    const res = await this.samApi.createAndInstall(JSON.stringify(template));
-    const extensionId = res.ExtensionId;
+    let extensionId: string;
+    try {
+      const res = await this.samApi.createAndInstall(JSON.stringify(template));
+      // ResourceInUse;
+      extensionId = res.ExtensionId;
+    } catch (e) {
+      if (e.code === "ResourceInUse") {
+        extensionId = e.original.Message;
+      } else {
+        throw e;
+      }
+      console.log(e, extensionId);
+    }
 
-    this.waitUntil(async () => {
+    const bar = new ProgressBar("正在准备部署[:bar] :percent :elapsed s", {
+      complete: "=",
+      incomplete: " ",
+      width: 40,
+      total: 100,
+    });
+    let percent = 0;
+
+    await this.waitUntil(async () => {
       const statusRes = await this.samApi.fetchExtensionTaskStatus([
         extensionId,
       ]);
       console.log(statusRes);
       const taskInfos = statusRes.ExtensionTaskInfo;
 
-      return (
-        taskInfos.filter((item: any) =>
-          ["installing", "uninstalling", "running"].includes(item.Status)
-        ).length === 0
-      );
+      if (taskInfos.length) {
+        const delta = (taskInfos[0].Percent || 0) - percent;
+        percent = taskInfos[0].Percent || 0;
+        bar.tick(delta);
+      }
+
+      return taskInfos.filter((item: any) => ["running"].includes(item.Status))
+        .length;
     });
   }
 

@@ -98,7 +98,7 @@ export async function run(
   const samMeta = {
     Name: `framework-${appConfig.name || "app"}`,
     Version: appConfig.version || "1.0.0",
-    DisplayName: appConfig.displayName || "云开发应用",
+    DisplayName: `framework-${appConfig.name || "app"}`,
     Description: appConfig.description || "基于 CloudBase Framework 构建",
   };
 
@@ -109,14 +109,13 @@ export async function run(
   if (command === "deploy") {
     await pluginManager.init(module);
     await pluginManager.build(module);
-    await pluginManager.deploy(module);
-
     const compileResult = await pluginManager.compile(module);
     await samManager.generate(
       samMeta,
       JSON.parse(JSON.stringify(compileResult))
     );
     await samManager.install();
+    await pluginManager.deploy(module);
   } else if (command === "compile") {
     await pluginManager.init(module);
     await pluginManager.build(module);
