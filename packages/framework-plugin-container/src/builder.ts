@@ -32,7 +32,7 @@ export class ContainerBuilder extends Builder {
 
   async build(localDir: string, options: BuilderBuildOptions) {
     const { distDir } = this;
-    await fse.ensureDir(distDir);
+    fse.ensureDirSync(distDir);
     const distFileName = path.join(
       distDir,
       `${options.name || "container"}.zip`

@@ -12,7 +12,7 @@ export class Generator {
     distDir: string,
     data: Record<string, any>
   ) {
-    await fse.ensureDir(distDir);
+    fse.ensureDirSync(distDir);
 
     const destFiles: string[] = [];
     await fse.copy(templates, distDir, {
