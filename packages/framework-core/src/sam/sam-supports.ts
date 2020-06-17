@@ -1,5 +1,5 @@
 export const SUPPORTS_TYPE = {
   "CloudBase::CloudBaseRun": true,
-  "CloudBase::StaticStore": true,
-  "CloudBase::Function": true,
+  "CloudBase::StaticStore": false,
+  "CloudBase::Function": false,
 };
