@@ -61,6 +61,8 @@ export class ContainerApi {
    * 查询 Coding 部署信息
    */
   describeCloudBaseRunBuildServer() {
-    return this.cloudApi.tcbService.request("DescribeCloudBaseRunBuildServer");
+    return this.cloudApi.tcbService.request("DescribeCloudBaseRunBuildServer", {
+      Bussiness: "framework",
+    });
   }
 }
