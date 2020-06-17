@@ -21,7 +21,7 @@ interface NodeContainerBuilderOptions {
 export class NodeContainerBuilder extends Builder {
   constructor(options: NodeContainerBuilderOptions) {
     super({
-      type: "node-cotainer",
+      type: "node-container",
       ...options,
     });
   }

@@ -46,10 +46,6 @@ export abstract class Builder {
 
     const buildsDir = path.join(os.homedir(), ".cloudbase-framework/builds");
 
-    if (!fs.existsSync(buildsDir)) {
-      fs.mkdirSync(buildsDir, { recursive: true });
-    }
-
     this.distDir = resolve(buildsDir, this.distDirName);
     this.logger = getLogger();
     this.generator = new Generator();
