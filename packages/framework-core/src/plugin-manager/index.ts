@@ -207,15 +207,19 @@ export default class PluginManager {
    * @param packageName
    */
   private async installPackage(packageName: string) {
+    const cwd = process.cwd();
+    process.chdir(this.pluginRegisty);
+
     await install(
       {
-        [packageName]: "latest",
+        [packageName]: undefined,
       },
       {
         prefer: "yarn",
-        cwd: this.pluginRegisty,
       }
     );
+
+    process.chdir(cwd);
   }
 
   /**
