@@ -5,6 +5,7 @@ import { ResourceProviders } from "../types";
 import { genClickableLink } from "../utils/link";
 import { Generator } from "../generator";
 import { CloudApi } from "../api";
+import { emoji } from "../utils/emoji";
 
 /**
  * 插件服务注入为插件提供的 API
@@ -96,5 +97,12 @@ export default class PluginServiceApi {
    */
   get genClickableLink() {
     return genClickableLink;
+  }
+
+  /**
+   * 安全地使用emoji
+   */
+  get emoji() {
+    return emoji;
   }
 }

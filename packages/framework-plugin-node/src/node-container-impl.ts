@@ -24,6 +24,7 @@ class NodeContainerPlugin extends Plugin {
       entry: "app.js",
       path: "/nodeapp",
       name: "node",
+      installDeps: true,
     };
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);

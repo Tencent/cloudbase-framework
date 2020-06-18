@@ -104,7 +104,9 @@ class DartPlugin extends Plugin {
     }
     url = this.api.genClickableLink(url);
 
-    this.api.logger.info(`🚀 Dart 应用部署成功,访问地址: ${url}`);
+    this.api.logger.info(
+      `${this.api.emoji("🚀")} Dart 应用部署成功,访问地址: ${url}`
+    );
   }
 }
 
