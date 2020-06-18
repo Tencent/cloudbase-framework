@@ -152,7 +152,7 @@ export default class PluginManager {
     let PluginCode: Plugin | undefined;
 
     try {
-      await this.pluginInstallState;
+      await this.pluginInstallPromise;
     } catch (e) {
       this.context.logger.error(e);
       throw new Error(
@@ -204,14 +204,14 @@ export default class PluginManager {
    * @param packageName
    */
   private async installPackage(packageInfo: Record<string, string>) {
-    this.context.logger.info(`📦 install plugins...`);
+    this.context.logger.info(`📦 install plugins`);
     await install(
       {
         ...packageInfo,
         "pkg-install": "latest",
       },
       {
-        prefer: "yarn",
+        prefer: "npm",
         cwd: this.pluginRegisty,
       }
     );
