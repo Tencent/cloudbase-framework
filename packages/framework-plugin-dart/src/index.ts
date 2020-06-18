@@ -98,7 +98,13 @@ class DartPlugin extends Plugin {
 
     await this.dartBuilder.clean();
 
-    this.api.logger.info(`🚀 Dart 应用部署成功`);
+    let url = `https://${this.api.envId}.service.tcloudbase.com${this.resolvedInputs.servicePath}`;
+    if (url[url.length - 1] !== "/") {
+      url = url + "/";
+    }
+    url = this.api.genClickableLink(url);
+
+    this.api.logger.info(`🚀 Dart 应用部署成功,访问地址: ${url}`);
   }
 }
 
