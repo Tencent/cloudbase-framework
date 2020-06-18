@@ -81,6 +81,8 @@ export async function run(
     envId: cloudbaseConfig.envId,
   });
 
+  const appId = await getAppId(CloudApi);
+
   const context = new Context({
     appConfig,
     projectConfig: config,
@@ -95,10 +97,11 @@ export async function run(
     projectPath,
   });
 
+  const appName = `fx-${appConfig.name || "app"}-${appId}`;
   const samMeta = {
-    Name: `framework-${appConfig.name || "app"}`,
+    Name: appName,
     Version: appConfig.version || "1.0.0",
-    DisplayName: `framework-${appConfig.name || "app"}`,
+    DisplayName: appName,
     Description: appConfig.description || "基于 CloudBase Framework 构建",
   };
 
@@ -128,4 +131,9 @@ export async function run(
   }
 
   logger.info("✨ done");
+}
+
+async function getAppId(cloudApi: typeof CloudApi) {
+  const res = await cloudApi.tcbService.request("DescribeEnvs");
+  return res.EnvList[0].Storages[0].AppId;
 }

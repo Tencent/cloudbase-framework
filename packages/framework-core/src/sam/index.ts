@@ -62,7 +62,7 @@ export class SamManager {
       }
     }
 
-    const bar = new ProgressBar("正在部署[:bar] :percent :elapsed s\n", {
+    const bar = new ProgressBar("正在部署[:bar] :percent :elapsed s", {
       complete: "░",
       incomplete: " ",
       width: 40,
@@ -87,7 +87,6 @@ export class SamManager {
         if (taskInfo.Status === "running") {
           return true;
         } else if (taskInfo.Detail) {
-          logger.error(statusRes);
           throw new Error(
             `部署失败，错误信息：${taskInfo.Detail}， 请求RequestId：${statusRes.RequestId}`
           );
