@@ -4,6 +4,7 @@ import fs from "fs";
 
 import { install } from "pkg-install";
 
+import { emoji } from "../utils/emoji";
 import { Config } from "../types";
 import Context from "../context";
 import Plugin from "../plugin";
@@ -68,7 +69,7 @@ export default class PluginManager {
   async build(id?: string) {
     return this.callPluginHook("build", {
       id,
-      icon: "🔨",
+      icon: emoji("🔨"),
     });
   }
 
@@ -80,7 +81,7 @@ export default class PluginManager {
   async compile(id?: string) {
     return this.callPluginHook("compile", {
       id,
-      icon: "🧬",
+      icon: emoji("🧬"),
     });
   }
 
@@ -92,7 +93,7 @@ export default class PluginManager {
   async deploy(id?: string) {
     return this.callPluginHook("deploy", {
       id,
-      icon: "🚀",
+      icon: emoji("🚀"),
     });
   }
 
@@ -113,7 +114,7 @@ export default class PluginManager {
         }
 
         this.context.logger.info(
-          `${icon || "🔧"} ${hook}: ${pluginData.id}...`
+          `${icon || emoji("🔧")} ${hook}: ${pluginData.id}...`
         );
 
         return (pluginInstance[hook] as any)(params);
@@ -204,7 +205,7 @@ export default class PluginManager {
    * @param packageName
    */
   private async installPackage(packageInfo: Record<string, string>) {
-    this.context.logger.info(`📦 install plugins`);
+    this.context.logger.info(`${emoji("📦")} install plugins`);
     await install(
       {
         ...packageInfo,

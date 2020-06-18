@@ -107,7 +107,9 @@ class NodePlugin extends Plugin {
       url = url + "/";
     }
     url = this.api.genClickableLink(url);
-    this.api.logger.info(`🚀 Node 应用部署成功,访问地址: ${url}`);
+    this.api.logger.info(
+      `${this.api.emoji("🚀")} Node 应用部署成功,访问地址: ${url}`
+    );
   }
 }
 

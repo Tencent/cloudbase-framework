@@ -97,9 +97,13 @@ class FunctionPlugin extends Plugin {
             force: true,
             functionRootPath: this.functionRootPath,
           });
-          this.api.logger.info(`🚀 [${func.name}] 云函数部署成功`);
+          this.api.logger.info(
+            `${this.api.emoji("🚀")} [${func.name}] 云函数部署成功`
+          );
         } catch (e) {
-          this.api.logger.error(`🙅‍♂️ [${func.name}] 函数部署失败`);
+          this.api.logger.error(
+            `${this.api.emoji("🙅‍♂")} [${func.name}] 函数部署失败`
+          );
           throw new Error(e.message);
         }
       })
@@ -129,12 +133,14 @@ class FunctionPlugin extends Plugin {
             url = url + "/";
           }
           url = this.api.genClickableLink(url);
-          this.api.logger.info(`🚀 服务发布成功，访问地址: ${url}`);
+          this.api.logger.info(
+            `${this.api.emoji("🚀")} 云接入服务发布成功，访问地址: ${url}`
+          );
         }
       )
     );
 
-    this.api.logger.info(`🚀 云函数部署成功`);
+    this.api.logger.info(`${this.api.emoji("🚀")} 云函数部署成功`);
   }
 
   functionConfigToSAM(funcitonConfig: any) {
