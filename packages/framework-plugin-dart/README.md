@@ -1,6 +1,6 @@
 <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-function">![Tencent CloudBase Framework Function Plugin](https://main.qcloudimg.com/raw/fabde81e6232f0eccf4914721ee2a55c.jpg)</a>
 
-# Tencent CloudBase Framework Function Plugin
+# Tencent CloudBase Framework Dart Server Plugin
 
 [![Github License](https://img.shields.io/github/license/TencentCloudBase/cloudbase-framework)](LICENSE)
 [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-function)](https://www.npmjs.com/package/@cloudbase/framework-plugin-function)
@@ -8,7 +8,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/TencentCloudBase/cloudbase-framework/pulls)
 [![star](https://img.shields.io/github/stars/TencentCloudBase/cloudbase-framework?style=social)](https://github.com/TencentCloudBase/cloudbase-framework)
 
-**云开发 CloudBase Framework 框架「Dart Server」插件**： 通过云开发 **[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework)** 框架将 Dart Server 一键部署到云开发环境，提供生产环境可用的自动弹性伸缩的高性能 Dart Server 应用服务。可以搭配Flutter框架，实现云端一体开发。
+**云开发 CloudBase Framework 框架「Dart Server」插件**： 通过云开发 **[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework)** 框架将 Dart Server 一键部署到云开发环境，提供生产环境可用的自动弹性伸缩的高性能 Dart Server 应用服务。可以搭配 Flutter 框架，实现云端一体开发。
 
 ## 功能特性
 
