@@ -41,7 +41,7 @@ export class DartBuilder extends Builder {
 
     // 加入 Dockerfile
     await fs.copy(
-      path.resolve(__dirname, "../asset/Dockerfile"),
+      path.resolve(__dirname, "../assets/Dockerfile"),
       path.join(appDir, "Dockerfile")
     );
 
