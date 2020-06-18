@@ -2,10 +2,8 @@ import os from "os";
 import path from "path";
 import fs from "fs";
 
-import npm from "npm";
 import { install } from "pkg-install";
 
-import { promisify } from "util";
 import { Config } from "../types";
 import Context from "../context";
 import Plugin from "../plugin";
@@ -36,6 +34,8 @@ export default class PluginManager {
   context: Context;
   plugins: PluginData[];
   pluginRegisty: string;
+  pluginInstallPromise: Promise<boolean>;
+  pluginInstallState: boolean = false;
 
   constructor(context: Context) {
     this.context = context;
@@ -46,6 +46,7 @@ export default class PluginManager {
       ".cloudbase-framework/registry"
     );
     this.initRegistry();
+    this.pluginInstallPromise = this.installPlugins();
   }
 
   /**
@@ -151,7 +152,7 @@ export default class PluginManager {
     let PluginCode: Plugin | undefined;
 
     try {
-      await this.installPackage(pluginData.name);
+      await this.pluginInstallState;
     } catch (e) {
       this.context.logger.error(e);
       throw new Error(
@@ -200,38 +201,20 @@ export default class PluginManager {
   }
 
   /**
-   * 通过 NPM 安装插件
-   *
-   * 全局安装是考虑其他非 JavaScript 项目底下尽量不产生 node_modules
-   *
    * @param packageName
    */
-  private async installPackage(packageName: string) {
+  private async installPackage(packageInfo: Record<string, string>) {
+    this.context.logger.info(`📦 install plugins...`);
     await install(
       {
-        [packageName]: "latest",
-        "pkg-install": undefined,
+        ...packageInfo,
+        "pkg-install": "latest",
       },
       {
         prefer: "yarn",
         cwd: this.pluginRegisty,
       }
     );
-  }
-
-  /**
-   * 通过 NPM 安装插件
-   *
-   * 全局安装是考虑其他非 JavaScript 项目底下尽量不产生 node_modules
-   *
-   * @param packageName
-   */
-  private async installPackageFromNpm(packageName: string) {
-    const cwd = process.cwd();
-    process.chdir(this.pluginRegisty);
-    await promisify(npm.load as (cli: any, callback: () => void) => void)({});
-    await promisify(npm.commands.install)([packageName + "@latest"]);
-    process.chdir(cwd);
   }
 
   /**
@@ -249,6 +232,19 @@ export default class PluginManager {
           name: "cloudbase-framework-registry",
         })
       );
+    }
+  }
+
+  async installPlugins() {
+    if (this.pluginInstallState) {
+      return true;
+    } else {
+      const packageInfo = this.plugins.reduce((prev, curr) => {
+        (prev as any)[curr.name] = "latest";
+        return prev;
+      }, {});
+      await this.installPackage(packageInfo);
+      return true;
     }
   }
 }
