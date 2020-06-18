@@ -109,16 +109,21 @@ class FunctionPlugin extends Plugin {
     await Promise.all(
       Object.entries(this.resolvedInputs.servicePaths).map(
         async ([functionName, servicePath]) => {
-          const res = await this.api.cloudbaseManager.commonService().call({
-            Action: "CreateCloudBaseGWAPI",
-            Param: {
-              ServiceId: this.api.envId,
-              Path: servicePath,
-              Type: 1,
-              Name: functionName,
-            },
-          });
-
+          try {
+            await this.api.cloudbaseManager.commonService().call({
+              Action: "CreateCloudBaseGWAPI",
+              Param: {
+                ServiceId: this.api.envId,
+                Path: servicePath,
+                Type: 1,
+                Name: functionName,
+              },
+            });
+          } catch (e) {
+            if (!e.message.includes("api created")) {
+              throw e;
+            }
+          }
           let url = `https://${this.api.envId}.service.tcloudbase.com${servicePath}`;
           if (url[url.length - 1] !== "/") {
             url = url + "/";
