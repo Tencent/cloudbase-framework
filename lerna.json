@@ -1,6 +1,8 @@
 {
-  "packages": ["packages/*"],
-  "version": "0.2.26-alpha.0",
+  "packages": [
+    "packages/*"
+  ],
+  "version": "0.2.27-alpha.0",
   "publishConfig": {
     "access": "public"
   }
