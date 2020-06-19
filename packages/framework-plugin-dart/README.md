@@ -1,4 +1,4 @@
-<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-function">![Tencent CloudBase Framework Function Plugin](https://main.qcloudimg.com/raw/fabde81e6232f0eccf4914721ee2a55c.jpg)</a>
+<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-dart">![Tencent CloudBase Framework Function Plugin](https://main.qcloudimg.com/raw/fabde81e6232f0eccf4914721ee2a55c.jpg)</a>
 
 # Tencent CloudBase Framework Dart Server Plugin
 
