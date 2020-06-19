@@ -54,6 +54,7 @@
     "inquirer": "^7.1.0",
     "js-yaml": "^3.14.0",
     "lodash.merge": "^4.6.2",
+    "pkg-install": "^1.0.0",
     "progress": "^2.0.3",
     "terminal-link": "^2.1.1",
     "winston": "^3.2.1"
