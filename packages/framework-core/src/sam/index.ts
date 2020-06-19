@@ -49,52 +49,64 @@ export class SamManager {
   async install() {
     const template = this.readSam();
     let extensionId: string;
-
     try {
-      const res = await this.samApi.createAndInstall(JSON.stringify(template));
-      extensionId = res.ExtensionId;
-    } catch (e) {
-      if (e.code === "ResourceInUse") {
-        extensionId = e.original.Message;
-      } else {
-        throw e;
-      }
-    }
-
-    const bar = new ProgressBar("正在部署[:bar] :percent :elapsed s", {
-      complete: "░",
-      incomplete: " ",
-      width: 40,
-      total: 100,
-    });
-    let percent = 0;
-
-    await this.waitUntil(async () => {
-      const statusRes = await this.samApi.fetchExtensionTaskStatus([
-        extensionId,
-      ]);
-
-      const taskInfos = statusRes.ExtensionTaskInfo;
-
-      const taskInfo = taskInfos[0];
-
-      if (taskInfo) {
-        const delta = (taskInfo.Percent || 0) - percent;
-        percent = taskInfo.Percent || 0;
-        bar.tick(delta);
-
-        if (taskInfo.Status === "running") {
-          return true;
-        } else if (taskInfo.Detail) {
-          throw new Error(
-            `部署失败，错误信息：${taskInfo.Detail}， 请求RequestId：${statusRes.RequestId}`
-          );
+      try {
+        const res = await this.samApi.createAndInstall(
+          JSON.stringify(template)
+        );
+        extensionId = res.ExtensionId;
+      } catch (e) {
+        if (e.code === "ResourceInUse") {
+          extensionId = e.original.Message;
+        } else {
+          throw e;
         }
       }
 
-      return taskInfos.filter((item: any) => ["running"].includes(item.Status))
-        .length;
-    });
+      const bar = new ProgressBar("正在部署[:bar] :percent :elapsed s", {
+        complete: "░",
+        incomplete: " ",
+        width: 40,
+        total: 100,
+      });
+      let percent = 0;
+
+      await this.waitUntil(async () => {
+        const statusRes = await this.samApi.fetchExtensionTaskStatus([
+          extensionId,
+        ]);
+
+        const taskInfos = statusRes.ExtensionTaskInfo;
+
+        const taskInfo = taskInfos[0];
+
+        if (taskInfo) {
+          const delta = (taskInfo.Percent || 0) - percent;
+          percent = taskInfo.Percent || 0;
+          bar.tick(delta);
+
+          if (taskInfo.Status === "running") {
+            return true;
+          } else if (taskInfo.Detail) {
+            throw new Error(
+              `部署失败，错误信息：${taskInfo.Detail}， 请求RequestId：${statusRes.RequestId}`
+            );
+          }
+        }
+
+        return taskInfos.filter((item: any) =>
+          ["running"].includes(item.Status)
+        ).length;
+      });
+    } catch (e) {
+      this.clear();
+      throw e;
+    }
+    this.clear();
+  }
+
+  clear() {
+    fs.unlinkSync(path.join(this.projectPath, "TCBSAM.yaml"));
   }
 
   async waitUntil(fn: () => Promise<boolean>, interval?: 5000) {
