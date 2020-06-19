@@ -1,6 +1,6 @@
-<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-container">![Tencent CloudBase Framework Container Plugin](https://main.qcloudimg.com/raw/7e5e467a45bdfb5f5f4cc2eb27ea71bb.jpg)</a>
+<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-database">![Tencent CloudBase Framework Database Plugin](https://main.qcloudimg.com/raw/41a9bd0e62c638ab40cb8b8cba26696b.jpg)</a>
 
-# Tencent CloudBase Framework DataBase Plugin
+# Tencent CloudBase Framework Database Plugin
 
 [![Github License](https://img.shields.io/github/license/TencentCloudBase/cloudbase-framework)](LICENSE)
 [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-container)](https://www.npmjs.com/package/@cloudbase/framework-plugin-container)
@@ -8,7 +8,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/TencentCloudBase/cloudbase-framework/pulls)
 [![star](https://img.shields.io/github/stars/TencentCloudBase/cloudbase-framework?style=social)](https://github.com/TencentCloudBase/cloudbase-framework)
 
-**云开发 CloudBase Framework 框架「Database」插件**： 通过云开发 **[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework)** 框架将项目应用一键部署到云开发的云应用环境，提供生产环境可用的自动弹性伸缩的高性能的容器计算服务。可以搭配其他插件如 Website 插件、Node 插件实现云端一体开发。
+**云开发 CloudBase Framework 框架「Database」插件**： 通过云开发 **[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework)** 框架一键配置云开发数据库集合、索引，使用高性能的 Serverless 化的 NoSQL 数据库服务。可以搭配其他插件如 Website 插件、Node 插件实现云端一体开发。
 
 ## 功能特性
 
@@ -67,6 +67,42 @@ cloudbase framework:deploy
 ```
 
 ### 配置参数说明
+
+### `collections`
+
+必填，数据库集合信息，数组类型
+
+| 属性名称       | 类型     | 长度   | 是否必填 | 描述                                                                                                                                                                                          |
+| :------------- | :------- | :----- | :------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| collectionName | `String` | 1-64   | 是       | 集合名称                                                                                                                                                                                      |
+| description    | `String` | 1-128  | 是       | 描述信息                                                                                                                                                                                      |
+| createIndexes  | Array.   | 1-20   | 否       | 创建的索引                                                                                                                                                                                    |
+| dropIndexes    | Array.   | 1-20   | 否       | 删除的索引                                                                                                                                                                                    |
+| aclTag         | `String` | 1-32   | 否       | 权限标签。包含以下取值： READONLY：所有用户可读，仅创建者和管理员可写 PRIVATE：仅创建者及管理员可读写 ADMINWRITE：所有用户可读，仅管理员可写 ADMINONLY：仅管理员可读写 CUSTOM：自定义安全规则 |
+| aclRule        | `String` | 1-1024 | 否       | aclTag 为 CUSTOM 时，安全规则内容                                                                                                                                                             |
+
+#### createIndex 对象
+
+| 属性名称 | 类型          | 长度 | 是否必填 | 描述         |
+| :------- | :------------ | :--- | :------- | :----------- |
+| name     | `String`      | 1-64 | 是       | 索引名称     |
+| unique   | `Boolean`     | -    | 是       | 是否唯一索引 |
+| keys     | Array.< key > | 1-20 | 是       | 描述信息     |
+
+**key 对象**
+
+| 属性名称  | 类型     | 长度 | 是否必填 | 描述                                                            |
+| :-------- | :------- | :--- | :------- | :-------------------------------------------------------------- |
+| name      | `String` | 1-64 | 是       | 字段名                                                          |
+| direction | `String` | 1-8  | 是       | 字段排序，可枚举值：-1（降序）、1（升序）、2dsphere（地理位置） |
+
+#### dropIndex 对象
+
+| 属性名称 | 类型     | 长度 | 是否必填 | 描述     |
+| :------- | :------- | :--- | :------- | :------- |
+| name     | `String` | 1-64 | 是       | 索引名称 |
+
+> 安全规则设置：https://tcloud-dev.oa.com/document/product/705/40451?!preview&!document=1
 
 ## 更多插件
 
