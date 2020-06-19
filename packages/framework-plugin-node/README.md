@@ -8,7 +8,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/TencentCloudBase/cloudbase-framework/pulls)
 [![star](https://img.shields.io/github/stars/TencentCloudBase/cloudbase-framework?style=social)](https://github.com/TencentCloudBase/cloudbase-framework)
 
-**云开发 CloudBase Framework 框架「Node.js App」插件**： 通过云开发 **[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework)** 框架将 Node 应用一键部署云开发环境，提供自动弹性伸缩的高性能 Node 应用服务。可以搭配其他插件如 Website 插件、函数插件实现云端一体开发。
+**云开发 CloudBase Framework 框架「Node.js App」插件**： 通过云开发 **[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework)** 框架将 Node 应用一键部署云开发环境，提供自动弹性伸缩的高性能 Node 应用服务，支持底层部署为函数或者 Serverless 云应用，可以搭配其他插件如 Website 插件、函数插件实现云端一体开发。
 
 ## 功能特性
 
@@ -58,7 +58,7 @@ cloudbase framework:deploy
   "envId": "{{envId}}",
   "framework": {
     "plugins": {
-      "client": {
+      "server": {
         "use": "@cloudbase/framework-plugin-node",
         "inputs": {
           "entry": "app.js",
@@ -94,11 +94,39 @@ module.exports = app;
 
 ### `path`
 
-访问子路径，如 `/node-app`
+必填，访问子路径，如 `/node-app`
 
 ### `name`
 
-服务名，如`node-app`
+必填，服务名，如`node-app`
+
+### `platform`
+
+选填，底层使用平台，支持 `container`（ serverless 云应用） 和 `function` （云函数）, 默认是 `function`
+
+### `containerOptions`
+
+选填，当 `platform` 选择 `container` 时，可以支持自定义更多高级设置，例如 CPU 内存等
+
+例如
+
+```json
+{
+  "use": "@cloudbase/framework-plugin-node",
+  "inputs": {
+    "entry": "app.js",
+    "path": "/nodeapp",
+    "name": "nodeapp",
+    "platform": "container",
+    "containerOptions": {
+      "cpu": 2,
+      "mem": 2
+    }
+  }
+}
+```
+
+具体配置信息请参考 [@cloudbase/framework-plugin-container](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-container#cpu) 配置
 
 ## 更多插件
 
@@ -107,5 +135,4 @@ module.exports = app;
 ## 文档资料
 
 - 云开发官网地址： [https://cloudbase.net/](https://cloudbase.net/)
-- 云开发静态网站开通指南：[https://docs.cloudbase.net/hosting/](https://docs.cloudbase.net/hosting/)
 - 云开发控制台地址： [https://console.cloud.tencent.com/tcb](https://console.cloud.tencent.com/tcb)
