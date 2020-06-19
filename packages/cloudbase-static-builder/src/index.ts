@@ -1,56 +1,49 @@
-import path from 'path'
-import fs from 'fs-extra'
-import { Builder } from '@cloudbase/framework-core'
-import cpy from 'cpy'
-import anymatch from 'anymatch'
+import { Builder } from "@cloudbase/framework-core";
+import cpy from "cpy";
 
 interface StaticBuilderBuildOptions {
   /**
    * 云接入路径
    */
-  path?: string
+  path?: string;
 }
 
 interface StaticBuilderOptions {
   /**
    * 项目根目录的绝对路径
    */
-  projectPath: string,
-  copyRoot?: string
+  projectPath: string;
+  copyRoot?: string;
 }
 
 export class StaticBuilder extends Builder {
-  private copyRoot: string
+  private copyRoot: string;
   constructor(options: StaticBuilderOptions) {
     super({
-      type: 'static',
-      ...options
+      type: "static",
+      ...options,
     });
-    this.copyRoot = options.copyRoot || this.projectDir
+    this.copyRoot = options.copyRoot || this.projectDir;
   }
   async build(includes: string[], options: StaticBuilderBuildOptions = {}) {
-    await cpy(
-      includes,
-      this.distDir,
-      {
-        cwd: this.copyRoot,
-        parents: true
-      }
-    )
+    await cpy(includes, this.distDir, {
+      cwd: this.copyRoot,
+      parents: true,
+    });
     return {
       static: [
         {
           src: this.distDir,
-          cloudPath: options.path || '/'
+          cloudPath: options.path || "/",
         },
       ],
       routes: [
         {
-          path: options.path || '/',
-          targetType: 'static',
-          target: options.path || '/'
+          path: options.path || "/",
+          targetType: "static",
+          target: options.path || "/",
         },
-      ]
+      ],
     };
   }
-};
+}

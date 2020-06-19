@@ -2,20 +2,23 @@ import { promisify } from "util";
 import figlet from "figlet";
 import chalk from "chalk";
 import { genClickableLink } from "./utils/link";
-const gradient = require("gradient-string");
 
+const gradient = require("gradient-string");
 chalk.level = 1;
 
 import PluginManager from "./plugin-manager";
+import { CloudApi } from "./api";
 import resolveConfig from "./config/resolve-config";
 import Context from "./context";
 import { CloudbaseFrameworkConfig } from "./types";
 import getLogger from "./logger";
-import { genSAM } from "./sam";
+import { SamManager } from "./sam";
+
 export { default as Plugin } from "./plugin";
 export { default as PluginServiceApi } from "./plugin-sevice-api";
 export { Builder } from "./builder";
 export { Deployer } from "./deployer";
+export { CloudApi } from "./api";
 export * from "./types";
 
 const packageInfo = require("../package");
@@ -40,11 +43,9 @@ export async function run(
     });
     console.log(
       chalk.bold(
-        // chalk.bgBlack(
         gradient(["cyan", "rgb(0, 111, 150)", "rgb(0, 246,136)"]).multiline(
           data + "\n"
         )
-        // )
       )
     );
   } catch (e) {}
@@ -57,7 +58,12 @@ export async function run(
 `
   );
 
-  if (!projectPath || !cloudbaseConfig) {
+  if (
+    !projectPath ||
+    !cloudbaseConfig ||
+    !cloudbaseConfig.secretId ||
+    !cloudbaseConfig.secretKey
+  ) {
     throw new Error("CloudBase Framework: config info missing");
   }
 
@@ -67,6 +73,15 @@ export async function run(
     logger.info("⚠️ 未识别到框架配置");
     return;
   }
+
+  CloudApi.init({
+    secretId: cloudbaseConfig.secretId,
+    secretKey: cloudbaseConfig.secretKey,
+    token: cloudbaseConfig.token || "",
+    envId: cloudbaseConfig.envId,
+  });
+
+  const appId = await getAppId(CloudApi);
 
   const context = new Context({
     appConfig,
@@ -78,6 +93,17 @@ export async function run(
   });
 
   const pluginManager = new PluginManager(context);
+  const samManager = new SamManager({
+    projectPath,
+  });
+
+  const appName = `fx-${appConfig.name || "app"}-${appId}`;
+  const samMeta = {
+    Name: appName,
+    Version: appConfig.version || "1.0.0",
+    DisplayName: appName,
+    Description: appConfig.description || "基于 CloudBase Framework 构建",
+  };
 
   if (!SUPPORT_COMMANDS.includes(command)) {
     throw new Error(`CloudBase Framwork: not support command '${command}'`);
@@ -86,13 +112,28 @@ export async function run(
   if (command === "deploy") {
     await pluginManager.init(module);
     await pluginManager.build(module);
+    const compileResult = await pluginManager.compile(module);
+    await samManager.generate(
+      samMeta,
+      JSON.parse(JSON.stringify(compileResult))
+    );
+    await samManager.install();
     await pluginManager.deploy(module);
   } else if (command === "compile") {
     await pluginManager.init(module);
     await pluginManager.build(module);
+
     const compileResult = await pluginManager.compile(module);
-    genSAM(projectPath, ...JSON.parse(JSON.stringify(compileResult)));
+    await samManager.generate(
+      samMeta,
+      JSON.parse(JSON.stringify(compileResult))
+    );
   }
 
   logger.info("✨ done");
+}
+
+async function getAppId(cloudApi: typeof CloudApi) {
+  const res = await cloudApi.tcbService.request("DescribeEnvs");
+  return res.EnvList[0].Storages[0].AppId;
 }

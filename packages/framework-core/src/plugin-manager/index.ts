@@ -2,9 +2,9 @@ import os from "os";
 import path from "path";
 import fs from "fs";
 
-import npm from "npm";
+import { install } from "pkg-install";
 
-import { promisify } from "util";
+import { emoji } from "../utils/emoji";
 import { Config } from "../types";
 import Context from "../context";
 import Plugin from "../plugin";
@@ -35,6 +35,8 @@ export default class PluginManager {
   context: Context;
   plugins: PluginData[];
   pluginRegisty: string;
+  pluginInstallPromise: Promise<boolean>;
+  pluginInstallState: boolean = false;
 
   constructor(context: Context) {
     this.context = context;
@@ -45,10 +47,11 @@ export default class PluginManager {
       ".cloudbase-framework/registry"
     );
     this.initRegistry();
+    this.pluginInstallPromise = this.installPlugins();
   }
 
   /**
-   * 构建
+   * 初始化检测
    *
    * @param id
    */
@@ -66,7 +69,7 @@ export default class PluginManager {
   async build(id?: string) {
     return this.callPluginHook("build", {
       id,
-      icon: "🔨",
+      icon: emoji("🔨"),
     });
   }
 
@@ -78,7 +81,7 @@ export default class PluginManager {
   async compile(id?: string) {
     return this.callPluginHook("compile", {
       id,
-      icon: "🧬",
+      icon: emoji("🧬"),
     });
   }
 
@@ -90,7 +93,7 @@ export default class PluginManager {
   async deploy(id?: string) {
     return this.callPluginHook("deploy", {
       id,
-      icon: "🚀",
+      icon: emoji("🚀"),
     });
   }
 
@@ -111,7 +114,7 @@ export default class PluginManager {
         }
 
         this.context.logger.info(
-          `${icon || "🔧"} ${hook}: ${pluginData.id}...`
+          `${icon || emoji("🔧")} ${hook}: ${pluginData.id}...`
         );
 
         return (pluginInstance[hook] as any)(params);
@@ -150,38 +153,25 @@ export default class PluginManager {
     let PluginCode: Plugin | undefined;
 
     try {
+      await this.pluginInstallPromise;
+    } catch (e) {
+      this.context.logger.error(e);
+      throw new Error(
+        `CloudBase Framwork: can't install plugin npm package '${pluginData.name}'`
+      );
+    }
+
+    try {
       PluginCode = require(path.join(
         this.pluginRegisty,
         "node_modules",
         pluginData.name
       )).plugin;
     } catch (e) {
-      this.context.logger.debug(e);
-      PluginCode = undefined;
-    }
-
-    if (typeof PluginCode === "undefined") {
-      try {
-        await this.installPackageFromNpm(pluginData.name);
-      } catch (e) {
-        this.context.logger.error(e);
-        throw new Error(
-          `CloudBase Framwork: can't install plugin npm package '${pluginData.name}'`
-        );
-      }
-
-      try {
-        PluginCode = require(path.join(
-          this.pluginRegisty,
-          "node_modules",
-          pluginData.name
-        )).plugin;
-      } catch (e) {
-        this.context.logger.error(e);
-        throw new Error(
-          `CloudBase Framwork: can't find plugin '${pluginData.name}'`
-        );
-      }
+      this.context.logger.error(e);
+      throw new Error(
+        `CloudBase Framwork: can't find plugin '${pluginData.name}'`
+      );
     }
 
     if (!PluginCode) {
@@ -212,18 +202,20 @@ export default class PluginManager {
   }
 
   /**
-   * 通过 NPM 安装插件
-   *
-   * 全局安装是考虑其他非 JavaScript 项目底下尽量不产生 node_modules
-   *
    * @param packageName
    */
-  private async installPackageFromNpm(packageName: string) {
-    const cwd = process.cwd();
-    process.chdir(this.pluginRegisty);
-    await promisify(npm.load as (cli: any, callback: () => void) => void)({});
-    await promisify(npm.commands.install)([packageName + "@latest"]);
-    process.chdir(cwd);
+  private async installPackage(packageInfo: Record<string, string>) {
+    this.context.logger.info(`${emoji("📦")} install plugins`);
+    await install(
+      {
+        ...packageInfo,
+        "pkg-install": "latest",
+      },
+      {
+        prefer: "npm",
+        cwd: this.pluginRegisty,
+      }
+    );
   }
 
   /**
@@ -241,6 +233,19 @@ export default class PluginManager {
           name: "cloudbase-framework-registry",
         })
       );
+    }
+  }
+
+  async installPlugins() {
+    if (this.pluginInstallState) {
+      return true;
+    } else {
+      const packageInfo = this.plugins.reduce((prev, curr) => {
+        (prev as any)[curr.name] = "latest";
+        return prev;
+      }, {});
+      await this.installPackage(packageInfo);
+      return true;
     }
   }
 }

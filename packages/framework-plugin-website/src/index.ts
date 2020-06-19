@@ -87,7 +87,6 @@ class WebsitePlugin extends Plugin {
    * 构建
    */
   async build() {
-    // @todo
     // cloudPath 会影响publicpath 和 baseroute 等配置，需要处理
     this.api.logger.debug("WebsitePlugin: build", this.resolvedInputs);
     await this.installPackage();
@@ -126,7 +125,9 @@ class WebsitePlugin extends Plugin {
     const url = this.api.genClickableLink(
       `https://${this.website.cdnDomain + this.resolvedInputs.cloudPath}`
     );
-    this.api.logger.info(`🚀 网站部署成功, 访问地址：${url}`);
+    this.api.logger.info(
+      `${this.api.emoji("🚀")} 网站部署成功, 访问地址：${url}`
+    );
 
     await this.builder.clean();
 

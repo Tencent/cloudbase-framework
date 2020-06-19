@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/framework-core",
-  "version": "0.1.50-alpha.0",
+  "version": "0.2.26-alpha.0",
   "description": "CloudBase Framework 云开发 CloudBase 全栈应用开发框架，开箱即用，方便开发和部署多端+全栈的 Serverless 应用",
   "author": "Tencent CloudBase Team",
   "homepage": "https://github.com/TencentCloudBase/cloudbase-framework#readme",
@@ -36,23 +36,28 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "@cloudbase/cloud-api": "^0.1.6",
     "@cloudbase/manager-node": "^3.3.1",
+    "@types/ejs": "^3.0.4",
     "@types/figlet": "^1.2.0",
     "@types/inquirer": "^6.5.0",
     "@types/jest": "^25.2.1",
     "@types/js-yaml": "^3.12.4",
     "@types/lodash.merge": "^4.6.6",
-    "@types/npm": "^2.0.31",
+    "@types/node-fetch": "^2.5.7",
+    "@types/progress": "^2.0.3",
     "chalk": "^4.0.0",
+    "ejs": "^3.1.3",
     "figlet": "^1.4.0",
     "fs-extra": "^9.0.0",
     "gradient-string": "^1.2.0",
     "inquirer": "^7.1.0",
     "js-yaml": "^3.14.0",
     "lodash.merge": "^4.6.2",
-    "npm": "^6.14.5",
+    "pkg-install": "^1.0.0",
+    "progress": "^2.0.3",
     "terminal-link": "^2.1.1",
     "winston": "^3.2.1"
   },
-  "gitHead": "121d8d09dfdba8a999df3633a991c74c754947d8"
+  "gitHead": "cb3332a918c2841545872edcb933cad0e6cb7789"
 }

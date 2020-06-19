@@ -24,6 +24,7 @@ export default class Context {
   logger: Logger;
   resourceProviders?: ResourceProviders;
   projectConfig: ICloudBaseConfig | undefined;
+  cloudbaseConfig: CloudBaseConfig;
 
   constructor({
     appConfig,
@@ -36,6 +37,7 @@ export default class Context {
     this.appConfig = appConfig;
     this.projectPath = projectPath;
     this.cloudbaseManager = new CloudBaseManager(cloudbaseConfig);
+    this.cloudbaseConfig = cloudbaseConfig;
     this.envId = cloudbaseConfig.envId;
     this.logger = createLogger(logLevel);
     this.resourceProviders = resourceProviders;

@@ -8,10 +8,20 @@
     "prepublish": "npm run build",
     "publish": "lerna publish",
     "test": "lerna run test",
-    "clean": "lerna run clean"
+    "clean": "lerna run clean",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "devDependencies": {
+    "conventional-changelog-cli": "^2.0.34",
+    "cz-conventional-changelog": "^3.2.0",
     "lerna": "^3.20.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "pkg-install": "^1.0.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
