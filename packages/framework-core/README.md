@@ -78,7 +78,7 @@ cloudbase framework:deploy
 
 ### 自动检测生成插件配置流程
 
-- `cloudbase init --without-template` 生成项目配置·
+- `cloudbase init --without-template` 生成项目配置
 
 - `cloudbase framework:deploy` 进行自动检测生成插件配置文件并部署
 
