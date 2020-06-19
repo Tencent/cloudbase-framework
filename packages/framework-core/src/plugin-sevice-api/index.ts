@@ -11,7 +11,7 @@ import { emoji } from "../utils/emoji";
  * 插件服务注入为插件提供的 API
  */
 export default class PluginServiceApi {
-  private pluginManager: PluginManager;
+  pluginManager: PluginManager;
 
   constructor(pluginManager: PluginManager) {
     this.pluginManager = pluginManager;
