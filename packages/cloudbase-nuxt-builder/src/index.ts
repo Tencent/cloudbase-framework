@@ -52,7 +52,7 @@ export class NuxtBuilder extends Builder {
       throw new Error("没有找到 .nuxt 目录，请先执行构建");
     }
 
-    await fs.ensureDir(serviceDir);
+    fs.ensureDirSync(serviceDir);
 
     // 移动 .nuxt
     await fs.copy(nuxtDistPath, path.resolve(serviceDir, ".nuxt"));
@@ -80,7 +80,7 @@ export class NuxtBuilder extends Builder {
         {
           name: serviceName,
           options: {},
-          source: distDirName,
+          source: distDir,
           entry: "index.main",
         },
       ],

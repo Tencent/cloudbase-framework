@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/static-builder",
-  "version": "0.1.50-alpha.0",
+  "version": "0.2.26-alpha.0",
   "description": "云开发 CloudBase Static Builder，静态文件构建工具",
   "main": "lib/index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@cloudbase/framework-core": "^0.1.50-alpha.0",
+    "@cloudbase/framework-core": "^0.2.26-alpha.0",
     "anymatch": "^3.1.1",
     "cpy": "^8.1.0",
     "fs-extra": "^9.0.0"
@@ -25,5 +25,5 @@
     "@types/node": "^13.13.5",
     "typescript": "^3.8.3"
   },
-  "gitHead": "121d8d09dfdba8a999df3633a991c74c754947d8"
+  "gitHead": "cb3332a918c2841545872edcb933cad0e6cb7789"
 }

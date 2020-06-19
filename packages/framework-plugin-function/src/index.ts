@@ -1,9 +1,12 @@
 import path from "path";
-import fs from "fs";
-import { exec } from "child_process";
-import { promisify } from "util";
 
 import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
+
+export interface IFunctionPluginInputs {
+  functionRootPath: string;
+  functions: any[];
+  servicePaths?: Record<string, string>;
+}
 
 class FunctionPlugin extends Plugin {
   protected resolvedInputs: any;
@@ -14,7 +17,7 @@ class FunctionPlugin extends Plugin {
   constructor(
     public name: string,
     public api: PluginServiceApi,
-    public inputs: any
+    public inputs: IFunctionPluginInputs
   ) {
     super(name, api, inputs);
 
@@ -29,10 +32,11 @@ class FunctionPlugin extends Plugin {
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
 
     this.functions = this.resolvedInputs.functions;
-    this.functionRootPath = path.join(
-      this.api.projectPath,
+    this.functionRootPath = path.isAbsolute(
       this.resolvedInputs.functionRootPath
-    );
+    )
+      ? this.resolvedInputs.functionRootPath
+      : path.join(this.api.projectPath, this.resolvedInputs.functionRootPath);
   }
 
   /**
@@ -69,8 +73,6 @@ class FunctionPlugin extends Plugin {
    */
   async build() {
     this.api.logger.debug("FunctionPlugin: build", this.resolvedInputs);
-
-    const { outputPath, cloudPath, buildCommand } = this.resolvedInputs;
   }
 
   /**
@@ -95,9 +97,13 @@ class FunctionPlugin extends Plugin {
             force: true,
             functionRootPath: this.functionRootPath,
           });
-          this.api.logger.info(`🚀 [${func.name}] 云函数部署成功`);
+          this.api.logger.info(
+            `${this.api.emoji("🚀")} [${func.name}] 云函数部署成功`
+          );
         } catch (e) {
-          this.api.logger.error(`🙅‍♂️ [${func.name}] 函数部署失败`);
+          this.api.logger.error(
+            `${this.api.emoji("🙅‍♂")} [${func.name}] 函数部署失败`
+          );
           throw new Error(e.message);
         }
       })
@@ -107,27 +113,34 @@ class FunctionPlugin extends Plugin {
     await Promise.all(
       Object.entries(this.resolvedInputs.servicePaths).map(
         async ([functionName, servicePath]) => {
-          const res = await this.api.cloudbaseManager.commonService().call({
-            Action: "CreateCloudBaseGWAPI",
-            Param: {
-              ServiceId: this.api.envId,
-              Path: servicePath,
-              Type: 1,
-              Name: functionName,
-            },
-          });
-
+          try {
+            await this.api.cloudbaseManager.commonService().call({
+              Action: "CreateCloudBaseGWAPI",
+              Param: {
+                ServiceId: this.api.envId,
+                Path: servicePath,
+                Type: 1,
+                Name: functionName,
+              },
+            });
+          } catch (e) {
+            if (!e.message.includes("api created")) {
+              throw e;
+            }
+          }
           let url = `https://${this.api.envId}.service.tcloudbase.com${servicePath}`;
           if (url[url.length - 1] !== "/") {
             url = url + "/";
           }
           url = this.api.genClickableLink(url);
-          this.api.logger.info(`🚀 服务发布成功，访问地址: ${url}`);
+          this.api.logger.info(
+            `${this.api.emoji("🚀")} 云接入服务发布成功，访问地址: ${url}`
+          );
         }
       )
     );
 
-    this.api.logger.info(`🚀 云函数部署成功`);
+    this.api.logger.info(`${this.api.emoji("🚀")} 云函数部署成功`);
   }
 
   functionConfigToSAM(funcitonConfig: any) {
