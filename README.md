@@ -154,6 +154,7 @@ cloudbase framework:deploy
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/java-starter"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/20510a20be999a59458204afcf0fe205.png"></a>    | Java 云函数示例    | Java 云函数                          | `cloudbase init --template java-starter`    |
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/vuepress"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/230c115bee4300384fa557710daa2928.jpg"></a>        | VuePresss 网站应用 | VuePresss + 静态网站部署             | `cloudbase init --template vuepress`        |
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/node"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/82da2591cd2aed610d7f91f9dd881930.png"></a>            | Node.js 云应用     | Node.js + Serverless 云应用部署      | `cloudbase init --template node`            |
+| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/dart"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/2d1c438165480b9a7937e3b81c4873e3.jpg"></a>            | Aqueduct (Dart Server) 云应用     | Aqueduct (Dart Server) + Serverless 云应用部署      | `cloudbase init --template dart`            |
 
 ## <a name="architect"></a> 整体架构
 
