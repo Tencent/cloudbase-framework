@@ -61,10 +61,21 @@ cloudbase framework:deploy
       "client": {
         "use": "@cloudbase/framework-plugin-function",
         "inputs": {
-          "buildCommand": "npm run build",
-          "outputPath": "dist",
-          "cloudPath": "/path",
-          "ignore": [".git", ".github", "node_modules", "cloudbaserc.js"]
+          "functionRootPath": "./cloudfunctions",
+          "functions": [
+            {
+              "name": "helloworld",
+              "config": {
+                "timeout": 5,
+                "envVariables": {},
+                "runtime": "Nodejs10.15",
+                "memorySize": 128
+              }
+            }
+          ],
+          "servicePaths": {
+            "helloworld": "/helloworld"
+          }
         }
       }
     }
