@@ -1,6 +1,6 @@
 import PluginManager from "../plugin-manager";
 import CloudbaseManager from "@cloudbase/manager-node";
-import { Logger } from "../Logger";
+import { Logger } from "../logger";
 import { ResourceProviders } from "../types";
 import { genClickableLink } from "../utils/link";
 import { Generator } from "../generator";
