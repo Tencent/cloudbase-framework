@@ -7,7 +7,9 @@ const spawnPromise = require('./spawn');
 const listUrl = 'https://tcli.service.tcloudbase.com/templates';
 const cwd = os.homedir();
 
-main();
+main().catch((e) => {
+  throw e;
+});
 
 async function main() {
   await forkTemplate();
