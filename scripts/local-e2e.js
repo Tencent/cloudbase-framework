@@ -3,6 +3,7 @@ const os = require('os');
 const https = require('https');
 
 const spawnPromise = require('./spawn');
+const link = require('./link');
 
 const listUrl = 'https://tcli.service.tcloudbase.com/templates';
 const cwd = os.homedir();
@@ -14,7 +15,7 @@ main().catch((e) => {
 
 async function main() {
   await forkTemplate();
-  await linkPackages();
+  await link();
   await login();
   const templates = await getTemplates();
   console.log(templates);
@@ -61,10 +62,6 @@ async function getTemplates() {
       res.on('error', reject);
     });
   });
-}
-
-async function linkPackages() {
-  require('./link');
 }
 
 async function installTemplate(template) {

@@ -10,13 +10,11 @@ const globalNpmPath = execSync('npm root -g', {
 }).trim();
 const pluginRegisty = path.join(os.homedir(), '.cloudbase-framework/registry');
 
-main();
-
-async function main() {
+module.exports = async function main() {
   await linkCore();
   initRegistry();
   await linkPlugins();
-}
+};
 
 async function linkCore() {
   await link(

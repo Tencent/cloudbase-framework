@@ -12,6 +12,7 @@ async function spawnPromise(command, options) {
         options
       )
     );
+    cm.stderr.on('data', reject);
     cm.on('error', reject);
     cm.on('close', (code) => (code === 0 ? resolve() : reject(code)));
   });
