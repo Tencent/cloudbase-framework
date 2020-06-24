@@ -15,3 +15,21 @@
 
 - 修复 Windows 命令行显示的问题
 - 修复子目录初始化项目配置路径寻址的问题
+
+## [0.1] - 2020-06-09
+
+### Features
+
+- 实现 Framework Core 功能
+- 支持插件机制
+- 支持自动检测框架和语言生成插件配置
+- 新增 Webstie 插件支持静态网站部署
+- 新增 Node 插件支持函数方式部署 Node 应用
+- 新增 Nuxt 插件支持 Nuxt SSR 项目
+- 新增 Vue 应用模板
+- 新增 VuePress 应用模板
+- 新增 Nuxt SPA 应用模板
+- 新增 Nuxt SSR 应用模板
+- 新增 Koa 应用模板
+- 新增 Express 应用模板
+- 新增 Node.js、PHP、Java 函数应用模板
