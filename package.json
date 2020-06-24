@@ -4,6 +4,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "dev": "lerna run dev --stream --parallel",
+    "prebuild": "rm -rf **/*.tsbuildinfo",
     "build": "lerna run build",
     "prepublish": "npm run build",
     "publish": "lerna publish",
