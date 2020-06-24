@@ -8,6 +8,7 @@ const listUrl = 'https://tcli.service.tcloudbase.com/templates';
 const cwd = os.homedir();
 
 main().catch((e) => {
+  console.log('执行失败', e);
   throw e;
 });
 
