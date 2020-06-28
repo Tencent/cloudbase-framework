@@ -218,7 +218,7 @@ cloudbase framework:deploy
 
 ## <a name="changelog"></a> Changelog
 
-CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/CHANGELOG.md) 文件
+CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/CHANGELOG) 文件
 
 ## <a name="license"></a>License
 
