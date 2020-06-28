@@ -99,7 +99,6 @@ class DatabasePlugin extends Plugin {
     let properties = JSON.parse(JSON.stringify(collectionConfig, replacer));
 
     function replacer(key: string, value: any) {
-      console.log(key);
       if (value && typeof value === "object") {
         let replacement: Record<string, any> = {};
         for (var k in value) {
