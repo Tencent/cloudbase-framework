@@ -4,7 +4,7 @@
 
 <h1 align="center">云开发 CloudBase Framework</h1>
 <p align="center">
-打造云端一体化小程序、Web 应用、移动应用的更快方法
+🚀 打造云端一体化小程序、Web 应用、移动应用的更快方法 🔥
 </p>
 
 <p align="center">
