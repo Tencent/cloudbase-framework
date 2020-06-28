@@ -10,7 +10,9 @@
     "publish": "lerna publish",
     "test": "lerna run test",
     "clean": "lerna run clean",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "link": "node scripts/link-packages.js",
+    "commit": "npx git-cz"
   },
   "devDependencies": {
     "conventional-changelog-cli": "^2.0.34",
