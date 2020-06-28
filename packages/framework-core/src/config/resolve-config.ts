@@ -89,10 +89,11 @@ function formatFrameworkConfig(config: any) {
 
 function modifyFrameworkConfig(frameworkConfig: any) {
   return inquirer.prompt(
-    Object.entries(frameworkConfig).map(([, config]) => {
+    Object.entries(frameworkConfig).map(([name, config]) => {
       return {
         type: "input",
-        name: (config as any).desc,
+        name,
+        message: (config as any).desc,
         default: (config as any).value,
       };
     })
@@ -102,6 +103,7 @@ function modifyFrameworkConfig(frameworkConfig: any) {
 function writeConfig(projectPath: string, config: any, frameworkConfig: any) {
   const configJsonPath = path.join(projectPath, "cloudbaserc.json");
 
+  frameworkConfig.name = `${Math.random().toString(36).slice(2)}`;
   if (fs.existsSync(configJsonPath)) {
     fs.writeFileSync(
       configJsonPath,
