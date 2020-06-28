@@ -67,6 +67,7 @@ class NodeFunctionPlugin extends Plugin {
           handler: srcFunction.entry,
           runtime: this.resolvedInputs.runtime,
           installDependency: true,
+          ...(this.resolvedInputs.functionOptions || {}),
         },
       ],
       servicePaths: {
