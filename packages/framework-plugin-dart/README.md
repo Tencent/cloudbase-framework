@@ -24,16 +24,10 @@
 
 ### 步骤二. 进入项目目录进行初始化
 
-如果目前已有 Dart Server 应用项目
+执行以下命令来初始化一个全新的 dart server 项目
 
 ```bash
-cloudbase init --without-template
-```
-
-如果想全新开始一个项目，可以直接执行 init 来从模板开始一个项目
-
-```bash
-cloudbase init
+cloudbase init --template dart
 ```
 
 ### 步骤三. 一键部署
