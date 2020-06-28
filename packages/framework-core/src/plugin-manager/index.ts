@@ -237,7 +237,7 @@ export default class PluginManager {
   }
 
   async installPlugins() {
-    if (this.pluginInstallState) {
+    if (this.pluginInstallState || process.env.CLOUDBASE_FX_ENV === "dev") {
       return true;
     } else {
       const packageInfo = this.plugins.reduce((prev, curr) => {
