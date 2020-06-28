@@ -1,4 +1,5 @@
 import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
+import { pascalCase, constantCase } from "change-case";
 
 export interface IDatabasePluginInputs {
   collections: ICollectionInputs[];
@@ -73,9 +74,13 @@ class DatabasePlugin extends Plugin {
   async compile() {
     this.api.logger.debug("DatabasePlugin: compile", this.resolvedInputs);
     return {
-      Resources: {
-        [this.toConstantCase(this.resolvedInputs.serviceName)]: this.toSAM(),
-      },
+      Resources: this.resolvedInputs.collections.reduce(
+        (prev: Record<string, any>, cur: ICollectionInputs) => {
+          prev[constantCase(cur.collectionName)] = this.toSAM(cur);
+          return prev;
+        },
+        {}
+      ),
     };
   }
 
@@ -90,21 +95,27 @@ class DatabasePlugin extends Plugin {
     );
   }
 
-  toSAM() {
-    const {
-      description,
-      collectionName,
-      aclTag,
-      aclRule,
-    } = this.resolvedInputs;
+  toSAM(collectionConfig: ICollectionInputs) {
+    let properties = JSON.parse(JSON.stringify(collectionConfig, replacer));
+
+    function replacer(key: string, value: any) {
+      console.log(key);
+      if (value && typeof value === "object") {
+        let replacement: Record<string, any> = {};
+        for (var k in value) {
+          if (Object.hasOwnProperty.call(value, k)) {
+            replacement[pascalCase(k)] = value[k];
+          }
+        }
+        return replacement;
+      }
+
+      return value;
+    }
+
     return {
       Type: "CloudBase::FlexDB",
-      Properties: {
-        CollectionName: collectionName,
-        Description: description,
-        AclTag: aclTag,
-        AclRule: aclRule,
-      },
+      Properties: properties,
     };
   }
 

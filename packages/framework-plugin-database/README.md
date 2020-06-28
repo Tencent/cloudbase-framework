@@ -102,8 +102,6 @@ cloudbase framework:deploy
 | :------- | :------- | :--- | :------- | :------- |
 | name     | `String` | 1-64 | 是       | 索引名称 |
 
-> 安全规则设置：https://tcloud-dev.oa.com/document/product/705/40451?!preview&!document=1
-
 ## 更多插件
 
 请访问 [CloudBase Framework 插件列表](https://github.com/TencentCloudBase/cloudbase-framework#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84%E6%8F%92%E4%BB%B6%E5%88%97%E8%A1%A8) 搭配使用其他插件
