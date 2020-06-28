@@ -128,6 +128,36 @@ module.exports = app;
 
 具体配置信息请参考 [@cloudbase/framework-plugin-container](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-container#cpu) 配置
 
+### `functionOptions`
+
+选填，当 `platform` 选择 `function` 时，可以支持自定义更多高级设置，例如 VPC 环境变量等
+
+例如
+
+```json
+{
+  "use": "@cloudbase/framework-plugin-node",
+  "inputs": {
+    "entry": "app.js",
+    "path": "/nodeapp",
+    "name": "nodeapp",
+    "platform": "function",
+    "functionOptions": {
+      "timeout": 5,
+      "envVariables": {
+        "TEST_ENV": 1
+      },
+      "vpc": {
+        "vpcId": "xxx",
+        "subnetId": "xxx"
+      }
+    }
+  }
+}
+```
+
+具体配置信息请参考 [@cloudbase/framework-plugin-function](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/packages/framework-plugin-function/README.md#functions) 配置
+
 ## 更多插件
 
 请访问 [CloudBase Framework 插件列表](https://github.com/TencentCloudBase/cloudbase-framework#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84%E6%8F%92%E4%BB%B6%E5%88%97%E8%A1%A8) 搭配使用其他插件
