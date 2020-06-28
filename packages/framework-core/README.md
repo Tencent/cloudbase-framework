@@ -1,26 +1,44 @@
 <a href="https://github.com/TencentCloudBase/cloudbase-framework">![](https://main.qcloudimg.com/raw/af3fd4efce90f1a753f93daddb3d45ef.png)</a>
 
-[官网](http://cloudbase.net) / [文档](https://docs.cloudbase.net/) / [社区](https://cloudbase.net/community.html)
+>
 
-## 当前状态： Beta
+<h1 align="center">云开发 CloudBase Framework</h1>
+<p align="center">
+打造云端一体化小程序、Web 应用、移动应用的更快方法
+</p>
 
-[![Github License](https://img.shields.io/github/license/TencentCloudBase/cloudbase-framework)](LICENSE) [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-core)](https://www.npmjs.com/package/@cloudbase/framework-core) [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/) [![download](https://img.shields.io/npm/dw/@cloudbase/cli)](https://www.npmjs.com/package/@cloudbase/cli) [![issue](https://img.shields.io/github/issues/TencentCloudBase/cloudbase-framework)](https://github.com/TencentCloudBase/cloudbase-framework/issues) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/TencentCloudBase/cloudbase-framework/pulls) [![star](https://img.shields.io/github/stars/TencentCloudBase/cloudbase-framework?style=social)](https://github.com/TencentCloudBase/cloudbase-framework)
+<p align="center">
+<b>无缝配合，快速接入，为应用引入弹性伸缩、高可用的 Serverless 化云服务</b>
+</p>
 
-> **云开发 CloudBase Framework** ： 打造云端一体化小程序、Web 应用、移动应用的更快方法
+<p align="center"><a href="/TencentCloudBase/cloudbase-framework/blob/master/LICENSE"><img src="https://img.shields.io/github/license/TencentCloudBase/cloudbase-framework" alt="Github License"></a> <a href="https://www.npmjs.com/package/@cloudbase/framework-core" rel="nofollow"><img src="https://img.shields.io/npm/v/@cloudbase/framework-core" alt="Npm version"></a> <a href="https://lernajs.io/" rel="nofollow"><img src="https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg" alt="lerna"></a> <a href="https://www.npmjs.com/package/@cloudbase/cli" rel="nofollow"><img src="https://img.shields.io/npm/dw/@cloudbase/cli" alt="download"></a> <a href="https://github.com/TencentCloudBase/cloudbase-framework/issues"><img src="https://img.shields.io/github/issues/TencentCloudBase/cloudbase-framework" alt="issue"></a> <a href="https://github.com/TencentCloudBase/cloudbase-framework/pulls"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a> <a href="https://github.com/TencentCloudBase/cloudbase-framework"><img alt="star" src="https://img.shields.io/github/stars/TencentCloudBase/cloudbase-framework?style=social" >
+</p>
 
-基于云开发 CloudBase Framework 可以方便和应用进行无缝配合，快速接入，为应用引入弹性伸缩、高可用的云服务支持
+<p align="center">
+  <a href="https://cloudbase.net" target="_blank">
+    官网
+  </a>
+  / 
+  <a href="https://docs.cloudbase.net/" target="_blank">
+    文档
+  </a>
+  / 
+  <a href="https://cloudbase.net/community.html" target="_blank">
+    社区
+  </a>
+  /
+  <a href="https://support.qq.com/products/148793" target="_blank">
+    问答
+  </a>
+</p>
+
+<h4 align="center">当前状态： Beta</h4>
 
 ![](https://main.qcloudimg.com/raw/18f05eadb428fb281a8ff78ae79087fe.png)
 
-云开发 CloudBase Framework 整体包含 CLI 工具层、应用框架层和 CI/CD 层
+云开发 CloudBase Framework **底层基于腾讯云开发平台（Tencent CloudBase，TCB）提供的高可用、自动弹性扩缩的后端云服务**，包含 Serverless 化的计算、存储、CDN、数据库、托管等基础能力和云调用等扩展能力，高效安全，节约成本。
 
-- CLI 层针对主流应用框架进行了适配，可以一键无缝集成，并提供开发、一键部署等功能
-- 应用框架层提供了针对不同语言和框架的 SDK 和组件，同时对底层云资源进行抽象
-- CI/CD 层可以实现云端部署、代码平台集成、灰度发布和升级回滚等功能
-
-云开发 CloudBase Framework 底层基于腾讯云开发平台（Tencent CloudBase，TCB）提供的高可用、自动弹性扩缩的后端云服务，包含 Serverless 化的计算、存储、CDN、数据库、托管等基础能力和云调用等扩展能力，高效安全，节约成本。
-
-云开发 CloudBase Framework 支持多种应用框架和云资源的插件，只需要很少的配置甚至 0 配置就可以现有应用和云开发 CloudBase Framework 框架进行集成。
+云开发 CloudBase Framework **支持多种应用框架和云资源的插件**，只需要很少的配置甚至 **0 配置**就可以**现有应用和云开发 CloudBase Framework 框架进行集成**。
 
 **云开发 CloudBase Framework 部分官方插件**
 
@@ -28,6 +46,7 @@
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-nuxt"><img width="400" src="https://main.qcloudimg.com/raw/6d48ab8bc29c38558cd258b28b14f94e.jpg"></a>      | <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-function"><img width="400" src="https://main.qcloudimg.com/raw/2cd529a816464f59684515f73b0a5622.jpg"></a> |
 | <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-container"><img width="400" src="https://main.qcloudimg.com/raw/7e5e467a45bdfb5f5f4cc2eb27ea71bb.jpg"></a> | <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-dart"><img width="400" src="https://main.qcloudimg.com/raw/fabde81e6232f0eccf4914721ee2a55c.jpg"></a>     |
+| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-database"><img width="400" src="https://main.qcloudimg.com/raw/41a9bd0e62c638ab40cb8b8cba26696b.jpg"></a>  |                                                                                                                                                                                                                  |
 
 ## Table of Contents
 
@@ -37,7 +56,9 @@
 - [配置示例](#conf)
 - [整体架构](#architect)
 - [Roadmap](#roadmap)
+- [贡献指南](#contribute)
 - [License](#license)
+- [Changelog](#changelog)
 - [交流 QQ 群](#qq)
 
 ## <a name="quick-start"></a> 快速开始
@@ -78,7 +99,7 @@ cloudbase framework:deploy
 
 ### 自动检测生成插件配置流程
 
-- `cloudbase init --without-template` 生成项目配置
+- `cloudbase init --without-template` 生成项目配置·
 
 - `cloudbase framework:deploy` 进行自动检测生成插件配置文件并部署
 
@@ -92,6 +113,7 @@ cloudbase framework:deploy
 | <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-function"><img width="200" src="https://main.qcloudimg.com/raw/2cd529a816464f59684515f73b0a5622.jpg"></a>  | [@cloudbase/framework-plugin-function](packages/framework-plugin-function)   | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-nuxt)](https://www.npmjs.com/package/@cloudbase/framework-plugin-function)       | 一键部署函数资源                                               |
 | <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-container"><img width="200" src="https://main.qcloudimg.com/raw/7e5e467a45bdfb5f5f4cc2eb27ea71bb.jpg"></a> | [@cloudbase/framework-plugin-container](packages/framework-plugin-container) | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-container)](https://www.npmjs.com/package/@cloudbase/framework-plugin-container) | 一键部署云应用容器服务                                         |
 | <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-dart"><img width="200" src="https://main.qcloudimg.com/raw/fabde81e6232f0eccf4914721ee2a55c.jpg"></a>      | [@cloudbase/framework-plugin-dart](packages/framework-plugin-dart)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-dart)](https://www.npmjs.com/package/@cloudbase/framework-plugin-dart)           | 一键部署 Dart 云应用                                           |
+| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-database"><img width="200" src="https://main.qcloudimg.com/raw/41a9bd0e62c638ab40cb8b8cba26696b.jpg"></a>  | [@cloudbase/framework-plugin-database](packages/framework-plugin-database)   | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-database)](https://www.npmjs.com/package/@cloudbase/framework-plugin-database)   | 一键声明式部署云开发 NoSQL 云数据库                            |
 
 ## <a name="conf"></a> 配置示例
 
@@ -160,6 +182,10 @@ cloudbase framework:deploy
 
 云开发 CloudBase Framework 基于云开发底层资源和云开发资源编排管理，整体包含 CLI 工具层、应用框架层和 CI/CD 层。
 
+- CLI 层针对主流应用框架进行了适配，可以一键无缝集成，并提供开发、一键部署等功能
+- 应用框架层提供了针对不同语言和框架的 SDK 和组件，同时对底层云资源进行抽象
+- CI/CD 层可以实现云端部署、代码平台集成、灰度发布和升级回滚等功能
+
 ![](https://main.qcloudimg.com/raw/e7c525c09ce3197996924a2b70ac0c87.png)
 
 ## <a name="roadmap"></a>Roadmap
@@ -183,9 +209,19 @@ cloudbase framework:deploy
 | 开发 SAM Plugin 支持 SAM 扩展插件，框架可引入第三方 SAM 扩展（如 CMS） |      |
 | 开发 Flutter Plugin 支持 Flutter 的 Dart 后端一键部署                  | 🚀   |
 
+## <a name="contribute"></a>贡献指南
+
+欢迎大家参与到 CloudBase Framework 的开发工作，贡献一份力量
+
+开发贡献方式请参考 [开发贡献指南](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/contribute.md) 文档
+
+## <a name="changelog"></a> Changelog
+
+CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/CHANGELOG.md) 文件
+
 ## <a name="license"></a>License
 
-[Apache License 2.0](./LICENSE)
+开源协议文档请参阅 [Apache License 2.0](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/LICENSE)
 
 ## <a name="qq"></a> 交流 QQ 群
 
