@@ -100,7 +100,7 @@ class DatabasePlugin extends Plugin {
 
     function replacer(key: string, value: any) {
       if (value && typeof value === "object") {
-        let replacement: Record<string, any> = {};
+        let replacement: Record<string, any> = Array.isArray(value) ? [] : {};
         for (var k in value) {
           if (Object.hasOwnProperty.call(value, k)) {
             replacement[pascalCase(k)] = value[k];
