@@ -66,7 +66,7 @@
 1. **安装 CLI**
 
 ```bash
-npm install -g @cloudbase/cli@beta
+npm install -g @cloudbase/cli@latest
 ```
 
 2. **登录**
