@@ -8,7 +8,6 @@ export const DEFAULT_SAM = {
   Description: "CLoudBase Framework创建的应用",
   Category: "CloudApp",
   Tags: ["CloudBase"],
-  EnvType: "PostPay",
   SourceUrl: "https://github.com/TencentCloudBase/cloudbase-framework",
   ReleaseNotesUrl:
     "https://github.com/TencentCloudBase/cloudbase-framework/releases",
