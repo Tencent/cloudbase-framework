@@ -160,7 +160,6 @@ class WebsitePlugin extends Plugin {
         "网站托管当前只能部署到按量付费的环境下，请先在控制台切换计费方式"
       );
     }
-    console.log(env);
   }
 
   /**
