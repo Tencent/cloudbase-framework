@@ -34,7 +34,7 @@ type PluginHookName = "init" | "build" | "deploy" | "compile";
 export default class PluginManager {
   context: Context;
   plugins: PluginData[];
-  pluginRegisty: string;
+  pluginRegistry: string;
   pluginInstallPromise: Promise<boolean>;
   pluginInstallState: boolean = false;
 
@@ -42,7 +42,7 @@ export default class PluginManager {
     this.context = context;
     this.plugins = this.resolvePlugins(this.context.appConfig);
 
-    this.pluginRegisty = path.join(
+    this.pluginRegistry = path.join(
       os.homedir(),
       ".cloudbase-framework/registry"
     );
@@ -157,29 +157,29 @@ export default class PluginManager {
     } catch (e) {
       this.context.logger.error(e);
       throw new Error(
-        `CloudBase Framwork: can't install plugin npm package '${pluginData.name}'`
+        `CloudBase Framework: can't install plugin npm package '${pluginData.name}'`
       );
     }
 
     try {
       PluginCode = require(path.join(
-        this.pluginRegisty,
+        this.pluginRegistry,
         "node_modules",
         pluginData.name
       )).plugin;
     } catch (e) {
       this.context.logger.error(e);
       throw new Error(
-        `CloudBase Framwork: can't find plugin '${pluginData.name}'`
+        `CloudBase Framework: can't find plugin '${pluginData.name}'`
       );
     }
 
     if (!PluginCode) {
       this.context.logger.error(
-        `CloudBase Framwork: plugin '${pluginData.name}' isn't a valid plugin`
+        `CloudBase Framework: plugin '${pluginData.name}' isn't a valid plugin`
       );
       throw new Error(
-        `CloudBase Framwork: plugin '${pluginData.name}' isn't a valid plugin`
+        `CloudBase Framework: plugin '${pluginData.name}' isn't a valid plugin`
       );
     }
 
@@ -213,7 +213,7 @@ export default class PluginManager {
       },
       {
         prefer: "npm",
-        cwd: this.pluginRegisty,
+        cwd: this.pluginRegistry,
       }
     );
   }
@@ -222,10 +222,10 @@ export default class PluginManager {
    * 初始化插件仓库
    */
   initRegistry() {
-    if (!fs.existsSync(this.pluginRegisty)) {
-      fs.mkdirSync(this.pluginRegisty, { recursive: true });
+    if (!fs.existsSync(this.pluginRegistry)) {
+      fs.mkdirSync(this.pluginRegistry, { recursive: true });
     }
-    const packageJSON = path.join(this.pluginRegisty, "package.json");
+    const packageJSON = path.join(this.pluginRegistry, "package.json");
     if (!fs.existsSync(packageJSON)) {
       fs.writeFileSync(
         packageJSON,
