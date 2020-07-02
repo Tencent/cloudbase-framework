@@ -106,7 +106,7 @@ export async function run(
   };
 
   if (!SUPPORT_COMMANDS.includes(command)) {
-    throw new Error(`CloudBase Framwork: not support command '${command}'`);
+    throw new Error(`CloudBase Framework: not support command '${command}'`);
   }
 
   if (command === "deploy") {
