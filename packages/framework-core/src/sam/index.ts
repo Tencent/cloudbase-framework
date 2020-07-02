@@ -9,6 +9,7 @@ import { DEFAULT_SAM } from "./default-sam";
 import { SUPPORTS_TYPE } from "./sam-supports";
 import { SamApi } from "./api";
 import getLogger from "../logger";
+import { ISAM } from "./types";
 
 const logger = getLogger();
 
@@ -135,11 +136,11 @@ export class SamManager {
   /**
    * 读取本地SAM
    */
-  readSam() {
+  readSam(): ISAM {
     const samFile = fs.readFileSync(
       path.join(this.projectPath, "TCBSAM.yaml"),
       "utf-8"
     );
-    return JSYaml.safeLoad(samFile);
+    return JSYaml.safeLoad(samFile) as ISAM;
   }
 }
