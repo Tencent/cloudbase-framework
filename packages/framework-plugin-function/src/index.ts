@@ -1,6 +1,9 @@
 import path from "path";
+import archiver from "archiver";
+import fs from "fs";
+import { Plugin, PluginServiceApi, Builder } from "@cloudbase/framework-core";
 
-import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
+const useSAMDeploy = false;
 
 export interface IFunctionPluginInputs {
   functionRootPath: string;
@@ -13,6 +16,8 @@ class FunctionPlugin extends Plugin {
   protected buildOutput: any;
   protected functions: any[];
   protected functionRootPath: string;
+  protected builder: FunctionBuilder;
+  protected outputs: Record<string, any>;
 
   constructor(
     public name: string,
@@ -37,6 +42,11 @@ class FunctionPlugin extends Plugin {
     )
       ? this.resolvedInputs.functionRootPath
       : path.join(this.api.projectPath, this.resolvedInputs.functionRootPath);
+
+    this.builder = new FunctionBuilder({
+      projectPath: this.api.projectPath,
+    });
+    this.outputs = {};
   }
 
   /**
@@ -48,6 +58,31 @@ class FunctionPlugin extends Plugin {
 
   async compile() {
     this.api.logger.debug("FunctionPlugin: compile", this.resolvedInputs);
+
+    if (useSAMDeploy) {
+      const builderOptions = this.functions.map((func) => {
+        const localFunctionPath = path.join(this.functionRootPath, func.name);
+        const zipName = `${func.name + Date.now()}.zip`;
+        return {
+          name: func.name,
+          localPath: localFunctionPath,
+          zipfileName: zipName,
+        };
+      });
+
+      const buildResult = await this.builder.build(builderOptions);
+
+      await Promise.all(
+        buildResult.functions.map(async (func) => {
+          const cloudPath = `framework-upload/${func.name}.zip`;
+          const url = await this.uploadToCos(func.source, cloudPath);
+          this.outputs[func.name] = {
+            codeUrl: url,
+          };
+        })
+      );
+    }
+
     return {
       Resources: this.functions.reduce((resouces, func) => {
         resouces[this.toConstantCase(func.name)] = this.functionConfigToSAM(
@@ -148,14 +183,22 @@ class FunctionPlugin extends Plugin {
       Type: "CloudBase::Function",
       Properties: {
         Handler: funcitonConfig.handler || "index.main",
-        Description: "",
+        Description: "CloudBase Framework 部署的云函数",
         Runtime: funcitonConfig.runtime,
         FunctionName: funcitonConfig.name,
         MemorySize: funcitonConfig.memory || 128,
-        Timeout: funcitonConfig.timeout || 3,
+        Timeout: funcitonConfig.timeout || 5,
         Environment: funcitonConfig.envVariables,
         VpcConfig: funcitonConfig.vpc,
         HttpPath: this.resolvedInputs.servicePaths[funcitonConfig.name],
+        InstallDependency:
+          "installDependency" in funcitonConfig
+            ? funcitonConfig.installDependency
+            : true,
+        CodeUri:
+          this.outputs[funcitonConfig.name] &&
+          this.outputs[funcitonConfig.name].codeUrl,
+        Role: "TCB_QcsRole",
       },
     };
   }
@@ -178,16 +221,84 @@ class FunctionPlugin extends Plugin {
 
     return result;
   }
+
+  async uploadToCos(localPath: string, cloudPath: string) {
+    // @todo use cloudId
+    const uploadResult = await this.api.cloudbaseManager.storage.uploadFile({
+      localPath,
+      cloudPath,
+    });
+
+    const result = await this.api.cloudbaseManager.storage.getTemporaryUrl([
+      {
+        cloudPath,
+        maxAge: 86400,
+      },
+    ]);
+
+    return result[0].url;
+  }
 }
 
 function resolveInputs(inputs: any, defaultInputs: any) {
   return Object.assign({}, defaultInputs, inputs);
 }
 
-function wait(time: number) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, time);
-  });
+interface FunctionBuilderBuildOptions {
+  name: string;
+  localPath: string;
+  zipfileName: string;
+}
+
+interface FunctionBuilderOptions {
+  /**
+   * 项目根目录的绝对路径
+   */
+  projectPath: string;
+}
+
+export class FunctionBuilder extends Builder {
+  constructor(options: FunctionBuilderOptions) {
+    super({
+      type: "function",
+      ...options,
+    });
+  }
+  async build(options: FunctionBuilderBuildOptions[]) {
+    return {
+      functions: options.map((option) => {
+        const localZipPath = path.join(this.distDir, option.zipfileName);
+
+        if (!fs.existsSync(this.distDir)) {
+          fs.mkdirSync(this.distDir, { recursive: true });
+        }
+
+        this.zipDir(option.localPath, localZipPath);
+
+        return {
+          name: option.name,
+          options: {},
+          source: localZipPath,
+          entry: option.zipfileName,
+        };
+      }),
+    };
+  }
+
+  async zipDir(src: string, dest: string) {
+    return new Promise((resolve, reject) => {
+      // create a file to stream archive data to.
+      var output = fs.createWriteStream(dest);
+      var archive = archiver("zip", {
+        zlib: { level: 9 }, // Sets the compression level.
+      });
+      output.on("close", resolve);
+      archive.on("error", reject);
+      archive.directory(src, false);
+      archive.pipe(output);
+      archive.finalize();
+    });
+  }
 }
 
 export const plugin = FunctionPlugin;

@@ -36,7 +36,9 @@ class NodeFunctionPlugin extends Plugin {
    */
   async init() {}
 
-  async compile() {}
+  async compile() {
+    return this.functionPlugin.compile();
+  }
 
   /**
    * 删除资源
