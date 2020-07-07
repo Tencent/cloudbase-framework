@@ -1,9 +1,9 @@
 export const DEFAULT_SAM = {
   // //  TCBSAM语法版本
-  // TCBSAMFormatVersion: "2020-05-28",
+  TCBSAMFormatVersion: "2020-06-15",
   // // meta data
   // SpecVersion: "v1beta",
-  TCBSAMFormatVersion: "2019-12-24",
+  // TCBSAMFormatVersion: "2019-12-24",
   License: "MIT",
   Description: "CLoudBase Framework创建的应用",
   Category: "CloudApp",
@@ -17,7 +17,7 @@ export const DEFAULT_SAM = {
   ChangeLog: [
     {
       Title: "1.0.0",
-      Content: [],
+      Content: ["初次发布"],
     },
   ],
   Author: {
