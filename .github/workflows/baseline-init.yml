@@ -24,7 +24,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Install Deps
-        run: sudo npm install -g @cloudbase/cli@latest
+        run: sudo npm install -g @cloudbase/cli@latest lerna
 
       - name: Login
         run: cloudbase login --apiKeyId  ${{ secrets.SECRET_ID }} --apiKey ${{ secrets.SECRET_KEY }}
@@ -32,7 +32,6 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Build
         run: |
-          npm install
           npm run bootstrap
           npm run build
 
