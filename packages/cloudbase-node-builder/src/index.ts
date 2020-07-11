@@ -53,7 +53,7 @@ export class NodeBuilder extends Builder {
     fs.ensureDirSync(appDir);
 
     await fs.writeFile(
-      path.resolve(appDir, "./index.js"),
+      path.resolve(appDir, "./tcbindex.js"),
       __launcher.replace("/*entryPath*/", entryRelativePath)
     );
     await fs.writeFile(
@@ -79,7 +79,7 @@ export class NodeBuilder extends Builder {
           name: functionName,
           options: {},
           source: distDir,
-          entry: "index.main",
+          entry: "tcbindex.main",
         },
       ],
       routes: [
