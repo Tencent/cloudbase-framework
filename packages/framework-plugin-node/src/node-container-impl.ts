@@ -30,7 +30,10 @@ class NodeContainerPlugin extends Plugin {
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
 
     this.nodeBuilder = new NodeContainerBuilder({
-      projectPath: this.api.projectPath,
+      projectPath: path.join(
+        this.api.projectPath,
+        this.resolvedInputs.projectPath || ""
+      ),
     });
   }
 
