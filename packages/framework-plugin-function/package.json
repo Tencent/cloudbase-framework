@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@cloudbase/framework-core": "^0.3.2",
+    "@types/archiver": "^3.1.0",
     "archive": "^0.0.2"
   },
   "devDependencies": {
