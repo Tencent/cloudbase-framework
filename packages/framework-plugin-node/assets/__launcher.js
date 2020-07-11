@@ -1,3 +1,12 @@
 const entry = require('./<%= entry %>');
 
-entry.listen(<%= port || 80 %>);
+(async () => {
+  let app = entry;
+
+  // support for async load app
+  if (entry && entry.tcbGetApp && typeof entry.tcbGetApp === 'function') {
+    app = await entry.tcbGetApp();
+  }
+
+  app.listen(<%= port || 80 %>);
+})()
