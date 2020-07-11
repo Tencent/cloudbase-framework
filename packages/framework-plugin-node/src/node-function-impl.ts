@@ -1,3 +1,5 @@
+import path from "path";
+
 import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
 import { plugin as FunctionPlugin } from "@cloudbase/framework-plugin-function";
 import { NodeBuilder } from "@cloudbase/node-builder";
@@ -27,7 +29,10 @@ class NodeFunctionPlugin extends Plugin {
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
 
     this.nodeBuilder = new NodeBuilder({
-      projectPath: this.api.projectPath,
+      projectPath: path.join(
+        this.api.projectPath,
+        this.resolvedInputs.projectPath
+      ),
     });
   }
 

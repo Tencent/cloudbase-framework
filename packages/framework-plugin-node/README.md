@@ -77,7 +77,7 @@ cloudbase framework:deploy
 
 默认 `app.js`
 
-Node 服务入口文件，需要导出 app 或者 server 的实例，同时也支持导出异步获取 app 的 `tcbGetApp` 方法，方法的返回值为 app 或者 server 的实例。
+Node 服务入口文件，相对于`projectPath`,需要导出 app 或者 server 的实例，同时也支持导出异步获取 app 的 `tcbGetApp` 方法，方法的返回值为 app 或者 server 的实例。
 
 如 koa 服务的 `app.js`
 
@@ -95,10 +95,10 @@ module.exports = app;
 nest 服务的 `app.js`
 
 ```js
-const express = require('express');
-const { NestFactory } = require('@nestjs/core');
-const { ExpressAdapter } = require('@nestjs/platform-express');
-const { AppModule } = require('./dist/app.module');
+const express = require("express");
+const { NestFactory } = require("@nestjs/core");
+const { ExpressAdapter } = require("@nestjs/platform-express");
+const { AppModule } = require("./dist/app.module");
 
 const expressApp = express();
 const adapter = new ExpressAdapter(expressApp);
@@ -117,6 +117,10 @@ exports.tcbGetApp = async () => {
 ### `name`
 
 必填，服务名，如`node-app`
+
+### `projectPath`
+
+选填，指定 Node 服务所在目录，相对于当前项目根目录
 
 ### `platform`
 
