@@ -5,6 +5,7 @@ export interface INodePluginInputs {
   entry?: string;
   path?: string;
   name?: string;
+  projectPath?: string;
   platform?: "function" | "container";
   containerOptions?: IContainerPluginInputs;
   functionOptions?: any;

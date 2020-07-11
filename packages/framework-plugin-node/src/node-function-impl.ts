@@ -31,7 +31,7 @@ class NodeFunctionPlugin extends Plugin {
     this.nodeBuilder = new NodeBuilder({
       projectPath: path.join(
         this.api.projectPath,
-        this.resolvedInputs.projectPath
+        this.resolvedInputs.projectPath || ""
       ),
     });
   }

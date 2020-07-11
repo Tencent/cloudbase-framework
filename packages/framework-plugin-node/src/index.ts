@@ -21,7 +21,7 @@ class NodePlugin extends Plugin {
       entry: "app.js",
       path: "/nodeapp",
       name: "node",
-      projectDir: ".",
+      projectPath: ".",
       platform: "function",
     };
 
