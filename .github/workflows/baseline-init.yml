@@ -38,4 +38,4 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Init Template
         run: |
-          CLOUDBASE_FX_ENV=dev envId=${{ secrets.ENV_ID }} node scripts/local-e2e.js
+          CLOUDBASE_FX_ENV=dev envId=${{ secrets.ENV_ID }} sudo node scripts/local-e2e.js
