@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.4.0] - 2020-07-13
+
+### Features
+
+- Node 插件支持异步 app（支持 Nest 应用/Next SSR 场景）
+- Node 插件支持非项目根目录 Node 应用
+- 新增 Nest 应用模板
+
+### Bugfixs
+
+- Node 插件修复不支持应用当前目录存在 index 文件的 bug
+
+## [0.3] - 2020-06-28
+
+### Features
+
+- 新增 Database 插件支持声明式部署云数据库集合
+- Node 插件函数模式新增 VPC、环境变量等高级配置
+- Dart 应用模板新增集成云开发 Dart 服务端 SDK
+- 新增 React 全栈应用示例模板（静态网站+云函数+云数据库）
+- 框架插件系统支持本地构建和本地测试
+
 ## [0.3.1] - 2020-07-01
 
 ### Bugfixs
