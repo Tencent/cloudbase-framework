@@ -151,7 +151,7 @@ cloudbase framework:deploy
       "server": {
         "use": "@cloudbase/framework-plugin-function",
         "inputs": {
-          "outputPath": "cloudfunctions",
+          "functionRootPath": "cloudfunctions",
           "functions": [
             {
               "name": "helloworld",
