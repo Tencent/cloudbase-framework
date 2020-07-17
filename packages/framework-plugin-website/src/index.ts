@@ -118,7 +118,7 @@ class WebsitePlugin extends Plugin {
         this.deployer.deploy({
           localPath: item.src,
           cloudPath: item.cloudPath,
-          ignore: item.ignore,
+          ignore: this.resolvedInputs.ignore,
         })
       )
     );
