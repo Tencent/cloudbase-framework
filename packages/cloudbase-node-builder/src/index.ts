@@ -42,7 +42,7 @@ export class NodeBuilder extends Builder {
     const functionName = options?.name || "nodeapp";
     const appDir = path.join(distDir, functionName);
 
-    const packageJsonContent = await this.generatePackageJson(functionName);
+    const packageJson = await this.generatePackageJson(functionName, entryFile);
 
     // 入口文件的相对路径（相对于项目根路径）
     const entryRelativePath = path.relative(
@@ -56,9 +56,9 @@ export class NodeBuilder extends Builder {
       path.resolve(appDir, "./tcbindex.js"),
       __launcher.replace("/*entryPath*/", entryRelativePath)
     );
-    await fs.writeFile(
+    await fs.writeJSON(
       path.resolve(appDir, "./package.json"),
-      packageJsonContent
+      packageJson
     );
 
     const { fileList } = await nodeFileTrace([entryFile], {
@@ -107,22 +107,46 @@ export class NodeBuilder extends Builder {
     });
   }
 
-  async generatePackageJson(packageName: string) {
+  async generatePackageJson(packageName: string, entryFile: string) {
     const { projectDir } = this;
     let originalPackageJsonDependencies = {};
-    const packageJsonPath = path.resolve(projectDir, "package.json");
-    if (await fs.pathExists(packageJsonPath)) {
-      originalPackageJsonDependencies =
-        JSON.parse(await fs.readFile(packageJsonPath, "utf-8")).dependencies ||
-        {};
+
+    // 拿到入口的目录路径
+    let targetRoot = await fs.stat(entryFile).then(
+      state => state.isDirectory()
+        ? path.resolve(entryFile)
+        : path.dirname(entryFile)
+    );
+
+    // 最顶层的目录，查到这里就不要再找了
+    let topDir = targetRoot.slice(0, projectDir.length) === projectDir ? projectDir : '/';
+
+    while (targetRoot) {
+      const targetPkgJsonPath = path.resolve(targetRoot, "package.json");
+      if (await fs.pathExists(targetPkgJsonPath)) {
+        // 找到目标 package.json，读取，结束循环
+        originalPackageJsonDependencies = (await fs.readJSON(targetPkgJsonPath)).dependencies;
+        break;
+      }
+      if (targetRoot === topDir) { // 已经到最顶层
+        if ('/' === topDir) { // 但是没有经过 projectDir
+          // 再经历下 projectDir 目录
+          targetRoot = topDir = projectDir;
+          continue;
+        }
+        // 这里连 projectDir 都跑过了，跳出
+        break;
+      }
+      // 向上走
+      targetRoot = path.dirname(targetRoot);
     }
-    const json = {
+
+    return {
       name: packageName,
       dependencies: {
         ...this.dependencies,
         ...originalPackageJsonDependencies,
       },
     };
-    return JSON.stringify(json, null, 4);
   }
 }
