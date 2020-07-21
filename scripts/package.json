@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@lerna/create-symlink": "^3.16.2",
+    "del": "^5.1.0",
     "mkdirp": "^1.0.4"
   }
 }

@@ -1,5 +1,6 @@
 const os = require('os');
 const fs = require('fs');
+const del = require('del');
 const path = require('path');
 const mkdirp = require('mkdirp');
 const { promisify } = require('util');
@@ -70,7 +71,12 @@ async function link(src, dest, packageName) {
   // 切换 cwd
   process.chdir(destPlugin);
   console.log('创建软连接：', process.cwd());
-  await creatSymlink(src, packageName.replace('@cloudbase/', ''), 'junction');
+  const pathName = packageName.replace('@cloudbase/', '');
+  // 删除已存在的文件
+  if (fs.existsSync(pathName)) {
+    del.sync([pathName]);
+  }
+  await creatSymlink(src, pathName, 'junction');
   // 切回源目录
   process.chdir(prevCwd);
 }
