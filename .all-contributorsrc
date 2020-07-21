@@ -56,6 +56,15 @@
         "maintenance",
         "example"
       ]
+    },
+    {
+      "login": "shenghanqin",
+      "name": "Hanqin",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/6348297?v=4",
+      "profile": "https://www.xiaoxili.com/",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
