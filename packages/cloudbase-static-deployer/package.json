@@ -24,13 +24,12 @@
     "dev": "tsc -w",
     "build": "tsc"
   },
-  "devDependencies": {
-    "@types/fs-extra": "^8.1.0",
-    "@types/node": "^13.13.5",
-    "typescript": "^3.8.3"
-  },
   "dependencies": {
     "@cloudbase/framework-core": "^0.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^13.13.5",
+    "typescript": "^3.8.3"
   },
   "gitHead": "cb3332a918c2841545872edcb933cad0e6cb7789"
 }

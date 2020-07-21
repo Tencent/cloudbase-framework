@@ -1,5 +1,5 @@
-import { Builder } from "@cloudbase/framework-core";
 import cpy from "cpy";
+import { Builder } from "@cloudbase/framework-core";
 
 interface StaticBuilderBuildOptions {
   /**

@@ -35,10 +35,10 @@
     "@cloudbase/framework-plugin-container": "^0.4.0",
     "@cloudbase/framework-plugin-function": "^0.4.0",
     "@cloudbase/node-builder": "^0.4.0",
-    "@types/fs-extra": "^8.1.0",
     "fs-extra": "^8.1.0"
   },
   "devDependencies": {
+    "@types/fs-extra": "^8.1.0",
     "jest": "^26.0.1",
     "typescript": "^3.9.2"
   },
