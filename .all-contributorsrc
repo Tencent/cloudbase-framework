@@ -24,6 +24,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "chhpt",
+      "name": "hengechang",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/19288423?v=4",
+      "profile": "https://github.com/chhpt",
+      "contributions": [
+        "code",
+        "infra"
+      ]
     }
   ],
   "contributorsPerLine": 7,
