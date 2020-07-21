@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "lerna bootstrap --no-ci",
     "dev": "lerna run dev --stream --parallel",
     "prebuild": "rm -rf **/*.tsbuildinfo",
     "build": "lerna run build",
