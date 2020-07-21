@@ -10,7 +10,7 @@ const cwd = os.homedir();
 
 main().catch((e) => {
   console.log('执行失败', e);
-  throw e;
+  process.exit(1);
 });
 
 async function main() {
