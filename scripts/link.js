@@ -8,7 +8,8 @@ const { promisify } = require('util');
 const globalNpmPath = execSync('npm root -g', {
   encoding: 'utf-8',
 }).trim();
-const pluginRegisty = path.join(os.homedir(), '.cloudbase-framework/registry');
+
+const pluginRegistry = path.join(os.homedir(), '.cloudbase-framework/registry');
 
 module.exports = async function main() {
   await linkCore();
@@ -25,10 +26,10 @@ async function linkCore() {
 }
 
 function initRegistry() {
-  if (!fs.existsSync(pluginRegisty)) {
-    fs.mkdirSync(pluginRegisty, { recursive: true });
+  if (!fs.existsSync(pluginRegistry)) {
+    fs.mkdirSync(pluginRegistry, { recursive: true });
   }
-  const packageJSON = path.join(pluginRegisty, 'package.json');
+  const packageJSON = path.join(pluginRegistry, 'package.json');
   if (!fs.existsSync(packageJSON)) {
     fs.writeFileSync(
       packageJSON,
@@ -48,9 +49,10 @@ async function linkPlugins() {
   console.log(plugins);
 
   for (let plugin of plugins) {
+    console.log('\n', 'Link Plugin', plugin, '\n');
     await link(
       path.join(process.cwd(), 'packages', plugin),
-      pluginRegisty,
+      pluginRegistry,
       `@cloudbase/${plugin}`
     );
   }
