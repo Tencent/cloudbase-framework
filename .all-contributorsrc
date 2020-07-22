@@ -83,6 +83,15 @@
       "contributions": [
         "blog"
       ]
+    },
+    {
+      "login": "SmartCodeDavid",
+      "name": "TIANXIANG LAN",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/30002112?v=4",
+      "profile": "https://github.com/SmartCodeDavid",
+      "contributions": [
+        "content"
+      ]
     }
   ],
   "contributorsPerLine": 7,
