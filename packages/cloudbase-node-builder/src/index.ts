@@ -1,7 +1,6 @@
 import path from "path";
 import fse from "fs-extra";
 import archiver from "archiver";
-import nodeFileTrace from "@zeit/node-file-trace";
 import { Builder } from "@cloudbase/framework-core";
 
 const __launcher = fse.readFileSync(
@@ -56,19 +55,9 @@ export class NodeBuilder extends Builder {
       path.resolve(appDir, "./tcbindex.js"),
       __launcher.replace("/*entryPath*/", entryRelativePath)
     );
+
+    await fse.copy(path.resolve(projectDir), path.join(appDir));
     await fse.writeJSON(path.resolve(appDir, "./package.json"), packageJson);
-
-    const { fileList } = await nodeFileTrace([entryFile], {
-      ignore: ["node_modules/**"],
-      base: projectDir,
-    });
-
-    for (const file of fileList) {
-      await fse.copy(
-        path.resolve(projectDir, file),
-        path.join(appDir, "./", file)
-      );
-    }
 
     return {
       functions: [
