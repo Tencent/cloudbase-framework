@@ -1,7 +1,6 @@
-const entry = require('.//*entryPath*/');
-const serverless = require('serverless-http');
-
 module.exports.main = async (event, context) => {
+  const entry = require('.//*entryPath*/');
+  const serverless = require('serverless-http');
   let app = entry;
 
   // support for async load app

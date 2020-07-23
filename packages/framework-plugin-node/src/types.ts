@@ -10,4 +10,5 @@ export interface INodePluginInputs {
   containerOptions?: IContainerPluginInputs;
   functionOptions?: any;
   installDeps: boolean;
+  buildCommand?: string;
 }

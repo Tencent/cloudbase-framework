@@ -122,6 +122,12 @@ exports.tcbGetApp = async () => {
 
 选填，指定 Node 服务所在目录，相对于当前项目根目录
 
+### `buildCommand`
+
+0.5.x 版本以后支持
+
+选填，指定构建命令，比如`npm run build`
+
 ### `platform`
 
 选填，底层使用平台，支持 `container`（ serverless 云应用） 和 `function` （云函数）, 默认是 `function`

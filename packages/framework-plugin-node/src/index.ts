@@ -1,6 +1,8 @@
 import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
 import { plugin as NodeFunctionPlugin } from "./node-function-impl";
 import { plugin as NodeContainerPlugin } from "./node-container-impl";
+import { exec } from "child_process";
+import { promisify } from "util";
 
 import { INodePluginInputs } from "./types";
 
@@ -89,6 +91,13 @@ class NodePlugin extends Plugin {
    */
   async build(params: any) {
     this.api.logger.debug("NodePlugin: build", this.resolvedInputs);
+
+    const { buildCommand } = this.resolvedInputs;
+
+    if (buildCommand) {
+      await promisify(exec)(buildCommand);
+    }
+
     return this.pluginImpl.build(params);
   }
 
