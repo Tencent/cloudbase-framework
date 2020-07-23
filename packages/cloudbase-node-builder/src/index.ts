@@ -1,10 +1,10 @@
 import path from "path";
-import fs from "fs-extra";
+import fse from "fs-extra";
 import archiver from "archiver";
 import nodeFileTrace from "@zeit/node-file-trace";
 import { Builder } from "@cloudbase/framework-core";
 
-const __launcher = fs.readFileSync(
+const __launcher = fse.readFileSync(
   path.resolve(__dirname, "../asset/__launcher.js"),
   "utf-8"
 );
@@ -50,16 +50,13 @@ export class NodeBuilder extends Builder {
       path.resolve(projectDir, entryFile)
     );
 
-    fs.ensureDirSync(appDir);
+    fse.ensureDirSync(appDir);
 
-    await fs.writeFile(
+    await fse.writeFile(
       path.resolve(appDir, "./tcbindex.js"),
       __launcher.replace("/*entryPath*/", entryRelativePath)
     );
-    await fs.writeJSON(
-      path.resolve(appDir, "./package.json"),
-      packageJson
-    );
+    await fse.writeJSON(path.resolve(appDir, "./package.json"), packageJson);
 
     const { fileList } = await nodeFileTrace([entryFile], {
       ignore: ["node_modules/**"],
@@ -67,7 +64,7 @@ export class NodeBuilder extends Builder {
     });
 
     for (const file of fileList) {
-      await fs.copy(
+      await fse.copy(
         path.resolve(projectDir, file),
         path.join(appDir, "./", file)
       );
@@ -95,7 +92,7 @@ export class NodeBuilder extends Builder {
   async zipDir(src: string, dest: string) {
     return new Promise((resolve, reject) => {
       // create a file to stream archive data to.
-      var output = fs.createWriteStream(dest);
+      var output = fse.createWriteStream(dest);
       var archive = archiver("zip", {
         zlib: { level: 9 }, // Sets the compression level.
       });
@@ -112,24 +109,29 @@ export class NodeBuilder extends Builder {
     let originalPackageJsonDependencies = {};
 
     // 拿到入口的目录路径
-    let targetRoot = await fs.stat(entryFile).then(
-      state => state.isDirectory()
-        ? path.resolve(entryFile)
-        : path.dirname(entryFile)
-    );
+    let targetRoot = await fse
+      .stat(entryFile)
+      .then((state) =>
+        state.isDirectory() ? path.resolve(entryFile) : path.dirname(entryFile)
+      );
 
     // 最顶层的目录，查到这里就不要再找了
-    let topDir = targetRoot.slice(0, projectDir.length) === projectDir ? projectDir : '/';
+    let topDir =
+      targetRoot.slice(0, projectDir.length) === projectDir ? projectDir : "/";
 
     while (targetRoot) {
       const targetPkgJsonPath = path.resolve(targetRoot, "package.json");
-      if (await fs.pathExists(targetPkgJsonPath)) {
+      if (await fse.pathExists(targetPkgJsonPath)) {
         // 找到目标 package.json，读取，结束循环
-        originalPackageJsonDependencies = (await fs.readJSON(targetPkgJsonPath)).dependencies;
+        originalPackageJsonDependencies = (
+          await fse.readJSON(targetPkgJsonPath)
+        ).dependencies;
         break;
       }
-      if (targetRoot === topDir) { // 已经到最顶层
-        if ('/' === topDir) { // 但是没有经过 projectDir
+      if (targetRoot === topDir) {
+        // 已经到最顶层
+        if ("/" === topDir) {
+          // 但是没有经过 projectDir
           // 再经历下 projectDir 目录
           targetRoot = topDir = projectDir;
           continue;
