@@ -7,8 +7,10 @@ yarn-error.log*
 lerna-debug.log*
 
 # # 请不要追踪 lock 文件
-# **/package-lock.json
-# package-lock.json
+# npm 发布版本时不会携带 lock 文件
+# 不跟踪 lock 文件可以在持续集成时验证依赖的模块版本升级时的表现
+**/package-lock.json
+package-lock.json
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
