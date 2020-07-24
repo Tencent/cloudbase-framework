@@ -58,19 +58,17 @@ cloudbase framework:deploy
   "envId": "{{envId}}",
   "framework": {
     "plugins": {
-      "client": {
+      "function": {
         "use": "@cloudbase/framework-plugin-function",
         "inputs": {
           "functionRootPath": "./cloudfunctions",
           "functions": [
             {
               "name": "helloworld",
-              "config": {
-                "timeout": 5,
-                "envVariables": {},
-                "runtime": "Nodejs10.15",
-                "memorySize": 128
-              }
+              "timeout": 5,
+              "envVariables": {},
+              "runtime": "Nodejs10.15",
+              "memorySize": 128
             }
           ],
           "servicePaths": {
@@ -95,8 +93,7 @@ cloudbase framework:deploy
 
 |     是否必填      | 类型 |                                         描述                                          |                                                               |
 | :---------------: | :--: | :-----------------------------------------------------------------------------------: | ------------------------------------------------------------- |
-|       name        |  是  |                                        String                                         | 云函数名称，即为函数部署后的名称                              |
-|      params       |  否  |                                   Object/JSONObject                                   | CIL 调用云函数时的函数入参                                    |
+|       name        |  是  |                                        String                                         | 云函数名称，即为函数部署后的名称                              |  |
 |     triggers      |  否  | [`Array`](https://docs.cloudbase.net/cli/functions/configs.html#cloudfunctiontrigger) | 触发器配置                                                    |
 |      handler      |  否  |                                        String                                         | 函数处理方法名称，名称格式支持“文件名称.函数名称”形式         |
 |      ignore       |  否  |                                `String/Array<String>`                                 | 部署/更新云函数代码时的忽略文件，支持 glob 匹配规则           |

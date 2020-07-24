@@ -36,6 +36,20 @@ class FunctionPlugin extends Plugin {
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
 
+    this.resolvedInputs.functions = this.resolvedInputs.functions.map(
+      (func: any) => {
+        return Object.assign(
+          {},
+          {
+            runtime: "Nodejs10.15",
+            installDependency: true,
+            handler: "index.main",
+          },
+          func
+        );
+      }
+    );
+
     this.functions = this.resolvedInputs.functions;
     this.functionRootPath = path.isAbsolute(
       this.resolvedInputs.functionRootPath
