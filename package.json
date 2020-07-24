@@ -6,7 +6,7 @@
     "dev": "lerna run dev --stream --parallel",
     "prebuild": "rm -rf **/*.tsbuildinfo",
     "build": "lerna run build",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "publish": "lerna publish",
     "test": "lerna run test",
     "clean": "lerna run clean",
@@ -20,6 +20,7 @@
     "lerna": "^3.20.2"
   },
   "dependencies": {
+    "del": "^5.1.0",
     "pkg-install": "^1.0.0"
   },
   "config": {
