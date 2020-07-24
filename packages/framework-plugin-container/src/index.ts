@@ -51,6 +51,7 @@ class ContainerPlugin extends Plugin {
       buildDir: "./",
       version: "1.0.0",
       localPath: "./",
+      envVariables: {},
     };
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
     this.containerApi = new ContainerApi(this.api.cloudApi);
@@ -139,6 +140,7 @@ class ContainerPlugin extends Plugin {
       buildDir,
       version,
       servicePath,
+      envVariables,
     } = this.resolvedInputs;
     return {
       Type: "CloudBase::CloudBaseRun",
@@ -160,6 +162,7 @@ class ContainerPlugin extends Plugin {
         PackageName: serviceName,
         PackageVersion: version,
         Path: servicePath,
+        EnvParams: JSON.stringify(envVariables)
       },
     };
   }
