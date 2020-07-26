@@ -143,8 +143,33 @@ export default [
     plugin: "@cloudbase/framework-plugin-function",
     config: {
       functionRootPath: {
-        value: "`${data.projectConfig.functionRoot || 'functions'}`",
+        value: "`${data.projectConfig.functionRoot || 'cloudfunctions'}`",
         desc: "📁 云函数根目录",
+      },
+    },
+  },
+  {
+    name: "云应用",
+    key: "container",
+    detect: [
+      {
+        path: "Dockerfile",
+        exists: true,
+      },
+    ],
+    plugin: "@cloudbase/framework-plugin-container",
+    config: {
+      serviceName: {
+        value: "`${data.baseName || 'capp'}`",
+        desc: "💡 服务名",
+      },
+      servicePath: {
+        value: "`/${data.baseName || 'capp'}`",
+        desc: "🔌 云端访问云接入路径",
+      },
+      containerPort: {
+        value: 80,
+        desc: "🔌 端口号",
       },
     },
   },

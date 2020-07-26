@@ -1,5 +1,6 @@
 import frameworksInfo from "./frameworks";
 import fs from "fs";
+import path from "path";
 import { resolve } from "path";
 import getLogger from "../logger";
 import { ICloudBaseConfig } from "../types";
@@ -14,6 +15,7 @@ export async function detect(
 
   const finalFrameworksInfo = renderFrameworkConfig(frameworksInfo, {
     projectConfig,
+    baseName: path.basename(projectRootPath),
   });
 
   for (const framework of finalFrameworksInfo) {
