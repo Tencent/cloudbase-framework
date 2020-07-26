@@ -2,7 +2,7 @@ import os from "os";
 import path from "path";
 import fs from "fs";
 
-import { install } from "pkg-install";
+import { install } from "./pkg-install";
 
 import { emoji } from "../utils/emoji";
 import { Config } from "../types";
@@ -209,10 +209,8 @@ export default class PluginManager {
     await install(
       {
         ...packageInfo,
-        "pkg-install": "latest",
       },
       {
-        prefer: "npm",
         cwd: this.pluginRegistry,
       }
     );
