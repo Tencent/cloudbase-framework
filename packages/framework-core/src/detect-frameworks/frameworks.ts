@@ -112,7 +112,7 @@ export default [
     detect: [
       {
         path: "index.html",
-        match: "html",
+        exists: true,
       },
     ],
     plugin: "@cloudbase/framework-plugin-website",
