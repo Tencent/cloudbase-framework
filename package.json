@@ -20,8 +20,7 @@
     "lerna": "^3.20.2"
   },
   "dependencies": {
-    "del": "^5.1.0",
-    "pkg-install": "^1.0.0"
+    "del": "^5.1.0"
   },
   "config": {
     "commitizen": {

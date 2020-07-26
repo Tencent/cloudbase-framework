@@ -142,7 +142,9 @@ class WebsitePlugin extends Plugin {
     try {
       if (fs.statSync("package.json")) {
         this.api.logger.info("npm install");
-        return promisify(exec)("npm install");
+        return promisify(exec)(
+          "npm install --prefer-offline --no-audit --progress=false"
+        );
       }
     } catch (e) {}
   }
