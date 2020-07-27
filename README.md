@@ -97,6 +97,14 @@ cloudbase framework:deploy
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/node"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/82da2591cd2aed610d7f91f9dd881930.png"></a>            | Node.js 云应用                | Node.js + Serverless 云应用部署                | `cloudbase init --template node`            |
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/dart"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/2d1c438165480b9a7937e3b81c4873e3.jpg"></a>            | Aqueduct (Dart Server) 云应用 | Aqueduct (Dart Server) + Serverless 云应用部署 | `cloudbase init --template dart`            |
 
+## <a name="templates"></a>模板
+
+云开发 CloudBase Framework 支持模板工程，提供了多种语言和框架的模板项目，只需要一个命令就可以创建一个开箱即用的工程，并且集成了开发、构建、部署的工作流。
+
+模板可以自由定制，你可以根据自己的需要创建任何语言、框架的模板工程，并通过模板工程一键生成你的初始工程，原有的工程可以很容易改造成cloudbase的模板项目，只需要创建一个cloudbaserc.json，填写必要的配置即可。
+
+更多模板相关介绍，可以点击[前往](https://github.com/qinmudi/cloudbase-framework/blob/master/doc/template.md)
+
 ## <a name="plugins"></a>插件
 
 云开发 CloudBase Framework 支持插件机制，提供了多种应用框架和云资源的插件，只需要很少的配置甚至 0 配置就可以现有应用和云开发 CloudBase Framework 框架进行集成。
