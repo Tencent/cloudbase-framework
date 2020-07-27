@@ -179,14 +179,13 @@ export default [
     detect: [
       {
         path: "package.json",
-        exists: true,
         match:'"(dev)?(d|D)ependencies":\\s*{[^}]*"hexo":\\s*".+?"[^}]*}',
       }
     ],
     plugin: "@cloudbase/framework-plugin-website",
     config: {
       buildCommand: {
-        value: "hexo generate",
+        value: "npx hexo generate",
         desc: "🔨 构建脚本",
       },
      outputPath: {
