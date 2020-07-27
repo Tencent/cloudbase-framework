@@ -1,4 +1,5 @@
 module.exports.main = async (event, context) => {
+  context.callbackWaitsForEmptyEventLoop = false;
   const entry = require('.//*entryPath*/');
   const serverless = require('serverless-http');
   let app = entry;
