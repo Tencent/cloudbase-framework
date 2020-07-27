@@ -2,13 +2,13 @@
 
 ## 模板介绍
 
-模板是cloudbase framework为开发者提供的一个可以开箱即用的种子工程，你可以通过一个命令选择你要创建的工程类型，就可以直接进行开发了。
+模板是 cloudbase framework 为开发者提供的一个可以开箱即用的种子工程，你可以通过一个命令选择你要创建的工程类型，就可以直接进行开发了。
 
 ## 使用模板快速创建应用
 
 你可以通过`cloudbase init --template <template_name>` or `cloudbase init`都可以一键生成你想要创建的种子项目。
 
-``` bash
+```bash
 cloudbase init --template vue
 ✔ 选择关联环境 · static - [static-xxxxx:按量计费]
 ✔ 请输入项目名称 · vue
@@ -20,7 +20,7 @@ cloudbase init --template vue
 
 or
 
-``` bash
+```bash
 cloudbase init
 ✔ 选择关联环境 · static - [static-xxxxx:按量计费]
 ? 选择云开发模板 …
@@ -46,22 +46,22 @@ cloudbase init
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/node-starter"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/7b50431d8cef29d9ebb82c4ff2e6032c.png"></a>    | Node.js 云函数示例            | Node.js 云函数                                 | `cloudbase init --template node-starter`    |
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/php-starter"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/63782b30178cf5666fdd1e15501aba9b.png"></a>     | PHP 云函数示例                | PHP 云函数                                     | `cloudbase init --template php-starter`     |
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/java-starter"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/20510a20be999a59458204afcf0fe205.png"></a>    | Java 云函数示例               | Java 云函数                                    | `cloudbase init --template java-starter`    |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/vuepress"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/230c115bee4300384fa557710daa2928.jpg"></a>        | VuePresss 网站应用            | VuePresss + 静态网站部署                       | `cloudbase init --template vuepress`        |
+| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/vuepress"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/230c115bee4300384fa557710daa2928.jpg"></a>        | VuePress 网站应用             | VuePress + 静态网站部署                        | `cloudbase init --template vuepress`        |
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/node"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/82da2591cd2aed610d7f91f9dd881930.png"></a>            | Node.js 云应用                | Node.js + Serverless 云应用部署                | `cloudbase init --template node`            |
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/dart"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/2d1c438165480b9a7937e3b81c4873e3.jpg"></a>            | Aqueduct (Dart Server) 云应用 | Aqueduct (Dart Server) + Serverless 云应用部署 | `cloudbase init --template dart`            |
 
 ## 模板开发指南
 
-1.首先fork一下[CloudBase Templates](https://github.com/TencentCloudBase/cloudbase-templates)这个工程。
+1.首先 fork 一下[CloudBase Templates](https://github.com/TencentCloudBase/cloudbase-templates)这个工程。
 
-2.比如创建一个koa的模板，可以使用koa init初始化一个工程
+2.比如创建一个 koa 的模板，可以使用 koa init 初始化一个工程
 
 3.然后把你的基础建设相关的东西搭建完成
 
-4.你的工程里面创建一个cloudbaserc.json，把你的开发、构建、部署的工作流配置完成
+4.你的工程里面创建一个 cloudbaserc.json，把你的开发、构建、部署的工作流配置完成
 
-5.提交PR合并到官网模板仓库后
+5.提交 PR 合并到官网模板仓库后
 
-6.就可以通过cloudbase init --template <your_template_name>创建属于你的种子工程了。
+6.就可以通过 cloudbase init --template <your_template_name>创建属于你的种子工程了。
 
-cloudbaserc.json的更多帮助可以点击[前往](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/config.md)
+cloudbaserc.json 的更多帮助可以点击[前往](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/config.md)
