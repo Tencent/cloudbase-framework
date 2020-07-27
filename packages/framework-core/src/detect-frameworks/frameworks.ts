@@ -193,5 +193,25 @@ export default [
         desc: "📦 本地静态文件目录",
       },
     },
+    {
+    name: "gatsby",
+    key: "gatsby",
+    detect: [
+      {
+        path: "package.json",
+        match:'"(dev)?(d|D)ependencies":\\s*{[^}]*"gatsby":\\s*".+?"[^}]*}',
+      }
+    ],
+    plugin: "@cloudbase/framework-plugin-website",
+    config: {
+      buildCommand: {
+        value: "npx gatsby build",
+        desc: "🔨 构建脚本",
+      },
+     outputPath: {
+        value: "./public",
+        desc: "📦 本地静态文件目录",
+      },
+    },
   }
 ];
