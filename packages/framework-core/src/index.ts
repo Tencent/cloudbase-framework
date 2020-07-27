@@ -15,7 +15,7 @@ import getLogger from "./logger";
 import { SamManager } from "./sam";
 
 export { default as Plugin } from "./plugin";
-export { default as PluginServiceApi } from "./plugin-sevice-api";
+export { default as PluginServiceApi } from "./plugin-service-api";
 export { Builder } from "./builder";
 export { Deployer } from "./deployer";
 export { CloudApi } from "./api";
@@ -48,7 +48,7 @@ export async function run(
         )
       )
     );
-  } catch (e) {}
+  } catch (e) { }
 
   logger.info(`Version ${chalk.green(`v${packageInfo.version}`)}`);
   logger.info(
