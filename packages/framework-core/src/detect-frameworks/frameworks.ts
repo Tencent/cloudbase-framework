@@ -179,8 +179,8 @@ export default [
     detect: [
       {
         path: "package.json",
-        match:'"(dev)?(d|D)ependencies":\\s*{[^}]*"hexo":\\s*".+?"[^}]*}',
-      }
+        match: '"(dev)?(d|D)ependencies":\\s*{[^}]*"hexo":\\s*".+?"[^}]*}',
+      },
     ],
     plugin: "@cloudbase/framework-plugin-website",
     config: {
@@ -188,19 +188,20 @@ export default [
         value: "npx hexo generate",
         desc: "🔨 构建脚本",
       },
-     outputPath: {
+      outputPath: {
         value: "./public",
         desc: "📦 本地静态文件目录",
       },
     },
-    {
+  },
+  {
     name: "gatsby",
     key: "gatsby",
     detect: [
       {
         path: "package.json",
-        match:'"(dev)?(d|D)ependencies":\\s*{[^}]*"gatsby":\\s*".+?"[^}]*}',
-      }
+        match: '"(dev)?(d|D)ependencies":\\s*{[^}]*"gatsby":\\s*".+?"[^}]*}',
+      },
     ],
     plugin: "@cloudbase/framework-plugin-website",
     config: {
@@ -208,10 +209,10 @@ export default [
         value: "npx gatsby build",
         desc: "🔨 构建脚本",
       },
-     outputPath: {
+      outputPath: {
         value: "./public",
         desc: "📦 本地静态文件目录",
       },
     },
-  }
+  },
 ];
