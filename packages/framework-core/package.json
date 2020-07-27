@@ -38,6 +38,7 @@
   "dependencies": {
     "@cloudbase/cloud-api": "^0.1.6",
     "@cloudbase/manager-node": "^3.3.1",
+    "@cloudbase/toolbox": "^0.4.3",
     "@types/ejs": "^3.0.4",
     "@types/figlet": "^1.2.0",
     "@types/inquirer": "^6.5.0",

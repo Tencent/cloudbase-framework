@@ -3,8 +3,8 @@ import { detect } from "../detect-frameworks";
 import inquirer from "inquirer";
 import chalk from "chalk";
 import fs from "fs";
-import merge from "lodash.merge";
 import path from "path";
+import { ConfigParser } from "@cloudbase/toolbox";
 
 chalk.level = 1;
 
@@ -14,7 +14,7 @@ export default async function resolveConfig(
   projectPath: string,
   config: ICloudBaseConfig | undefined
 ) {
-  const independentFrameworkConfig = readFrameworkConfig(projectPath);
+  const independentFrameworkConfig = await readFrameworkConfig(projectPath);
 
   let finalFrameworkConfig = independentFrameworkConfig || config?.framework;
 
@@ -100,29 +100,29 @@ function modifyFrameworkConfig(frameworkConfig: any) {
   );
 }
 
-function writeConfig(projectPath: string, config: any, frameworkConfig: any) {
+async function writeConfig(projectPath: string, config: any, frameworkConfig: any) {
   const configJsonPath = path.join(projectPath, "cloudbaserc.json");
+  const configPath = path.join(projectPath, FRAMEWORK_CONFIG_FILENAME);
 
   frameworkConfig.name = `${Math.random().toString(36).slice(2)}`;
   if (fs.existsSync(configJsonPath)) {
-    fs.writeFileSync(
-      configJsonPath,
-      JSON.stringify(merge({}, config, { framework: frameworkConfig }), null, 4)
-    );
+    const parser = new ConfigParser({
+      configPath: configJsonPath
+    });
+    parser.update('framework', frameworkConfig);
   } else {
-    fs.writeFileSync(
-      path.join(projectPath, FRAMEWORK_CONFIG_FILENAME),
-      JSON.stringify(frameworkConfig, null, 4)
-    );
+    const parser = new ConfigParser({
+      configPath: configPath
+    });
+    parser.update(frameworkConfig);
   }
 }
 
-function readFrameworkConfig(projectPath: string) {
-  let config;
-  try {
-    config = JSON.parse(
-      fs.readFileSync(path.join(projectPath, FRAMEWORK_CONFIG_FILENAME), "utf8")
-    );
-  } catch (e) {}
+async function readFrameworkConfig(projectPath: string) {
+  const configPath = path.join(projectPath, FRAMEWORK_CONFIG_FILENAME);
+  const parser = new ConfigParser({
+    configPath: configPath
+  });
+  const config = await parser.get();
   return config;
 }
