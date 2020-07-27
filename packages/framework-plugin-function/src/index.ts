@@ -98,11 +98,11 @@ class FunctionPlugin extends Plugin {
     }
 
     return {
-      Resources: this.functions.reduce((resouces, func) => {
-        resouces[this.toConstantCase(func.name)] = this.functionConfigToSAM(
+      Resources: this.functions.reduce((resources, func) => {
+        resources[this.toConstantCase(func.name)] = this.functionConfigToSAM(
           func
         );
-        return resouces;
+        return resources;
       }, {}),
     };
   }
@@ -110,12 +110,12 @@ class FunctionPlugin extends Plugin {
   /**
    * 删除资源
    */
-  async remove() {}
+  async remove() { }
 
   /**
    * 生成代码
    */
-  async genCode() {}
+  async genCode() { }
 
   /**
    * 构建
@@ -192,26 +192,26 @@ class FunctionPlugin extends Plugin {
     this.api.logger.info(`${this.api.emoji("🚀")} 云函数部署成功`);
   }
 
-  functionConfigToSAM(funcitonConfig: any) {
+  functionConfigToSAM(functionConfig: any) {
     return {
       Type: "CloudBase::Function",
       Properties: {
-        Handler: funcitonConfig.handler || "index.main",
+        Handler: functionConfig.handler || "index.main",
         Description: "CloudBase Framework 部署的云函数",
-        Runtime: funcitonConfig.runtime,
-        FunctionName: funcitonConfig.name,
-        MemorySize: funcitonConfig.memory || 128,
-        Timeout: funcitonConfig.timeout || 5,
-        Environment: funcitonConfig.envVariables,
-        VpcConfig: funcitonConfig.vpc,
-        HttpPath: this.resolvedInputs.servicePaths[funcitonConfig.name],
+        Runtime: functionConfig.runtime,
+        FunctionName: functionConfig.name,
+        MemorySize: functionConfig.memory || 128,
+        Timeout: functionConfig.timeout || 5,
+        Environment: functionConfig.envVariables,
+        VpcConfig: functionConfig.vpc,
+        HttpPath: this.resolvedInputs.servicePaths[functionConfig.name],
         InstallDependency:
-          "installDependency" in funcitonConfig
-            ? funcitonConfig.installDependency
+          "installDependency" in functionConfig
+            ? functionConfig.installDependency
             : true,
         CodeUri:
-          this.outputs[funcitonConfig.name] &&
-          this.outputs[funcitonConfig.name].codeUrl,
+          this.outputs[functionConfig.name] &&
+          this.outputs[functionConfig.name].codeUrl,
         Role: "TCB_QcsRole",
       },
     };
@@ -220,7 +220,7 @@ class FunctionPlugin extends Plugin {
   toConstantCase(name: string) {
     let result = "";
     let lastIsDivide = true;
-    for (let i = 0; i < name.length; i++) {
+    for (let i = 0;i < name.length;i++) {
       let letter = name[i];
       if (letter === "-" || letter === "_") {
         lastIsDivide = true;
