@@ -102,7 +102,6 @@ function modifyFrameworkConfig(frameworkConfig: any) {
 
 async function writeConfig(projectPath: string, config: any, frameworkConfig: any) {
   const configJsonPath = path.join(projectPath, "cloudbaserc.json");
-  const configPath = path.join(projectPath, FRAMEWORK_CONFIG_FILENAME);
 
   frameworkConfig.name = `${Math.random().toString(36).slice(2)}`;
   if (fs.existsSync(configJsonPath)) {
@@ -111,18 +110,19 @@ async function writeConfig(projectPath: string, config: any, frameworkConfig: an
     });
     parser.update('framework', frameworkConfig);
   } else {
-    const parser = new ConfigParser({
-      configPath: configPath
-    });
-    parser.update(frameworkConfig);
+    fs.writeFileSync(
+      path.join(projectPath, FRAMEWORK_CONFIG_FILENAME),
+      JSON.stringify(frameworkConfig, null, 4)
+    );
   }
 }
 
-async function readFrameworkConfig(projectPath: string) {
-  const configPath = path.join(projectPath, FRAMEWORK_CONFIG_FILENAME);
-  const parser = new ConfigParser({
-    configPath: configPath
-  });
-  const config = await parser.get();
+function readFrameworkConfig(projectPath: string) {
+  let config;
+  try {
+    config = JSON.parse(
+      fs.readFileSync(path.join(projectPath, FRAMEWORK_CONFIG_FILENAME), "utf8")
+    );
+  } catch (e) {}
   return config;
 }
