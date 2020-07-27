@@ -171,6 +171,8 @@ cloudbase framework:deploy
 }
 ```
 
+更多配置详细参数说明，可以查看配置说明文档，点击[前往](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/config.md)
+
 ## <a name="architect"></a> 整体架构
 
 云开发 CloudBase Framework 基于云开发底层资源和云开发资源编排管理，整体包含 CLI 工具层、应用框架层和 CI/CD 层。
