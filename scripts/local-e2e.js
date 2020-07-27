@@ -19,10 +19,7 @@ async function main() {
   await login();
   const templates = await getTemplates();
   console.log(templates);
-  // return Promise.all(templates.map(installTemplate));
-  for (let template of templates) {
-    await installTemplate(template);
-  }
+  return Promise.all(templates.map(installTemplate));
 }
 
 async function forkTemplate() {
