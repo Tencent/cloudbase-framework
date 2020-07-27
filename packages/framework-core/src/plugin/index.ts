@@ -1,4 +1,4 @@
-import PluginServiceApi from "../plugin-sevice-api";
+import PluginServiceApi from "../plugin-service-api";
 
 /**
  * 插件抽象类
@@ -15,7 +15,7 @@ export default abstract class Plugin {
     public name: string,
     public api: PluginServiceApi,
     public inputs: any
-  ) {}
+  ) { }
 
   /**
    *
