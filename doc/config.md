@@ -1,8 +1,8 @@
 # 配置
 
-- cloudbase freamwork部署需要创建一个cloudbaserc.json，填写如下配置文件，调用 cloudbase framework:deploy 进行部署
+- cloudbase framework 部署需要创建一个 cloudbaserc.json，填写如下配置文件，调用 cloudbase framework:deploy 进行部署
 
-``` json
+```json
 {
   "envId": "{{envId}}",
   "framework": {
@@ -54,19 +54,19 @@ envId 代表环境 ID，是环境的唯一标识。
 
 类型: Object
 
-framework基础配置。
+framework 基础配置。
 
 ### `framework.name`
 
 类型: Object
 
-应用唯一标识，一个账号下最好不要有重名的name。
+应用唯一标识，一个账号下最好不要有重名的 name。
 
 ### `framework.plugins`
 
 类型: Object
 
-framework使用的插件配置，你可以配置多个插件，插件可以帮你完成CI、CD的相关流程。
+framework 使用的插件配置，你可以配置多个插件，插件可以帮你完成 CI、CD 的相关流程。
 
 ### framework.plugins.<deploy_name>
 
@@ -80,17 +80,17 @@ framework使用的插件配置，你可以配置多个插件，插件可以帮�
 
 使用的插件名称，目前支持的插件列表如下所示：
 
-- framework-plugin-website [web工程插件]
+- framework-plugin-website [web 工程插件]
 
-- framework-plugin-nuxt [nuxt工程插件]
+- framework-plugin-nuxt [nuxt 工程插件]
 
-- framework-plugin-node [node工程插件]
+- framework-plugin-node [node 工程插件]
 
 - framework-plugin-function [云函数工程插件]
 
-- framework-plugin-database [NoSQL工程插件]
+- framework-plugin-database [NoSQL 工程插件]
 
-- framework-plugin-dart [dart工程插件]
+- framework-plugin-dart [dart 工程插件]
 
 - framework-plugin-container [容器工程插件]
 
