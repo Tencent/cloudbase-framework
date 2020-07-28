@@ -14,6 +14,7 @@
 * 第二步：在 **.env** 文件内添加变量
 ```dotenv
 ENV_ID=pro-123
+DB_NAME=pro_user
 ```
 * 第三步：在 **cloudbaserc.json** 文件内通过 `env` 注入模板变量
 ```json
@@ -21,14 +22,19 @@ ENV_ID=pro-123
   "version": "2.0",
   "envId": "{{env.ENV_ID}}",
   "framework": {
-    "name": "egg-starter",
+    "name": "node-capp",
     "plugins": {
       "node": {
         "use": "@cloudbase/framework-plugin-node",
         "inputs": {
-          "entry": "app.js",
-          "name": "egg-starter",
-          "path": "/egg-starter"
+          "name": "node-capp",
+          "path": "/node-capp",
+          "platform": "container"
+        }
+        // 以下变量会被注入环境变量中
+        "envVariables": {
+          "env": "{{env.ENV_ID}}",
+          "db": "{{env.DB_NAME}}"
         }
       }
     }
@@ -56,6 +62,7 @@ cloudbase framework:deploy
 * 第二步：在 **.env.dev** 文件添加变量
 ```dotenv
 ENV_ID=dev-123
+DB_NAME=dev_user
 ```
 * 第三步：部署应用时使用 `--mode` 指定模式
 ```sh
