@@ -19,16 +19,16 @@ export default async function resolveConfig(
   let finalFrameworkConfig = independentFrameworkConfig || config?.framework;
 
   if (!finalFrameworkConfig) {
-    const deteactedFrameworks = await detect(projectPath, config);
+    const detectedFrameworks = await detect(projectPath, config);
     let plugins: any = {};
 
-    if (deteactedFrameworks.length) {
-      for (let item of deteactedFrameworks) {
-        const anwser = await promptModify(item);
+    if (detectedFrameworks.length) {
+      for (let item of detectedFrameworks) {
+        const answer = await promptModify(item);
 
         let inputs;
 
-        if (anwser.isModifyConfig) {
+        if (answer.isModifyConfig) {
           inputs = await modifyFrameworkConfig(item.config);
         } else {
           inputs = Object.entries(item.config).reduce((prev: any, cur: any) => {
@@ -48,8 +48,8 @@ export default async function resolveConfig(
     };
 
     // 是否写入配置文件
-    const anwser = await promptWriteConfig();
-    if (anwser.isWriteConfig) {
+    const answer = await promptWriteConfig();
+    if (answer.isWriteConfig) {
       await writeConfig(projectPath, config, finalFrameworkConfig);
     }
   }
@@ -123,6 +123,6 @@ function readFrameworkConfig(projectPath: string) {
     config = JSON.parse(
       fs.readFileSync(path.join(projectPath, FRAMEWORK_CONFIG_FILENAME), "utf8")
     );
-  } catch (e) {}
+  } catch (e) { }
   return config;
 }
