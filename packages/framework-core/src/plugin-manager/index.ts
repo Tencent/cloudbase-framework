@@ -8,7 +8,7 @@ import { emoji } from "../utils/emoji";
 import { Config } from "../types";
 import Context from "../context";
 import Plugin from "../plugin";
-import PluginServiceApi from "../plugin-sevice-api";
+import PluginServiceApi from "../plugin-service-api";
 
 interface PluginData {
   id: string;
