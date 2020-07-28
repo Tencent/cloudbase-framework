@@ -15,11 +15,11 @@
 ```dotenv
 ENV_ID=pro-123
 ```
-* 第三步：在 **cloudbaserc.json** 文件内注入模板变量
+* 第三步：在 **cloudbaserc.json** 文件内通过 `env` 注入模板变量
 ```json
 {
   "version": "2.0",
-  "envId": "{{envId}}",
+  "envId": "{{env.ENV_ID}}",
   "framework": {
     "name": "egg-starter",
     "plugins": {
