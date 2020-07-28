@@ -19,9 +19,23 @@ ENV_ID=pro-123
 ```json
 {
   "version": "2.0",
-  "envId": "{{env.ENV_ID}}"
+  "envId": "{{envId}}",
+  "framework": {
+    "name": "egg-starter",
+    "plugins": {
+      "node": {
+        "use": "@cloudbase/framework-plugin-node",
+        "inputs": {
+          "entry": "app.js",
+          "name": "egg-starter",
+          "path": "/egg-starter"
+        }
+      }
+    }
+  }
 }
 ```
+> 注意：`version` 一定要大于 2.0 版本
 
 * 第四步：一键部署应用
 ```sh
