@@ -10,7 +10,7 @@ export function install(
 
   const npmOptions = ["--prefer-offline", "--no-audit", "--progress=false"];
 
-  execa("npm", [...args, ...packageList, ...npmOptions], {
+  return execa("npm", [...args, ...packageList, ...npmOptions], {
     cwd: options?.cwd || process.cwd(),
   });
 }
