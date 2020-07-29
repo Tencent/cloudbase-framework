@@ -1,6 +1,6 @@
 # 配置
 
-- cloudbase framework 部署需要创建一个 cloudbaserc.json，填写如下配置文件，调用 cloudbase framework:deploy 进行部署
+CloudBase Framework 部署需要创建一个 cloudbaserc.json，填写如下配置文件，调用 `cloudbase framework:deploy` 进行部署
 
 ```json
 {
@@ -68,7 +68,7 @@ framework 基础配置。
 
 framework 使用的插件配置，你可以配置多个插件，插件可以帮你完成 CI、CD 的相关流程。
 
-### framework.plugins.<deploy_name>
+### `framework.plugins.<deploy_name>`
 
 类型：Object
 
