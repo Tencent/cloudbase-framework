@@ -17,6 +17,7 @@ ENV_ID=pro-123
 DB_NAME=pro_user
 ```
 * 第三步：在 **cloudbaserc.json** 文件内通过 `env` 注入模板变量
+
 ```json
 {
   "version": "2.0",
@@ -29,12 +30,14 @@ DB_NAME=pro_user
         "inputs": {
           "name": "node-capp",
           "path": "/node-capp",
-          "platform": "container"
-        }
-        // 以下变量会被注入环境变量中
-        "envVariables": {
-          "env": "{{env.ENV_ID}}",
-          "db": "{{env.DB_NAME}}"
+          "platform": "container",
+          "containerOptions": {
+          	// 以下变量会被注入环境变量中
+            "envVariables": {
+              "env": "{{env.ENV_ID}}",
+              "db": "{{env.DB_NAME}}"
+            }
+          }
         }
       }
     }
