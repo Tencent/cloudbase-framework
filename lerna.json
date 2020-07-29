@@ -1,12 +1,16 @@
 {
-  "packages": ["packages/*"],
-  "version": "0.6.1",
+  "packages": [
+    "packages/*"
+  ],
+  "version": "0.6.2",
   "publishConfig": {
     "access": "public"
   },
   "command": {
     "bootstrap": {
-      "npmClientArgs": ["--no-package-lock"]
+      "npmClientArgs": [
+        "--no-package-lock"
+      ]
     }
   }
 }
