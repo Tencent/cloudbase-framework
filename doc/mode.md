@@ -32,7 +32,6 @@ DB_NAME=pro_user
           "path": "/node-capp",
           "platform": "container",
           "containerOptions": {
-          	// 以下变量会被注入环境变量中
             "envVariables": {
               "env": "{{env.ENV_ID}}",
               "db": "{{env.DB_NAME}}"
@@ -44,6 +43,7 @@ DB_NAME=pro_user
   }
 }
 ```
+
 > 注意：`version` 一定要大于 2.0 版本
 
 * 第四步：一键部署应用
