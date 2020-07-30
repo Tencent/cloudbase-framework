@@ -48,7 +48,7 @@ export async function run(
         )
       )
     );
-  } catch (e) { }
+  } catch (e) {}
 
   logger.info(`Version ${chalk.green(`v${packageInfo.version}`)}`);
   logger.info(
@@ -135,5 +135,10 @@ export async function run(
 
 async function getAppId(cloudApi: typeof CloudApi) {
   const res = await cloudApi.tcbService.request("DescribeEnvs");
+
+  if (!res.EnvList[0]) {
+    throw new Error("请提供正确的环境id");
+  }
+
   return res.EnvList[0].Storages[0].AppId;
 }
