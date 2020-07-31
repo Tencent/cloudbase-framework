@@ -11,6 +11,7 @@ const DEFAULT_INPUTS = {
   outputPath: "dist",
   cloudPath: "/",
   ignore: [".git", ".github", "node_modules", "cloudbaserc.js"],
+  installCommand: "npm install --prefer-offline --no-audit --progress=false"
 };
 
 class WebsitePlugin extends Plugin {
@@ -139,12 +140,11 @@ class WebsitePlugin extends Plugin {
    * 安装依赖
    */
   async installPackage() {
+    const { installCommand } = this.resolvedInputs;
     try {
       if (fs.statSync("package.json")) {
-        this.api.logger.info("npm install");
-        return promisify(exec)(
-          "npm install --prefer-offline --no-audit --progress=false"
-        );
+        this.api.logger.info(installCommand);
+        return promisify(exec)(installCommand);
       }
     } catch (e) {}
   }
