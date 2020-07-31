@@ -81,6 +81,8 @@ cloudbase framework:deploy
 
 安装命令，如`npm install`，没有可不传
 
+默认值 `npm install --prefer-offline --no-audit --progress=false`
+
 ### `buildCommand`
 
 构建命令，如`npm run build`，没有可不传
