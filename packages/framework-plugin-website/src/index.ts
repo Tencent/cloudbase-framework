@@ -139,11 +139,12 @@ class WebsitePlugin extends Plugin {
    * 安装依赖
    */
   async installPackage() {
+    const { installCommand } = this.resolvedInputs;
     try {
       if (fs.statSync("package.json")) {
-        this.api.logger.info("npm install");
+        this.api.logger.info(installCommand);
         return promisify(exec)(
-          "npm install --prefer-offline --no-audit --progress=false"
+          `${installCommand} --prefer-offline --no-audit --progress=false`
         );
       }
     } catch (e) {}
