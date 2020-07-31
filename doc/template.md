@@ -52,16 +52,20 @@ cloudbase init
 
 ## 模板开发指南
 
-1.首先 fork 一下[CloudBase Templates](https://github.com/TencentCloudBase/cloudbase-templates)这个工程。
+1. 首先 fork 一下[CloudBase Templates](https://github.com/TencentCloudBase/cloudbase-templates)这个工程。
 
-2.比如创建一个 koa 的模板，可以使用 koa init 初始化一个工程
+2. 比如创建一个 koa 的模板，可以使用 koa init 初始化一个工程
 
-3.然后把你的基础建设相关的东西搭建完成
+3. 然后把你的基础建设相关的东西搭建完成
 
-4.你的工程里面创建一个 cloudbaserc.json，把你的开发、构建、部署的工作流配置完成
+4. 你的工程里面创建一个 cloudbaserc.json，把你的开发、构建、部署的工作流配置完成
 
-5.提交 PR 合并到官网模板仓库后
+- 修改配置文件环境id 为 "{{envId}}"
+- 按照官方示例 README 格式修改 README 格式，可以参考 https://github.com/TencentCloudBase/cloudbase-templates/blob/master/express-starter/README.md
+- 在页面上加入 Github 地址 以及部署工具信息 https://framework.service.tcloudbase.com/express-starter/
 
-6.就可以通过 cloudbase init --template <your_template_name>创建属于你的种子工程了。
+5. 提交 PR 合并到官网模板仓库后
+
+6. 就可以通过 cloudbase init --template <your_template_name>创建属于你的种子工程了。
 
 cloudbaserc.json 的更多帮助可以点击[前往](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/config.md)
