@@ -63,6 +63,7 @@ cloudbase framework:deploy
       "client": {
         "use": "@cloudbase/framework-plugin-website",
         "inputs": {
+          "installCommand": "npm install --prefer-offline --no-audit --progress=false",
           "buildCommand": "npm run build",
           "outputPath": "dist",
           "cloudPath": "/path",
@@ -75,6 +76,10 @@ cloudbase framework:deploy
 ```
 
 ### 配置参数说明
+
+### `installCommand`
+
+安装命令，如`npm install`，没有可不传
 
 ### `buildCommand`
 

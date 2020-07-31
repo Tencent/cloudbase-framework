@@ -11,6 +11,7 @@ const DEFAULT_INPUTS = {
   outputPath: "dist",
   cloudPath: "/",
   ignore: [".git", ".github", "node_modules", "cloudbaserc.js"],
+  installCommand: "npm install --prefer-offline --no-audit --progress=false"
 };
 
 class WebsitePlugin extends Plugin {
