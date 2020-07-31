@@ -143,9 +143,7 @@ class WebsitePlugin extends Plugin {
     try {
       if (fs.statSync("package.json")) {
         this.api.logger.info(installCommand);
-        return promisify(exec)(
-          `${installCommand} --prefer-offline --no-audit --progress=false`
-        );
+        return promisify(exec)(installCommand);
       }
     } catch (e) {}
   }
