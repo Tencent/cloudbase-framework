@@ -43,7 +43,18 @@ export default async function resolveConfig(
       }
     }
 
+    let name: string = path.basename(projectPath);
+
+    const nameAnswer = await inquirer.prompt({
+      type: "input",
+      name: "name",
+      message:
+        "请输入应用唯一标识(支持大小写字母数字及连字符, 同一账号下不能相同)",
+      default: name,
+    });
+
     finalFrameworkConfig = {
+      name: nameAnswer.name,
       plugins,
     };
 
@@ -100,15 +111,18 @@ function modifyFrameworkConfig(frameworkConfig: any) {
   );
 }
 
-async function writeConfig(projectPath: string, config: any, frameworkConfig: any) {
+async function writeConfig(
+  projectPath: string,
+  config: any,
+  frameworkConfig: any
+) {
   const configJsonPath = path.join(projectPath, "cloudbaserc.json");
 
-  frameworkConfig.name = `${Math.random().toString(36).slice(2)}`;
   if (fs.existsSync(configJsonPath)) {
     const parser = new ConfigParser({
-      configPath: configJsonPath
+      configPath: configJsonPath,
     });
-    parser.update('framework', frameworkConfig);
+    parser.update("framework", frameworkConfig);
   } else {
     fs.writeFileSync(
       path.join(projectPath, FRAMEWORK_CONFIG_FILENAME),
@@ -123,6 +137,6 @@ function readFrameworkConfig(projectPath: string) {
     config = JSON.parse(
       fs.readFileSync(path.join(projectPath, FRAMEWORK_CONFIG_FILENAME), "utf8")
     );
-  } catch (e) { }
+  } catch (e) {}
   return config;
 }
