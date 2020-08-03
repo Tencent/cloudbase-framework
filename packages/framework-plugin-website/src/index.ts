@@ -93,7 +93,7 @@ class WebsitePlugin extends Plugin {
     this.api.logger.debug("WebsitePlugin: build", this.resolvedInputs);
     await this.installPackage();
 
-    const { outputPath, cloudPath, buildCommand } = this.resolvedInputs;
+    const { outputPath, cloudPath, buildCommand, envVariables } = this.resolvedInputs;
 
     if (buildCommand) {
       await promisify(exec)(buildCommand);
@@ -101,6 +101,8 @@ class WebsitePlugin extends Plugin {
 
     this.buildOutput = await this.builder.build(["**", "!**/node_modules/**"], {
       path: cloudPath,
+      domain: this.website.cdnDomain,
+      config: envVariables
     });
   }
 
@@ -114,8 +116,9 @@ class WebsitePlugin extends Plugin {
       this.buildOutput
     );
 
+    const deployContent = this.buildOutput.static.concat(this.buildOutput.staticConfig)
     const deployResult = await Promise.all(
-      this.buildOutput.static.map((item: any) =>
+      deployContent.map((item: any) =>
         this.deployer.deploy({
           localPath: item.src,
           cloudPath: item.cloudPath,
