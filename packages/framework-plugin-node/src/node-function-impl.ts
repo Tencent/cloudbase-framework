@@ -62,6 +62,7 @@ class NodeFunctionPlugin extends Plugin {
     this.buildOutput = await this.nodeBuilder.build(this.resolvedInputs.entry, {
       path: this.resolvedInputs.path,
       name: this.resolvedInputs.name,
+      wrapExpress: this.resolvedInputs.wrapExpress,
     });
 
     const srcFunction = this.buildOutput.functions[0];
