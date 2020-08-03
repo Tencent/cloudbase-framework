@@ -11,4 +11,5 @@ export interface INodePluginInputs {
   functionOptions?: any;
   installDeps: boolean;
   buildCommand?: string;
+  wrapExpress?: boolean;
 }
