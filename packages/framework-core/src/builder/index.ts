@@ -44,7 +44,7 @@ export abstract class Builder {
     this.distDirName = `cloudbase-${type}-build-${new Date().getTime()}`;
     this.projectDir = projectPath;
 
-    const buildsDir = path.join(os.homedir(), ".cloudbase-framework/builds");
+    const buildsDir = path.join(os.homedir(), "cloudbase-framework/builds");
 
     this.distDir = resolve(buildsDir, this.distDirName);
     this.logger = getLogger();
