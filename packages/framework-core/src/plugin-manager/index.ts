@@ -45,7 +45,7 @@ export default class PluginManager {
 
     this.pluginRegistry = path.join(
       os.homedir(),
-      ".cloudbase-framework/registry"
+      "cloudbase-framework/registry"
     );
     this.initRegistry();
     this.pluginInstallPromise = this.installPlugins();
