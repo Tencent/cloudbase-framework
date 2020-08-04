@@ -11,7 +11,7 @@ export interface IApiOptions {
 export class ContainerApi {
   protected cloudApi: typeof CloudApi;
 
-  constructor(cloudApi: typeof CloudApi) {
+  constructor(cloudApi: typeof CloudApi, public logger: any) {
     this.cloudApi = cloudApi;
   }
 
@@ -31,6 +31,8 @@ export class ContainerApi {
       ProjectGlobalKey,
       ProjectToken,
     } = res;
+
+    this.logger.debug("describeCloudBaseRunBuildServer", res);
 
     const url = `https://${TeamGlobalKey}-generic.pkg.coding.net/${ProjectName}/${PackageRepositoryName}/${packageName}?version=${version}`;
     const authorization = Buffer.from(
