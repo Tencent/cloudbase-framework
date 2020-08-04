@@ -1,5 +1,6 @@
 import path from "path";
 import fs from "fs";
+import os from "os";
 import { exec } from "child_process";
 import { promisify } from "util";
 
@@ -93,14 +94,16 @@ class WebsitePlugin extends Plugin {
     this.api.logger.debug("WebsitePlugin: build", this.resolvedInputs);
     await this.installPackage();
 
-    const { outputPath, cloudPath, buildCommand } = this.resolvedInputs;
+    const { outputPath, cloudPath, buildCommand, envVariables } = this.resolvedInputs;
 
     if (buildCommand) {
-      await promisify(exec)(buildCommand);
+      await runCommandWithEnvVariables(buildCommand, envVariables);
     }
 
     this.buildOutput = await this.builder.build(["**", "!**/node_modules/**"], {
       path: cloudPath,
+      domain: this.website.cdnDomain,
+      config: envVariables
     });
   }
 
@@ -114,8 +117,9 @@ class WebsitePlugin extends Plugin {
       this.buildOutput
     );
 
+    const deployContent = this.buildOutput.static.concat(this.buildOutput.staticConfig)
     const deployResult = await Promise.all(
-      this.buildOutput.static.map((item: any) =>
+      deployContent.map((item: any) =>
         this.deployer.deploy({
           localPath: item.src,
           cloudPath: item.cloudPath,
@@ -215,6 +219,15 @@ function wait(time: number) {
 function ensureWithSlash(dir: string): string {
   if (!dir) return "";
   return dir[dir.length - 1] === "/" ? dir : dir + "/";
+}
+
+async function runCommandWithEnvVariables(buildCommand: string, envVariables: any) {
+  const keyword = os.platform() === "win32" ? "set" : "export";
+  const envCommand = Object.keys(envVariables || {}).reduce((cmd, key) => {
+    return cmd + `${keyword} ${key}=${envVariables[key]} && `;
+  }, "");
+
+  await promisify(exec)(envCommand + buildCommand);
 }
 
 export const plugin = WebsitePlugin;
