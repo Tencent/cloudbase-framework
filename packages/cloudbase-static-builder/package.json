@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@cloudbase/framework-core": "^0.6.3",
-    "@cloudbase/toolbox": "^0.4.10",
+    "@cloudbase/toolbox": "^0.4.11",
     "cpy": "^8.1.0"
   },
   "devDependencies": {
