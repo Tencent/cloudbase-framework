@@ -223,7 +223,7 @@ function ensureWithSlash(dir: string): string {
 
 async function runCommandWithEnvVariables(buildCommand: string, envVariables: any) {
   const keyword = os.platform() === "win32" ? "set" : "export";
-  const envCommand = Object.keys(envVariables).reduce((cmd, key) => {
+  const envCommand = Object.keys(envVariables || {}).reduce((cmd, key) => {
     return cmd + `${keyword} ${key}=${envVariables[key]} && `;
   }, "");
 
