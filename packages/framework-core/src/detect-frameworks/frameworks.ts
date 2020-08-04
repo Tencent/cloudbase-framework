@@ -107,6 +107,17 @@ export default [
     },
   },
   {
+    name: "Koa",
+    key: "koa",
+    detect: [
+      {
+        path: "package.json",
+        match: '"(dev)?(d|D)ependencies":\\s*{[^}]*"koa":\\s*".+?"[^}]*}',
+      },
+    ],
+    plugin: "@cloudbase/framework-plugin-node"
+  },
+  {
     name: "静态网站",
     key: "website",
     detect: [
