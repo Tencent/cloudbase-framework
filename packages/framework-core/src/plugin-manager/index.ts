@@ -5,6 +5,7 @@ import fs from "fs";
 import { install } from "./pkg-install";
 
 import { emoji } from "../utils/emoji";
+import { mkdirsSync } from "../utils/fs";
 import { Config } from "../types";
 import Context from "../context";
 import Plugin from "../plugin";
@@ -44,7 +45,7 @@ export default class PluginManager {
 
     this.pluginRegistry = path.join(
       os.homedir(),
-      ".cloudbase-framework/registry"
+      "cloudbase-framework/registry"
     );
     this.initRegistry();
     this.pluginInstallPromise = this.installPlugins();
@@ -221,7 +222,7 @@ export default class PluginManager {
    */
   initRegistry() {
     if (!fs.existsSync(this.pluginRegistry)) {
-      fs.mkdirSync(this.pluginRegistry, { recursive: true });
+      mkdirsSync(this.pluginRegistry);
     }
     const packageJSON = path.join(this.pluginRegistry, "package.json");
     if (!fs.existsSync(packageJSON)) {

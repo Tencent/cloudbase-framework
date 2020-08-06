@@ -11,7 +11,7 @@ export interface IApiOptions {
 export class ContainerApi {
   protected cloudApi: typeof CloudApi;
 
-  constructor(cloudApi: typeof CloudApi) {
+  constructor(cloudApi: typeof CloudApi, public logger: any) {
     this.cloudApi = cloudApi;
   }
 
@@ -32,6 +32,8 @@ export class ContainerApi {
       ProjectToken,
     } = res;
 
+    this.logger.debug("describeCloudBaseRunBuildServer", res);
+
     const url = `https://${TeamGlobalKey}-generic.pkg.coding.net/${ProjectName}/${PackageRepositoryName}/${packageName}?version=${version}`;
     const authorization = Buffer.from(
       `${ProjectGlobalKey}:${ProjectToken}`
@@ -49,8 +51,13 @@ export class ContainerApi {
       },
       process.env.http_proxy
     );
-
     const text = await (await response.text()).trim();
+
+    if (response.status !== 200) {
+      console.error(response.url, response.statusText);
+      throw new Error("部署云应用代码失败");
+    }
+
     if (text !== "success") {
       console.error(text);
       throw new Error("部署云应用代码失败");

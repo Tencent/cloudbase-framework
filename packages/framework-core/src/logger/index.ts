@@ -31,5 +31,9 @@ export default function getLogger(level?: string) {
     });
   }
 
+  if (level) {
+    logger.level = level;
+  }
+
   return logger;
 }

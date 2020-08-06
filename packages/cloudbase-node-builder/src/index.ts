@@ -14,6 +14,7 @@ interface NodeBuilderBuildOptions {
    */
   path: string;
   name: string;
+  wrapExpress?: boolean;
 }
 
 interface NodeBuilderOptions {
@@ -38,7 +39,10 @@ export class NodeBuilder extends Builder {
   async build(entry: string, options?: NodeBuilderBuildOptions) {
     const { distDir, projectDir, distDirName } = this;
     const entryFile = path.resolve(projectDir, entry);
-    const functionName = options?.name || "nodeapp";
+    const {
+      name: functionName = 'nodeapp',
+      wrapExpress = false,
+    } = options || {};
     const appDir = path.join(distDir, functionName);
 
     const packageJson = await this.generatePackageJson(functionName, entryFile);
@@ -54,6 +58,7 @@ export class NodeBuilder extends Builder {
     await fse.writeFile(
       path.resolve(appDir, "./tcbindex.js"),
       __launcher.replace("/*entryPath*/", entryRelativePath)
+        .replace(/\/\/#wrapExpress\s/g, wrapExpress ? '' : '// ')
     );
 
     await fse.copy(path.resolve(projectDir), path.join(appDir));

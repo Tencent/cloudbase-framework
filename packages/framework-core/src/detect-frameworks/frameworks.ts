@@ -107,6 +107,31 @@ export default [
     },
   },
   {
+    name: "Koa",
+    key: "koa",
+    detect: [
+      {
+        path: "package.json",
+        match: '"(dev)?(d|D)ependencies":\\s*{[^}]*"koa":\\s*".+?"[^}]*}',
+      },
+    ],
+    plugin: "@cloudbase/framework-plugin-node",
+    config: {
+      name: {
+        value: "`${data.baseName || 'koa-app'}`",
+        desc: "💡 服务名",
+      },
+      path: {
+        value: "`/${data.baseName || 'koa-app'}`",
+        desc: "🔌 云端访问云接入路径",
+      },
+      entry: {
+        value: "app.js",
+        desc: "🔌 Node 服务入口文件，需要导出 app 实例",
+      },
+    },
+  },
+  {
     name: "静态网站",
     key: "website",
     detect: [
