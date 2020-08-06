@@ -25,6 +25,7 @@ class NuxtPlugin extends Plugin {
       name: "nuxt-ssr",
       path: "/nuxt-ssr",
       buildCommand: "npm run build",
+      installCommand: "npm install"
     };
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
@@ -39,10 +40,10 @@ class NuxtPlugin extends Plugin {
    */
   async init() {
     this.api.logger.debug("NuxtPlugin: init", this.resolvedInputs);
-
+    const { installCommand } = this.resolvedInputs;
     if (fs.existsSync("package.json")) {
-      this.api.logger.info("npm install");
-      return promisify(exec)("npm install");
+      this.api.logger.info(installCommand);
+      return promisify(exec)(installCommand);
     }
   }
 
