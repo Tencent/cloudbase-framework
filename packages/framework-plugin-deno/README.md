@@ -50,9 +50,8 @@ cloudbase framework:deploy
       "client": {
         "use": "@cloudbase/framework-plugin-deno",
         "inputs": {
-          "serviceName": "app",
-          "servicePath": "/app",
-          "localPath": "./"
+          "name": "deno-app",
+          "path": "/deno-app"
         }
       }
     }
@@ -62,29 +61,17 @@ cloudbase framework:deploy
 
 ### 配置参数说明
 
-### `serviceName`
+### `name`
 
 必填，服务名，字符串格式，如 `deno-app`
 
-### `servicePath`
+### `path`
 
 必填，服务路径配置, 字符串格式, 如 `/deno-app`
 
-### `localPath`
+### `projectPath`
 
 选填，本地代码文件夹相对于项目根目录的路径，默认值 `./`
-
-### `localAbsolutePath`
-
-选填，本地代码文件夹的绝对路径
-
-### `version`
-
-选填，版本名，默认值 `1.0.0`
-
-### `isPublic`
-
-选填，是否对外网开放访问，默认值 `true`
 
 ## 更多插件
 
