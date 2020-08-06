@@ -2,6 +2,10 @@ import { Plugin, PluginServiceApi } from '@cloudbase/framework-core';
 import { plugin as ContainerPlugin } from '@cloudbase/framework-plugin-container';
 import { DenoBuilder } from './builder';
 
+function resolveInputs(inputs: any, defaultInputs: any) {
+  return Object.assign({}, defaultInputs, inputs);
+}
+
 class DenoPlugin extends Plugin {
   protected resolvedInputs: any;
   protected buildOutput: any;
@@ -16,9 +20,10 @@ class DenoPlugin extends Plugin {
     super(name, api, inputs);
 
     const DEFAULT_INPUTS = {
-      servicePath: '/deno-app',
-      serviceName: 'deno-app',
-      localPath: './',
+      runtime: "latest",
+      name: "deno-app",
+      path: "/deno-app",
+      projectPath: ".",
     };
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
@@ -29,33 +34,19 @@ class DenoPlugin extends Plugin {
   }
 
   /**
-   * 初始化
+   * 初始化资源
    */
   async init() {
     this.api.logger.debug('DenoPlugin: init', this.resolvedInputs);
   }
 
   /**
-   * 编译
-   */
-  async compile() {
-    this.api.logger.debug('DenoPlugin: compile', this.resolvedInputs);
-
-    return this.containerPlugin.compile();
-  }
-
-  /**
-   * 删除资源
-   */
-  async remove() {}
-
-  /**
-   * 生成代码
+   * 生成功能代码
    */
   async genCode() {}
 
   /**
-   * 构建
+   * 构建资源
    */
   async build() {
     this.api.logger.debug('DenoPlugin: build', this.resolvedInputs);
@@ -64,8 +55,8 @@ class DenoPlugin extends Plugin {
     this.buildOutput = await this.denoBuilder.build(
       this.resolvedInputs.localPath,
       {
-        path: this.resolvedInputs.servicePath,
-        name: this.resolvedInputs.serviceName,
+        path: this.resolvedInputs.path,
+        name: this.resolvedInputs.name,
       }
     );
 
@@ -85,7 +76,7 @@ class DenoPlugin extends Plugin {
   }
 
   /**
-   * 部署
+   * 部署资源
    */
   async deploy() {
     this.api.logger.debug(
@@ -98,7 +89,7 @@ class DenoPlugin extends Plugin {
 
     await this.denoBuilder.clean();
 
-    let url = `https://${this.api.envId}.service.tcloudbase.com${this.resolvedInputs.servicePath}`;
+    let url = `https://${this.api.envId}.service.tcloudbase.com${this.resolvedInputs.path}`;
     if (url[url.length - 1] !== '/') {
       url = url + '/';
     }
@@ -108,10 +99,19 @@ class DenoPlugin extends Plugin {
       `${this.api.emoji('🚀')} Deno 应用部署成功,访问地址: ${url}`
     );
   }
-}
 
-function resolveInputs(inputs: any, defaultInputs: any) {
-  return Object.assign({}, defaultInputs, inputs);
+  /**
+   * 将资源编译成 SAM 描述
+   */
+  async compile() {
+    this.api.logger.debug('DenoPlugin: compile', this.resolvedInputs);
+    return this.containerPlugin.compile();
+  }
+
+  /**
+   * 移除资源
+   */
+  async remove() {}
 }
 
 export const plugin = DenoPlugin;

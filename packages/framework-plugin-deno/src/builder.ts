@@ -31,19 +31,19 @@ export class DenoBuilder extends Builder {
 
   async build(localDir: string, options: BuilderBuildOptions) {
     const { distDir, projectDir } = this;
-    const containerName = options?.name || 'denoapp';
+    const containerName = options?.name || 'deno-app';
     const appDir = path.join(distDir, containerName);
 
     fs.ensureDirSync(appDir);
 
-    // 拷贝整个 deno 项目目录
-    await fs.copy(path.join(projectDir, localDir), appDir);
-
-    // 加入 Dockerfile
-    await fs.copy(
-      path.resolve(__dirname, '../assets/Dockerfile'),
-      path.join(appDir, 'Dockerfile')
-    );
+    await Promise.all([
+      this.generator.generate(
+        path.join(__dirname, "../assets"),
+        appDir,
+        options || {}
+      ),
+      fs.copy(path.join(projectDir, localDir), appDir),
+    ]);
 
     return {
       containers: [
