@@ -184,6 +184,40 @@ exports.tcbGetApp = async () => {
 }
 ```
 
+### `wrapExpress`
+选填，当 `platform` 选择 `function` 时，可以支持自动为函数包上一层 express
+
+例如
+
+```json
+{
+  "envId": "fx",
+  "framework": {
+    "plugins": {
+      "server": {
+        "use": "@cloudbase/framework-plugin-node",
+        "inputs": {
+          "entry": "./api/index.js",
+          "path": "/api",
+          "name": "github-stats-api",
+          "wrapExpress": true
+        }
+      },
+      "pin": {
+        "use": "@cloudbase/framework-plugin-node",
+        "inputs": {
+          "entry": "./api/pin.js",
+          "path": "/api/pin",
+          "name": "github-stats-pin",
+          "wrapExpress": true
+        }
+      }
+    }
+  }
+}
+```
+
+
 具体配置信息请参考 [@cloudbase/framework-plugin-function](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/packages/framework-plugin-function/README.md#functions) 配置
 
 ## 更多插件

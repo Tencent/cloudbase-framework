@@ -25,6 +25,7 @@ class NodePlugin extends Plugin {
       name: "node",
       projectPath: ".",
       platform: "function",
+      wrapExpress: false,
     };
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);

@@ -81,7 +81,8 @@
       "avatar_url": "https://avatars0.githubusercontent.com/u/30370223?v=4",
       "profile": "https://github.com/magentaqin",
       "contributions": [
-        "blog"
+        "blog",
+        "code"
       ]
     },
     {
@@ -125,6 +126,15 @@
       "name": "Sherry Zhang",
       "avatar_url": "https://avatars1.githubusercontent.com/u/18062954?v=4",
       "profile": "https://github.com/shryzhang",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Realybig",
+      "name": "RealyBig",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/10878451?v=4",
+      "profile": "https://github.com/Realybig",
       "contributions": [
         "code"
       ]

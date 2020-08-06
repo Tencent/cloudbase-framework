@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.7.0] - 2020-07-28
+
+### Features
+
+- Website 插件支持注入自定义环境变量 (#50)
+- Website 插件自定义 pakcage 安装命令(#46)
+- Node 插件支持 Vercel 类型应用(#49)
+- Framework 内核支持自定义应用名
+- 支持自动检测 Koa 应用（#52）
+- 配置文件模板变量支持从进程环境变量传入
+- 新增 Omi 应用模板
+
+### Bugfixes
+
+- 修复 --verbose 参数输出 debug 日志失效的问题
+- 修复部分 node 版本和 os 版本无法创建插件仓库的问题
+
 ## [0.6.0] - 2020-07-28
 
 ### Features
