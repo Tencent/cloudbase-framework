@@ -2,8 +2,9 @@ import os from "os";
 import path from "path";
 import fs from "fs";
 
-import { install } from "./pkg-install";
+const corePackageInfo = require("../../package");
 
+import { install } from "./pkg-install";
 import { emoji } from "../utils/emoji";
 import { mkdirsSync } from "../utils/fs";
 import { Config } from "../types";
@@ -240,7 +241,16 @@ export default class PluginManager {
       return true;
     } else {
       const packageInfo = this.plugins.reduce((prev, curr) => {
-        (prev as any)[curr.name] = "latest";
+        let version = "latest";
+
+        // 官方插件的版本，跟内核版本相同
+        if (curr.name.match(/^@cloudbase/)) {
+          version = (corePackageInfo as any).version;
+        } else {
+          // 其他插件，取最新版本
+          version = "latest";
+        }
+        (prev as any)[curr.name] = version;
         return prev;
       }, {});
       await this.installPackage(packageInfo);
