@@ -21,8 +21,8 @@ class DenoPlugin extends Plugin {
 
     const DEFAULT_INPUTS = {
       runtime: "latest",
-      name: "deno-app",
-      path: "/deno-app",
+      serviceName: "deno-app",
+      servicePath: "/deno-app",
       projectPath: ".",
     };
 
@@ -53,10 +53,10 @@ class DenoPlugin extends Plugin {
 
     // 构建 deno 中间产物
     this.buildOutput = await this.denoBuilder.build(
-      this.resolvedInputs.localPath,
+      this.resolvedInputs.projectPath,
       {
-        path: this.resolvedInputs.path,
-        name: this.resolvedInputs.name,
+        name: this.resolvedInputs.serviceName,
+        path: this.resolvedInputs.servicePath,
       }
     );
 
@@ -89,7 +89,7 @@ class DenoPlugin extends Plugin {
 
     await this.denoBuilder.clean();
 
-    let url = `https://${this.api.envId}.service.tcloudbase.com${this.resolvedInputs.path}`;
+    let url = `https://${this.api.envId}.service.tcloudbase.com${this.resolvedInputs.servicePath}`;
     if (url[url.length - 1] !== '/') {
       url = url + '/';
     }
