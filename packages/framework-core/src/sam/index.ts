@@ -96,7 +96,8 @@ export class SamManager {
             return true;
           } else if (taskInfo.Detail) {
             throw new Error(
-              `部署失败，错误信息：${taskInfo.Detail}， 请求RequestId：${statusRes.RequestId}`
+              `
+部署失败，错误信息：${taskInfo.Detail}， 请求RequestId：${statusRes.RequestId}`
             );
           }
         }
