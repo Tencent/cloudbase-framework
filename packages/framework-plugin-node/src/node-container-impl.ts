@@ -66,7 +66,11 @@ class NodeContainerPlugin extends Plugin {
       installDeps: this.resolvedInputs.installDeps,
       port: this.resolvedInputs.containerOptions?.containerPort,
       hasPackage: fs.existsSync(
-        path.join(this.api.projectPath, "package.json")
+        path.join(
+          this.api.projectPath,
+          this.resolvedInputs.projectPath || "",
+          "package.json"
+        )
       ),
     });
 
