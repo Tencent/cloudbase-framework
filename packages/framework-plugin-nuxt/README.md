@@ -61,6 +61,7 @@ cloudbase framework:deploy
           "entry": "./",
           "path": "/nuxt-ssr",
           "name": "nuxt-ssr",
+          "installCommand": "npm install",
           "buildCommand": "npm run build"
         }
       }
@@ -82,6 +83,12 @@ Nuxt 配置文件所在目录，默认当前项目所在目录
 ### `name`
 
 服务名，如`nuxt-ssr`
+
+### `installCommand`
+
+安装命令，如`npm install`，没有可不传
+
+默认值 `npm install`
 
 ### `buildCommand`
 
