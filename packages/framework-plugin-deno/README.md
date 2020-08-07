@@ -50,8 +50,8 @@ cloudbase framework:deploy
       "client": {
         "use": "@cloudbase/framework-plugin-deno",
         "inputs": {
-          "name": "deno-app",
-          "path": "/deno-app"
+          "serviceName": "deno-app",
+          "projectPath": "/deno-app"
         }
       }
     }
@@ -61,11 +61,11 @@ cloudbase framework:deploy
 
 ### 配置参数说明
 
-### `name`
+### `serviceName`
 
 必填，服务名，字符串格式，如 `deno-app`
 
-### `path`
+### `servicePath`
 
 必填，服务路径配置, 字符串格式, 如 `/deno-app`
 
