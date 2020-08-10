@@ -8,7 +8,8 @@ export function install(
 
   const args = ["install"];
 
-  const npmOptions = ["--prefer-offline", "--no-audit", "--progress=false"
+  const npmOptions = ["--prefer-offline", "--no-audit", "--progress=false"];
+
   return execa("npm", [...args, ...packageList, ...npmOptions], {
     cwd: options?.cwd || process.cwd(),
   });
