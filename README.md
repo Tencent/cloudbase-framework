@@ -79,11 +79,7 @@ cloudbase framework:deploy
 
 **一键部署一个 Vue CLI 创建的 项目**
 
-![](https://6678-fx-1259727701.tcb.qcloud.la/%E4%B8%80%E9%94%AE%E6%A3%80%E6%B5%8B%E5%92%8C%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E9%A1%B9%E7%9B%AE%EF%BC%88Vue%EF%BC%89.gif)
-
-**一键创建一个 Dart 后端服务项目**
-
-![](https://6678-fx-1259727701.tcb.qcloud.la/%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AA%20Dart%20%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1.gif)
+![](https://6678-fx-1259727701.tcb.qcloud.la/ezgif-4-ee79409c8665.gif)
 
 ## <a name="examples"></a>项目示例
 
@@ -105,7 +101,7 @@ cloudbase framework:deploy
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/node"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/82da2591cd2aed610d7f91f9dd881930.png"></a>                                         | Node.js 云应用                | Node.js + Serverless 云应用部署                | `cloudbase init --template node`            |
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/dart"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/2d1c438165480b9a7937e3b81c4873e3.jpg"></a>                                         | Aqueduct (Dart Server) 云应用 | Aqueduct (Dart Server) + Serverless 云应用部署 | `cloudbase init --template dart`            |
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/omi-starter"><img width="200" style="max-width:none;" src="https://user-images.githubusercontent.com/11473889/88882843-4f2b7780-d265-11ea-8fcf-49cb297240c7.png"></a> | Omi 应用                      | Omi + 云函数 + 静态网站部署                    | `cloudbase init --template omi-starter`     |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/uni-app-starter"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/721bfc09d7e0a2ccd49b40ac6287f8ac.png"></a> | uni-app 应用 | uni-app + 云函数 + 静态网站部署 | `cloudbase init --template uni-app-starter`            |
+| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/uni-app-starter"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/721bfc09d7e0a2ccd49b40ac6287f8ac.png"></a>                              | uni-app 应用                  | uni-app + 云函数 + 静态网站部署                | `cloudbase init --template uni-app-starter` |
 
 ## <a name="templates"></a>模板
 
@@ -247,7 +243,9 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -276,6 +274,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
