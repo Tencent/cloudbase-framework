@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.8.0] - 2020-08-11
+
+### Features
+
+- 新增 uni-app 应用模板(#59) @qinmudi
+- 支持自动检测 Nuxt SSR 应用
+- Nuxt 插件支持自定义 npm 安装命令(#57) @Realybig
+
+### Bugfixes
+
+- 修复插件系统官方插件版本和内核版本不匹配的问题
+- 修复部分情况下 env 文件解析失败的问题
+- 修复 Node 插件在子目录下 package.json 路径问题
+
 ## [0.7.0] - 2020-07-28
 
 ### Features
