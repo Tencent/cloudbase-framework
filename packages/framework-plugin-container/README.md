@@ -76,6 +76,10 @@ cloudbase framework:deploy
 
 ### 配置参数说明
 
+### `uploadType`
+
+选填，容器镜像代码来源类别，支持`package|image|repository`3 种，分别代表本地代码包、镜像地址和 git 仓库地址。默认是`package`, 选择`image`时需要填写 `imageInfo`, 选择 `repository` 需要填写`codeDetail`
+
 ### `serviceName`
 
 必填，服务名，字符串格式，如 `node-api`
@@ -143,6 +147,26 @@ cloudbase framework:deploy
 ### `envVariables`
 
 选填，环境变量键值对，会被注入到云应用的运行时环境变量中
+
+### `imageInfo`
+
+`uploadType` 填写为 `image`时需要填写 `imageInfo`，类型是对象格式
+
+| 属性名称       | 类型   | 长度  | 是否必填 | 描述          |
+| -------------- | ------ | ----- | -------- | ------------- |
+| repositoryName | String | 1-64  | 是       | 镜像仓库名称  |
+| tagName        | String | 1-64  | 是       | 镜像 tag 名称 |
+| serverAddr     | String | 1-512 | 是       | 镜像 server   |
+| imageUrl       | String | 1-512 | 是       | 镜像拉取地址  |
+
+### `codeDetail`
+
+`uploadType` 填写为 `repository` 时需要填写`codeDetail`，类型是对象格式
+
+| 属性名称 | 类型              | 长度  | 是否必填 | 描述        |
+| -------- | ----------------- | ----- | -------- | ----------- |
+| Name     | CodeRepoName 对象 | 1-512 | 否       | repo 的名字 |
+| Url      | String            | 1-512 | 否       | repo 的 url |
 
 ## 更多插件
 

@@ -37,6 +37,7 @@ class ContainerPlugin extends Plugin {
     super(name, api, inputs);
 
     const DEFAULT_INPUTS = {
+      uploadType: "package",
       description: "基于云开发 CloudBase Framework 部署的云应用",
       isPublic: true,
       flowRatio: 100,
@@ -54,6 +55,9 @@ class ContainerPlugin extends Plugin {
       envVariables: {},
     };
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
+
+    this.checkInputs();
+
     this.containerApi = new ContainerApi(this.api.cloudApi, this.api.logger);
     this.builder = new ContainerBuilder({
       projectPath: this.api.projectPath,
@@ -83,21 +87,23 @@ class ContainerPlugin extends Plugin {
   async build() {
     this.api.logger.debug("ContainerPlugin: build", this.resolvedInputs);
 
-    const { serviceName, version } = this.resolvedInputs;
-    const localPath =
-      this.resolvedInputs.localAbsolutePath ||
-      path.join(this.api.projectPath, this.resolvedInputs.localPath);
+    if (this.resolvedInputs.uploadType === "package") {
+      const { serviceName, version } = this.resolvedInputs;
+      const localPath =
+        this.resolvedInputs.localAbsolutePath ||
+        path.join(this.api.projectPath, this.resolvedInputs.localPath);
 
-    const result = await this.builder.build(localPath, {
-      path: this.resolvedInputs.servicePath,
-      name: this.resolvedInputs.serviceName,
-    });
+      const result = await this.builder.build(localPath, {
+        path: this.resolvedInputs.servicePath,
+        name: this.resolvedInputs.serviceName,
+      });
 
-    const distFileName = result.containers[0].source;
+      const distFileName = result.containers[0].source;
 
-    await this.containerApi.upload(serviceName, version, distFileName);
+      await this.containerApi.upload(serviceName, version, distFileName);
 
-    this.builder.clean();
+      this.builder.clean();
+    }
   }
 
   /**
@@ -141,29 +147,68 @@ class ContainerPlugin extends Plugin {
       version,
       servicePath,
       envVariables,
+      uploadType,
+      imageInfo,
+      codeDetail,
     } = this.resolvedInputs;
+
+    let otherProperties;
+
+    switch (uploadType) {
+      case "package":
+        otherProperties = {
+          PackageName: serviceName,
+          PackageVersion: version,
+        };
+        break;
+      case "image":
+        otherProperties = {
+          ImageInfo: {
+            RepositoryName: imageInfo.repositoryName,
+            IsPublic: true,
+            TagName: imageInfo.tagName,
+            ServerAddr: imageInfo.serverAddr,
+            ImageUrl: imageInfo.imageUrl,
+          },
+        };
+        break;
+      case "repository":
+        otherProperties = {
+          CodeDetail: {
+            Name: {
+              Name: codeDetail.name,
+            },
+            Url: codeDetail.url,
+          },
+        };
+        break;
+      default:
+        break;
+    }
+
     return {
       Type: "CloudBase::CloudBaseRun",
-      Properties: {
-        ServerName: serviceName,
-        Description: description,
-        isPublic: isPublic,
-        UploadType: "package",
-        FlowRatio: flowRatio,
-        Cpu: cpu,
-        Mem: mem,
-        MinNum: minNum,
-        MaxNum: maxNum,
-        PolicyType: policyType,
-        PolicyThreshold: policyThreshold,
-        ContainerPort: containerPort,
-        DockerfilePath: dockerfilePath,
-        BuildDir: buildDir,
-        PackageName: serviceName,
-        PackageVersion: version,
-        Path: servicePath,
-        EnvParams: JSON.stringify(envVariables),
-      },
+      Properties: Object.assign(
+        {
+          ServerName: serviceName,
+          Description: description,
+          isPublic: isPublic,
+          UploadType: uploadType,
+          FlowRatio: flowRatio,
+          Cpu: cpu,
+          Mem: mem,
+          MinNum: minNum,
+          MaxNum: maxNum,
+          PolicyType: policyType,
+          PolicyThreshold: policyThreshold,
+          ContainerPort: containerPort,
+          DockerfilePath: dockerfilePath,
+          BuildDir: buildDir,
+          Path: servicePath,
+          EnvParams: JSON.stringify(envVariables),
+        },
+        otherProperties
+      ),
     };
   }
 
@@ -184,6 +229,34 @@ class ContainerPlugin extends Plugin {
     }
 
     return result;
+  }
+
+  checkInputs() {
+    const { uploadType, codeDetail, imageInfo, ser } = this.resolvedInputs;
+    switch (uploadType) {
+      case "image":
+        if (!codeDetail || !codeDetail.url) {
+          throw new Error(
+            "uploadType 填写为 image 时，应提供正确的 codeDetail 信息"
+          );
+        }
+        break;
+      case "repository":
+        if (
+          !imageInfo ||
+          !imageInfo.repositoryName ||
+          !imageInfo.tagName ||
+          !imageInfo.serverAddr ||
+          !imageInfo.imageUrl
+        ) {
+          throw new Error(
+            "uploadType 填写为 repository 时，应提供 repository 信息"
+          );
+        }
+        break;
+      default:
+        break;
+    }
   }
 }
 
