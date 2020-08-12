@@ -1,6 +1,7 @@
-import { IContainerPluginInputs } from "@cloudbase/framework-plugin-container";
+import { IContainerPluginInputs } from '@cloudbase/framework-plugin-container';
 
-export interface INodePluginInputs {
+export interface IDenoPluginInputs {
+  dockerImage?: string;
   runtime?: string;
   servicePath?: string;
   serviceName?: string;

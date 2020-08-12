@@ -1,13 +1,14 @@
 import { Plugin, PluginServiceApi } from '@cloudbase/framework-core';
 import { plugin as ContainerPlugin } from '@cloudbase/framework-plugin-container';
 import { DenoBuilder } from './builder';
+import { IDenoPluginInputs } from './types';
 
 function resolveInputs(inputs: any, defaultInputs: any) {
   return Object.assign({}, defaultInputs, inputs);
 }
 
 class DenoPlugin extends Plugin {
-  protected resolvedInputs: any;
+  protected resolvedInputs: IDenoPluginInputs;
   protected buildOutput: any;
   protected denoBuilder: DenoBuilder;
   protected containerPlugin: any;
@@ -15,15 +16,16 @@ class DenoPlugin extends Plugin {
   constructor(
     public name: string,
     public api: PluginServiceApi,
-    public inputs: any
+    public inputs: IDenoPluginInputs
   ) {
     super(name, api, inputs);
 
     const DEFAULT_INPUTS = {
-      runtime: "latest",
-      serviceName: "deno-app",
-      servicePath: "/deno-app",
-      projectPath: ".",
+      dockerImage: 'debian:buster-slim',
+      runtime: 'latest',
+      serviceName: 'deno-app',
+      servicePath: '/deno-app',
+      projectPath: '.',
     };
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
@@ -53,10 +55,12 @@ class DenoPlugin extends Plugin {
 
     // 构建 deno 中间产物
     this.buildOutput = await this.denoBuilder.build(
-      this.resolvedInputs.projectPath,
+      this.resolvedInputs.projectPath || '.',
       {
-        name: this.resolvedInputs.serviceName,
-        path: this.resolvedInputs.servicePath,
+        dockerImage: this.resolvedInputs.dockerImage,
+        runtime: this.resolvedInputs.runtime,
+        name: this.resolvedInputs.serviceName || 'deno-app',
+        path: this.resolvedInputs.servicePath || '/deno-app',
       }
     );
 
