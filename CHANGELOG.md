@@ -1,5 +1,36 @@
 # Changelog
 
+## [0.8.0] - 2020-08-11
+
+### Features
+
+- 新增 uni-app 应用模板(#59) @qinmudi
+- 支持自动检测 Nuxt SSR 应用
+- Nuxt 插件支持自定义 npm 安装命令(#57) @Realybig
+
+### Bugfixes
+
+- 修复插件系统官方插件版本和内核版本不匹配的问题
+- 修复部分情况下 env 文件解析失败的问题
+- 修复 Node 插件在子目录下 package.json 路径问题
+
+## [0.7.0] - 2020-07-28
+
+### Features
+
+- Website 插件支持注入自定义环境变量 (#50)
+- Website 插件自定义 pakcage 安装命令(#46)
+- Node 插件支持 Vercel 类型应用(#49)
+- Framework 内核支持自定义应用名
+- 支持自动检测 Koa 应用（#52）
+- 配置文件模板变量支持从进程环境变量传入
+- 新增 Omi 应用模板
+
+### Bugfixes
+
+- 修复 --verbose 参数输出 debug 日志失效的问题
+- 修复部分 node 版本和 os 版本无法创建插件仓库的问题
+
 ## [0.6.0] - 2020-07-28
 
 ### Features

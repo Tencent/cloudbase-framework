@@ -1,4 +1,5 @@
 import { ICloudBaseConfig } from "../types";
+import { isObject } from '../utils/type-check';
 import { detect } from "../detect-frameworks";
 import inquirer from "inquirer";
 import chalk from "chalk";
@@ -31,10 +32,13 @@ export default async function resolveConfig(
         if (answer.isModifyConfig) {
           inputs = await modifyFrameworkConfig(item.config);
         } else {
-          inputs = Object.entries(item.config).reduce((prev: any, cur: any) => {
-            prev[cur[0] as string] = cur[1].value;
-            return prev;
-          }, {} as any);
+          inputs = {}
+          if (isObject(item.config)) {
+            inputs = Object.entries(item.config).reduce((prev: any, cur: any) => {
+              prev[cur[0] as string] = cur[1].value;
+              return prev;
+            }, {} as any);
+          }
         }
         plugins[item.key] = {
           use: item.plugin,
@@ -90,6 +94,9 @@ function promptWriteConfig() {
 }
 
 function formatFrameworkConfig(config: any) {
+  if (!isObject(config)) {
+    return '';
+  }
   return Object.entries(config)
     .map(
       ([, config]) =>
@@ -98,7 +105,7 @@ function formatFrameworkConfig(config: any) {
     .join("\n");
 }
 
-function modifyFrameworkConfig(frameworkConfig: any) {
+function modifyFrameworkConfig(frameworkConfig: any = {}) {
   return inquirer.prompt(
     Object.entries(frameworkConfig).map(([name, config]) => {
       return {
