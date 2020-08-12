@@ -164,10 +164,6 @@ class ContainerPlugin extends Plugin {
       case "image":
         otherProperties = {
           ImageInfo: {
-            RepositoryName: imageInfo.repositoryName,
-            IsPublic: true,
-            TagName: imageInfo.tagName,
-            ServerAddr: imageInfo.serverAddr,
             ImageUrl: imageInfo.imageUrl,
           },
         };
@@ -232,26 +228,18 @@ class ContainerPlugin extends Plugin {
   }
 
   checkInputs() {
-    const { uploadType, codeDetail, imageInfo, ser } = this.resolvedInputs;
+    const { uploadType, codeDetail, imageInfo } = this.resolvedInputs;
     switch (uploadType) {
-      case "image":
+      case "repository":
         if (!codeDetail || !codeDetail.url) {
           throw new Error(
-            "uploadType 填写为 image 时，应提供正确的 codeDetail 信息"
+            "uploadType 填写为 repository 时，应提供正确的 codeDetail 信息"
           );
         }
         break;
-      case "repository":
-        if (
-          !imageInfo ||
-          !imageInfo.repositoryName ||
-          !imageInfo.tagName ||
-          !imageInfo.serverAddr ||
-          !imageInfo.imageUrl
-        ) {
-          throw new Error(
-            "uploadType 填写为 repository 时，应提供 repository 信息"
-          );
+      case "image":
+        if (!imageInfo || !imageInfo.imageUrl) {
+          throw new Error("uploadType 填写为 image 时，应提供 imageInfo 信息");
         }
         break;
       default:
