@@ -3,21 +3,18 @@ import fs from 'fs-extra';
 import { Builder } from '@cloudbase/framework-core';
 
 interface BuilderOptions {
-  /**
-   * 项目根目录的绝对路径
-   */
+  // 项目根目录的绝对路径
   projectPath: string;
 }
 
 interface BuilderBuildOptions {
-  /**
-   * 路径
-   */
+  // 使用镜像
+  dockerImage?: string;
+  // 运行时环境
+  runtime?: string;
+  // 路径
   path: string;
-
-  /**
-   * 服务名
-   */
+  // 服务名
   name: string;
 }
 
@@ -38,7 +35,7 @@ export class DenoBuilder extends Builder {
 
     await Promise.all([
       this.generator.generate(
-        path.join(__dirname, "../assets"),
+        path.join(__dirname, '../assets'),
         appDir,
         options || {}
       ),
