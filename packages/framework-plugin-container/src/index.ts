@@ -54,7 +54,7 @@ class ContainerPlugin extends Plugin {
       envVariables: {},
     };
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
-    this.containerApi = new ContainerApi(this.api.cloudApi);
+    this.containerApi = new ContainerApi(this.api.cloudApi, this.api.logger);
     this.builder = new ContainerBuilder({
       projectPath: this.api.projectPath,
     });
@@ -162,7 +162,7 @@ class ContainerPlugin extends Plugin {
         PackageName: serviceName,
         PackageVersion: version,
         Path: servicePath,
-        EnvParams: JSON.stringify(envVariables)
+        EnvParams: JSON.stringify(envVariables),
       },
     };
   }
