@@ -152,12 +152,36 @@ cloudbase framework:deploy
 
 `uploadType` 填写为 `image`时需要填写 `imageInfo`，类型是对象格式
 
-| 属性名称       | 类型   | 长度  | 是否必填 | 描述          |
-| -------------- | ------ | ----- | -------- | ------------- |
-| repositoryName | String | 1-64  | 是       | 镜像仓库名称  |
-| tagName        | String | 1-64  | 是       | 镜像 tag 名称 |
-| serverAddr     | String | 1-512 | 是       | 镜像 server   |
-| imageUrl       | String | 1-512 | 是       | 镜像拉取地址  |
+| 属性名称 | 类型   | 长度  | 是否必填 | 描述         |
+| -------- | ------ | ----- | -------- | ------------ |
+| imageUrl | String | 1-512 | 是       | 镜像拉取地址 |
+
+imageUrl 格式为 [registry-url]/[namespace]/[image]:[tag]，支持腾讯云 ccr.ccs.tencentyun.com 上的镜像地址，也支持 dockerhub 公开的镜像，如 `nginx:latest`
+
+例如
+
+```json
+{
+  "envId": "{{envId}}",
+  "framework": {
+    "name": "capp-example",
+    "plugins": {
+      "client": {
+        "use": "@cloudbase/framework-plugin-container",
+        "inputs": {
+          "serviceName": "node-api",
+          "servicePath": "/node-api",
+          "localPath": "./",
+          "uploadType": "image",
+          "imageInfo": {
+            "imageUrl": "ccr.ccs.tencentyun.com/tcb-100010952056-rjdt/webpage_node-api:node-api-001-1597238358"
+          }
+        }
+      }
+    }
+  }
+}
+```
 
 ### `codeDetail`
 
@@ -165,8 +189,34 @@ cloudbase framework:deploy
 
 | 属性名称 | 类型              | 长度  | 是否必填 | 描述        |
 | -------- | ----------------- | ----- | -------- | ----------- |
-| Name     | CodeRepoName 对象 | 1-512 | 否       | repo 的名字 |
-| Url      | String            | 1-512 | 否       | repo 的 url |
+| name     | CodeRepoName 对象 | 1-512 | 否       | repo 的名字 |
+| url      | String            | 1-512 | 否       | repo 的 url |
+
+例如
+
+```json
+{
+  "envId": "{{envId}}",
+  "framework": {
+    "name": "capp-example",
+    "plugins": {
+      "client": {
+        "use": "@cloudbase/framework-plugin-container",
+        "inputs": {
+          "serviceName": "deno",
+          "servicePath": "/deno",
+          "localPath": "./",
+          "uploadType": "repository",
+          "codeDetail": {
+            "name": "deno-docker",
+            "url": "https://github.com/TabSpace/deno-docker"
+          }
+        }
+      }
+    }
+  }
+}
+```
 
 ## 更多插件
 
