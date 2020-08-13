@@ -49,7 +49,7 @@
 - [贡献指南](#contribute)
 - [License](#license)
 - [Changelog](#changelog)
-- [交流 QQ 群](#qq)
+- [在线交流群](#qq)
 
 ## <a name="quick-start"></a> 快速开始
 
@@ -228,9 +228,22 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 
 开源协议文档请参阅 [Apache License 2.0](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/LICENSE)
 
-## <a name="qq"></a> 交流 QQ 群
+## <a name="qq"></a> 在线交流群
 
-![](https://main.qcloudimg.com/raw/52e3e5062e01cc9058689138c9e8f02f.jpg)
+<table>
+  <tr>
+   <td>
+      微信群
+      <br>
+      <img src="https://main.qcloudimg.com/raw/59a8ddf87b7423c6a56058534bc3fd90.png" width="100px;" alt=""/>
+    </td>
+    <td>
+      QQ 群
+      <br>
+      <img src="https://main.qcloudimg.com/raw/52e3e5062e01cc9058689138c9e8f02f.jpg" width="100px;" alt=""/>
+    </td>
+  </tr>
+</table>
 
 ## Contributors ✨
 
