@@ -149,6 +149,16 @@
         "talk",
         "bug"
       ]
+    },
+    {
+      "login": "mirageql",
+      "name": "mirageql",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/69442876?v=4",
+      "profile": "https://github.com/mirageql",
+      "contributions": [
+        "code",
+        "blog"
+      ]
     }
   ],
   "contributorsPerLine": 7,
