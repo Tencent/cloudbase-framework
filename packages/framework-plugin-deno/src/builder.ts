@@ -12,6 +12,10 @@ interface BuilderBuildOptions {
   dockerImage?: string;
   // 运行时环境
   runtime?: string;
+  // 启动入口文件
+  entry?: string;
+  // 启动参数
+  runOptions?: Array<string>;
   // 路径
   path: string;
   // 服务名
@@ -30,6 +34,23 @@ export class DenoBuilder extends Builder {
     const { distDir, projectDir } = this;
     const containerName = options?.name || 'deno-app';
     const appDir = path.join(distDir, containerName);
+    const spec:any = {
+      ...options,
+    };
+
+    spec.denoVersion = '';
+    if (spec.runtime && spec.runtime !== 'latest') {
+      spec.denoVersion = `-s ${spec.runtime}`
+    }
+
+    spec.denoRunOptions = '';
+    if (!spec.runOptions || spec.runOptions.length <= 0) {
+      spec.denoRunOptions = '"--allow-env",'
+    } else {
+      spec.denoRunOptions = spec.runOptions.map((option:string) => {
+        return `"${option}"`;
+      }).join(',')
+    }
 
     fs.ensureDirSync(appDir);
 
@@ -37,7 +58,7 @@ export class DenoBuilder extends Builder {
       this.generator.generate(
         path.join(__dirname, '../assets'),
         appDir,
-        options || {}
+        spec
       ),
       fs.copy(path.join(projectDir, localDir), appDir),
     ]);
