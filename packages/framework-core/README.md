@@ -59,19 +59,13 @@
 npm install -g @cloudbase/cli@latest
 ```
 
-2. **登录**
-
-```bash
-cloudbase login
-```
-
-3. **初始化一个应用**
+2. **初始化一个应用**
 
 ```bash
 cloudbase init
 ```
 
-4. **部署应用**
+3. **部署应用**
 
 ```bash
 cloudbase framework:deploy

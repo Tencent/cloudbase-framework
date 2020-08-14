@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.8.2] - 2020-08-13
+
+### Features
+
+- Container 插件支持指定镜像/git 仓库地址来部署服务
+
 ## [0.8.0] - 2020-08-11
 
 ### Features
