@@ -63,15 +63,31 @@ cloudbase framework:deploy
 
 ### `serviceName`
 
-必填，服务名，字符串格式，如 `deno-app`
+必填，服务名，字符串格式，如 `'deno-app'`
 
 ### `servicePath`
 
-必填，服务路径配置, 字符串格式, 如 `/deno-app`
+必填，服务路径配置，字符串格式，如 `'/deno-app'`
 
 ### `projectPath`
 
-选填，本地代码文件夹相对于项目根目录的路径，默认值 `./`
+选填，本地代码文件夹相对于项目根目录的路径，字符串格式，默认值 `'./'`
+
+### `dockerImage`
+
+选填，Dockerfile 源镜像，字符串格式，默认值 `'debian:buster-slim'`
+
+### `runtime`
+
+选填，Deno 运行时版本，字符串格式，如 `'v1.3.0'`，默认值 `'latest'`
+
+### `entry`
+
+选填，入口文件，字符串格式，默认值 `'entry.ts'`
+
+### `runOptions`
+
+选填，Deno 执行选项，字符串数组格式，默认值 `['--allow-all']`
 
 ## 更多插件
 

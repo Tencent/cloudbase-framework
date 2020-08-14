@@ -1,9 +1,9 @@
-FROM debian:buster-slim
+FROM <%= dockerImage %>
 
 WORKDIR /install
 
 RUN apt-get update && apt-get install curl unzip -y
-RUN curl -fsSL https://x.deno.js.cn/install.sh | sh
+RUN curl -fsSL https://x.deno.js.cn/install.sh | sh <%= denoVersion %>
 
 ENV DENO_DIR="/root/.cache/deno"
 ENV DENO_INSTALL="/root/.deno"
@@ -15,4 +15,4 @@ ENTRYPOINT ["deno"]
 
 WORKDIR /usr/src/app
 COPY . .
-CMD ["run", "-A", "entry.ts"]
+CMD ["run", <%- denoRunOptions %>, "<%= entry %>"]
