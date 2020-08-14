@@ -26,4 +26,19 @@ export class SamApi {
       ExtensionIds: ids,
     });
   }
+
+  /**
+   * 上报部署状态
+   */
+  reportCloudBaseCIResultCallback(
+    ciId: string,
+    traceId: string,
+    extensionId: string
+  ) {
+    return CloudApi.tcbService.request("CloudBaseCIResultCallback", {
+      CIID: ciId,
+      TraceId: traceId,
+      ExtensionID: extensionId,
+    });
+  }
 }
