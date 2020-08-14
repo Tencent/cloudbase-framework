@@ -70,47 +70,63 @@ export class SamManager {
         }
       }
 
-      const bar = new ProgressBar("正在部署[:bar] :percent :elapsed s", {
-        complete: "░",
-        incomplete: " ",
-        width: 40,
-        total: 100,
-      });
-      let percent = 0;
-
-      await this.waitUntil(async () => {
-        const statusRes = await this.samApi.fetchExtensionTaskStatus([
-          extensionId,
-        ]);
-
-        const taskInfos = statusRes.ExtensionTaskInfo;
-
-        const taskInfo = taskInfos[0];
-
-        if (taskInfo) {
-          const delta = (taskInfo.Percent || 0) - percent;
-          percent = taskInfo.Percent || 0;
-          bar.tick(delta);
-
-          if (taskInfo.Status === "running") {
-            return true;
-          } else if (taskInfo.Detail) {
-            throw new Error(
-              `
-部署失败，错误信息：${taskInfo.Detail}， 请求RequestId：${statusRes.RequestId}`
-            );
-          }
-        }
-
-        return taskInfos.filter((item: any) =>
-          ["running"].includes(item.Status)
-        ).length;
-      });
+      // 云端一键部署时不轮询查询结果
+      if (process.env.CLOUDBASE_CIID) {
+        await this.samApi.reportCloudBaseCIResultCallback(
+          process.env.CLOUDBASE_CIID,
+          process.env.CLOUDBASE_TRACEID || "",
+          extensionId
+        );
+      } else {
+        await this.checkStatus(extensionId);
+      }
     } catch (e) {
       this.clear();
       throw e;
     }
     this.clear();
+  }
+
+  /**
+   * 轮询状态
+   * @param extensionId
+   */
+  async checkStatus(extensionId: string) {
+    const bar = new ProgressBar("正在部署[:bar] :percent :elapsed s", {
+      complete: "░",
+      incomplete: " ",
+      width: 40,
+      total: 100,
+    });
+    let percent = 0;
+
+    await this.waitUntil(async () => {
+      const statusRes = await this.samApi.fetchExtensionTaskStatus([
+        extensionId,
+      ]);
+
+      const taskInfos = statusRes.ExtensionTaskInfo;
+
+      const taskInfo = taskInfos[0];
+
+      if (taskInfo) {
+        const delta = (taskInfo.Percent || 0) - percent;
+        percent = taskInfo.Percent || 0;
+        bar.tick(delta);
+
+        if (taskInfo.Status === "running") {
+          return true;
+        } else if (taskInfo.Detail) {
+          throw new Error(
+            `
+部署失败，错误信息：${taskInfo.Detail}， 请求RequestId：${statusRes.RequestId}`
+          );
+        }
+      }
+
+      return taskInfos.filter((item: any) => ["running"].includes(item.Status))
+        .length;
+    });
   }
 
   clear() {
