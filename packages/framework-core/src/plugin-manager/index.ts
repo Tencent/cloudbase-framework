@@ -108,7 +108,7 @@ export default class PluginManager {
     return this.callPluginHook("run", {
       id,
       params: { runCommand },
-      icon: emoji("🚀"),
+      icon: emoji("🚢"),
     });
   }
 
