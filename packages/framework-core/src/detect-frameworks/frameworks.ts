@@ -93,6 +93,10 @@ export default [
         path: "pagic.config.ts",
         exists: true,
       },
+      {
+        path: "pagic.config.tsx",
+        exists: true,
+      },
     ],
     plugin: "@cloudbase/framework-plugin-website",
     config: {
