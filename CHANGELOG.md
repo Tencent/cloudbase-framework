@@ -4,7 +4,7 @@
 
 ### Features
 
-- 新增 Deno 插件一键部署 Deno 插件(#63) @TabSpace
+- 新增 Deno 插件一键部署 Deno 应用(#63) @TabSpace
 - 新增 Framework run 命令 (#68) @lt5c
 - 新增 Deno 应用模板(#63) @TabSpace
 - 新增 Taro 应用模板(#66) @qinmudi
