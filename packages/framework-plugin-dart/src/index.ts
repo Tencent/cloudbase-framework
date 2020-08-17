@@ -45,6 +45,11 @@ class DartPlugin extends Plugin {
   }
 
   /**
+   * 执行本地命令
+   */
+  async run() {}
+
+  /**
    * 删除资源
    */
   async remove() {}

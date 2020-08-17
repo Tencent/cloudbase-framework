@@ -97,7 +97,7 @@ class WebsitePlugin extends Plugin {
     const { outputPath, cloudPath, buildCommand, envVariables } = this.resolvedInputs;
 
     if (buildCommand) {
-      await runCommandWithEnvVariables(buildCommand, envVariables);
+      await promisify(exec)(injectEnvVariables(buildCommand, envVariables));
     }
 
     this.buildOutput = await this.builder.build(["**", "!**/node_modules/**"], {
@@ -138,6 +138,26 @@ class WebsitePlugin extends Plugin {
     await this.builder.clean();
 
     return deployResult;
+  }
+
+  /**
+   * 执行本地命令
+   */
+  async run(params: { runCommand: string }) {
+    this.api.logger.debug("WebsitePlugin: run");
+    
+    const runCommand = params?.runCommand || this.resolvedInputs.runCommand;
+
+    await new Promise((resolve, reject) => {
+      const cmd = exec(injectEnvVariables(runCommand, this.resolvedInputs.envVariables));
+      cmd.stdout?.pipe(process.stdout);
+      cmd.on('close', (code) => {
+        resolve(code);
+      });
+      cmd.on('exit', (code) => {
+        reject(code);
+      })
+    });
   }
 
   /**
@@ -221,13 +241,13 @@ function ensureWithSlash(dir: string): string {
   return dir[dir.length - 1] === "/" ? dir : dir + "/";
 }
 
-async function runCommandWithEnvVariables(buildCommand: string, envVariables: any) {
+function injectEnvVariables(command: string, envVariables: any): string {
   const keyword = os.platform() === "win32" ? "set" : "export";
   const envCommand = Object.keys(envVariables || {}).reduce((cmd, key) => {
     return cmd + `${keyword} ${key}=${envVariables[key]} && `;
   }, "");
 
-  await promisify(exec)(envCommand + buildCommand);
+  return `${envCommand} ${command}`;
 }
 
 export const plugin = WebsitePlugin;
