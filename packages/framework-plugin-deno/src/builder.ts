@@ -14,8 +14,6 @@ interface BuilderBuildOptions {
   runtime?: string;
   // 启动入口文件
   entry?: string;
-  // 启动参数
-  runOptions?: Array<string>;
   // 路径
   path: string;
   // 服务名
@@ -41,15 +39,6 @@ export class DenoBuilder extends Builder {
     spec.denoVersion = '';
     if (spec.runtime && spec.runtime !== 'latest') {
       spec.denoVersion = `-s ${spec.runtime}`
-    }
-
-    spec.denoRunOptions = '';
-    if (!spec.runOptions || spec.runOptions.length <= 0) {
-      spec.denoRunOptions = '"--allow-env",'
-    } else {
-      spec.denoRunOptions = spec.runOptions.map((option:string) => {
-        return `"${option}"`;
-      }).join(',')
     }
 
     fs.ensureDirSync(appDir);

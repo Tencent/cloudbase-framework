@@ -87,9 +87,21 @@ cloudbase framework:deploy
 
 选填，入口文件，字符串格式，默认值 `'entry.ts'`
 
-### `runOptions`
+## 关于 denon
 
-选填，Deno 执行选项，字符串数组格式，默认值 `['--allow-all']`
+服务使用 [denon](https://github.com/denosaurs/denon) 来管理 deno 进程，以便于管理 deno 启动参数
+
+```yml
+# denon.yml
+allow:
+  - net
+  - env
+
+scripts:
+  start: deno run entry.ts
+```
+
+`cloudbase init` 之后会自动提供一个默认的 denon.yml，请根据应用需求来修改
 
 ## 更多插件
 
