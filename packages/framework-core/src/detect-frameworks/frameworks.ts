@@ -97,7 +97,8 @@ export default [
     plugin: "@cloudbase/framework-plugin-website",
     config: {
       buildCommand: {
-        value: "pagic build",
+        value:
+          "deno run --unstable --allow-read --allow-write --allow-net https://deno.land/x/pagic/mod.ts build",
         desc: "🔨 构建脚本",
       },
       outputPath: {
