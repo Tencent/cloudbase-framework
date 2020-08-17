@@ -15,4 +15,6 @@ ENTRYPOINT ["deno"]
 
 WORKDIR /usr/src/app
 COPY . .
+RUN deno install <%= entry %>
+
 CMD ["run", <%- denoRunOptions %>, "<%= entry %>"]
