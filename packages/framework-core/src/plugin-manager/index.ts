@@ -26,7 +26,7 @@ interface PluginHookOption {
   icon?: string;
 }
 
-type PluginHookName = "init" | "build" | "deploy" | "compile";
+type PluginHookName = "init" | "build" | "deploy" | "compile" | "run";
 
 /**
  * 插件管理器
@@ -76,7 +76,7 @@ export default class PluginManager {
   }
 
   /**
-   * 部署
+   * 编译
    *
    * @param id
    */
@@ -95,6 +95,19 @@ export default class PluginManager {
   async deploy(id?: string) {
     return this.callPluginHook("deploy", {
       id,
+      icon: emoji("🚀"),
+    });
+  }
+
+  /**
+   * 执行本地命令
+   * 
+   * @param id
+   */
+  async run(id?: string, runCommand?: string) {
+    return this.callPluginHook("run", {
+      id,
+      params: { runCommand },
       icon: emoji("🚀"),
     });
   }
