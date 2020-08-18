@@ -32,7 +32,13 @@ export class SamManager {
    *
    */
   generate(meta: Record<string, any>, samSections: Record<string, any>[]) {
-    this.samObj = merge(DEFAULT_SAM, meta, ...samSections);
+    let EntryPoint = samSections
+      .map((sam) => sam.EntryPoint)
+      .reduce((prev, cur) => {
+        prev = [...prev, ...(cur || [])];
+        return prev;
+      }, []);
+    this.samObj = merge(DEFAULT_SAM, meta, ...samSections, { EntryPoint });
     this.samObj.Resources = Object.entries(this.samObj.Resources || {})
       .filter(([, resource]: any) => (SUPPORTS_TYPE as any)[resource.Type])
       .reduce((prev: Record<string, any>, cur) => {

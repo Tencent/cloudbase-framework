@@ -73,6 +73,13 @@ export default abstract class Plugin {
   abstract compile?(params: any): Promise<any>;
 
   /**
+   * 执行本地命令
+   * 
+   * @param params 参数信息
+   */
+  abstract run?(params: any): Promise<any>;
+
+  /**
    *
    * 移除资源
    *

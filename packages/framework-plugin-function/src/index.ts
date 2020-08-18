@@ -98,6 +98,15 @@ class FunctionPlugin extends Plugin {
     }
 
     return {
+      EntryPoint: Object.values(this.resolvedInputs.servicePaths).map(
+        (servicePath) => {
+          return {
+            Label: "服务地址",
+            EntryType: "HttpService",
+            HttpEntryPath: servicePath,
+          };
+        }
+      ),
       Resources: this.functions.reduce((resources, func) => {
         resources[this.toConstantCase(func.name)] = this.functionConfigToSAM(
           func
@@ -108,14 +117,19 @@ class FunctionPlugin extends Plugin {
   }
 
   /**
+   * 执行本地命令
+   */
+  async run() {}
+
+  /**
    * 删除资源
    */
-  async remove() { }
+  async remove() {}
 
   /**
    * 生成代码
    */
-  async genCode() { }
+  async genCode() {}
 
   /**
    * 构建
@@ -220,7 +234,7 @@ class FunctionPlugin extends Plugin {
   toConstantCase(name: string) {
     let result = "";
     let lastIsDivide = true;
-    for (let i = 0;i < name.length;i++) {
+    for (let i = 0; i < name.length; i++) {
       let letter = name[i];
       if (letter === "-" || letter === "_") {
         lastIsDivide = true;

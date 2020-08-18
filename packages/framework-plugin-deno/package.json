@@ -1,7 +1,7 @@
 {
-  "name": "@cloudbase/framework-plugin-database",
+  "name": "@cloudbase/framework-plugin-deno",
   "version": "0.9.0",
-  "description": "云开发 Tencent CloudBase Framework Database Plugin 插件，将项目下的后端应用一键部署云开发云应用环境，提供自动弹性伸缩的高性能服务。",
+  "description": "云开发 Tencent CloudBase Framework Deno Server Plugin 插件，将项目下的 Deno 应用一键部署云开发环境，提供自动弹性伸缩的高性能 Deno 服务",
   "author": "Tencent CloudBase Team",
   "homepage": "https://github.com/TencentCloudBase/cloudbase-framework#readme",
   "license": "Apache-2.0",
@@ -12,7 +12,8 @@
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "lib",
+    "assets"
   ],
   "publishConfig": {
     "access": "public"
@@ -30,12 +31,13 @@
     "url": "https://github.com/TencentCloudBase/cloudbase-framework/issues"
   },
   "dependencies": {
-    "@cloudbase/framework-core": "^0.9.0",
-    "change-case": "^4.1.1"
+    "@cloudbase/framework-core": "^0.6.3",
+    "@cloudbase/framework-plugin-container": "^0.6.3",
+    "@types/fs-extra": "^8.1.0",
+    "fs-extra": "^8.1.0"
   },
   "devDependencies": {
     "jest": "^26.0.1",
     "typescript": "^3.9.2"
-  },
-  "gitHead": "2b5ff8115a56e200b4a242621b3a02b30d31ab61"
+  }
 }
