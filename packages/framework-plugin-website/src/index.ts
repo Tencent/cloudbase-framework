@@ -53,6 +53,10 @@ export interface IFrameworkPluginWebsiteInputs {
    *
    */
   envVariables?: Record<string, string>;
+  /**
+   * 执行 cloudbase framework:run 时，运行的默认指令
+   */
+  runCommand?: string;
 }
 
 type ResolvedInputs = typeof DEFAULT_INPUTS & IFrameworkPluginWebsiteInputs;
@@ -196,6 +200,8 @@ class WebsitePlugin extends Plugin {
     this.api.logger.debug("WebsitePlugin: run");
 
     const runCommand = params?.runCommand || this.resolvedInputs.runCommand;
+
+    if (!runCommand) return;
 
     await new Promise((resolve, reject) => {
       const cmd = exec(
