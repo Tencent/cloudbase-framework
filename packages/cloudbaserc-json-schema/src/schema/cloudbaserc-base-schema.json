@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "https://cloudbase.net/schemas/cli-1/schema",
+  "title": "CloudBase CLI Configuration",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "description": "version 表示当前配置文件的版本，目前支持的版本号有：\"2.0\"。当 version 字段不存在时，默认当前配置文件为 \"1.0\" 版本。",
+      "enum": ["1.0", "2.0"],
+      "default": "2.0"
+    },
+    "envId": {
+      "type": "string",
+      "description": "envId 代表环境 ID，是环境的唯一标识。"
+    },
+    "functionRoot": {
+      "type": "string",
+      "description": "云函数函数代码存放的文件夹路径，相对于根目录的路径"
+    },
+    "functions": {
+      "type": "array",
+      "description": "函数配置项组成的数组"
+    },
+    "framework": {
+      "type": "object",
+      "description": "CloudBase Framework 配置项",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "应用唯一标识，一个账号下最好不要有重名的 name。",
+          "maxLength": 16
+        },
+        "plugins": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[a-zA-Z0-9]+$": {
+              "$ref": "#/definitions/pluginConfig"
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": ["envId"],
+  "definitions": {
+    "pluginConfig": {
+      "anyOf": []
+    }
+  }
+}

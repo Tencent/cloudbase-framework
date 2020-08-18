@@ -1,0 +1,129 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "https://cloudbase.net/schemas/cli-1/schema",
+  "title": "CloudBase CLI Configuration",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "description": "version 表示当前配置文件的版本，目前支持的版本号有：\"2.0\"。当 version 字段不存在时，默认当前配置文件为 \"1.0\" 版本。",
+      "enum": [
+        "1.0",
+        "2.0"
+      ],
+      "default": "2.0"
+    },
+    "envId": {
+      "type": "string",
+      "description": "envId 代表环境 ID，是环境的唯一标识。"
+    },
+    "functionRoot": {
+      "type": "string",
+      "description": "云函数函数代码存放的文件夹路径，相对于根目录的路径"
+    },
+    "functions": {
+      "type": "array",
+      "description": "函数配置项组成的数组"
+    },
+    "framework": {
+      "type": "object",
+      "description": "CloudBase Framework 配置项",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "应用唯一标识，一个账号下最好不要有重名的 name。",
+          "maxLength": 16
+        },
+        "plugins": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[a-zA-Z0-9]+$": {
+              "$ref": "#/definitions/pluginConfig"
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "envId"
+  ],
+  "definitions": {
+    "pluginConfig": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/IFrameworkPluginWebsiteInput"
+        }
+      ]
+    },
+    "IFrameworkPluginWebsiteInput": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "enum": [
+            "@cloudbase/framework-plugin-website"
+          ]
+        },
+        "inputs": {
+          "description": "导出接口用于生成 JSON Schema 来进行智能提示",
+          "type": "object",
+          "properties": {
+            "installCommand": {
+              "description": "安装命令，如`npm install`，没有可不传",
+              "default": "npm install --prefer-offline --no-audit --progress=false",
+              "type": "string"
+            },
+            "buildCommand": {
+              "description": "构建命令，如`npm run build`，没有可不传",
+              "type": "string"
+            },
+            "outputPath": {
+              "description": "网站静态文件的路径",
+              "default": "dist",
+              "type": "string"
+            },
+            "cloudPath": {
+              "description": "静态资源部署到云开发环境的路径，默认为根目录。",
+              "default": "/",
+              "type": "string"
+            },
+            "ignore": {
+              "description": "静态资源部署时忽略的文件路径，支持通配符",
+              "default": [
+                ".git",
+                ".github",
+                "node_modules",
+                "cloudbaserc.js"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "envVariables": {
+              "description": "环境变量键值对，会被注入到静态网站根目录下的 `/cloudbaseenv.json`",
+              "$ref": "#/definitions/Record<string,string>"
+            },
+            "runCommand": {
+              "description": "执行 cloudbase framework:run 时，运行的默认指令",
+              "type": "string"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      "required": [
+        "use",
+        "inputs"
+      ]
+    },
+    "Record<string,string>": {
+      "type": "object"
+    }
+  }
+}
