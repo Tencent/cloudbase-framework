@@ -86,6 +86,32 @@ export default [
     },
   },
   {
+    name: "Pagic",
+    key: "pagic",
+    detect: [
+      {
+        path: "pagic.config.ts",
+        exists: true,
+      },
+      {
+        path: "pagic.config.tsx",
+        exists: true,
+      },
+    ],
+    plugin: "@cloudbase/framework-plugin-website",
+    config: {
+      buildCommand: {
+        value:
+          "deno run --unstable --allow-read --allow-write --allow-net https://deno.land/x/pagic/mod.ts build",
+        desc: "🔨 构建脚本",
+      },
+      outputPath: {
+        value: "dist",
+        desc: "📦 本地静态文件目录",
+      },
+    },
+  },
+  {
     name: "Nuxt.js SPA",
     key: "nuxtjs-spa",
     detect: [

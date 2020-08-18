@@ -79,8 +79,10 @@ export class StaticBuilder extends Builder {
     const url = `https://${options.domain}/${CONFIG_FILE_NAME}`;
     const streamRes = await fetchStream(url);
     let originConfig;
-    if (streamRes && streamRes.status == 200) {
-      originConfig = await streamRes.json();
+    if (streamRes?.status == 200) {
+      originConfig = await streamRes.json().catch(err => {
+        return {};
+      });
     } else {
       originConfig = {};
     }

@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.9.0] - 2020-08-17
+
+### Features
+
+- 新增 Deno 插件一键部署 Deno 应用(#63) @TabSpace
+- 新增 Framework run 命令 (#68) @lt5c
+- 新增 Deno 应用模板(#63) @TabSpace
+- 新增 Taro 应用模板(#66) @qinmudi
+- 支持自动检测和部署 Pagic 应用 (Deno 静态网站生成器)
+- 优化 Container 插件部署错误日志信息
+
 ## [0.8.2] - 2020-08-13
 
 ### Features

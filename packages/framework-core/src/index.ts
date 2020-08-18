@@ -22,7 +22,11 @@ export { CloudApi } from "./api";
 export * from "./types";
 
 const packageInfo = require("../package");
-const SUPPORT_COMMANDS = ["deploy", "compile"];
+const SUPPORT_COMMANDS = ["deploy", "compile", "run"];
+
+interface CommandParams {
+  runCommand?: string
+}
 
 export async function run(
   {
@@ -33,7 +37,8 @@ export async function run(
     resourceProviders,
   }: CloudbaseFrameworkConfig,
   command: "deploy" = "deploy",
-  module?: string
+  module?: string,
+  params?: CommandParams
 ) {
   const logger = getLogger(logLevel);
 
@@ -113,7 +118,7 @@ export async function run(
     await pluginManager.init(module);
     await pluginManager.build(module);
     const compileResult = await pluginManager.compile(module);
-    await samManager.generate(
+    samManager.generate(
       samMeta,
       JSON.parse(JSON.stringify(compileResult))
     );
@@ -124,10 +129,12 @@ export async function run(
     await pluginManager.build(module);
 
     const compileResult = await pluginManager.compile(module);
-    await samManager.generate(
+    samManager.generate(
       samMeta,
       JSON.parse(JSON.stringify(compileResult))
     );
+  } else if (command === "run") {
+    await pluginManager.run(module, params?.runCommand);
   }
 
   logger.info("✨ done");

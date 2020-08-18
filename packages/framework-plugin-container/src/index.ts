@@ -72,6 +72,11 @@ class ContainerPlugin extends Plugin {
   }
 
   /**
+   * 执行本地命令
+   */
+  async run() {}
+
+  /**
    * 删除资源
    */
   async remove() {}
@@ -115,6 +120,13 @@ class ContainerPlugin extends Plugin {
       Resources: {
         [this.toConstantCase(this.resolvedInputs.serviceName)]: this.toSAM(),
       },
+      EntryPoint: [
+        {
+          Label: "服务入口",
+          EntryType: "HttpService",
+          HttpEntryPath: this.resolvedInputs.servicePath,
+        },
+      ],
     };
   }
 
