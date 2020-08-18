@@ -12,13 +12,55 @@ const DEFAULT_INPUTS = {
   outputPath: "dist",
   cloudPath: "/",
   ignore: [".git", ".github", "node_modules", "cloudbaserc.js"],
-  installCommand: "npm install --prefer-offline --no-audit --progress=false"
+  installCommand: "npm install --prefer-offline --no-audit --progress=false",
 };
+
+/**
+ * 导出 Inputs 属性
+ */
+export interface Inputs {
+  /**
+   * 安装命令，如`npm install`，没有可不传
+   *
+   * @default npm install --prefer-offline --no-audit --progress=false
+   */
+  installCommand?: string;
+  /**
+   * 构建命令，如`npm run build`，没有可不传
+   *
+   */
+  buildCommand?: string;
+  /**
+   * 网站静态文件的路径
+   *
+   * @default dist
+   */
+  outputPath?: string;
+  /**
+   * 静态资源部署到云开发环境的路径，默认为根目录。
+   *
+   * @default /
+   */
+  cloudPath?: string;
+  /**
+   * 静态资源部署时忽略的文件路径，支持通配符
+   *
+   * @default [".git", ".github", "node_modules", "cloudbaserc.js"]
+   */
+  ignore?: string[];
+  /**
+   * 环境变量键值对，会被注入到静态网站根目录下的 `/cloudbaseenv.json`
+   *
+   */
+  envVariables?: Record<string, string>;
+}
+
+type ResolvedInputs = typeof DEFAULT_INPUTS & Inputs;
 
 class WebsitePlugin extends Plugin {
   protected builder: StaticBuilder;
   protected deployer: StaticDeployer;
-  protected resolvedInputs: any;
+  protected resolvedInputs: ResolvedInputs;
   protected buildOutput: any;
   // 静态托管信息
   protected website: any;
@@ -26,7 +68,7 @@ class WebsitePlugin extends Plugin {
   constructor(
     public name: string,
     public api: PluginServiceApi,
-    public inputs: any
+    public inputs: Inputs
   ) {
     super(name, api, inputs);
 
@@ -94,7 +136,12 @@ class WebsitePlugin extends Plugin {
     this.api.logger.debug("WebsitePlugin: build", this.resolvedInputs);
     await this.installPackage();
 
-    const { outputPath, cloudPath, buildCommand, envVariables } = this.resolvedInputs;
+    const {
+      outputPath,
+      cloudPath,
+      buildCommand,
+      envVariables,
+    } = this.resolvedInputs;
 
     if (buildCommand) {
       await promisify(exec)(injectEnvVariables(buildCommand, envVariables));
@@ -103,7 +150,7 @@ class WebsitePlugin extends Plugin {
     this.buildOutput = await this.builder.build(["**", "!**/node_modules/**"], {
       path: cloudPath,
       domain: this.website.cdnDomain,
-      config: envVariables
+      config: envVariables,
     });
   }
 
@@ -117,7 +164,9 @@ class WebsitePlugin extends Plugin {
       this.buildOutput
     );
 
-    const deployContent = this.buildOutput.static.concat(this.buildOutput.staticConfig)
+    const deployContent = this.buildOutput.static.concat(
+      this.buildOutput.staticConfig
+    );
     const deployResult = await Promise.all(
       deployContent.map((item: any) =>
         this.deployer.deploy({
@@ -145,18 +194,20 @@ class WebsitePlugin extends Plugin {
    */
   async run(params: { runCommand: string }) {
     this.api.logger.debug("WebsitePlugin: run");
-    
+
     const runCommand = params?.runCommand || this.resolvedInputs.runCommand;
 
     await new Promise((resolve, reject) => {
-      const cmd = exec(injectEnvVariables(runCommand, this.resolvedInputs.envVariables));
+      const cmd = exec(
+        injectEnvVariables(runCommand, this.resolvedInputs.envVariables)
+      );
       cmd.stdout?.pipe(process.stdout);
-      cmd.on('close', (code) => {
+      cmd.on("close", (code) => {
         resolve(code);
       });
-      cmd.on('exit', (code) => {
+      cmd.on("exit", (code) => {
         reject(code);
-      })
+      });
     });
   }
 
