@@ -12,7 +12,7 @@ const DEFAULT_INPUTS = {
   outputPath: "dist",
   cloudPath: "/",
   ignore: [".git", ".github", "node_modules", "cloudbaserc.js"],
-  installCommand: "npm install --prefer-offline --no-audit --progress=false"
+  installCommand: "npm install --prefer-offline --no-audit --progress=false",
 };
 
 class WebsitePlugin extends Plugin {
@@ -73,6 +73,13 @@ class WebsitePlugin extends Plugin {
           },
         },
       },
+      EntryPoint: [
+        {
+          Label: "网站入口",
+          EntryType: "StaitcStore",
+          HttpEntryPath: this.resolvedInputs.cloudPath,
+        },
+      ],
     };
   }
 
@@ -94,7 +101,12 @@ class WebsitePlugin extends Plugin {
     this.api.logger.debug("WebsitePlugin: build", this.resolvedInputs);
     await this.installPackage();
 
-    const { outputPath, cloudPath, buildCommand, envVariables } = this.resolvedInputs;
+    const {
+      outputPath,
+      cloudPath,
+      buildCommand,
+      envVariables,
+    } = this.resolvedInputs;
 
     if (buildCommand) {
       await promisify(exec)(injectEnvVariables(buildCommand, envVariables));
@@ -103,7 +115,7 @@ class WebsitePlugin extends Plugin {
     this.buildOutput = await this.builder.build(["**", "!**/node_modules/**"], {
       path: cloudPath,
       domain: this.website.cdnDomain,
-      config: envVariables
+      config: envVariables,
     });
   }
 
@@ -117,7 +129,9 @@ class WebsitePlugin extends Plugin {
       this.buildOutput
     );
 
-    const deployContent = this.buildOutput.static.concat(this.buildOutput.staticConfig)
+    const deployContent = this.buildOutput.static.concat(
+      this.buildOutput.staticConfig
+    );
     const deployResult = await Promise.all(
       deployContent.map((item: any) =>
         this.deployer.deploy({
@@ -145,18 +159,20 @@ class WebsitePlugin extends Plugin {
    */
   async run(params: { runCommand: string }) {
     this.api.logger.debug("WebsitePlugin: run");
-    
+
     const runCommand = params?.runCommand || this.resolvedInputs.runCommand;
 
     await new Promise((resolve, reject) => {
-      const cmd = exec(injectEnvVariables(runCommand, this.resolvedInputs.envVariables));
+      const cmd = exec(
+        injectEnvVariables(runCommand, this.resolvedInputs.envVariables)
+      );
       cmd.stdout?.pipe(process.stdout);
-      cmd.on('close', (code) => {
+      cmd.on("close", (code) => {
         resolve(code);
       });
-      cmd.on('exit', (code) => {
+      cmd.on("exit", (code) => {
         reject(code);
-      })
+      });
     });
   }
 
