@@ -16,9 +16,9 @@ const DEFAULT_INPUTS = {
 };
 
 /**
- * 导出 Inputs 属性
+ * 导出接口用于生成 JSON Schema 来进行智能提示
  */
-export interface Inputs {
+export interface IFrameworkPluginWebsiteInputs {
   /**
    * 安装命令，如`npm install`，没有可不传
    *
@@ -55,7 +55,7 @@ export interface Inputs {
   envVariables?: Record<string, string>;
 }
 
-type ResolvedInputs = typeof DEFAULT_INPUTS & Inputs;
+type ResolvedInputs = typeof DEFAULT_INPUTS & IFrameworkPluginWebsiteInputs;
 
 class WebsitePlugin extends Plugin {
   protected builder: StaticBuilder;
@@ -68,7 +68,7 @@ class WebsitePlugin extends Plugin {
   constructor(
     public name: string,
     public api: PluginServiceApi,
-    public inputs: Inputs
+    public inputs: IFrameworkPluginWebsiteInputs
   ) {
     super(name, api, inputs);
 
