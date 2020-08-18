@@ -1,0 +1,22 @@
+{
+  "envId": "cc",
+  "framework": {
+    "name": "ccc111111111312321312312312312323213",
+    "plugins": {
+      "name": {
+        "use": "@cloudbase/framework-plugin-website",
+        "inputs": {
+          "runCommand": "",
+          "installCommand": "npm install --prefer-offline --no-audit --progress=false",
+          "buildCommand": "",
+          "ignore": [".git", ".github", "node_modules", "cloudbaserc.js"],
+          "envVariables": {}
+        }
+      },
+      "node": {
+        "use": "@cloudbase/framework-plugin-node",
+        "inputs": {}
+      }
+    }
+  }
+}
