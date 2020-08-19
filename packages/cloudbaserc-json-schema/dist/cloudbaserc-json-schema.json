@@ -59,6 +59,9 @@
         },
         {
           "$ref": "#/definitions/IFrameworkPluginNodeInputs"
+        },
+        {
+          "$ref": "#/definitions/IFrameworkPluginNuxtInputs"
         }
       ]
     },
@@ -273,6 +276,54 @@
       "required": [
         "serviceName",
         "servicePath"
+      ]
+    },
+    "IFrameworkPluginNuxtInputs": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "enum": [
+            "@cloudbase/framework-plugin-nuxt"
+          ]
+        },
+        "inputs": {
+          "description": "导出接口用于生成 JSON Schema 来进行智能提示",
+          "type": "object",
+          "properties": {
+            "entry": {
+              "description": "Nuxt 配置文件所在目录，默认当前项目所在目录",
+              "default": "./",
+              "type": "string"
+            },
+            "path": {
+              "description": "访问子路径，如 `/nuxt-ssr`",
+              "default": "/nuxt-ssr",
+              "type": "string"
+            },
+            "name": {
+              "description": "服务名，如`nuxt-ssr`",
+              "default": "nuxt-ssr",
+              "type": "string"
+            },
+            "installCommand": {
+              "description": "安装命令，如`npm install`，没有可不传",
+              "default": "npm install",
+              "type": "string"
+            },
+            "buildCommand": {
+              "description": "构建命令，如`npm run build`，没有可不传",
+              "default": "npm run build",
+              "type": "string"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      "required": [
+        "use",
+        "inputs"
       ]
     }
   }

@@ -6,8 +6,50 @@ import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
 import { plugin as FunctionPlugin } from "@cloudbase/framework-plugin-function";
 import { NuxtBuilder } from "@cloudbase/nuxt-builder";
 
+const DEFAULT_INPUTS = {
+  runtime: "Nodejs10.15",
+  entry: "./",
+  name: "nuxt-ssr",
+  path: "/nuxt-ssr",
+  buildCommand: "npm run build",
+  installCommand: "npm install",
+};
+
+/**
+ * 导出接口用于生成 JSON Schema 来进行智能提示
+ */
+export interface IFrameworkPluginNuxtInputs {
+  /**
+   * Nuxt 配置文件所在目录，默认当前项目所在目录
+   * @default ./
+   */
+  entry?: string;
+  /**
+   * 访问子路径，如 `/nuxt-ssr`
+   * @default /nuxt-ssr
+   */
+  path?: string;
+  /**
+   * 服务名，如`nuxt-ssr`
+   * @default nuxt-ssr
+   */
+  name?: string;
+  /**
+   * 安装命令，如`npm install`，没有可不传
+   * @default npm install
+   */
+  installCommand?: string;
+  /**
+   * 构建命令，如`npm run build`，没有可不传
+   * @default npm run build
+   */
+  buildCommand?: string;
+}
+
+type ResolvedInputs = typeof DEFAULT_INPUTS & IFrameworkPluginNuxtInputs;
+
 class NuxtPlugin extends Plugin {
-  protected resolvedInputs: any;
+  protected resolvedInputs: ResolvedInputs;
   protected buildOutput: any;
   protected builder: NuxtBuilder;
   protected functionPlugin: any;
@@ -15,18 +57,9 @@ class NuxtPlugin extends Plugin {
   constructor(
     public name: string,
     public api: PluginServiceApi,
-    public inputs: any
+    public inputs: IFrameworkPluginNuxtInputs
   ) {
     super(name, api, inputs);
-
-    const DEFAULT_INPUTS = {
-      runtime: "Nodejs10.15",
-      entry: "./",
-      name: "nuxt-ssr",
-      path: "/nuxt-ssr",
-      buildCommand: "npm run build",
-      installCommand: "npm install"
-    };
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
 
