@@ -12,6 +12,10 @@ const supportPluginsConfig = [
     name: '@cloudbase/framework-plugin-node',
     inputsInterfaceName: 'IFrameworkPluginNodeInputs',
   },
+  {
+    name: '@cloudbase/framework-plugin-nuxt',
+    inputsInterfaceName: 'IFrameworkPluginNuxtInputs',
+  },
 ];
 
 for (let plugin of supportPluginsConfig) {
@@ -42,6 +46,6 @@ for (let plugin of supportPluginsConfig) {
 }
 
 fs.writeFileSync(
-  path.join(__dirname, '../lib/cloudbaserc-json-schema.json'),
+  path.join(__dirname, '../dist/cloudbaserc-json-schema.json'),
   JSON.stringify(baseSchema, null, 2)
 );

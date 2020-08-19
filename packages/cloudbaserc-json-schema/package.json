@@ -11,13 +11,12 @@
   "author": "Booker Zhao <bookerzhao@tencent.com>",
   "homepage": "https://github.com/TencentCloudBase/cloudbase-framework",
   "license": "Apache-2.0",
-  "main": "lib/index.js",
   "directories": {
-    "lib": "lib",
+    "lib": "dist",
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "dist"
   ],
   "publishConfig": {
     "access": "public"
@@ -35,6 +34,7 @@
   "dependencies": {
     "@cloudbase/framework-plugin-website": "^0.9.0",
     "@cloudbase/framework-plugin-node": "^0.9.0",
+    "@cloudbase/framework-plugin-nuxt": "^0.9.0",
     "typescript-json-schema": "^0.42.0"
   }
 }
