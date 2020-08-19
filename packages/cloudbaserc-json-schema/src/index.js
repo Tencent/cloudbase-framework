@@ -16,6 +16,10 @@ const supportPluginsConfig = [
     name: '@cloudbase/framework-plugin-nuxt',
     inputsInterfaceName: 'IFrameworkPluginNuxtInputs',
   },
+  {
+    name: '@cloudbase/framework-plugin-function',
+    inputsInterfaceName: 'IFrameworkPluginFunctionInputs',
+  },
 ];
 
 for (let plugin of supportPluginsConfig) {

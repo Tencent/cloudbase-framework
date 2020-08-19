@@ -35,6 +35,7 @@
     "@cloudbase/framework-plugin-website": "^0.9.0",
     "@cloudbase/framework-plugin-node": "^0.9.0",
     "@cloudbase/framework-plugin-nuxt": "^0.9.0",
+    "@cloudbase/framework-plugin-function": "^0.9.0",
     "typescript-json-schema": "^0.42.0"
   }
 }
