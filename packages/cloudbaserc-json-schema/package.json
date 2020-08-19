@@ -27,15 +27,14 @@
     "url": "git+https://github.com/TencentCloudBase/cloudbase-framework.git"
   },
   "scripts": {
-    "dev": "tsc -w",
-    "build": "tsc",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "prepublishOnly": "node src/index"
   },
   "bugs": {
     "url": "https://github.com/TencentCloudBase/cloudbase-framework/issues"
   },
   "dependencies": {
     "@cloudbase/framework-plugin-website": "^0.9.0",
+    "@cloudbase/framework-plugin-node": "^0.9.0",
     "typescript-json-schema": "^0.42.0"
   }
 }

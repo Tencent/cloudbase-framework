@@ -1,17 +1,22 @@
 const baseSchema = require('./schema/cloudbaserc-base-schema.json');
 const typesSchemasGenerator = require('./schema/types-schema-generator');
 const fs = require('fs');
+const path = require('path');
 
 const supportPluginsConfig = [
   {
     name: '@cloudbase/framework-plugin-website',
-    inputsInterfaceName: 'IFrameworkPluginWebsiteInput',
+    inputsInterfaceName: 'IFrameworkPluginWebsiteInputs',
+  },
+  {
+    name: '@cloudbase/framework-plugin-node',
+    inputsInterfaceName: 'IFrameworkPluginNodeInputs',
   },
 ];
 
 for (let plugin of supportPluginsConfig) {
   let inputsSchema = typesSchemasGenerator.getSchemaForSymbol(
-    'IFrameworkPluginWebsiteInputs'
+    plugin.inputsInterfaceName
   );
   let definitions = inputsSchema.definitions;
 
@@ -37,6 +42,6 @@ for (let plugin of supportPluginsConfig) {
 }
 
 fs.writeFileSync(
-  '../lib/cloudbaserc-json-schema.json',
+  path.join(__dirname, '../lib/cloudbaserc-json-schema.json'),
   JSON.stringify(baseSchema, null, 2)
 );
