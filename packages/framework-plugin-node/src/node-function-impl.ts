@@ -4,7 +4,7 @@ import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
 import { plugin as FunctionPlugin } from "@cloudbase/framework-plugin-function";
 import { NodeBuilder } from "@cloudbase/node-builder";
 
-import { INodePluginInputs } from "./types";
+import { IFrameworkPluginNodeInputs } from "./types";
 
 class NodeFunctionPlugin extends Plugin {
   protected resolvedInputs: Record<string, any>;
@@ -15,7 +15,7 @@ class NodeFunctionPlugin extends Plugin {
   constructor(
     public name: string,
     public api: PluginServiceApi,
-    public inputs: INodePluginInputs
+    public inputs: IFrameworkPluginNodeInputs
   ) {
     super(name, api, inputs);
 
