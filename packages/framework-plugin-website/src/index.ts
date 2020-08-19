@@ -119,6 +119,13 @@ class WebsitePlugin extends Plugin {
           },
         },
       },
+      EntryPoint: [
+        {
+          Label: "网站入口",
+          EntryType: "StaitcStore",
+          HttpEntryPath: this.resolvedInputs.cloudPath,
+        },
+      ],
     };
   }
 

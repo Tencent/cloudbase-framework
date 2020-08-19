@@ -22,10 +22,9 @@ class DenoPlugin extends Plugin {
 
     const DEFAULT_INPUTS = {
       dockerImage: 'debian:buster-slim',
-      // example: v1.2.0
+      // runtime example: v1.2.0
       runtime: 'latest',
       entry: 'entry.ts',
-      runOptions: ['--allow-all'],
       serviceName: 'deno-app',
       servicePath: '/deno-app',
       projectPath: '.',
@@ -63,7 +62,6 @@ class DenoPlugin extends Plugin {
         dockerImage: this.resolvedInputs.dockerImage,
         runtime: this.resolvedInputs.runtime,
         entry: this.resolvedInputs.entry,
-        runOptions: this.resolvedInputs.runOptions,
         name: this.resolvedInputs.serviceName || 'deno-app',
         path: this.resolvedInputs.servicePath || '/deno-app',
       }
