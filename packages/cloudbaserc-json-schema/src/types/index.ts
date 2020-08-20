@@ -6,3 +6,4 @@ import "@cloudbase/framework-plugin-container";
 import "@cloudbase/framework-plugin-dart";
 import "@cloudbase/framework-plugin-database";
 import "@cloudbase/framework-plugin-deno";
+import "@cloudbase/framework-plugin-next";
