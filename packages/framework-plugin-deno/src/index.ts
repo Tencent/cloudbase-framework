@@ -1,14 +1,14 @@
 import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
 import { plugin as ContainerPlugin } from "@cloudbase/framework-plugin-container";
 import { DenoBuilder } from "./builder";
-import { IDenoPluginInputs } from "./types";
+import { IFrameworkPluginDenoInputs } from "./types";
 
 function resolveInputs(inputs: any, defaultInputs: any) {
   return Object.assign({}, defaultInputs, inputs);
 }
 
 class DenoPlugin extends Plugin {
-  protected resolvedInputs: IDenoPluginInputs;
+  protected resolvedInputs: IFrameworkPluginDenoInputs;
   protected buildOutput: any;
   protected denoBuilder: DenoBuilder;
   protected containerPlugin: any;
@@ -16,7 +16,7 @@ class DenoPlugin extends Plugin {
   constructor(
     public name: string,
     public api: PluginServiceApi,
-    public inputs: IDenoPluginInputs
+    public inputs: IFrameworkPluginDenoInputs
   ) {
     super(name, api, inputs);
 
