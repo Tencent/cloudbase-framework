@@ -1,4 +1,4 @@
-<a href="https://github.com/TencentCloudBase/cloudbase-templates"><img src="https://ugd.gtimg.com/next-ssr.png"></a>
+<a href="https://github.com/TencentCloudBase/cloudbase-templates"><img src="https://main.qcloudimg.com/raw/918830a5ad3321fd0524eaef4c0e4c1e.png"></a>
 
 # Next SSR 应用示例
 
@@ -38,12 +38,6 @@ npm run dev
 
 ```
 npm run deploy
-```
-
-### Lint
-
-```
-npm run lint
 ```
 
 ### CloudBase Framework 相关开发配置
