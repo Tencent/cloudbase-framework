@@ -77,6 +77,9 @@
         },
         {
           "$ref": "#/definitions/IFrameworkPluginDenoInputs"
+        },
+        {
+          "$ref": "#/definitions/IFrameworkPluginNextInputs"
         }
       ]
     },
@@ -771,6 +774,53 @@
               "type": "string"
             }
           },
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      "required": [
+        "use",
+        "inputs"
+      ]
+    },
+    "IFrameworkPluginNextInputs": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "enum": [
+            "@cloudbase/framework-plugin-next"
+          ]
+        },
+        "inputs": {
+          "description": "导出接口用于生成 JSON Schema 来进行智能提示",
+          "type": "object",
+          "properties": {
+            "entry": {
+              "description": "Next 配置文件所在目录，默认当前项目所在目录",
+              "default": "./",
+              "type": "string"
+            },
+            "path": {
+              "description": "访问子路径，如 `/next-ssr`",
+              "default": "/next-ssr",
+              "type": "string"
+            },
+            "name": {
+              "description": "服务名，如`next-ssr`",
+              "default": "next-ssr",
+              "type": "string"
+            },
+            "buildCommand": {
+              "description": "构建命令，如`npm run build`，没有可不传",
+              "default": "npm run build",
+              "type": "string"
+            }
+          },
+          "required": [
+            "buildCommand",
+            "name"
+          ],
           "$schema": "http://json-schema.org/draft-07/schema#"
         }
       },

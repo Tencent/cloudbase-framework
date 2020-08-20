@@ -36,6 +36,10 @@ const supportPluginsConfig = [
     name: '@cloudbase/framework-plugin-deno',
     inputsInterfaceName: 'IFrameworkPluginDenoInputs',
   },
+  {
+    name: '@cloudbase/framework-plugin-next',
+    inputsInterfaceName: 'IFrameworkPluginNextInputs',
+  },
 ];
 
 for (let plugin of supportPluginsConfig) {
