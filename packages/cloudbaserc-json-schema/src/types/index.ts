@@ -4,3 +4,4 @@ import "@cloudbase/framework-plugin-nuxt";
 import "@cloudbase/framework-plugin-function";
 import "@cloudbase/framework-plugin-container";
 import "@cloudbase/framework-plugin-dart";
+import "@cloudbase/framework-plugin-database";
