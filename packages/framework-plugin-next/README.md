@@ -1,4 +1,4 @@
-<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-next">![Tencent CloudBase Framework Next SSR Plugin](https://main.qcloudimg.com/raw/6d48ab8bc29c38558cd258b28b14f94e.jpg)</a>
+<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-next">![Tencent CloudBase Framework Next SSR Plugin](https://main.qcloudimg.com/raw/484de9a30676fb6ede6078622eea0274.png)</a>
 
 # Tencent CloudBase Framework Next SSR Plugin
 
