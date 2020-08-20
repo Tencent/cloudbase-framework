@@ -221,7 +221,6 @@
             }
           },
           "required": [
-            "installDeps",
             "name",
             "path"
           ],

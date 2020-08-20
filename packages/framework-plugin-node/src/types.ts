@@ -169,7 +169,7 @@ export interface IFrameworkPluginNodeInputs {
    * ```
    */
   wrapExpress?: boolean;
-  installDeps: boolean;
+  installDeps?: boolean;
 }
 
 export interface IFrameworkPluginWebsiteInputs {
