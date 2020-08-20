@@ -33,3 +33,4 @@ jobs:
       - name: Deploy Schema
         run: |
           cloudbase hosting:deploy -e ${{ secrets.ENV_ID }} packages/cloudbaserc-json-schema/dist/cloudbaserc-json-schema.json  schema/${{github.ref}}.json
+          cloudbase hosting:deploy -e ${{ secrets.ENV_ID }} packages/cloudbaserc-json-schema/dist/cloudbaserc-json-schema.json  schema/latest.json
