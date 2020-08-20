@@ -22,9 +22,9 @@ class DenoPlugin extends Plugin {
 
     const DEFAULT_INPUTS = {
       dockerImage: "debian:buster-slim",
-      // runtime example: v1.2.0
+      // runtime example: v1.3.0
       runtime: "latest",
-      entry: "entry.ts",
+      entry: "",
       serviceName: "deno-app",
       servicePath: "/deno-app",
       projectPath: ".",
