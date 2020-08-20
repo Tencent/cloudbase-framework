@@ -35,13 +35,13 @@ export interface IFrameworkPluginNextInputs {
    *
    * @default next-ssr
    */
-  name: string;
+  name?: string;
   /**
    * 构建命令，如`npm run build`，没有可不传
    *
    * @default npm run build
    */
-  buildCommand: string;
+  buildCommand?: string;
 }
 
 type ResolvedInputs = IFrameworkPluginNextInputs & typeof DEFAULT_INPUTS;
