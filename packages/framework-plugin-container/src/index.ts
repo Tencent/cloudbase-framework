@@ -11,7 +11,7 @@ const DEFAULT_INPUTS = {
   cpu: 1,
   mem: 1,
   minNum: 1,
-  maxNum: 1000,
+  maxNum: 10,
   policyType: "cpu",
   policyThreshold: 60,
   containerPort: 80,
@@ -69,16 +69,16 @@ export interface IFrameworkPluginContainerInputs {
    */
   mem?: number;
   /**
-   * 最小副本数, 1-1000，默认值 `1`
+   * 最小副本数, 1-50，默认值 `1`
    *
    * @default 1
    */
   minNum?: number;
   /**
-   * 最大副本数, 1-1000，默认值 `1`
+   * 最大副本数, 1-50，默认值 `10`
    *
-   * @maximum 1000
-   * @default 1000
+   * @maximum 50
+   * @default 10
    */
   maxNum?: number;
   /**

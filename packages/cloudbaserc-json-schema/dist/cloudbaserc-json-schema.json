@@ -280,14 +280,14 @@
           "type": "number"
         },
         "minNum": {
-          "description": "最小副本数, 1-1000，默认值 `1`",
+          "description": "最小副本数, 1-50，默认值 `1`",
           "default": 1,
           "type": "number"
         },
         "maxNum": {
-          "description": "最大副本数, 1-1000，默认值 `1`",
-          "maximum": 1000,
-          "default": 1000,
+          "description": "最大副本数, 1-50，默认值 `10`",
+          "maximum": 50,
+          "default": 10,
           "type": "number"
         },
         "policyType": {
