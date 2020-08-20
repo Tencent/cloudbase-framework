@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Baseline-Init
+name: Deploy JSON Schema
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -32,4 +32,4 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Deploy Schema
         run: |
-          envId=${{ secrets.ENV_ID }} cloudbase hosting:deploy packages/cloudbaserc-json-schema/dist/cloudbaserc-json-schema.json  schema/${{github.ref}}.json
+          cloudbase hosting:deploy -e ${{ secrets.ENV_ID }} packages/cloudbaserc-json-schema/dist/cloudbaserc-json-schema.json  schema/${{github.ref}}.json
