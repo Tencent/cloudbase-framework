@@ -1,0 +1,21 @@
+{
+  "name": "next-ssr",
+  "version": "1.0.0",
+  "description": "云开发 CloudBase Next SSR App",
+  "author": "liyuanfeng",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "deploy": "cloudbase framework:deploy",
+    "deploy:client": "cloudbase framework:deploy client",
+    "deploy:server": "cloudbase framework:deploy server",
+    "export": "next export"
+  },
+  "dependencies": {
+    "next": "9.5.1",
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
+  }
+}
