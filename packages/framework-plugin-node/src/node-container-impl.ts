@@ -3,11 +3,11 @@ import path from "path";
 
 import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
 import { plugin as ContainerPlugin } from "@cloudbase/framework-plugin-container";
-import { INodePluginInputs } from "./types";
+import { IFrameworkPluginNodeInputs } from "./types";
 import { NodeContainerBuilder } from "./node-container-builder";
 
 class NodeContainerPlugin extends Plugin {
-  protected resolvedInputs: INodePluginInputs;
+  protected resolvedInputs: IFrameworkPluginNodeInputs;
   protected buildOutput: any;
   protected nodeBuilder: NodeContainerBuilder;
   protected containerPlugin: any;
@@ -15,7 +15,7 @@ class NodeContainerPlugin extends Plugin {
   constructor(
     public name: string,
     public api: PluginServiceApi,
-    public inputs: INodePluginInputs
+    public inputs: IFrameworkPluginNodeInputs
   ) {
     super(name, api, inputs);
 

@@ -5,16 +5,98 @@ import { Plugin, PluginServiceApi, Builder } from "@cloudbase/framework-core";
 
 const useSAMDeploy = false;
 
-export interface IFunctionPluginInputs {
+/**
+ * 导出接口用于生成 JSON Schema 来进行智能提示
+ */
+export interface IFrameworkPluginFunctionInputs {
+  /**
+   * 函数根目录
+   * @default functions
+   */
   functionRootPath: string;
-  functions: any[];
+  /**
+   * 函数配置数组
+   */
+  functions: ICloudFunction[];
+  /**
+   *
+   * 服务路径配置
+   *
+   * 如
+   *
+   * ```json
+   * {
+   *   "hello-world": "/helloworld"
+   * }
+   * ```
+   */
   servicePaths?: Record<string, string>;
 }
 
+export interface IFunctionTriggerOptions {
+  functionName: string;
+  triggers?: ICloudFunctionTrigger[];
+  triggerName?: string;
+  envId: string;
+}
+
+export interface ICloudFunctionTrigger {
+  name: string;
+  type: string;
+  config: string;
+}
+
+export interface ICloudFunction {
+  /**
+   * 云函数名称，即为函数部署后的名称
+   */
+  name: string;
+  /**
+   * 函数处理方法名称，名称格式支持“文件名称.函数名称”形式
+   * @default index.main
+   */
+  handler?: string;
+  /**
+   * 函数超时时间（1 - 60S）
+   */
+  timeout?: number;
+  /**
+   * 包含环境变量的键值对
+   */
+  envVariables?: Record<string, string | number | boolean>;
+  /**
+   * 运行时环境配置，可选值： `Nodejs8.9, Nodejs10.15 Php7, Java8`
+   * @default Nodejs10.15
+   */
+  runtime?: string;
+  /**
+   * VPC
+   */
+  vpc?: IFunctionVPC;
+  /**
+   * 是否云端安装依赖，目前仅支持 Node.js
+   */
+  installDependency?: boolean;
+  isWaitInstall?: boolean;
+}
+
+export interface IFunctionVPC {
+  /**
+   * vpc 的id
+   */
+  vpcId: string;
+  /**
+   * 子网id
+   */
+  subnetId: string;
+}
+
+type ResolveInputs = IFrameworkPluginFunctionInputs & { servicePaths: {} };
+
 class FunctionPlugin extends Plugin {
-  protected resolvedInputs: any;
+  protected resolvedInputs: ResolveInputs;
   protected buildOutput: any;
-  protected functions: any[];
+  protected functions: ICloudFunction[];
   protected functionRootPath: string;
   protected builder: FunctionBuilder;
   protected outputs: Record<string, any>;
@@ -22,7 +104,7 @@ class FunctionPlugin extends Plugin {
   constructor(
     public name: string,
     public api: PluginServiceApi,
-    public inputs: IFunctionPluginInputs
+    public inputs: IFrameworkPluginFunctionInputs
   ) {
     super(name, api, inputs);
 
@@ -112,7 +194,7 @@ class FunctionPlugin extends Plugin {
           func
         );
         return resources;
-      }, {}),
+      }, {} as Record<string, any>),
     };
   }
 

@@ -15,10 +15,56 @@ const DEFAULT_INPUTS = {
   installCommand: "npm install --prefer-offline --no-audit --progress=false",
 };
 
+/**
+ * 导出接口用于生成 JSON Schema 来进行智能提示
+ */
+export interface IFrameworkPluginWebsiteInputs {
+  /**
+   * 安装命令，如`npm install`，没有可不传
+   *
+   * @default npm install --prefer-offline --no-audit --progress=false
+   */
+  installCommand?: string;
+  /**
+   * 构建命令，如`npm run build`，没有可不传
+   *
+   */
+  buildCommand?: string;
+  /**
+   * 网站静态文件的路径
+   *
+   * @default dist
+   */
+  outputPath?: string;
+  /**
+   * 静态资源部署到云开发环境的路径，默认为根目录。
+   *
+   * @default /
+   */
+  cloudPath?: string;
+  /**
+   * 静态资源部署时忽略的文件路径，支持通配符
+   *
+   * @default [".git", ".github", "node_modules", "cloudbaserc.js"]
+   */
+  ignore?: string[];
+  /**
+   * 环境变量键值对，会被注入到静态网站根目录下的 `/cloudbaseenv.json`
+   *
+   */
+  envVariables?: Record<string, string>;
+  /**
+   * 执行 cloudbase framework:run 时，运行的默认指令
+   */
+  runCommand?: string;
+}
+
+type ResolvedInputs = typeof DEFAULT_INPUTS & IFrameworkPluginWebsiteInputs;
+
 class WebsitePlugin extends Plugin {
   protected builder: StaticBuilder;
   protected deployer: StaticDeployer;
-  protected resolvedInputs: any;
+  protected resolvedInputs: ResolvedInputs;
   protected buildOutput: any;
   // 静态托管信息
   protected website: any;
@@ -26,7 +72,7 @@ class WebsitePlugin extends Plugin {
   constructor(
     public name: string,
     public api: PluginServiceApi,
-    public inputs: any
+    public inputs: IFrameworkPluginWebsiteInputs
   ) {
     super(name, api, inputs);
 
@@ -161,6 +207,8 @@ class WebsitePlugin extends Plugin {
     this.api.logger.debug("WebsitePlugin: run");
 
     const runCommand = params?.runCommand || this.resolvedInputs.runCommand;
+
+    if (!runCommand) return;
 
     await new Promise((resolve, reject) => {
       const cmd = exec(

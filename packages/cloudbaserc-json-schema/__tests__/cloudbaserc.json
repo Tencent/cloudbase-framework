@@ -1,0 +1,35 @@
+{
+  "envId": "fx",
+  "framework": {
+    "name": "test-framework",
+    "plugins": {
+      "client": {
+        "use": "@cloudbase/framework-plugin-website",
+        "inputs": {
+          "runCommand": "",
+          "installCommand": "npm install --prefer-offline --no-audit --progress=false",
+          "buildCommand": "",
+          "ignore": [".git", ".github", "node_modules", "cloudbaserc.js"],
+          "envVariables": {}
+        }
+      },
+      "node": {
+        "use": "@cloudbase/framework-plugin-node",
+        "inputs": {
+          "name": "node-app",
+          "path": "/node-app",
+          "installDeps": false
+        }
+      },
+      "api": {
+        "use": "@cloudbase/framework-plugin-next",
+        "inputs": {
+          "buildCommand": "npm run build",
+          "entry": "./",
+          "name": "next-ssr",
+          "path": "/next-ssr"
+        }
+      }
+    }
+  }
+}

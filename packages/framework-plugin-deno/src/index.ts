@@ -1,14 +1,14 @@
-import { Plugin, PluginServiceApi } from '@cloudbase/framework-core';
-import { plugin as ContainerPlugin } from '@cloudbase/framework-plugin-container';
-import { DenoBuilder } from './builder';
-import { IDenoPluginInputs } from './types';
+import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
+import { plugin as ContainerPlugin } from "@cloudbase/framework-plugin-container";
+import { DenoBuilder } from "./builder";
+import { IFrameworkPluginDenoInputs } from "./types";
 
 function resolveInputs(inputs: any, defaultInputs: any) {
   return Object.assign({}, defaultInputs, inputs);
 }
 
 class DenoPlugin extends Plugin {
-  protected resolvedInputs: IDenoPluginInputs;
+  protected resolvedInputs: IFrameworkPluginDenoInputs;
   protected buildOutput: any;
   protected denoBuilder: DenoBuilder;
   protected containerPlugin: any;
@@ -16,18 +16,18 @@ class DenoPlugin extends Plugin {
   constructor(
     public name: string,
     public api: PluginServiceApi,
-    public inputs: IDenoPluginInputs
+    public inputs: IFrameworkPluginDenoInputs
   ) {
     super(name, api, inputs);
 
     const DEFAULT_INPUTS = {
-      dockerImage: 'debian:buster-slim',
+      dockerImage: "debian:buster-slim",
       // runtime example: v1.3.0
-      runtime: 'latest',
-      entry: '',
-      serviceName: 'deno-app',
-      servicePath: '/deno-app',
-      projectPath: '.',
+      runtime: "latest",
+      entry: "",
+      serviceName: "deno-app",
+      servicePath: "/deno-app",
+      projectPath: ".",
     };
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
@@ -41,7 +41,7 @@ class DenoPlugin extends Plugin {
    * 初始化资源
    */
   async init() {
-    this.api.logger.debug('DenoPlugin: init', this.resolvedInputs);
+    this.api.logger.debug("DenoPlugin: init", this.resolvedInputs);
   }
 
   /**
@@ -53,24 +53,24 @@ class DenoPlugin extends Plugin {
    * 构建资源
    */
   async build() {
-    this.api.logger.debug('DenoPlugin: build', this.resolvedInputs);
+    this.api.logger.debug("DenoPlugin: build", this.resolvedInputs);
 
     // 构建 deno 中间产物
     this.buildOutput = await this.denoBuilder.build(
-      this.resolvedInputs.projectPath || '.',
+      this.resolvedInputs.projectPath || ".",
       {
         dockerImage: this.resolvedInputs.dockerImage,
         runtime: this.resolvedInputs.runtime,
         entry: this.resolvedInputs.entry,
-        name: this.resolvedInputs.serviceName || 'deno-app',
-        path: this.resolvedInputs.servicePath || '/deno-app',
+        name: this.resolvedInputs.serviceName || "deno-app",
+        path: this.resolvedInputs.servicePath || "/deno-app",
       }
     );
 
     const container = this.buildOutput.containers[0];
 
     this.containerPlugin = new ContainerPlugin(
-      'container',
+      "container",
       this.api,
       resolveInputs(
         { localAbsolutePath: container.source },
@@ -87,7 +87,7 @@ class DenoPlugin extends Plugin {
    */
   async deploy() {
     this.api.logger.debug(
-      'DenoPlugin: deploy',
+      "DenoPlugin: deploy",
       this.resolvedInputs,
       this.buildOutput
     );
@@ -97,13 +97,13 @@ class DenoPlugin extends Plugin {
     await this.denoBuilder.clean();
 
     let url = `https://${this.api.envId}.service.tcloudbase.com${this.resolvedInputs.servicePath}`;
-    if (url[url.length - 1] !== '/') {
-      url = url + '/';
+    if (url[url.length - 1] !== "/") {
+      url = url + "/";
     }
     url = this.api.genClickableLink(url);
 
     this.api.logger.info(
-      `${this.api.emoji('🚀')} Deno 应用部署成功,访问地址: ${url}`
+      `${this.api.emoji("🚀")} Deno 应用部署成功,访问地址: ${url}`
     );
   }
 
@@ -111,7 +111,7 @@ class DenoPlugin extends Plugin {
    * 将资源编译成 SAM 描述
    */
   async compile() {
-    this.api.logger.debug('DenoPlugin: compile', this.resolvedInputs);
+    this.api.logger.debug("DenoPlugin: compile", this.resolvedInputs);
     return this.containerPlugin.compile();
   }
 
@@ -119,6 +119,11 @@ class DenoPlugin extends Plugin {
    * 移除资源
    */
   async remove() {}
+
+  /**
+   * 执行自定义命令
+   */
+  async run() {}
 }
 
 export const plugin = DenoPlugin;

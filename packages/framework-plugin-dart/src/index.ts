@@ -1,9 +1,58 @@
 import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
-import { plugin as ContainerPlugin } from "@cloudbase/framework-plugin-container";
+import {
+  plugin as ContainerPlugin,
+  IFrameworkPluginContainerInputs,
+} from "@cloudbase/framework-plugin-container";
 import { DartBuilder } from "./builder";
 
+const DEFAULT_INPUTS = {
+  servicePath: "/dart-api",
+  serviceName: "dart-api",
+  localPath: "./",
+};
+
+/**
+ * 导出接口用于生成 JSON Schema 来进行智能提示
+ */
+export interface IFrameworkPluginDartInputs {
+  /**
+   * 服务名，字符串格式，如 `dart-api`
+   *
+   * @default dart-api
+   */
+  serviceName: string;
+  /**
+   * 服务访问路径配置, 字符串格式, 如 `/dart-api`
+   * @default /dart-api
+   */
+  servicePath: string;
+  /**
+   * 本地代码文件夹相对于项目根目录的路径，默认值 `./`
+   * @default ./
+   */
+  localPath?: string;
+  /**
+   * 本地代码文件夹的绝对路径
+   */
+  localAbsolutePath?: string;
+  /**
+   * 版本名，默认值 `1.0.0`
+   *
+   * @default 1.0.0
+   */
+  version?: string;
+  /**
+   * 是否对外网开放访问，默认值 `true`
+   *
+   * @default true
+   */
+  isPublic?: boolean;
+}
+
+type ResolvedInputs = IFrameworkPluginDartInputs & typeof DEFAULT_INPUTS;
+
 class DartPlugin extends Plugin {
-  protected resolvedInputs: any;
+  protected resolvedInputs: ResolvedInputs;
   protected buildOutput: any;
   protected dartBuilder: DartBuilder;
   protected containerPlugin: any;
@@ -11,15 +60,9 @@ class DartPlugin extends Plugin {
   constructor(
     public name: string,
     public api: PluginServiceApi,
-    public inputs: any
+    public inputs: IFrameworkPluginContainerInputs
   ) {
     super(name, api, inputs);
-
-    const DEFAULT_INPUTS = {
-      servicePath: "/dart-api",
-      serviceName: "dart-api",
-      localPath: "./",
-    };
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
 

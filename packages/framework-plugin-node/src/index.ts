@@ -4,29 +4,32 @@ import { plugin as NodeContainerPlugin } from "./node-container-impl";
 import { exec } from "child_process";
 import { promisify } from "util";
 
-import { INodePluginInputs } from "./types";
+import { IFrameworkPluginNodeInputs } from "./types";
+export { IFrameworkPluginNodeInputs } from "./types";
+
+const DEFAULT_INPUTS = {
+  runtime: "Nodejs10.15",
+  entry: "app.js",
+  path: "/nodeapp",
+  name: "node",
+  projectPath: ".",
+  platform: "function",
+  wrapExpress: false,
+};
+
+type ResolvedInputs = typeof DEFAULT_INPUTS & IFrameworkPluginNodeInputs;
 
 class NodePlugin extends Plugin {
-  protected resolvedInputs: INodePluginInputs;
+  protected resolvedInputs: ResolvedInputs;
   protected buildOutput: any;
   protected pluginImpl: Plugin;
 
   constructor(
     public name: string,
     public api: PluginServiceApi,
-    public inputs: INodePluginInputs
+    public inputs: IFrameworkPluginNodeInputs
   ) {
     super(name, api, inputs);
-
-    const DEFAULT_INPUTS = {
-      runtime: "Nodejs10.15",
-      entry: "app.js",
-      path: "/nodeapp",
-      name: "node",
-      projectPath: ".",
-      platform: "function",
-      wrapExpress: false,
-    };
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
 

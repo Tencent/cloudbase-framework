@@ -31,8 +31,8 @@
     "url": "https://github.com/TencentCloudBase/cloudbase-framework/issues"
   },
   "dependencies": {
-    "@cloudbase/framework-core": "^0.6.3",
-    "@cloudbase/framework-plugin-container": "^0.6.3",
+    "@cloudbase/framework-core": "^0.9.0",
+    "@cloudbase/framework-plugin-container": "^0.9.0",
     "@types/fs-extra": "^8.1.0",
     "fs-extra": "^8.1.0"
   },
