@@ -66,11 +66,11 @@ cloudbase framework:deploy
 
 ### `serviceName`
 
-必填，服务名，字符串格式，如 `node-api`
+必填，服务名，字符串格式，如 `dart-api`
 
 ### `servicePath`
 
-必填，服务路径配置, 字符串格式, 如 `/node-api`
+必填，服务路径配置, 字符串格式, 如 `/dart-api`
 
 ### `localPath`
 
