@@ -25,7 +25,7 @@ const packageInfo = require("../package");
 const SUPPORT_COMMANDS = ["deploy", "compile", "run"];
 
 interface CommandParams {
-  runCommand?: string
+  runCommand?: string;
 }
 
 export async function run(
@@ -118,10 +118,7 @@ export async function run(
     await pluginManager.init(module);
     await pluginManager.build(module);
     const compileResult = await pluginManager.compile(module);
-    samManager.generate(
-      samMeta,
-      JSON.parse(JSON.stringify(compileResult))
-    );
+    samManager.generate(samMeta, JSON.parse(JSON.stringify(compileResult)));
     await samManager.install();
     await pluginManager.deploy(module);
   } else if (command === "compile") {
@@ -129,10 +126,7 @@ export async function run(
     await pluginManager.build(module);
 
     const compileResult = await pluginManager.compile(module);
-    samManager.generate(
-      samMeta,
-      JSON.parse(JSON.stringify(compileResult))
-    );
+    samManager.generate(samMeta, JSON.parse(JSON.stringify(compileResult)));
   } else if (command === "run") {
     await pluginManager.run(module, params?.runCommand);
   }

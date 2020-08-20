@@ -6,8 +6,48 @@ import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
 import { plugin as FunctionPlugin } from "@cloudbase/framework-plugin-function";
 import { NextBuilder } from "@cloudbase/next-builder";
 
+const DEFAULT_INPUTS = {
+  runtime: "Nodejs10.15",
+  entry: "./",
+  name: "next-ssr",
+  path: "/next-ssr",
+  buildCommand: "npm run build",
+};
+
+/**
+ * 导出接口用于生成 JSON Schema 来进行智能提示
+ */
+export interface IFrameworkPluginNextInputs {
+  /**
+   * Next 配置文件所在目录，默认当前项目所在目录
+   *
+   * @default ./
+   */
+  entry?: string;
+  /**
+   * 访问子路径，如 `/next-ssr`
+   *
+   * @default /next-ssr
+   */
+  path?: string;
+  /**
+   * 服务名，如`next-ssr`
+   *
+   * @default next-ssr
+   */
+  name: string;
+  /**
+   * 构建命令，如`npm run build`，没有可不传
+   *
+   * @default npm run build
+   */
+  buildCommand: string;
+}
+
+type ResolvedInputs = IFrameworkPluginNextInputs & typeof DEFAULT_INPUTS;
+
 class NextPlugin extends Plugin {
-  protected resolvedInputs: any;
+  protected resolvedInputs: ResolvedInputs;
   protected buildOutput: any;
   protected builder: NextBuilder;
   protected functionPlugin: any;
@@ -15,17 +55,9 @@ class NextPlugin extends Plugin {
   constructor(
     public name: string,
     public api: PluginServiceApi,
-    public inputs: any
+    public inputs: IFrameworkPluginNextInputs
   ) {
     super(name, api, inputs);
-
-    const DEFAULT_INPUTS = {
-      runtime: "Nodejs10.15",
-      entry: "./",
-      name: "next-ssr",
-      path: "/next-ssr",
-      buildCommand: "npm run build",
-    };
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
 
