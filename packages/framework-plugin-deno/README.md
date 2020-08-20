@@ -85,23 +85,45 @@ cloudbase framework:deploy
 
 ### `entry`
 
-选填，入口文件，字符串格式，默认值 `'entry.ts'`
+选填，入口文件，字符串格式，默认值 `''`
+
+配置入口文件为 `entry.ts` 后，docker 编译时，会执行 `deno install entry.ts`。
+
+但不推荐如此管理项目，推荐使用 denon 配置文件，并在部署前进行本地编译。
 
 ## 关于 denon
 
-服务使用 [denon](https://github.com/denosaurs/denon) 来管理 deno 进程，以便于管理 deno 启动参数
+docker 使用 [denon](https://github.com/denosaurs/denon) 来管理 deno 进程，以便于管理 deno 启动参数。
+
+denon 配置示例:
 
 ```yml
 # denon.yml
-allow:
-  - net
-  - env
-
 scripts:
-  start: deno run entry.ts
+  build:
+    cmd: deno bundle src/entry.ts dist/entry.js
+    watch: false
+  start:
+    cmd: deno run dist/entry.js
+    allow:
+      - net
+      - env
+      - read
+  dev:
+    cmd: deno run src/entry.ts
+    env:
+      PORT: "3000"
+    allow:
+      - net
+      - env
+      - read
 ```
 
-`cloudbase init` 之后会自动提供一个默认的 denon.yml，请根据应用需求来修改
+直接在 docker 编译 deno 应用，由于部分依赖文件所处网络环境原因容易导致镜像编译失败。推荐在本地安装 denon ，通过 `denon.yml` 提供的 `denon build` 命令进行本地编译，然后再发布应用到云端。
+
+`cloudbase init` 之后会自动提供一个默认的 denon.yml，请根据应用需求来修改。
+
+默认 docker 镜像会执行 `denon start` 命令来启动应用。
 
 ## 更多插件
 
