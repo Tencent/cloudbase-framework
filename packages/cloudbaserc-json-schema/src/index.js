@@ -20,6 +20,10 @@ const supportPluginsConfig = [
     name: '@cloudbase/framework-plugin-function',
     inputsInterfaceName: 'IFrameworkPluginFunctionInputs',
   },
+  {
+    name: '@cloudbase/framework-plugin-container',
+    inputsInterfaceName: 'IFrameworkPluginContainerInputs',
+  },
 ];
 
 for (let plugin of supportPluginsConfig) {

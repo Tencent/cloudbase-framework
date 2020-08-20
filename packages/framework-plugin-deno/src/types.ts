@@ -1,4 +1,4 @@
-import { IContainerPluginInputs } from '@cloudbase/framework-plugin-container';
+import { IFrameworkPluginContainerInputs } from "@cloudbase/framework-plugin-container";
 
 export interface IDenoPluginInputs {
   dockerImage?: string;
@@ -8,7 +8,7 @@ export interface IDenoPluginInputs {
   servicePath?: string;
   serviceName?: string;
   projectPath?: string;
-  containerOptions?: IContainerPluginInputs;
+  containerOptions?: IFrameworkPluginContainerInputs;
   functionOptions?: any;
   installDeps: boolean;
   buildCommand?: string;

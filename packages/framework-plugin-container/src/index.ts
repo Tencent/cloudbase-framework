@@ -3,28 +3,218 @@ import { ContainerApi } from "./container-api";
 import { ContainerBuilder } from "./builder";
 import path from "path";
 
-export interface IContainerPluginInputs {
+const DEFAULT_INPUTS = {
+  uploadType: "package",
+  description: "基于云开发 CloudBase Framework 部署的云应用",
+  isPublic: true,
+  flowRatio: 100,
+  cpu: 1,
+  mem: 1,
+  minNum: 1,
+  maxNum: 1000,
+  policyType: "cpu",
+  policyThreshold: 60,
+  containerPort: 80,
+  dockerfilePath: "./Dockerfile",
+  buildDir: "./",
+  version: "1.0.0",
+  localPath: "./",
+  envVariables: {},
+};
+
+/**
+ * 导出接口用于生成 JSON Schema 来进行智能提示
+ */
+export interface IFrameworkPluginContainerInputs {
+  /**
+   * 容器镜像代码来源类别
+   *
+   * 支持`package|image|repository`3 种，分别代表本地代码包、镜像地址和 git 仓库地址。默认是`package`, 选择`image`时需要填写 `imageInfo`, 选择 `repository` 需要填写`codeDetail`
+   */
+  uploadType?: "package" | "image" | "repository";
+  /**
+   * 服务名，字符串格式，如 `node-api`
+   */
   serviceName: string;
+  /**
+   * 服务路径配置, 字符串格式, 如 `/node-api`
+   */
   servicePath: string;
+  /**
+   * 服务描述
+   */
   description?: string;
+  /**
+   * 是否对外网开放访问
+   * @default true
+   */
   isPublic?: boolean;
+  /**
+   * 流量占比（0-100）
+   * @minimum 0
+   * @maximum 100
+   *
+   * @default 100
+   */
   flowRatio?: number;
+  /**
+   * CPU 的大小，1-128, 单位：核，默认值 `1`
+   * @default 1
+   */
   cpu?: number;
+  /**
+   * Mem 的大小，1-128, 单位：G，默认值 `1`
+   *
+   * @default 1
+   */
   mem?: number;
+  /**
+   * 最小副本数, 1-1000，默认值 `1`
+   *
+   * @default 1
+   */
   minNum?: number;
+  /**
+   * 最大副本数, 1-1000，默认值 `1`
+   *
+   * @maximum 1000
+   * @default 1000
+   */
   maxNum?: number;
+  /**
+   * 策略类型(cpu)，默认值 `cpu`
+   */
   policyType?: "cpu";
+  /**
+   * 策略阈值，1-100, 默认值 `60`
+   *
+   * @minimum 0
+   * @maximum 100
+   *
+   * @default 60
+   */
   policyThreshold?: number;
+  /**
+   * 服务端口，默认值 `80`
+   *
+   * @default 80
+   */
   containerPort?: number;
+  /**
+   * Dockerfile 的路径，默认值 `./Dockerfile`
+   *
+   * @default ./Dockerfile
+   */
   dockerfilePath?: string;
+  /**
+   * 构建目录，默认值 `./`
+   *
+   * @default ./
+   */
   buildDir?: string;
+  /**
+   * 服务版本名
+   *
+   * @default 1.0.0
+   */
   version?: string;
+  /**
+   * 本地代码文件夹相对于项目根目录的路径
+   * @default ./
+   */
   localPath?: string;
+  /**
+   * 本地代码文件夹的绝对路径
+   */
   localAbsolutePath?: string;
+  /**
+   * 环境变量键值对，会被注入到云应用的运行时环境变量中
+   */
+  envVariables?: Record<string, string>;
+  /**
+   * `uploadType` 填写为 `image`时需要填写 `imageInfo`，类型是对象格式
+   */
+  imageInfo?: IContainerImageInfo;
+  /**
+   * `uploadType` 填写为 `repository` 时需要填写`codeDetail`，类型是对象格式
+   *
+   * 例如
+   *
+   * ```json
+   * {
+   *   "envId": "{{envId}}",
+   *   "framework": {
+   *     "name": "capp-example",
+   *     "plugins": {
+   *       "client": {
+   *         "use": "@cloudbase/framework-plugin-container",
+   *         "inputs": {
+   *           "serviceName": "deno",
+   *           "servicePath": "/deno",
+   *           "localPath": "./",
+   *           "uploadType": "repository",
+   *           "codeDetail": {
+   *             "name": "deno-docker",
+   *             "url": "https://github.com/TabSpace/deno-docker"
+   *           }
+   *         }
+   *       }
+   *     }
+   *   }
+   * }
+   * ```
+   */
+  codeDetail?: IContainerCodeDetail;
 }
 
+interface IContainerImageInfo {
+  /**
+   * 镜像拉取地址
+   *
+   * imageUrl 格式为 [registry-url]/[namespace]/[image]:[tag]，支持腾讯云 ccr.ccs.tencentyun.com 上的镜像地址，也支持 dockerhub 公开的镜像，如 `nginx:latest`
+   * 例如
+   *
+   * ```json
+   * {
+   *   "envId": "{{envId}}",
+   *   "framework": {
+   *     "name": "capp-example",
+   *     "plugins": {
+   *       "client": {
+   *         "use": "@cloudbase/framework-plugin-container",
+   *         "inputs": {
+   *           "serviceName": "node-api",
+   *           "servicePath": "/node-api",
+   *           "localPath": "./",
+   *           "uploadType": "image",
+   *           "imageInfo": {
+   *             "imageUrl": "ccr.ccs.tencentyun.com/tcb-100010952056-rjdt/webpage_node-api:node-api-001-1597238358"
+   *           }
+   *         }
+   *       }
+   *     }
+   *   }
+   * }
+   * ```
+   */
+  imageUrl: string;
+}
+
+interface IContainerCodeDetail {
+  /**
+   * Repo的名字
+   */
+  name?: string;
+  /**
+   * Repo 的url
+   */
+  url: string;
+}
+
+type ResolvedInputs = typeof DEFAULT_INPUTS & IFrameworkPluginContainerInputs;
+
 class ContainerPlugin extends Plugin {
-  protected resolvedInputs: any;
+  protected resolvedInputs: ResolvedInputs;
   protected buildOutput: any;
   protected containerApi: ContainerApi;
   protected builder: ContainerBuilder;
@@ -32,28 +222,10 @@ class ContainerPlugin extends Plugin {
   constructor(
     public name: string,
     public api: PluginServiceApi,
-    public inputs: IContainerPluginInputs
+    public inputs: IFrameworkPluginContainerInputs
   ) {
     super(name, api, inputs);
 
-    const DEFAULT_INPUTS = {
-      uploadType: "package",
-      description: "基于云开发 CloudBase Framework 部署的云应用",
-      isPublic: true,
-      flowRatio: 100,
-      cpu: 1,
-      mem: 1,
-      minNum: 1,
-      maxNum: 1000,
-      policyType: "cpu",
-      policyThreshold: 60,
-      containerPort: 80,
-      dockerfilePath: "./Dockerfile",
-      buildDir: "./",
-      version: "1.0.0",
-      localPath: "./",
-      envVariables: {},
-    };
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
 
     this.checkInputs();
@@ -176,7 +348,7 @@ class ContainerPlugin extends Plugin {
       case "image":
         otherProperties = {
           ImageInfo: {
-            ImageUrl: imageInfo.imageUrl,
+            ImageUrl: imageInfo?.imageUrl,
           },
         };
         break;
@@ -184,9 +356,9 @@ class ContainerPlugin extends Plugin {
         otherProperties = {
           CodeDetail: {
             Name: {
-              Name: codeDetail.name,
+              Name: codeDetail?.name,
             },
-            Url: codeDetail.url,
+            Url: codeDetail?.url,
           },
         };
         break;
