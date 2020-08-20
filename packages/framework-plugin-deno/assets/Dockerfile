@@ -11,10 +11,12 @@ ENV PATH="$DENO_INSTALL/bin:$PATH"
 ENV PORT=80
 EXPOSE 80
 
-WORKDIR /usr/src/app
+WORKDIR /app
 COPY . .
 RUN deno install --allow-read --allow-run --allow-write --allow-net -f -q --unstable https://deno.land/x/denon/denon.ts
+<% if (entry) { %>
 RUN deno install <%= entry %>
+<% } %>
 
 ENTRYPOINT ["denon"]
 CMD ["start"]
