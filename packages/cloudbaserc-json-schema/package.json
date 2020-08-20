@@ -38,6 +38,7 @@
     "@cloudbase/framework-plugin-function": "^0.9.0",
     "@cloudbase/framework-plugin-container": "^0.9.0",
     "@cloudbase/framework-plugin-dart": "^0.9.0",
+    "@cloudbase/framework-plugin-database": "^0.9.0",
     "typescript-json-schema": "^0.42.0"
   }
 }

@@ -1,42 +1,94 @@
 import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
 import { pascalCase, constantCase } from "change-case";
 
-export interface IDatabasePluginInputs {
+/**
+ * 导出接口用于生成 JSON Schema 来进行智能提示
+ */
+export interface IFrameworkPluginDatabaseInputs {
+  /**
+   * 数据库集合信息，数组类型
+   */
   collections: ICollectionInputs[];
 }
 
 export interface ICollectionInputs {
+  /**
+   * 集合名称
+   *
+   * @maxLength 64
+   * @maxLength 1
+   */
   collectionName: string;
+  /**
+   * 描述信息
+   *
+   * @maxLength 128
+   * @maxLength 1
+   */
   description?: string;
+  /**
+   * 创建的索引
+   */
   createIndexes?: ICreateIndex[];
+  /**
+   * 删除的索引
+   */
   DropIndexes?: IDropIndex[];
+  /**
+   * 权限标签。包含以下取值： READONLY：所有用户可读，仅创建者和管理员可写 PRIVATE：仅创建者及管理员可读写 ADMINWRITE：所有用户可读，仅管理员可写 ADMINONLY：仅管理员可读写 CUSTOM：自定义安全规则
+   */
   aclTag?: "READONLY" | "PRIVATE" | "ADMINWRITE" | "ADMINONLY" | "CUSTOM";
+  /**
+   * aclTag 为 CUSTOM 时，安全规则内容
+   */
   aclRule?: string;
 }
 
 export interface ICreateIndex {
+  /**
+   * 索引名称
+   * @maxLength 64
+   * @maxLength 1
+   */
   name: string;
+  /**
+   * 是否唯一索引
+   */
   unique: boolean;
+  /**
+   * 描述信息
+   */
   keys: IIndexKey[];
 }
 
 export interface IDropIndex {
+  /**
+   * 索引名称
+   */
   name: string;
 }
 
 export interface IIndexKey {
+  /**
+   * 字段
+   * @maxLength 64
+   * @maxLength 1
+   */
   name: string;
+  /**
+   * 字段排序，可枚举值：-1（降序）、1（升序）、2dsphere（地理位置）
+   */
   direction: "-1" | "1" | "2dsphere";
 }
 
 class DatabasePlugin extends Plugin {
-  protected resolvedInputs: any;
+  protected resolvedInputs: IFrameworkPluginDatabaseInputs;
   protected buildOutput: any;
 
   constructor(
     public name: string,
     public api: PluginServiceApi,
-    public inputs: IDatabasePluginInputs
+    public inputs: IFrameworkPluginDatabaseInputs
   ) {
     super(name, api, inputs);
 

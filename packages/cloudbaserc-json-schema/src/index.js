@@ -28,6 +28,10 @@ const supportPluginsConfig = [
     name: '@cloudbase/framework-plugin-dart',
     inputsInterfaceName: 'IFrameworkPluginDartInputs',
   },
+  {
+    name: '@cloudbase/framework-plugin-database',
+    inputsInterfaceName: 'IFrameworkPluginDatabaseInputs',
+  },
 ];
 
 for (let plugin of supportPluginsConfig) {
