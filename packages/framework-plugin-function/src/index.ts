@@ -13,11 +13,11 @@ export interface IFrameworkPluginFunctionInputs {
    * 函数根目录
    * @default functions
    */
-  functionRootPath: string;
+  functionRootPath?: string;
   /**
    * 函数配置数组
    */
-  functions: ICloudFunction[];
+  functions?: ICloudFunction[];
   /**
    *
    * 服务路径配置
@@ -91,7 +91,11 @@ export interface IFunctionVPC {
   subnetId: string;
 }
 
-type ResolveInputs = IFrameworkPluginFunctionInputs & { servicePaths: {} };
+type ResolveInputs = IFrameworkPluginFunctionInputs & {
+  functionRootPath: string;
+  functions: ICloudFunction[];
+  servicePaths: {};
+};
 
 class FunctionPlugin extends Plugin {
   protected resolvedInputs: ResolveInputs;

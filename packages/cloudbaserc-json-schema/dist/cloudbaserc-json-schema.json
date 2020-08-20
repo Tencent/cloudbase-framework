@@ -458,10 +458,6 @@
               "$ref": "#/definitions/Record<string,string>"
             }
           },
-          "required": [
-            "functionRootPath",
-            "functions"
-          ],
           "$schema": "http://json-schema.org/draft-07/schema#"
         }
       },
@@ -625,12 +621,14 @@
       "properties": {
         "collectionName": {
           "description": "集合名称",
-          "maxLength": 1,
+          "maxLength": 64,
+          "minLength": 1,
           "type": "string"
         },
         "description": {
           "description": "描述信息",
-          "maxLength": 1,
+          "maxLength": 128,
+          "minLength": 1,
           "type": "string"
         },
         "createIndexes": {
@@ -672,7 +670,8 @@
       "properties": {
         "name": {
           "description": "索引名称",
-          "maxLength": 1,
+          "maxLength": 64,
+          "minLength": 1,
           "type": "string"
         },
         "unique": {
@@ -698,7 +697,8 @@
       "properties": {
         "name": {
           "description": "字段",
-          "maxLength": 1,
+          "maxLength": 64,
+          "minLength": 1,
           "type": "string"
         },
         "direction": {
@@ -816,10 +816,6 @@
               "type": "string"
             }
           },
-          "required": [
-            "buildCommand",
-            "name"
-          ],
           "$schema": "http://json-schema.org/draft-07/schema#"
         }
       },

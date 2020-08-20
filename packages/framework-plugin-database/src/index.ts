@@ -16,14 +16,14 @@ export interface ICollectionInputs {
    * 集合名称
    *
    * @maxLength 64
-   * @maxLength 1
+   * @minLength 1
    */
   collectionName: string;
   /**
    * 描述信息
    *
    * @maxLength 128
-   * @maxLength 1
+   * @minLength 1
    */
   description?: string;
   /**
@@ -48,7 +48,7 @@ export interface ICreateIndex {
   /**
    * 索引名称
    * @maxLength 64
-   * @maxLength 1
+   * @minLength 1
    */
   name: string;
   /**
@@ -72,7 +72,7 @@ export interface IIndexKey {
   /**
    * 字段
    * @maxLength 64
-   * @maxLength 1
+   * @minLength 1
    */
   name: string;
   /**
