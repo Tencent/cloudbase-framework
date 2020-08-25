@@ -7,6 +7,7 @@
     "$schema": {
       "type": "string"
     },
+    "additionalProperties": false,
     "version": {
       "type": "string",
       "description": "version 表示当前配置文件的版本，目前支持的版本号有：\"2.0\"。当 version 字段不存在时，默认当前配置文件为 \"1.0\" 版本。",
@@ -55,35 +56,35 @@
     "pluginConfig": {
       "anyOf": [
         {
-          "$ref": "#/definitions/IFrameworkPluginWebsiteInputs"
+          "$ref": "#/definitions/IFrameworkPluginWebsiteInputsConfig"
         },
         {
-          "$ref": "#/definitions/IFrameworkPluginNodeInputs"
+          "$ref": "#/definitions/IFrameworkPluginNodeInputsConfig"
         },
         {
-          "$ref": "#/definitions/IFrameworkPluginNuxtInputs"
+          "$ref": "#/definitions/IFrameworkPluginNuxtInputsConfig"
         },
         {
-          "$ref": "#/definitions/IFrameworkPluginFunctionInputs"
+          "$ref": "#/definitions/IFrameworkPluginFunctionInputsConfig"
         },
         {
-          "$ref": "#/definitions/IFrameworkPluginContainerInputs"
+          "$ref": "#/definitions/IFrameworkPluginContainerInputsConfig"
         },
         {
-          "$ref": "#/definitions/IFrameworkPluginDartInputs"
+          "$ref": "#/definitions/IFrameworkPluginDartInputsConfig"
         },
         {
-          "$ref": "#/definitions/IFrameworkPluginDatabaseInputs"
+          "$ref": "#/definitions/IFrameworkPluginDatabaseInputsConfig"
         },
         {
-          "$ref": "#/definitions/IFrameworkPluginDenoInputs"
+          "$ref": "#/definitions/IFrameworkPluginDenoInputsConfig"
         },
         {
-          "$ref": "#/definitions/IFrameworkPluginNextInputs"
+          "$ref": "#/definitions/IFrameworkPluginNextInputsConfig"
         }
       ]
     },
-    "IFrameworkPluginWebsiteInputs": {
+    "IFrameworkPluginWebsiteInputsConfig": {
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -149,7 +150,7 @@
     "Record<string,string>": {
       "type": "object"
     },
-    "IFrameworkPluginNodeInputs": {
+    "IFrameworkPluginNodeInputsConfig": {
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -379,7 +380,7 @@
         "url"
       ]
     },
-    "IFrameworkPluginNuxtInputs": {
+    "IFrameworkPluginNuxtInputsConfig": {
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -427,7 +428,7 @@
         "inputs"
       ]
     },
-    "IFrameworkPluginFunctionInputs": {
+    "IFrameworkPluginFunctionInputsConfig": {
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -527,7 +528,143 @@
         "vpcId"
       ]
     },
-    "IFrameworkPluginDartInputs": {
+    "IFrameworkPluginContainerInputsConfig": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "enum": [
+            "@cloudbase/framework-plugin-container"
+          ]
+        },
+        "inputs": {
+          "description": "导出接口用于生成 JSON Schema 来进行智能提示",
+          "type": "object",
+          "properties": {
+            "uploadType": {
+              "description": "容器镜像代码来源类别\n\n支持`package|image|repository`3 种，分别代表本地代码包、镜像地址和 git 仓库地址。默认是`package`, 选择`image`时需要填写 `imageInfo`, 选择 `repository` 需要填写`codeDetail`",
+              "enum": [
+                "image",
+                "package",
+                "repository"
+              ],
+              "type": "string"
+            },
+            "serviceName": {
+              "description": "服务名，字符串格式，如 `node-api`",
+              "type": "string"
+            },
+            "servicePath": {
+              "description": "服务路径配置, 字符串格式, 如 `/node-api`",
+              "type": "string"
+            },
+            "description": {
+              "description": "服务描述",
+              "type": "string"
+            },
+            "isPublic": {
+              "description": "是否对外网开放访问",
+              "default": true,
+              "type": "boolean"
+            },
+            "flowRatio": {
+              "description": "流量占比（0-100）",
+              "minimum": 0,
+              "maximum": 100,
+              "default": 100,
+              "type": "number"
+            },
+            "cpu": {
+              "description": "CPU 的大小，1-128, 单位：核，默认值 `1`",
+              "default": 1,
+              "type": "number"
+            },
+            "mem": {
+              "description": "Mem 的大小，1-128, 单位：G，默认值 `1`",
+              "default": 1,
+              "type": "number"
+            },
+            "minNum": {
+              "description": "最小副本数, 1-50，默认值 `1`",
+              "default": 1,
+              "type": "number"
+            },
+            "maxNum": {
+              "description": "最大副本数, 1-50，默认值 `10`",
+              "maximum": 50,
+              "default": 10,
+              "type": "number"
+            },
+            "policyType": {
+              "description": "策略类型(cpu)，默认值 `cpu`",
+              "enum": [
+                "cpu"
+              ],
+              "type": "string"
+            },
+            "policyThreshold": {
+              "description": "策略阈值，1-100, 默认值 `60`",
+              "minimum": 0,
+              "maximum": 100,
+              "default": 60,
+              "type": "number"
+            },
+            "containerPort": {
+              "description": "服务端口，默认值 `80`",
+              "default": 80,
+              "type": "number"
+            },
+            "dockerfilePath": {
+              "description": "Dockerfile 的路径，默认值 `./Dockerfile`",
+              "default": "./Dockerfile",
+              "type": "string"
+            },
+            "buildDir": {
+              "description": "构建目录，默认值 `./`",
+              "default": "./",
+              "type": "string"
+            },
+            "version": {
+              "description": "服务版本名",
+              "default": "1.0.0",
+              "type": "string"
+            },
+            "localPath": {
+              "description": "本地代码文件夹相对于项目根目录的路径",
+              "default": "./",
+              "type": "string"
+            },
+            "localAbsolutePath": {
+              "description": "本地代码文件夹的绝对路径",
+              "type": "string"
+            },
+            "envVariables": {
+              "description": "环境变量键值对，会被注入到云应用的运行时环境变量中",
+              "$ref": "#/definitions/Record<string,string>"
+            },
+            "imageInfo": {
+              "description": "`uploadType` 填写为 `image`时需要填写 `imageInfo`，类型是对象格式",
+              "$ref": "#/definitions/IContainerImageInfo"
+            },
+            "codeDetail": {
+              "description": "`uploadType` 填写为 `repository` 时需要填写`codeDetail`，类型是对象格式\n\n例如\n\n```json\n{\n   \"envId\": \"{{envId}}\",\n   \"framework\": {\n     \"name\": \"capp-example\",\n     \"plugins\": {\n       \"client\": {\n         \"use\": \"@cloudbase/framework-plugin-container\",\n         \"inputs\": {\n           \"serviceName\": \"deno\",\n           \"servicePath\": \"/deno\",\n           \"localPath\": \"./\",\n           \"uploadType\": \"repository\",\n           \"codeDetail\": {\n             \"name\": \"deno-docker\",\n             \"url\": \"https://github.com/TabSpace/deno-docker\"\n           }\n         }\n       }\n     }\n   }\n}\n```",
+              "$ref": "#/definitions/IContainerCodeDetail"
+            }
+          },
+          "required": [
+            "serviceName",
+            "servicePath"
+          ],
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      "required": [
+        "use",
+        "inputs"
+      ]
+    },
+    "IFrameworkPluginDartInputsConfig": {
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -583,7 +720,7 @@
         "inputs"
       ]
     },
-    "IFrameworkPluginDatabaseInputs": {
+    "IFrameworkPluginDatabaseInputsConfig": {
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -728,7 +865,7 @@
         "name"
       ]
     },
-    "IFrameworkPluginDenoInputs": {
+    "IFrameworkPluginDenoInputsConfig": {
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -781,7 +918,7 @@
         "inputs"
       ]
     },
-    "IFrameworkPluginNextInputs": {
+    "IFrameworkPluginNextInputsConfig": {
       "additionalProperties": false,
       "type": "object",
       "properties": {
