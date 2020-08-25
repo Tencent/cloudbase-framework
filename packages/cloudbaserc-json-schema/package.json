@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/cloudbaserc-json-schema",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "description": "cloudbaserc 配置文件的 JSON Schema 定义",
   "keywords": [
     "cloudbase",
@@ -34,15 +34,15 @@
     "url": "https://github.com/TencentCloudBase/cloudbase-framework/issues"
   },
   "dependencies": {
-    "@cloudbase/framework-plugin-website": "^0.9.0",
-    "@cloudbase/framework-plugin-node": "^0.9.0",
-    "@cloudbase/framework-plugin-nuxt": "^0.9.0",
-    "@cloudbase/framework-plugin-function": "^0.9.0",
-    "@cloudbase/framework-plugin-container": "^0.9.0",
-    "@cloudbase/framework-plugin-dart": "^0.9.0",
-    "@cloudbase/framework-plugin-database": "^0.9.0",
-    "@cloudbase/framework-plugin-deno": "^0.9.0",
-    "@cloudbase/framework-plugin-next": "^0.9.0",
+    "@cloudbase/framework-plugin-container": "^1.0.0",
+    "@cloudbase/framework-plugin-dart": "^1.0.0",
+    "@cloudbase/framework-plugin-database": "^1.0.0",
+    "@cloudbase/framework-plugin-deno": "^1.0.0",
+    "@cloudbase/framework-plugin-function": "^1.0.0",
+    "@cloudbase/framework-plugin-next": "^1.0.0",
+    "@cloudbase/framework-plugin-node": "^1.0.0",
+    "@cloudbase/framework-plugin-nuxt": "^1.0.0",
+    "@cloudbase/framework-plugin-website": "^1.0.0",
     "typescript-json-schema": "^0.42.0"
   }
 }
