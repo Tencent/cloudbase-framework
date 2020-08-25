@@ -19,7 +19,13 @@ async function main() {
   await login();
   const templates = await getTemplates();
   console.log(templates);
-  return Promise.all(templates.map(installTemplate));
+  return Promise.all(
+    templates
+      .filter((template) => {
+        return template.path !== 'taro-starter';
+      })
+      .map(installTemplate)
+  );
 }
 
 async function forkTemplate() {
