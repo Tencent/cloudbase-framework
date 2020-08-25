@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.0.0] - 2020-08-25
+
+### Features
+
+- 新增 Deno 插件一键部署 Deno 应用(#63) @TabSpace
+- 新增 Framework run 命令 (#68) @lt5c
+- 新增 Deno 应用模板(#63) @TabSpace
+- 新增 Taro 应用模板(#66) @qinmudi
+- 支持自动检测和部署 Pagic 应用 (Deno 静态网站生成器)
+- 优化 Container 插件部署错误日志信息
+
+- 新增 智能部署命令 @henghenchhptg
+- 新增 基于 JSON Schema 的配置语法智能提示
+- 新增 Next 插件 (#70) @fanyegong
+- 新增 Next SSR 应用模板 (#70) @fanyegong
+- 支持 App Entrypoint
+- Deno 插件应用进程改为默认使用 denon 来管理 (#69) @TabSpace
+- Container 插件调整云应用最大副本数
+
 ## [0.9.0] - 2020-08-17
 
 ### Features
