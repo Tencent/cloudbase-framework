@@ -51,9 +51,9 @@ for (let plugin of supportPluginsConfig) {
   delete inputsSchema.definitions;
 
   baseSchema.definitions.pluginConfig.anyOf.push({
-    $ref: `#/definitions/${plugin.inputsInterfaceName}`,
+    $ref: `#/definitions/${plugin.inputsInterfaceName}Config`,
   });
-  baseSchema.definitions[plugin.inputsInterfaceName] = {
+  baseSchema.definitions[plugin.inputsInterfaceName + 'Config'] = {
     additionalProperties: false,
     type: 'object',
     properties: {

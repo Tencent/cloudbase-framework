@@ -7,6 +7,7 @@
     "$schema": {
       "type": "string"
     },
+    "additionalProperties": false,
     "version": {
       "type": "string",
       "description": "version 表示当前配置文件的版本，目前支持的版本号有：\"2.0\"。当 version 字段不存在时，默认当前配置文件为 \"1.0\" 版本。",
