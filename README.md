@@ -98,7 +98,7 @@ cloudbase framework:deploy
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/uni-app-starter"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/721bfc09d7e0a2ccd49b40ac6287f8ac.png"></a>                              | uni-app 应用                  | uni-app + 云函数 + 静态网站部署                | `cloudbase init --template uni-app-starter` |
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/taro-starter"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/625bbdc0b37744aae33aff46b8aeeeb8.png"></a>                                 | taro 应用                     | taro + 云函数 + 静态网站部署                   | `cloudbase init --template taro-starter`    |
 | <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/deno"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/408157ecaba08c2594dc953b4c690aec.jpg"></a>                                         | Deno 云应用                   | Deno + Serverless 云应用部署                   | `cloudbase init --template deno`            |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/next-ssr"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/918830a5ad3321fd0524eaef4c0e4c1e.png"></a>                                     | Next SSR 应用                 | Next SSR + 服务端部署 + 静态网站部署            | `cloudbase init --template next-ssr`        |
+| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/next-ssr"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/918830a5ad3321fd0524eaef4c0e4c1e.png"></a>                                     | Next SSR 应用                 | Next SSR + 服务端部署 + 静态网站部署           | `cloudbase init --template next-ssr`        |
 
 ## <a name="templates"></a>模板
 
@@ -223,7 +223,14 @@ cloudbase framework:deploy
 
 欢迎大家参与到 CloudBase Framework 的开发工作，贡献一份力量
 
-开发贡献方式请参考 [开发贡献指南](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/CONTRIBUTING.md) 文档
+您可以选择如下的贡献方式：
+
+- [贡献一篇技术文章](./community/posts/README.md)
+- 贡献代码，提交 Pull Request
+- 反馈 bug，提交 Issue
+- 在技术会议上发表技术演讲
+
+贡献方式请参考 [贡献指南](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/CONTRIBUTING.md) 文档
 
 ## <a name="changelog"></a> Changelog
 
@@ -240,7 +247,7 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
    <td>
       微信群
       <br>
-      <img src="https://main.qcloudimg.com/raw/59a8ddf87b7423c6a56058534bc3fd90.png" width="100px;" alt=""/>
+      <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghva5t7bfvj30i20i2q7i.jpg" width="100px;" alt=""/>
     </td>
     <td>
       QQ 群
@@ -255,7 +262,9 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-18-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -290,6 +299,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
