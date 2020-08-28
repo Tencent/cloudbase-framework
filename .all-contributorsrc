@@ -168,6 +168,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "juukee",
+      "name": "juukee",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/28680837?v=4",
+      "profile": "https://github.com/juukee",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
