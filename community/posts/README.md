@@ -9,7 +9,7 @@
 ## 步骤
 
 1. Fork 这个 Git 仓库
-2. 在仓库中为您的文章添加一个新文件夹 `/community/content/posts/YYYY-MM-DD-Desc`，例如 `/community/content/posts/2020-08-12-如何用云开发快速搭建实时 TodoList 应用`
+2. 在仓库中为您的文章添加一个新文件夹 `/community/posts/YYYY-MM-DD-Desc`，例如 `/community/posts/2020-08-12-如何用云开发快速搭建实时 TodoList 应用`
 3. 在创建好的文件夹目录中添加一个 `index.md`，文件格式可以参考如下模板
 
 ```markdown
