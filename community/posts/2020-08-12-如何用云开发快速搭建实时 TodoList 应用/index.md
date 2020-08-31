@@ -49,7 +49,7 @@ tags:
 ### 2.1.1 手动创建
 
 打开云开发控制台，手动创建 watch-todos 集合
-![enter image description here](https://wyd-1301665037.cos.ap-guangzhou.myqcloud.com/image-20200812104348464.png)
+![enter image description here](http://7368-shryzhang-test-13eb29-1258821855.tcb.qcloud.la/CloudBase-Framework/collection_create.png?sign=82c3859e25604b9feee9b10893abad9e&t=1592310772)
 
 ### 2.1.2 插件方式创建
 
@@ -133,7 +133,7 @@ npm install tcb-js-sdk
 
 【step1】云开发控制台开启匿名登录：
 
-![enter image description here](https://wyd-1301665037.cos.ap-guangzhou.myqcloud.com/image-20200812104158186.png)
+![enter image description here](http://7368-shryzhang-test-13eb29-1258821855.tcb.qcloud.la/CloudBase-Framework/anonymous_login.png?sign=82c3859e25604b9feee9b10893abad9e&t=1592310772)
 
 【step2】tcb/index.js
 
