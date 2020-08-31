@@ -18,7 +18,7 @@ tags:
 
 # 效果展示
 
-![enter image description here](https://wyd-1301665037.cos.ap-guangzhou.myqcloud.com/image-20200812103646882.png)
+![enter image description here](http://7368-shryzhang-test-13eb29-1258821855.tcb.qcloud.la/CloudBase-Framework/watch-todolist.gif)
 
 示例地址：http://cloud.qinmudi.cn/watch-todolist
 
