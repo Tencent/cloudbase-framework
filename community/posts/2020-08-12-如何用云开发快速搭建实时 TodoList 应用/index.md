@@ -455,7 +455,7 @@ npm run deploy
 
 浏览器访问
 
-![enter image description here](https://wyd-1301665037.cos.ap-guangzhou.myqcloud.com/image-20200812103957913.png)
+![enter image description here](http://7368-shryzhang-test-13eb29-1258821855.tcb.qcloud.la/CloudBase-Framework/deploy-success.jpg)
 
 预览部署后的示例~
 
