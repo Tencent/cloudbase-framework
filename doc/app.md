@@ -1,36 +1,35 @@
-# CloudBase App 项目模板
+# CloudBase App 应用
 
-基于 CloudBase Framework 开发的项目可以打造成 CloudBase App 项目模板，可以基于 CloudBase CLI 命令来一键创建和部署
+基于 CloudBase Framework 开发的项目可以打造成 CloudBase App 应用，可以基于 CloudBase CLI 命令来一键创建部署，也可以生成一键部署按钮来在云端一键部署
 
-```bash
-# GitHub owner/name
-cloudbase init --app-template TencentCloudBase/cloudbase-extension-cms
+CloudBase App 项目需要满足以下的应用 3 要素
 
-# 或者完整 git 地址
-cloudbase init --app-template https://github.com/TencentCloudBase/cloudbase-extension-cms
-```
-
-CloudBase App 项目模板需要满足以下的应用模板 3 要素
-
-## 应用模板 3 要素
+## 应用 3 要素
 
 1. 可使用 CloudBase Framework 开发部署： 包含配置 cloudbaserc.json，使用 cloudbaserc.json 描述所有的依赖资源（包括数据库集合和权限等信息）
 2. 配置文件中通[动态变量](https://docs.cloudbase.net/cli/config.html#dong-tai-bian-liang)方式来引用自定义配置
-3. 项目下根目录下存在 `cloudbase-app.json` 描述项目，例如依赖的动态变量信息
+3. 项目代码中的环境 id 等自定义信息需要从环境变量中获取而不是写死
+
+## 参考说明文档
+
+- 如何在云函数、云应用、网站应用中注入自定义环境变量： https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/env-variables.md
+- cloudbaserc 文件中的模板变量说明：https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/mode.md
+- cloudbaserc 文件配置文档：https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/config.md
 
 ## 应用模板示例
 
 例如基于 CloudBase Framework 开发的 CMS 系统
 
 - 使用 CloudBase Framework 描述了应用的组成和依赖的资源如相关的数据库集合等
-- 使用 {{env.endId}} 这种动态变量模式引用了应用依赖的动态变量信息
+- 使用 {{env.ENV_ID}} 这种动态变量模式引用了应用依赖的动态变量信息
 
 cloudbaserc.json 文件如下所示：
 
 ```json
 {
   "version": "2.0",
-  "envId": "{{env.envId}}",
+  "$schema": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json",
+  "envId": "{{env.ENV_ID}}",
   "framework": {
     "plugins": {
       "admin": {
@@ -106,5 +105,3 @@ cloudbaserc.json 文件如下所示：
   }
 }
 ```
-
-cloudbase-app.json 如下所示
