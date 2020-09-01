@@ -43,9 +43,15 @@ export async function run(
   const logger = getLogger(logLevel);
 
   try {
-    const data = await promisify(figlet.text as any)(" CloudBase Framework ", {
-      font: "Slant",
-    });
+    const data = await promisify(figlet.text as any)(
+      `CloudBase
+Framework`,
+      {
+        font: "Slant",
+        horizontalLayout: "fitted",
+        verticalLayoutL: "fitted",
+      }
+    );
     console.log(
       chalk.bold(
         gradient(["cyan", "rgb(0, 111, 150)", "rgb(0, 246,136)"]).multiline(
