@@ -6,16 +6,13 @@ import { genClickableLink } from "../utils/link";
 import { Generator } from "../generator";
 import { CloudApi } from "../api";
 import { emoji } from "../utils/emoji";
+import { SamManager } from "../sam";
 
 /**
  * 插件服务注入为插件提供的 API
  */
 export default class PluginServiceApi {
-  pluginManager: PluginManager;
-
-  constructor(pluginManager: PluginManager) {
-    this.pluginManager = pluginManager;
-  }
+  constructor(public pluginManager: PluginManager) {}
 
   /**
    * 获取 manager 实例
@@ -104,5 +101,15 @@ export default class PluginServiceApi {
    */
   get emoji() {
     return emoji;
+  }
+
+  /**
+   * 获取 samManager API
+   */
+  /**
+   * 获取资源操作 API
+   */
+  get samManager(): SamManager {
+    return this.pluginManager.context.samManager;
   }
 }

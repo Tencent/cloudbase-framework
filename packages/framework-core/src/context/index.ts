@@ -6,6 +6,7 @@ import {
 } from "../types";
 import CloudBaseManager from "@cloudbase/manager-node";
 import createLogger, { Logger } from "../logger";
+import { SamManager } from "../sam";
 
 interface ContextOption {
   appConfig: Config;
@@ -14,6 +15,7 @@ interface ContextOption {
   logLevel?: string;
   resourceProviders?: ResourceProviders;
   projectConfig: ICloudBaseConfig | undefined;
+  samManager: SamManager;
 }
 
 export default class Context {
@@ -25,6 +27,7 @@ export default class Context {
   resourceProviders?: ResourceProviders;
   projectConfig: ICloudBaseConfig | undefined;
   cloudbaseConfig: CloudBaseConfig;
+  samManager: SamManager;
 
   constructor({
     appConfig,
@@ -33,6 +36,7 @@ export default class Context {
     projectConfig,
     logLevel,
     resourceProviders,
+    samManager,
   }: ContextOption) {
     this.appConfig = appConfig;
     this.projectPath = projectPath;
@@ -42,5 +46,6 @@ export default class Context {
     this.logger = createLogger(logLevel);
     this.resourceProviders = resourceProviders;
     this.projectConfig = projectConfig;
+    this.samManager = samManager;
   }
 }

@@ -1,4 +1,5 @@
 import { CloudApi } from "../api";
+import { IExtensionFile } from "./types";
 
 export class SamApi {
   constructor() {}
@@ -39,6 +40,15 @@ export class SamApi {
       CIID: ciId,
       TraceId: traceId,
       ExtensionID: extensionId,
+    });
+  }
+
+  /**
+   * 描述扩展上传文件信息
+   */
+  describeExtensionUploadInfo(files: IExtensionFile[]) {
+    return CloudApi.tcbService.request("DescribeExtensionUploadInfo", {
+      ExtensionFiles: files,
     });
   }
 }

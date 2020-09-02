@@ -92,8 +92,9 @@ Framework`,
     envId: cloudbaseConfig.envId,
   });
 
-  const appId = await getAppId(CloudApi);
-
+  const samManager = new SamManager({
+    projectPath,
+  });
   const context = new Context({
     appConfig,
     projectConfig: config,
@@ -101,14 +102,12 @@ Framework`,
     projectPath,
     logLevel,
     resourceProviders,
+    samManager,
   });
 
   const pluginManager = new PluginManager(context);
-  const samManager = new SamManager({
-    projectPath,
-  });
 
-  const appName = `fx-${appConfig.name || "app"}-${appId}`;
+  const appName = `fx-${appConfig.name || "app"}`;
   const samMeta = {
     Name: appName,
     Version: appConfig.version || "1.0.0",
