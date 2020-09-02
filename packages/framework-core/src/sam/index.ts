@@ -1,15 +1,17 @@
 import fs from "fs";
 import path from "path";
+import crypto from "crypto";
 
 import merge from "lodash.merge";
 import JSYaml from "js-yaml";
 import ProgressBar from "progress";
+import { fetchStream } from "@cloudbase/cloud-api";
 
 import { DEFAULT_SAM } from "./default-sam";
 import { SUPPORTS_TYPE } from "./sam-supports";
 import { SamApi } from "./api";
 import getLogger from "../logger";
-import { ISAM } from "./types";
+import { ISAM, IExtensionLocalFile } from "./types";
 
 const logger = getLogger();
 
@@ -38,7 +40,9 @@ export class SamManager {
         prev = [...prev, ...(cur || [])];
         return prev;
       }, []);
-    this.samObj = merge(DEFAULT_SAM, meta, ...samSections, { EntryPoint });
+    this.samObj = merge(DEFAULT_SAM, meta, ...samSections, {
+      EntryPoint,
+    });
     this.samObj.Resources = Object.entries(this.samObj.Resources || {})
       .filter(([, resource]: any) => (SUPPORTS_TYPE as any)[resource.Type])
       .reduce((prev: Record<string, any>, cur) => {
@@ -153,6 +157,62 @@ export class SamManager {
           reject(e);
         }
       }, interval || 5000);
+    });
+  }
+
+  /**
+   * 上传文件到 COS
+   */
+  async uploadFile(files: IExtensionLocalFile[]) {
+    const uploadInfo = await this.samApi.describeExtensionUploadInfo(
+      files.map((file) => {
+        return {
+          FileType: file.fileType,
+          FileName: file.fileName,
+        };
+      })
+    );
+
+    const filesData = uploadInfo.FilesData;
+
+    return Promise.all(
+      filesData.map(async (fileData: any, index: number) => {
+        await this.uploadFileViaUrlAndKey({
+          url: fileData.UploadUrl,
+          customKey: filesData.CustomKey,
+          file: files[index].filePath,
+        });
+
+        return {
+          codeUri: fileData.CodeUri,
+        };
+      })
+    );
+  }
+
+  /**
+   * 上传文件到 COS
+   * @param options
+   */
+  async uploadFileViaUrlAndKey(options: any) {
+    const { url, file, customKey } = options;
+
+    const headers: Record<string, string> = {};
+
+    if (customKey) {
+      headers["x-cos-server-side-encryption-customer-algorithm"] = "AES256";
+      headers["x-cos-server-side-encryption-customer-key"] = Buffer.from(
+        customKey
+      ).toString("base64");
+      headers[
+        "x-cos-server-side-encryption-customer-key-MD5"
+      ] = crypto.createHash("md5").update(customKey).digest("base64");
+    }
+
+    await fetchStream(url, {
+      body: file,
+      headers,
+      method: "PUT",
     });
   }
 

@@ -30,3 +30,13 @@ export interface ISAM {
     DependsOn: string[];
   }[];
 }
+
+export interface IExtensionFile {
+  FileType: "FUNCTION" | "STATIC";
+  FileName: string;
+}
+export interface IExtensionLocalFile {
+  fileType: "FUNCTION" | "STATIC";
+  fileName: string;
+  filePath: string;
+}

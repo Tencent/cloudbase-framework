@@ -100,7 +100,7 @@ class WebsitePlugin extends Plugin {
     this.api.logger.info(
       `Website 插件会部署应用资源到当前静态托管的 ${this.resolvedInputs.cloudPath} 目录下`
     );
-    await Promise.all([this.ensureEnableHosting(), this.ensurePostPay()]);
+    await Promise.all([this.ensurePostPay()]);
   }
 
   /**
@@ -109,16 +109,15 @@ class WebsitePlugin extends Plugin {
   async compile() {
     return {
       EnvType: "PostPay",
-      Resources: {
-        Website: {
-          Type: "CloudBase::StaticStore",
-          Properties: {
-            Description:
-              "为开发者提供静态网页托管的能力，包括HTML、CSS、JavaScript、字体等常见资源。",
-            // @TODO 指定构建产物，云端路径，过滤文件
-          },
-        },
-      },
+      Resources: Object.assign(
+        {},
+        this.getStaticResourceSam(
+          "Website",
+          "为开发者提供静态网页托管的能力，包括HTML、CSS、JavaScript、字体等常见资源。",
+          ""
+        ),
+        this.getStaticResourceSam("ConfigEnv", "配置文件", "")
+      ),
       EntryPoint: [
         {
           Label: "网站入口",
@@ -126,6 +125,18 @@ class WebsitePlugin extends Plugin {
           HttpEntryPath: this.resolvedInputs.cloudPath,
         },
       ],
+    };
+  }
+
+  getStaticResourceSam(name: string, description: string, codeUri: string) {
+    return {
+      [name]: {
+        Type: "CloudBase::StaticStore",
+        Properties: {
+          Description: description,
+        },
+        CodeUri: codeUri,
+      },
     };
   }
 
@@ -158,11 +169,30 @@ class WebsitePlugin extends Plugin {
       await promisify(exec)(injectEnvVariables(buildCommand, envVariables));
     }
 
-    this.buildOutput = await this.builder.build(["**", "!**/node_modules/**"], {
+    const includes = [
+      "**",
+      ...this.resolvedInputs.ignore.map((ignore) => `!${ignore}`),
+    ];
+    this.buildOutput = await this.builder.build(includes, {
       path: cloudPath,
       domain: this.website.cdnDomain,
       config: envVariables,
     });
+    console.log(this.buildOutput);
+
+    const deployContent = this.buildOutput.static.concat(
+      this.buildOutput.staticConfig
+    );
+
+    const deployResult = await Promise.all(
+      deployContent.map((item: any) =>
+        this.deployer.deploy({
+          localPath: item.src,
+          cloudPath: item.cloudPath,
+          ignore: this.resolvedInputs.ignore,
+        })
+      )
+    );
   }
 
   /**
@@ -175,19 +205,6 @@ class WebsitePlugin extends Plugin {
       this.buildOutput
     );
 
-    const deployContent = this.buildOutput.static.concat(
-      this.buildOutput.staticConfig
-    );
-    const deployResult = await Promise.all(
-      deployContent.map((item: any) =>
-        this.deployer.deploy({
-          localPath: item.src,
-          cloudPath: item.cloudPath,
-          ignore: this.resolvedInputs.ignore,
-        })
-      )
-    );
-
     const url = this.api.genClickableLink(
       `https://${this.website.cdnDomain + this.resolvedInputs.cloudPath}`
     );
@@ -196,8 +213,6 @@ class WebsitePlugin extends Plugin {
     );
 
     await this.builder.clean();
-
-    return deployResult;
   }
 
   /**
@@ -251,58 +266,10 @@ class WebsitePlugin extends Plugin {
       );
     }
   }
-
-  /**
-   * 确保开启了静态托管
-   */
-  async ensureEnableHosting(): Promise<any> {
-    const Hosting = this.api.resourceProviders?.hosting;
-    const envId = this.api.envId;
-
-    if (!Hosting) {
-      return;
-    }
-
-    let website;
-
-    try {
-      const hostingRes = await Hosting.getHostingInfo({ envId });
-
-      if (!hostingRes.data.length) {
-        throw new Error("未开通静态托管");
-      }
-
-      website = hostingRes.data[0];
-    } catch (e) {
-      this.api.logger.debug(e);
-
-      await Hosting.enableHosting({ envId });
-
-      this.api.logger.info("⏳ 托管资源初始化中, 预计等待 3 分钟");
-
-      await wait(3 * 60 * 1000);
-      return this.ensureEnableHosting();
-    }
-
-    this.website = website;
-
-    return website;
-  }
 }
 
 function resolveInputs(inputs: any) {
   return Object.assign({}, DEFAULT_INPUTS, inputs);
-}
-
-function wait(time: number) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, time);
-  });
-}
-
-function ensureWithSlash(dir: string): string {
-  if (!dir) return "";
-  return dir[dir.length - 1] === "/" ? dir : dir + "/";
 }
 
 function injectEnvVariables(command: string, envVariables: any): string {
