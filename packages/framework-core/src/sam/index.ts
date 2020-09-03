@@ -6,9 +6,9 @@ import merge from "lodash.merge";
 import JSYaml from "js-yaml";
 import ProgressBar from "progress";
 import { fetchStream } from "@cloudbase/cloud-api";
+import { getProxy } from "@cloudbase/toolbox";
 
 import { DEFAULT_SAM } from "./default-sam";
-import { SUPPORTS_TYPE } from "./sam-supports";
 import { SamApi } from "./api";
 import getLogger from "../logger";
 import { ISAM, IExtensionLocalFile } from "./types";
@@ -43,13 +43,14 @@ export class SamManager {
     this.samObj = merge(DEFAULT_SAM, meta, ...samSections, {
       EntryPoint,
     });
-    this.samObj.Resources = Object.entries(this.samObj.Resources || {})
-      .filter(([, resource]: any) => (SUPPORTS_TYPE as any)[resource.Type])
-      .reduce((prev: Record<string, any>, cur) => {
+    this.samObj.Resources = Object.entries(this.samObj.Resources || {}).reduce(
+      (prev: Record<string, any>, cur) => {
         const [name, resource] = cur;
         prev[name] = resource;
         return prev;
-      }, {});
+      },
+      {}
+    );
     const samYaml = JSYaml.safeDump(this.samObj);
     fs.writeFileSync(path.join(this.projectPath, "TCBSAM.yaml"), samYaml);
   }
@@ -181,6 +182,7 @@ export class SamManager {
           url: fileData.UploadUrl,
           customKey: filesData.CustomKey,
           file: files[index].filePath,
+          maxSize: fileData.MaxSize,
         });
 
         return {
@@ -195,7 +197,7 @@ export class SamManager {
    * @param options
    */
   async uploadFileViaUrlAndKey(options: any) {
-    const { url, file, customKey } = options;
+    const { url, file, customKey, maxSize } = options;
 
     const headers: Record<string, string> = {};
 
@@ -209,11 +211,21 @@ export class SamManager {
       ] = crypto.createHash("md5").update(customKey).digest("base64");
     }
 
-    await fetchStream(url, {
-      body: file,
-      headers,
-      method: "PUT",
-    });
+    const size = fs.statSync(file).size;
+
+    if (size > maxSize * 1024 * 1024) {
+      throw new Error(`${file} 文件大小超出限制 ${maxSize} MB`);
+    }
+
+    await fetchStream(
+      url,
+      {
+        body: fs.createReadStream(file),
+        headers,
+        method: "PUT",
+      },
+      getProxy()
+    );
   }
 
   /**

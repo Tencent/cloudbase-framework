@@ -3,8 +3,6 @@ import archiver from "archiver";
 import fs from "fs";
 import { Plugin, PluginServiceApi, Builder } from "@cloudbase/framework-core";
 
-const useSAMDeploy = false;
-
 /**
  * 导出接口用于生成 JSON Schema 来进行智能提示
  */
@@ -159,29 +157,31 @@ class FunctionPlugin extends Plugin {
   async compile() {
     this.api.logger.debug("FunctionPlugin: compile", this.resolvedInputs);
 
-    if (useSAMDeploy) {
-      const builderOptions = this.functions.map((func) => {
-        const localFunctionPath = path.join(this.functionRootPath, func.name);
-        const zipName = `${func.name + Date.now()}.zip`;
+    const builderOptions = this.functions.map((func) => {
+      const localFunctionPath = path.join(this.functionRootPath, func.name);
+      const zipName = `${func.name + Date.now()}.zip`;
+      return {
+        name: func.name,
+        localPath: localFunctionPath,
+        zipfileName: zipName,
+      };
+    });
+
+    const buildResult = await this.builder.build(builderOptions);
+
+    const codeUris = await this.api.samManager.uploadFile(
+      buildResult.functions.map((func) => {
         return {
-          name: func.name,
-          localPath: localFunctionPath,
-          zipfileName: zipName,
+          fileType: "FUNCTION",
+          fileName: `${func.name}.zip`,
+          filePath: func.source,
         };
-      });
+      })
+    );
 
-      const buildResult = await this.builder.build(builderOptions);
-
-      await Promise.all(
-        buildResult.functions.map(async (func) => {
-          const cloudPath = `framework-upload/${func.name}.zip`;
-          const url = await this.uploadToCos(func.source, cloudPath);
-          this.outputs[func.name] = {
-            codeUrl: url,
-          };
-        })
-      );
-    }
+    buildResult.functions.forEach((func, index) => {
+      this.outputs[func.name] = codeUris[index];
+    });
 
     return {
       EntryPoint: Object.values(this.resolvedInputs.servicePaths).map(
@@ -234,49 +234,19 @@ class FunctionPlugin extends Plugin {
       this.buildOutput
     );
 
-    const Function = this.api.resourceProviders?.function;
-
     // 批量部署云函数
     await Promise.all(
       this.functions.map(async (func: any) => {
-        try {
-          await Function.createFunction({
-            func,
-            envId: this.api.envId,
-            force: true,
-            functionRootPath: this.functionRootPath,
-          });
-          this.api.logger.info(
-            `${this.api.emoji("🚀")} [${func.name}] 云函数部署成功`
-          );
-        } catch (e) {
-          this.api.logger.error(
-            `${this.api.emoji("🙅‍♂")} [${func.name}] 函数部署失败`
-          );
-          throw new Error(e.message);
-        }
+        this.api.logger.info(
+          `${this.api.emoji("🚀")} [${func.name}] 云函数部署成功`
+        );
       })
     );
 
     // 批量处理云接入
     await Promise.all(
       Object.entries(this.resolvedInputs.servicePaths).map(
-        async ([functionName, servicePath]) => {
-          try {
-            await this.api.cloudbaseManager.commonService().call({
-              Action: "CreateCloudBaseGWAPI",
-              Param: {
-                ServiceId: this.api.envId,
-                Path: servicePath,
-                Type: 1,
-                Name: functionName,
-              },
-            });
-          } catch (e) {
-            if (!e.message.includes("api created")) {
-              throw e;
-            }
-          }
+        async ([, servicePath]) => {
           let url = `https://${this.api.envId}.service.tcloudbase.com${servicePath}`;
           if (url[url.length - 1] !== "/") {
             url = url + "/";
@@ -311,7 +281,7 @@ class FunctionPlugin extends Plugin {
             : true,
         CodeUri:
           this.outputs[functionConfig.name] &&
-          this.outputs[functionConfig.name].codeUrl,
+          this.outputs[functionConfig.name].codeUri,
         Role: "TCB_QcsRole",
       },
     };
@@ -334,23 +304,6 @@ class FunctionPlugin extends Plugin {
     }
 
     return result;
-  }
-
-  async uploadToCos(localPath: string, cloudPath: string) {
-    // @todo use cloudId
-    const uploadResult = await this.api.cloudbaseManager.storage.uploadFile({
-      localPath,
-      cloudPath,
-    });
-
-    const result = await this.api.cloudbaseManager.storage.getTemporaryUrl([
-      {
-        cloudPath,
-        maxAge: 86400,
-      },
-    ]);
-
-    return result[0].url;
   }
 }
 

@@ -47,7 +47,7 @@ export class SamApi {
    * 描述扩展上传文件信息
    */
   describeExtensionUploadInfo(files: IExtensionFile[]) {
-    return CloudApi.tcbService.request("DescribeExtensionUploadInfo", {
+    return CloudApi.tcbUinService.request("DescribeExtensionUploadInfo", {
       ExtensionFiles: files,
     });
   }
