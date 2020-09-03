@@ -67,7 +67,7 @@ export interface ICloudFunction {
    * 运行时环境配置，可选值： `Nodejs8.9, Nodejs10.15 Php7, Java8`
    * @default Nodejs10.15
    */
-  runtime?: string;
+  runtime?: "Nodejs10.15" | "Nodejs8.9" | "Php7" | "Java8";
   /**
    * VPC
    */
@@ -159,7 +159,13 @@ class FunctionPlugin extends Plugin {
     this.api.logger.debug("FunctionPlugin: compile", this.resolvedInputs);
 
     const builderOptions = this.functions.map((func) => {
-      const localFunctionPath = path.join(this.functionRootPath, func.name);
+      let fileName = func.name;
+
+      if (func.runtime?.includes("Java")) {
+        fileName = func.name + ".jar";
+      }
+
+      const localFunctionPath = path.join(this.functionRootPath, fileName);
 
       if (func.runtime?.includes("Node") && func.installDependency) {
         const packageJSONExists = fs.existsSync(
@@ -345,6 +351,7 @@ export class FunctionBuilder extends Builder {
       ...options,
     });
   }
+
   async build(options: FunctionBuilderBuildOptions[]) {
     return {
       functions: options.map((option) => {
@@ -354,7 +361,19 @@ export class FunctionBuilder extends Builder {
           mkdirSync(this.distDir);
         }
 
-        this.zipDir(option.localPath, localZipPath);
+        if (!fs.existsSync(option.localPath)) {
+          throw new Error(
+            `函数目录或者文件 ${path.basename(option.localPath)} 不存在`
+          );
+        }
+
+        const fileStats = fs.statSync(option.localPath);
+
+        if (fileStats.isFile()) {
+          this.zipFile(option.localPath, localZipPath);
+        } else if (fileStats.isDirectory()) {
+          this.zipDir(option.localPath, localZipPath);
+        }
 
         return {
           name: option.name,
@@ -364,6 +383,23 @@ export class FunctionBuilder extends Builder {
         };
       }),
     };
+  }
+
+  async zipFile(src: string, dest: string) {
+    return new Promise((resolve, reject) => {
+      // create a file to stream archive data to.
+      var output = fs.createWriteStream(dest);
+      var archive = archiver("zip", {
+        zlib: { level: 9 }, // Sets the compression level.
+      });
+      output.on("close", resolve);
+      archive.on("error", reject);
+      archive.file(src, {
+        name: path.basename(src),
+      });
+      archive.pipe(output);
+      archive.finalize();
+    });
   }
 
   async zipDir(src: string, dest: string) {

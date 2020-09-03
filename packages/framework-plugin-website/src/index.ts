@@ -177,7 +177,6 @@ class WebsitePlugin extends Plugin {
       domain: this?.website?.cdnDomain,
       config: envVariables,
     });
-    console.log(this.buildOutput);
   }
 
   /**
@@ -195,7 +194,7 @@ class WebsitePlugin extends Plugin {
     );
 
     await Promise.all([
-      deployContent.map((item: any) =>
+      ...deployContent.map((item: any) =>
         this.deployer.deploy({
           localPath: item.src,
           cloudPath: item.cloudPath,
