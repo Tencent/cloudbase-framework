@@ -2,7 +2,7 @@ import path from "path";
 import fs from "fs";
 import cpy from "cpy";
 import { Builder } from "@cloudbase/framework-core";
-import { fetchStream } from "@cloudbase/toolbox";
+import { fetchStream, mkdirSync } from "@cloudbase/toolbox";
 
 interface StaticBuilderBuildOptions {
   /**
@@ -94,7 +94,7 @@ export class StaticBuilder extends Builder {
 
     // 3. 写入新配置
     if (!fs.existsSync(configDistPath)) {
-      fs.mkdirSync(configDistPath);
+      mkdirSync(configDistPath);
     }
     fs.writeFileSync(
       path.join(configDistPath, CONFIG_FILE_NAME),

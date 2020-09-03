@@ -2,6 +2,7 @@ import path from "path";
 import archiver from "archiver";
 import fs from "fs";
 import { Plugin, PluginServiceApi, Builder } from "@cloudbase/framework-core";
+import { mkdirSync } from "@cloudbase/toolbox";
 
 /**
  * 导出接口用于生成 JSON Schema 来进行智能提示
@@ -337,7 +338,7 @@ export class FunctionBuilder extends Builder {
         const localZipPath = path.join(this.distDir, option.zipfileName);
 
         if (!fs.existsSync(this.distDir)) {
-          fs.mkdirSync(this.distDir, { recursive: true });
+          mkdirSync(this.distDir);
         }
 
         this.zipDir(option.localPath, localZipPath);
