@@ -135,7 +135,6 @@ class WebsitePlugin extends Plugin {
         Properties: {
           Description: description,
         },
-        CodeUri: codeUri,
       },
     };
   }
@@ -179,6 +178,17 @@ class WebsitePlugin extends Plugin {
       config: envVariables,
     });
     console.log(this.buildOutput);
+  }
+
+  /**
+   * 部署
+   */
+  async deploy() {
+    this.api.logger.debug(
+      "WebsitePlugin: deploy",
+      this.resolvedInputs,
+      this.buildOutput
+    );
 
     const deployContent = this.buildOutput.static.concat(
       this.buildOutput.staticConfig
@@ -192,17 +202,6 @@ class WebsitePlugin extends Plugin {
           ignore: this.resolvedInputs.ignore,
         })
       )
-    );
-  }
-
-  /**
-   * 部署
-   */
-  async deploy() {
-    this.api.logger.debug(
-      "WebsitePlugin: deploy",
-      this.resolvedInputs,
-      this.buildOutput
     );
 
     const url = this.api.genClickableLink(
