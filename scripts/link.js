@@ -29,7 +29,7 @@ async function linkCore() {
 
 function initRegistry() {
   if (!fs.existsSync(pluginRegistry)) {
-    fs.mkdirSync(pluginRegistry, { recursive: true });
+    mkdirp.sync(pluginRegistry, { recursive: true });
   }
   const packageJSON = path.join(pluginRegistry, 'package.json');
   if (!fs.existsSync(packageJSON)) {
