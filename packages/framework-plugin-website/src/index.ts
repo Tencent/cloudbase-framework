@@ -100,7 +100,7 @@ class WebsitePlugin extends Plugin {
     this.api.logger.info(
       `Website 插件会部署应用资源到当前静态托管的 ${this.resolvedInputs.cloudPath} 目录下`
     );
-    await Promise.all([this.ensurePostPay()]);
+    await Promise.all([this.ensurePostPay(), this.fetchHostingInfo()]);
   }
 
   /**
@@ -174,7 +174,7 @@ class WebsitePlugin extends Plugin {
     ];
     this.buildOutput = await this.builder.build(includes, {
       path: cloudPath,
-      domain: this.website.cdnDomain,
+      domain: this?.website?.cdnDomain,
       config: envVariables,
     });
     console.log(this.buildOutput);
@@ -194,15 +194,16 @@ class WebsitePlugin extends Plugin {
       this.buildOutput.staticConfig
     );
 
-    const deployResult = await Promise.all(
+    await Promise.all([
       deployContent.map((item: any) =>
         this.deployer.deploy({
           localPath: item.src,
           cloudPath: item.cloudPath,
           ignore: this.resolvedInputs.ignore,
         })
-      )
-    );
+      ),
+      this.fetchHostingInfo(),
+    ]);
 
     const url = this.api.genClickableLink(
       `https://${this.website.cdnDomain + this.resolvedInputs.cloudPath}`
@@ -251,6 +252,9 @@ class WebsitePlugin extends Plugin {
     } catch (e) {}
   }
 
+  /**
+   * 确保开启了按量付费
+   */
   async ensurePostPay() {
     const res = await this.api.cloudApi.tcbService.request("DescribeEnvs");
     let env = res.EnvList && res.EnvList[0];
@@ -264,6 +268,36 @@ class WebsitePlugin extends Plugin {
         "网站托管当前只能部署到按量付费的环境下，请先在控制台切换计费方式"
       );
     }
+  }
+
+  /**
+   * 查询静态托管信息
+   */
+  async fetchHostingInfo(): Promise<any> {
+    const Hosting = this.api.resourceProviders?.hosting;
+    const envId = this.api.envId;
+
+    if (!Hosting) {
+      return;
+    }
+
+    let website;
+
+    try {
+      const hostingRes = await Hosting.getHostingInfo({ envId });
+
+      if (!hostingRes.data.length) {
+        throw new Error("未开通静态托管");
+      }
+
+      website = hostingRes.data[0];
+    } catch (e) {
+      this.api.logger.debug(e);
+    }
+
+    this.website = website;
+
+    return website;
   }
 }
 

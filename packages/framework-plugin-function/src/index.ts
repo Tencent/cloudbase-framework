@@ -160,6 +160,19 @@ class FunctionPlugin extends Plugin {
 
     const builderOptions = this.functions.map((func) => {
       const localFunctionPath = path.join(this.functionRootPath, func.name);
+
+      if (func.runtime?.includes("Node") && func.installDependency) {
+        const packageJSONExists = fs.existsSync(
+          path.join(localFunctionPath, "package.json")
+        );
+
+        if (!packageJSONExists) {
+          throw new Error(
+            `函数 ${func.name} 设置了云端安装依赖，但函数代码根目录下未提供 package.json`
+          );
+        }
+      }
+
       const zipName = `${func.name + Date.now()}.zip`;
       return {
         name: func.name,
@@ -279,7 +292,7 @@ class FunctionPlugin extends Plugin {
         InstallDependency:
           "installDependency" in functionConfig
             ? functionConfig.installDependency
-            : true,
+            : false,
         CodeUri:
           this.outputs[functionConfig.name] &&
           this.outputs[functionConfig.name].codeUri,
