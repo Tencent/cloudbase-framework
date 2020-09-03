@@ -2,8 +2,7 @@ import path from "path";
 import fs from "fs";
 import cpy from "cpy";
 import { Builder } from "@cloudbase/framework-core";
-import { fetchStream } from "@cloudbase/toolbox";
-import Context from "@cloudbase/framework-core/lib/context";
+import { fetchStream, mkdirSync } from "@cloudbase/toolbox";
 
 interface StaticBuilderBuildOptions {
   /**
@@ -17,7 +16,7 @@ interface StaticBuilderBuildOptions {
   /**
    * 环境变量
    */
-  config?: any
+  config?: any;
 }
 
 interface StaticBuilderOptions {
@@ -28,7 +27,7 @@ interface StaticBuilderOptions {
   copyRoot?: string;
 }
 
-const CONFIG_FILE_NAME = "cloudbaseenv.json"
+const CONFIG_FILE_NAME = "cloudbaseenv.json";
 
 export class StaticBuilder extends Builder {
   private copyRoot: string;
@@ -61,8 +60,8 @@ export class StaticBuilder extends Builder {
       staticConfig: [
         {
           src: configDistPath,
-          cloudPath: "/"
-        }
+          cloudPath: "/",
+        },
       ],
       routes: [
         {
@@ -74,13 +73,16 @@ export class StaticBuilder extends Builder {
     };
   }
 
-  async buildConfig(configDistPath: string, options: StaticBuilderBuildOptions) {
+  async buildConfig(
+    configDistPath: string,
+    options: StaticBuilderBuildOptions
+  ) {
     // 1. 读取旧配置
     const url = `https://${options.domain}/${CONFIG_FILE_NAME}`;
     const streamRes = await fetchStream(url);
     let originConfig;
     if (streamRes?.status == 200) {
-      originConfig = await streamRes.json().catch(err => {
+      originConfig = await streamRes.json().catch((err) => {
         return {};
       });
     } else {
@@ -88,12 +90,15 @@ export class StaticBuilder extends Builder {
     }
 
     // 2. 整合配置
-    const resolvedConfig = Object.assign({}, originConfig, options.config)
+    const resolvedConfig = Object.assign({}, originConfig, options.config);
 
     // 3. 写入新配置
     if (!fs.existsSync(configDistPath)) {
-      fs.mkdirSync(configDistPath)
+      mkdirSync(configDistPath);
     }
-    fs.writeFileSync(path.join(configDistPath, CONFIG_FILE_NAME), JSON.stringify(resolvedConfig));
+    fs.writeFileSync(
+      path.join(configDistPath, CONFIG_FILE_NAME),
+      JSON.stringify(resolvedConfig)
+    );
   }
 }
