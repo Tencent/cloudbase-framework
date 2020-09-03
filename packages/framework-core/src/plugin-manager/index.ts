@@ -6,11 +6,11 @@ const corePackageInfo = require("../../package");
 
 import { install } from "./pkg-install";
 import { emoji } from "../utils/emoji";
-import { mkdirsSync } from "../utils/fs";
 import { Config } from "../types";
 import Context from "../context";
 import Plugin from "../plugin";
 import PluginServiceApi from "../plugin-service-api";
+import { mkdirSync } from "@cloudbase/toolbox";
 
 interface PluginData {
   id: string;
@@ -101,7 +101,7 @@ export default class PluginManager {
 
   /**
    * 执行本地命令
-   * 
+   *
    * @param id
    */
   async run(id?: string, runCommand?: string) {
@@ -236,7 +236,7 @@ export default class PluginManager {
    */
   initRegistry() {
     if (!fs.existsSync(this.pluginRegistry)) {
-      mkdirsSync(this.pluginRegistry);
+      mkdirSync(this.pluginRegistry);
     }
     const packageJSON = path.join(this.pluginRegistry, "package.json");
     if (!fs.existsSync(packageJSON)) {
