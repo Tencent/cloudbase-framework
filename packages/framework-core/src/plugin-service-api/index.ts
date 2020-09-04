@@ -36,6 +36,20 @@ export default class PluginServiceApi {
   }
 
   /**
+   * 是否产生新版本
+   */
+  get bumpVerison(): boolean {
+    return this.pluginManager.context.bumpVerison;
+  }
+
+  /**
+   * 是否产生新版本
+   */
+  get versionRemark(): string {
+    return this.pluginManager.context.versionRemark;
+  }
+
+  /**
    * secretId
    */
   get secretId(): string {

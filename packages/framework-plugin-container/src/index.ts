@@ -387,7 +387,13 @@ class ContainerPlugin extends Plugin {
           Path: servicePath,
           EnvParams: JSON.stringify(envVariables),
         },
-        otherProperties
+        otherProperties,
+        this.api.bumpVerison && {
+          NewVersion: true,
+        },
+        this.api.versionRemark && {
+          VersionRemark: this.api.versionRemark,
+        }
       ),
     };
   }

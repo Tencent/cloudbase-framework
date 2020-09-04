@@ -35,6 +35,8 @@ export async function run(
     logLevel = "info",
     config,
     resourceProviders,
+    bumpVerison,
+    versionRemark,
   }: CloudbaseFrameworkConfig,
   command: "deploy" = "deploy",
   module?: string,
@@ -103,6 +105,8 @@ Framework`,
     logLevel,
     resourceProviders,
     samManager,
+    bumpVerison: !!bumpVerison,
+    versionRemark: versionRemark || "",
   });
 
   const pluginManager = new PluginManager(context);
