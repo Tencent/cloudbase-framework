@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@cloudbase/framework-core": "^1.0.1",
+    "@cloudbase/toolbox": "^0.4.14",
     "archiver": "^4.0.2"
   },
   "devDependencies": {
