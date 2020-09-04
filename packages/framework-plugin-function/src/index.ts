@@ -3,6 +3,7 @@ import archiver from "archiver";
 import fs from "fs";
 import { Plugin, PluginServiceApi, Builder } from "@cloudbase/framework-core";
 import { mkdirSync } from "@cloudbase/toolbox";
+import getLogger from "@cloudbase/framework-core/lib/logger";
 
 /**
  * 导出接口用于生成 JSON Schema 来进行智能提示
@@ -77,6 +78,10 @@ export interface ICloudFunction {
    */
   installDependency?: boolean;
   isWaitInstall?: boolean;
+  /**
+   * 函数产物路径，相对于函数根目录 functionRootPath，例如 Go 语言可指定二进制文件路径，Java 可以指定 jar 包文件地址
+   */
+  functionDistPath?: string;
 }
 
 export interface IFunctionVPC {
@@ -159,13 +164,21 @@ class FunctionPlugin extends Plugin {
     this.api.logger.debug("FunctionPlugin: compile", this.resolvedInputs);
 
     const builderOptions = this.functions.map((func) => {
-      let fileName = func.name;
+      let fileName: string = func.name;
+      let localFunctionPath: string;
 
       if (func.runtime?.includes("Java")) {
         fileName = func.name + ".jar";
       }
 
-      const localFunctionPath = path.join(this.functionRootPath, fileName);
+      if (func.functionDistPath) {
+        localFunctionPath = path.join(
+          this.functionRootPath,
+          func.functionDistPath
+        );
+      } else {
+        localFunctionPath = path.join(this.functionRootPath, fileName);
+      }
 
       if (func.runtime?.includes("Node") && func.installDependency) {
         const packageJSONExists = fs.existsSync(
@@ -173,9 +186,10 @@ class FunctionPlugin extends Plugin {
         );
 
         if (!packageJSONExists) {
-          throw new Error(
+          this.api.logger.warn(
             `函数 ${func.name} 设置了云端安装依赖，但函数代码根目录下未提供 package.json`
           );
+          func.installDependency = false;
         }
       }
 
