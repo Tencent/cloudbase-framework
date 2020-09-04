@@ -96,7 +96,8 @@ class NodeContainerPlugin extends Plugin {
    * 部署
    */
   async deploy() {
-    return this.containerPlugin.deploy();
+    await this.containerPlugin.deploy();
+    await this.nodeBuilder.clean();
   }
 }
 
