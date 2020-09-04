@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/framework-plugin-website",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "云开发 Tencent CloudBase Framework Website Plugin 插件",
   "author": "Tencent CloudBase Team",
   "homepage": "https://github.com/TencentCloudBase/cloudbase-framework#readme",
@@ -29,9 +29,9 @@
     "url": "https://github.com/TencentCloudBase/cloudbase-framework/issues"
   },
   "dependencies": {
-    "@cloudbase/framework-core": "^1.0.1",
-    "@cloudbase/static-builder": "^1.0.1",
-    "@cloudbase/static-deployer": "^1.0.1"
+    "@cloudbase/framework-core": "^1.1.0",
+    "@cloudbase/static-builder": "^1.1.0",
+    "@cloudbase/static-deployer": "^1.1.0"
   },
   "devDependencies": {
     "typescript": "^3.9.2"
