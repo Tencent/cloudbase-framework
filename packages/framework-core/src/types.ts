@@ -34,6 +34,14 @@ export interface CloudbaseFrameworkConfig {
   logLevel?: string;
   config?: ICloudBaseConfig;
   resourceProviders?: ResourceProviders;
+  /**
+   * 是否产生新版本
+   */
+  bumpVerison?: boolean;
+  /**
+   * 新版本的备注信息
+   */
+  versionRemark?: string;
 }
 
 export interface ICloudBaseConfig {

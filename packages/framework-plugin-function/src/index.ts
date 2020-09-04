@@ -297,29 +297,37 @@ class FunctionPlugin extends Plugin {
   }
 
   functionConfigToSAM(functionConfig: any) {
-    return {
-      Type: "CloudBase::Function",
-      Properties: {
-        Handler: functionConfig.handler || "index.main",
-        Description: "CloudBase Framework 部署的云函数",
-        Runtime: functionConfig.runtime,
-        FunctionName: functionConfig.name,
-        MemorySize: functionConfig.memory || 128,
-        Timeout: functionConfig.timeout || 5,
-        Environment: functionConfig.envVariables,
-        VpcConfig: functionConfig.vpc,
-        HttpPath: this.resolvedInputs.servicePaths[functionConfig.name],
-        InstallDependency:
-          functionConfig.runtime.includes("Node") &&
-          "installDependency" in functionConfig
-            ? functionConfig.installDependency
-            : false,
-        CodeUri:
-          this.outputs[functionConfig.name] &&
-          this.outputs[functionConfig.name].codeUri,
-        Role: "TCB_QcsRole",
+    return Object.assign(
+      {
+        Type: "CloudBase::Function",
+        Properties: {
+          Handler: functionConfig.handler || "index.main",
+          Description: "CloudBase Framework 部署的云函数",
+          Runtime: functionConfig.runtime,
+          FunctionName: functionConfig.name,
+          MemorySize: functionConfig.memory || 128,
+          Timeout: functionConfig.timeout || 5,
+          Environment: functionConfig.envVariables,
+          VpcConfig: functionConfig.vpc,
+          HttpPath: this.resolvedInputs.servicePaths[functionConfig.name],
+          InstallDependency:
+            functionConfig.runtime.includes("Node") &&
+            "installDependency" in functionConfig
+              ? functionConfig.installDependency
+              : false,
+          CodeUri:
+            this.outputs[functionConfig.name] &&
+            this.outputs[functionConfig.name].codeUri,
+          Role: "TCB_QcsRole",
+        },
       },
-    };
+      this.api.bumpVerison && {
+        NewVersion: true,
+      },
+      this.api.versionRemark && {
+        VersionRemark: this.api.versionRemark,
+      }
+    );
   }
 
   toConstantCase(name: string) {

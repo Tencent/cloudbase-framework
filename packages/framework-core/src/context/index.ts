@@ -16,6 +16,8 @@ interface ContextOption {
   resourceProviders?: ResourceProviders;
   projectConfig: ICloudBaseConfig | undefined;
   samManager: SamManager;
+  bumpVerison: boolean;
+  versionRemark: string;
 }
 
 export default class Context {
@@ -28,6 +30,8 @@ export default class Context {
   projectConfig: ICloudBaseConfig | undefined;
   cloudbaseConfig: CloudBaseConfig;
   samManager: SamManager;
+  bumpVerison: boolean;
+  versionRemark: string;
 
   constructor({
     appConfig,
@@ -37,6 +41,8 @@ export default class Context {
     logLevel,
     resourceProviders,
     samManager,
+    bumpVerison,
+    versionRemark,
   }: ContextOption) {
     this.appConfig = appConfig;
     this.projectPath = projectPath;
@@ -47,5 +53,7 @@ export default class Context {
     this.resourceProviders = resourceProviders;
     this.projectConfig = projectConfig;
     this.samManager = samManager;
+    this.bumpVerison = bumpVerison;
+    this.versionRemark = versionRemark;
   }
 }
