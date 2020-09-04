@@ -64,6 +64,7 @@ export class SamManager {
 
     try {
       try {
+        logger.debug("sam:install", template);
         const res = await this.samApi.createAndInstall(
           JSON.stringify(template)
         );
@@ -114,6 +115,8 @@ export class SamManager {
       const taskInfos = statusRes.ExtensionTaskInfo;
 
       const taskInfo = taskInfos[0];
+
+      logger.debug("ext taskInfo", taskInfo);
 
       if (taskInfo) {
         const delta = (taskInfo.Percent || 0) - percent;
