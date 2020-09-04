@@ -210,6 +210,8 @@ export class SamManager {
 
     if (size > maxSize * 1024 * 1024) {
       throw new Error(`${file} 文件大小超出限制 ${maxSize} MB`);
+    } else if (size === 0) {
+      throw new Error(`${file} 文件大小为 0，请检查`);
     }
 
     await fetchStream(
