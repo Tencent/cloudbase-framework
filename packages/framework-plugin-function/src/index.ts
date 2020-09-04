@@ -310,6 +310,7 @@ class FunctionPlugin extends Plugin {
         VpcConfig: functionConfig.vpc,
         HttpPath: this.resolvedInputs.servicePaths[functionConfig.name],
         InstallDependency:
+          functionConfig.runtime.includes("Node") &&
           "installDependency" in functionConfig
             ? functionConfig.installDependency
             : false,
