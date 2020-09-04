@@ -42,6 +42,12 @@ export interface IFrameworkPluginNextInputs {
    * @default npm run build
    */
   buildCommand?: string;
+
+  /**
+   * 函数运行时版本
+   * @default "Nodejs10.15
+   */
+  runtime?: "Nodejs10.15" | "Nodejs8.9";
 }
 
 type ResolvedInputs = IFrameworkPluginNextInputs & typeof DEFAULT_INPUTS;

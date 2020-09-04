@@ -418,6 +418,15 @@
               "description": "构建命令，如`npm run build`，没有可不传",
               "default": "npm run build",
               "type": "string"
+            },
+            "runtime": {
+              "description": "函数运行时版本",
+              "default": "\"Nodejs10.15",
+              "enum": [
+                "Nodejs10.15",
+                "Nodejs8.9"
+              ],
+              "type": "string"
             }
           },
           "$schema": "http://json-schema.org/draft-07/schema#"
@@ -490,6 +499,12 @@
         "runtime": {
           "description": "运行时环境配置，可选值： `Nodejs8.9, Nodejs10.15 Php7, Java8`",
           "default": "Nodejs10.15",
+          "enum": [
+            "Java8",
+            "Nodejs10.15",
+            "Nodejs8.9",
+            "Php7"
+          ],
           "type": "string"
         },
         "vpc": {
@@ -502,6 +517,10 @@
         },
         "isWaitInstall": {
           "type": "boolean"
+        },
+        "functionDistPath": {
+          "description": "函数产物路径，相对于函数根目录 functionRootPath，例如 Go 语言可指定二进制文件路径，Java 可以指定 jar 包文件地址",
+          "type": "string"
         }
       },
       "required": [
@@ -950,6 +969,15 @@
             "buildCommand": {
               "description": "构建命令，如`npm run build`，没有可不传",
               "default": "npm run build",
+              "type": "string"
+            },
+            "runtime": {
+              "description": "函数运行时版本",
+              "default": "\"Nodejs10.15",
+              "enum": [
+                "Nodejs10.15",
+                "Nodejs8.9"
+              ],
               "type": "string"
             }
           },
