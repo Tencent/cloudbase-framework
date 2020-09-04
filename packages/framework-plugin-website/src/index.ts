@@ -85,7 +85,7 @@ class WebsitePlugin extends Plugin {
       ),
     });
     this.deployer = new StaticDeployer({
-      cloudbaseManager: this.api.cloudbaseManager,
+      cloudbaseManager: this.api.cloudbaseManager as any,
     });
   }
 
