@@ -68,7 +68,7 @@ cloudbase framework:deploy
               "timeout": 5,
               "envVariables": {},
               "runtime": "Nodejs10.15",
-              "memorySize": 128
+              "memory": 128
             }
           ],
           "servicePaths": {
