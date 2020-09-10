@@ -178,6 +178,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "liulinboyi",
+      "name": "Albert Liu",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/41336612?v=4",
+      "profile": "https://blog.heyliubo.top",
+      "contributions": [
+        "blog"
+      ]
     }
   ],
   "contributorsPerLine": 7,
