@@ -388,7 +388,7 @@ class ContainerPlugin extends Plugin {
           EnvParams: JSON.stringify(envVariables),
         },
         otherProperties,
-        this.api.bumpVerison && {
+        this.api.bumpVersion && {
           NewVersion: true,
         },
         this.api.versionRemark && {

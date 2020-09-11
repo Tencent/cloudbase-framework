@@ -297,10 +297,10 @@ class FunctionPlugin extends Plugin {
   }
 
   functionConfigToSAM(functionConfig: any) {
-    return Object.assign(
-      {
-        Type: "CloudBase::Function",
-        Properties: {
+    return Object.assign({
+      Type: "CloudBase::Function",
+      Properties: Object.assign(
+        {
           Handler: functionConfig.handler || "index.main",
           Description: "CloudBase Framework 部署的云函数",
           Runtime: functionConfig.runtime,
@@ -320,14 +320,14 @@ class FunctionPlugin extends Plugin {
             this.outputs[functionConfig.name].codeUri,
           Role: "TCB_QcsRole",
         },
-      },
-      this.api.bumpVerison && {
-        NewVersion: true,
-      },
-      this.api.versionRemark && {
-        VersionRemark: this.api.versionRemark,
-      }
-    );
+        this.api.bumpVersion && {
+          NewVersion: true,
+        },
+        this.api.versionRemark && {
+          VersionRemark: this.api.versionRemark,
+        }
+      ),
+    });
   }
 
   toConstantCase(name: string) {

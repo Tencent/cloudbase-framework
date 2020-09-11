@@ -38,8 +38,8 @@ export default class PluginServiceApi {
   /**
    * 是否产生新版本
    */
-  get bumpVerison(): boolean {
-    return this.pluginManager.context.bumpVerison;
+  get bumpVersion(): boolean {
+    return this.pluginManager.context.bumpVersion;
   }
 
   /**

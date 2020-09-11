@@ -37,7 +37,7 @@ export interface CloudbaseFrameworkConfig {
   /**
    * 是否产生新版本
    */
-  bumpVerison?: boolean;
+  bumpVersion?: boolean;
   /**
    * 新版本的备注信息
    */
