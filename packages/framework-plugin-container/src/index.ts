@@ -277,7 +277,11 @@ class ContainerPlugin extends Plugin {
 
       const distFileName = result.containers[0].source;
 
-      await this.containerApi.upload(serviceName, version, distFileName);
+      await this.containerApi.upload(
+        serviceName,
+        this.api.bumpVersion ? String(Date.now()) : version,
+        distFileName
+      );
 
       this.builder.clean();
     }
