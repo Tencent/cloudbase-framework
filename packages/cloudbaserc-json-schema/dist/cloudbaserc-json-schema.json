@@ -521,6 +521,13 @@
         "functionDistPath": {
           "description": "函数产物路径，相对于函数根目录 functionRootPath，例如 Go 语言可指定二进制文件路径，Java 可以指定 jar 包文件地址",
           "type": "string"
+        },
+        "ignore": {
+          "description": "忽略的文件",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
