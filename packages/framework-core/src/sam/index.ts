@@ -178,7 +178,7 @@ export class SamManager {
       filesData.map(async (fileData: any, index: number) => {
         await this.uploadFileViaUrlAndKey({
           url: fileData.UploadUrl,
-          customKey: filesData.CustomKey,
+          customKey: fileData.CustomKey,
           file: files[index].filePath,
           maxSize: fileData.MaxSize,
         });
@@ -216,6 +216,12 @@ export class SamManager {
     } else if (size === 0) {
       throw new Error(`${file} 文件大小为 0，请检查`);
     }
+
+    headers["Content-Type"] = "application/zip";
+
+    logger.debug("uploadFileViaUrlAndKey: headers", headers);
+
+    logger.debug("uploadFileViaUrlAndKey: file", file);
 
     await fetchStream(
       url,
