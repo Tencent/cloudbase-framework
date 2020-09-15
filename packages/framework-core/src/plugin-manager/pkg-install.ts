@@ -1,4 +1,4 @@
-import execa from "execa";
+import { spawnPromise } from "../utils/spawn";
 
 export function install(
   packageInfo: Record<string, string>,
@@ -10,7 +10,7 @@ export function install(
 
   const npmOptions = ["--prefer-offline", "--no-audit", "--progress=false"];
 
-  return execa("npm", [...args, ...packageList, ...npmOptions], {
+  return spawnPromise("npm", [...args, ...packageList, ...npmOptions], {
     cwd: options?.cwd || process.cwd(),
   });
 }
