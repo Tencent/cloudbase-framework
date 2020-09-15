@@ -256,12 +256,11 @@ export default class PluginManager {
       const packageInfo = this.plugins.reduce((prev, curr) => {
         let version = "latest";
 
-        // 官方插件的版本，跟内核版本相同
+        // 官方插件的版本，跟内核版本小版本相同
         if (curr.name.match(/^@cloudbase/)) {
-          version = (corePackageInfo as any).version
-            .split(".")
-            .splice(0, 2)
-            .join(".");
+          version =
+            "~" +
+            (corePackageInfo as any).version.split(".").splice(0, 2).join(".");
         } else {
           // 其他插件，取最新版本
           version = "latest";
