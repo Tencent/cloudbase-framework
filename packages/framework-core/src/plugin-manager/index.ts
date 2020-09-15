@@ -11,6 +11,7 @@ import Context from "../context";
 import Plugin from "../plugin";
 import PluginServiceApi from "../plugin-service-api";
 import { mkdirSync } from "@cloudbase/toolbox";
+import { spawnPromise } from "../utils/spawn";
 
 interface PluginData {
   id: string;
@@ -58,6 +59,14 @@ export default class PluginManager {
    * @param id
    */
   async init(id?: string) {
+    try {
+      await spawnPromise("npm ls", ["--depth=0"], {
+        cwd: this.pluginRegistry,
+      });
+    } catch (e) {
+      this.context.logger.debug(e);
+    }
+
     return this.callPluginHook("init", {
       id,
     });
