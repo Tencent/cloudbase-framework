@@ -453,7 +453,6 @@ export class FunctionBuilder extends Builder {
         resolve();
       });
       archive.on("error", reject);
-      console.log(ignore);
       archive.glob(
         "**/*",
         {
