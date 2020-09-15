@@ -221,7 +221,7 @@ export class SamManager {
 
     logger.debug("uploadFileViaUrlAndKey: headers", headers);
 
-    logger.debug("uploadFileViaUrlAndKey: file", file);
+    logger.debug("uploadFileViaUrlAndKey: file", file, "size", size);
 
     await fetchStream(
       url,

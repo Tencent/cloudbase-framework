@@ -376,8 +376,8 @@ export class FunctionBuilder extends Builder {
   }
 
   async build(options: FunctionBuilderBuildOptions[]) {
-    return {
-      functions: options.map((option) => {
+    const functions = await Promise.all(
+      options.map(async (option) => {
         const localZipPath = path.join(this.distDir, option.zipfileName);
 
         if (!fs.existsSync(this.distDir)) {
@@ -393,9 +393,11 @@ export class FunctionBuilder extends Builder {
         const fileStats = fs.statSync(option.localPath);
 
         if (fileStats.isFile()) {
-          this.zipFile(option.localPath, localZipPath);
+          this.logger.debug("option.localPath", option.localPath, localZipPath);
+          await this.zipFile(option.localPath, localZipPath);
         } else if (fileStats.isDirectory()) {
-          this.zipDir(option.localPath, localZipPath);
+          this.logger.debug("option.localPath", option.localPath, localZipPath);
+          await this.zipDir(option.localPath, localZipPath);
         }
 
         return {
@@ -404,7 +406,11 @@ export class FunctionBuilder extends Builder {
           source: localZipPath,
           entry: option.zipfileName,
         };
-      }),
+      })
+    );
+
+    return {
+      functions,
     };
   }
 
@@ -415,7 +421,9 @@ export class FunctionBuilder extends Builder {
       var archive = archiver("zip", {
         zlib: { level: 9 }, // Sets the compression level.
       });
-      output.on("close", resolve);
+      output.on("close", () => {
+        resolve();
+      });
       archive.on("error", reject);
       archive.file(src, {
         name: path.basename(src),
@@ -432,7 +440,9 @@ export class FunctionBuilder extends Builder {
       var archive = archiver("zip", {
         zlib: { level: 9 }, // Sets the compression level.
       });
-      output.on("close", resolve);
+      output.on("close", () => {
+        resolve();
+      });
       archive.on("error", reject);
       archive.directory(src, false);
       archive.pipe(output);
