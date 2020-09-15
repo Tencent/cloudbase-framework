@@ -71,6 +71,8 @@ Framework`,
 `
   );
 
+  logger.info(`EnvId ${chalk.green(cloudbaseConfig.envId)}`);
+
   if (
     !projectPath ||
     !cloudbaseConfig ||
