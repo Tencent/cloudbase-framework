@@ -226,7 +226,14 @@ class ContainerPlugin extends Plugin {
   ) {
     super(name, api, inputs);
 
-    this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
+    this.resolvedInputs = resolveInputs(
+      this.inputs,
+      Object.assign(
+        {},
+        DEFAULT_INPUTS,
+        this.api.bumpVersion ? { version: Date.now() } : {}
+      )
+    );
 
     this.checkInputs();
 
@@ -277,11 +284,7 @@ class ContainerPlugin extends Plugin {
 
       const distFileName = result.containers[0].source;
 
-      await this.containerApi.upload(
-        serviceName,
-        this.api.bumpVersion ? String(Date.now()) : version,
-        distFileName
-      );
+      await this.containerApi.upload(serviceName, version, distFileName);
 
       this.builder.clean();
     }
