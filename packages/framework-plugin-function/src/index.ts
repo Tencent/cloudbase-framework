@@ -82,6 +82,11 @@ export interface ICloudFunction {
    * 函数产物路径，相对于函数根目录 functionRootPath，例如 Go 语言可指定二进制文件路径，Java 可以指定 jar 包文件地址
    */
   functionDistPath?: string;
+
+  /**
+   * 忽略的文件
+   */
+  ignore?: string[];
 }
 
 export interface IFunctionVPC {
@@ -197,7 +202,10 @@ class FunctionPlugin extends Plugin {
       return {
         name: func.name,
         localPath: localFunctionPath,
-        zipfileName: zipName,
+        zipFileName: zipName,
+        ignore: func.installDependency
+          ? ["node_modules/**/*", "node_modules", ...(func.ignore || [])]
+          : [...(func.ignore || [])],
       };
     });
 
@@ -357,7 +365,8 @@ function resolveInputs(inputs: any, defaultInputs: any) {
 interface FunctionBuilderBuildOptions {
   name: string;
   localPath: string;
-  zipfileName: string;
+  zipFileName: string;
+  ignore: string[];
 }
 
 interface FunctionBuilderOptions {
@@ -378,7 +387,7 @@ export class FunctionBuilder extends Builder {
   async build(options: FunctionBuilderBuildOptions[]) {
     const functions = await Promise.all(
       options.map(async (option) => {
-        const localZipPath = path.join(this.distDir, option.zipfileName);
+        const localZipPath = path.join(this.distDir, option.zipFileName);
 
         if (!fs.existsSync(this.distDir)) {
           mkdirSync(this.distDir);
@@ -397,14 +406,14 @@ export class FunctionBuilder extends Builder {
           await this.zipFile(option.localPath, localZipPath);
         } else if (fileStats.isDirectory()) {
           this.logger.debug("option.localPath", option.localPath, localZipPath);
-          await this.zipDir(option.localPath, localZipPath);
+          await this.zipDir(option.localPath, localZipPath, option.ignore);
         }
 
         return {
           name: option.name,
           options: {},
           source: localZipPath,
-          entry: option.zipfileName,
+          entry: option.zipFileName,
         };
       })
     );
@@ -433,7 +442,7 @@ export class FunctionBuilder extends Builder {
     });
   }
 
-  async zipDir(src: string, dest: string) {
+  async zipDir(src: string, dest: string, ignore?: string[]) {
     return new Promise((resolve, reject) => {
       // create a file to stream archive data to.
       var output = fs.createWriteStream(dest);
@@ -444,7 +453,16 @@ export class FunctionBuilder extends Builder {
         resolve();
       });
       archive.on("error", reject);
-      archive.directory(src, false);
+      console.log(ignore);
+      archive.glob(
+        "**/*",
+        {
+          cwd: src,
+          ignore: ignore || [],
+          dot: true,
+        },
+        {}
+      );
       archive.pipe(output);
       archive.finalize();
     });
