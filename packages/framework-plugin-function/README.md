@@ -100,7 +100,7 @@ cloudbase framework:deploy
 |      timeout      |  否  |                                        Number                                         | 函数超时时间（1 - 60S）                                                                                         |
 |   envVariables    |  否  |                                        Object                                         | 包含环境变量的键值对对象                                                                                        |
 |        vpc        |  否  |           [VPC](https://docs.cloudbase.net/cli/functions/configs.html#vpc)            | 私有网络配置                                                                                                    |
-|      runtime      |  否  |                                        String                                         | 运行时环境配置，可选值： `Nodejs8.9, Nodejs10.15 Php7, Java8`                                                   |
+|      runtime      |  否  |                                        String                                         | 运行时环境配置，可选值： `Nodejs8.9, Nodejs10.15 Php7, Java8,Go1`                                               |
 | installDependency |  否  |                                        Boolean                                        | 是否云端安装依赖，目前仅支持 Node.js                                                                            |
 | functionDistPath  |  否  |                                        String                                         | 函数产物路径，相对于函数根目录 functionRootPath，例如 Go 语言可指定二进制文件路径，Java 可以指定 jar 包文件地址 |
 
