@@ -60,9 +60,16 @@ export default class PluginManager {
    */
   async init(id?: string) {
     try {
-      await spawnPromise("npm ls", ["--depth=0"], {
-        cwd: this.pluginRegistry,
-      });
+      await this.pluginInstallPromise;
+      this.context.logger.debug(
+        "插件版本信息",
+        JSON.parse(
+          (await spawnPromise("npm ls", ["--depth=0", "--json"], {
+            cwd: this.pluginRegistry,
+            stdio: "pipe",
+          })) as string
+        )
+      );
     } catch (e) {
       this.context.logger.debug(e);
     }
@@ -265,11 +272,9 @@ export default class PluginManager {
       const packageInfo = this.plugins.reduce((prev, curr) => {
         let version = "latest";
 
-        // 官方插件的版本，跟内核版本小版本相同
+        // 官方插件的版本，跟内核版本相同
         if (curr.name.match(/^@cloudbase/)) {
-          version =
-            "~" +
-            (corePackageInfo as any).version.split(".").splice(0, 2).join(".");
+          version = (corePackageInfo as any).version;
         } else {
           // 其他插件，取最新版本
           version = "latest";
