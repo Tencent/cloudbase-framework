@@ -17,7 +17,11 @@ export async function spawnPromise(
         options
       )
     );
+    let stdout = "";
+    cm.stdout.on("data", (data) => {
+      stdout += data;
+    });
     cm.on("error", reject);
-    cm.on("close", (code) => (code === 0 ? resolve() : reject(code)));
+    cm.on("close", (code) => (code === 0 ? resolve(stdout) : reject(code)));
   });
 }
