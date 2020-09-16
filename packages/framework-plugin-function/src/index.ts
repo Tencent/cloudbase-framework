@@ -315,7 +315,9 @@ class FunctionPlugin extends Plugin {
           FunctionName: functionConfig.name,
           MemorySize: functionConfig.memory || 128,
           Timeout: functionConfig.timeout || 5,
-          Environment: functionConfig.envVariables,
+          Environment: {
+            Variables: functionConfig.envVariables,
+          },
           VpcConfig: functionConfig.vpc,
           HttpPath: this.resolvedInputs.servicePaths[functionConfig.name],
           InstallDependency:
