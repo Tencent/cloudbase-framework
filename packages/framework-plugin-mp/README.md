@@ -82,7 +82,7 @@ cloudbase framework:deploy
 
 ### `localPath`
 
-必填，小程序项目的本地相对路径
+选填，小程序项目的本地相对路径，默认值 `./`
 
 ### `ignores`
 
