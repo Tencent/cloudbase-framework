@@ -211,7 +211,7 @@ cloudbase framework:deploy
 | 开发 Function plugin 支持自动部署函数                                  | 🚀   |
 | 开发 Node Api Plugin 支持一键部署 Node 应用                            | 🚀   |
 | 插件支持编译成 SAM 描述                                                | 🚀   |
-| 自动检测 Express/ Koa 等主流 Node 框架使用 Node Api Plugin             |      |
+| 自动检测 Express/ Koa 等主流 Node 框架使用 Node Api Plugin             | 🚀   |
 | 云开发全栈框架支持                                                     |      |
 | Node Api Plugin 支持建模和代码生成                                     |      |
 | 结合 Github Action、Coding 等平台的 CI/CD 功能                         |      |
