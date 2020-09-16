@@ -65,10 +65,10 @@ export interface ICloudFunction {
    */
   envVariables?: Record<string, string | number | boolean>;
   /**
-   * 运行时环境配置，可选值： `Nodejs8.9, Nodejs10.15 Php7, Java8`
+   * 运行时环境配置，可选值： `Nodejs8.9, Nodejs10.15 Php7, Java8, Go1`
    * @default Nodejs10.15
    */
-  runtime?: "Nodejs10.15" | "Nodejs8.9" | "Php7" | "Java8";
+  runtime?: "Nodejs10.15" | "Nodejs8.9" | "Php7" | "Java8" | "Go1";
   /**
    * VPC
    */
