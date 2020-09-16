@@ -40,6 +40,10 @@ const supportPluginsConfig = [
     name: '@cloudbase/framework-plugin-next',
     inputsInterfaceName: 'IFrameworkPluginNextInputs',
   },
+  {
+    name: '@cloudbase/framework-plugin-mp',
+    inputsInterfaceName: 'IFrameworkPluginMiniProgramInputs',
+  }
 ];
 
 for (let plugin of supportPluginsConfig) {

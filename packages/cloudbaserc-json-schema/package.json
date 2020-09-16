@@ -39,6 +39,7 @@
     "@cloudbase/framework-plugin-database": "^1.1.10",
     "@cloudbase/framework-plugin-deno": "^1.1.10",
     "@cloudbase/framework-plugin-function": "^1.1.10",
+    "@cloudbase/framework-plugin-mp": "^1.1.10",
     "@cloudbase/framework-plugin-next": "^1.1.10",
     "@cloudbase/framework-plugin-node": "^1.1.10",
     "@cloudbase/framework-plugin-nuxt": "^1.1.10",

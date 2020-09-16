@@ -62,6 +62,11 @@ export class SamManager {
     const template = this.readSam();
     let extensionId: string;
 
+    // 没有资源需要部署的情况不走 SAM安装
+    if (!Object.keys(template.Resources).length) {
+      return this.clear();
+    }
+    
     try {
       try {
         logger.debug("sam:install", template);
