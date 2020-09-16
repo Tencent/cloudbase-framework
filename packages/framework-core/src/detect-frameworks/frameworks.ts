@@ -287,4 +287,29 @@ export default [
       },
     },
   },
+  {
+    name: "小程序",
+    key: "mp",
+    detect: [
+      {
+        path: "project.config.json",
+        match: "miniprogramRoot"
+      },
+      {
+        path: "project.config.json",
+        match: "appid"
+      },
+    ],
+    plugin: "@cloudbase/framework-plugin-mp",
+    config: {
+      appid: {
+        value: "",
+        desc: "💡 小程序应用的 appid",
+      },
+      privateKeyPath: {
+        value: "./private.key",
+        desc: "📦 小程序应用的部署私钥的本地路径",
+      }
+    }
+  },
 ];
