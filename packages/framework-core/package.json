@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/framework-core",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "CloudBase Framework 云开发 CloudBase 全栈应用开发框架，开箱即用，方便开发和部署多端+全栈的 Serverless 应用",
   "author": "Tencent CloudBase Team",
   "homepage": "https://github.com/TencentCloudBase/cloudbase-framework#readme",
@@ -44,6 +44,7 @@
     "@types/jest": "^25.2.1",
     "@types/js-yaml": "^3.12.4",
     "@types/lodash.merge": "^4.6.6",
+    "@types/node": "^13.13.5",
     "@types/node-fetch": "^2.5.7",
     "@types/progress": "^2.0.3",
     "chalk": "^4.0.0",
@@ -56,8 +57,7 @@
     "lodash.merge": "^4.6.2",
     "progress": "^2.0.3",
     "terminal-link": "^2.1.1",
-    "winston": "^3.2.1",
-    "@types/node": "^13.13.5"
+    "winston": "^3.2.1"
   },
   "gitHead": "2b5ff8115a56e200b4a242621b3a02b30d31ab61"
 }
