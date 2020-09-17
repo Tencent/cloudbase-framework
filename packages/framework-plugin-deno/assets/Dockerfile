@@ -14,6 +14,8 @@ EXPOSE 80
 WORKDIR /app
 COPY . .
 RUN deno install --allow-read --allow-run --allow-write --allow-net -f -q --unstable https://deno.land/x/denon/denon.ts
+RUN mkdir dist
+RUN denon build
 <% if (entry) { %>
 RUN deno install <%= entry %>
 <% } %>
