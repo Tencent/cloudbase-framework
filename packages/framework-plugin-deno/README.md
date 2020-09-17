@@ -101,7 +101,9 @@ denon 配置示例:
 # denon.yml
 scripts:
   build:
-    cmd: deno bundle src/entry.ts dist/entry.js
+    cmd:
+      - mkdir dist
+      - deno bundle src/entry.ts dist/entry.js
     watch: false
   start:
     cmd: deno run dist/entry.js
