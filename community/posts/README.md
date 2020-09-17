@@ -6,6 +6,9 @@
 
 您可能已经在外部技术社区或您自己的个人博客上写了这篇文章。将您的文章添加到[云开发社区官网](https://cloudbase.net/community.html)，可以让其他开发阅读和通过标签来检索您的文章。
 
+
+
+
 ## 步骤
 
 1. Fork 这个 Git 仓库
@@ -31,6 +34,31 @@ tags:
 ---
 
 以下是正文内容的 Markdown
+```
+
+页面文章底部建议加上如下内容
+```md
+## CloudBase Framework 介绍
+
+🚀 CloudBase Framework 是云开发开源的云原生前后端一体化部署工具，支持主流前后端框架，前后端一键托管部署在云端一体化平台，支持支持小程序、Web、Flutter、后端服务等多个平台。
+
+Github 开源地址：https://github.com/TencentCloudBase/cloudbase-framework
+
+欢迎给 CloudBase Framework 一个 🌟 star 
+
+## CloudBase Framework 
+
+欢迎大家参与 CloudBase Framework 的开发工作，成为我们的贡献者，我们将会在云开发社区展示贡献者的作品和信息，同时也会有惊喜奖励。
+
+您可以选择如下的贡献方式：
+
+- 贡献技术文章：[https://github.com/TencentCloudBase/cloudbase-framework/tree/master/community/posts](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/community/posts)
+- 贡献应用：[https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/app.md](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/app.md)
+- 贡献代码，提交 Pull Request
+- 反馈 bug，提交 Issue
+- 在技术会议上发表技术演讲
+
+CloudBase Framework 的发展离不开社区的积极贡献，这是我们的核心贡献者列表，再次感谢大家的贡献：[https://github.com/TencentCloudBase/cloudbase-framework#contributors-](https://github.com/TencentCloudBase/cloudbase-framework#contributors-)
 ```
 
 4. 如果文章有 banner 图片，在项目目录下创建一个 `banner.jpg`
