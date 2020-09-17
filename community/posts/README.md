@@ -12,7 +12,9 @@
 
 ## 步骤
 
-1. Fork 这个 Git 仓库
+
+
+1. Fork 这个 Git 仓库（在 master 分支修改）
 2. 在仓库中为您的文章添加一个新文件夹 `/community/posts/YYYY-MM-DD-Desc`，例如 `/community/posts/2020-08-12-如何用云开发快速搭建实时 TodoList 应用`
 3. 在创建好的文件夹目录中添加一个 `index.md`，文件格式可以参考如下模板
 
@@ -65,7 +67,7 @@ CloudBase Framework 的发展离不开社区的积极贡献，这是我们的核
 
 4. 如果文章有 banner 图片，在项目目录下创建一个 `banner.jpg`
 
-5. 提交 Pull Request
+5. 提交 Pull Request（合并到 master 分支）
 
 6. 在通过 Pull Request 之后，我们会将您的帖子添加到我们的社区文章列表，并将您加入[我们的贡献者名单](https://github.com/TencentCloudBase/cloudbase-framework#contributors-)
 
