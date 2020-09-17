@@ -6,8 +6,9 @@
 
 您可能已经在外部技术社区或您自己的个人博客上写了这篇文章。将您的文章添加到[云开发社区官网](https://cloudbase.net/community.html)，可以让其他开发阅读和通过标签来检索您的文章。
 
+## 社区贡献文章列表
 
-
+[https://github.com/TencentCloudBase/cloudbase-framework/tree/master/community/posts](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/community/posts)
 
 ## 步骤
 
