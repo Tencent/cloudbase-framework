@@ -39,7 +39,7 @@ tags:
 文章底部建议加上如下内容:
 
 ```md
-## CloudBase Framework 介绍
+## CloudBase Framework 开源项目介绍
 
 🚀 CloudBase Framework 是云开发开源的云原生前后端一体化部署工具，支持主流前后端框架，前后端一键托管部署在云端一体化平台，支持支持小程序、Web、Flutter、后端服务等多个平台。
 
@@ -47,7 +47,7 @@ Github 开源地址：[https://github.com/TencentCloudBase/cloudbase-framework](
 
 欢迎给 CloudBase Framework 一个 🌟 star 
 
-## CloudBase Framework 
+## CloudBase Framework 核心贡献者计划
 
 欢迎大家参与 CloudBase Framework 的开发工作，成为我们的贡献者，我们将会在云开发社区展示贡献者的作品和信息，同时也会有惊喜奖励。
 
