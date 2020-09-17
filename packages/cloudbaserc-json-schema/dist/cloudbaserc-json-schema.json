@@ -81,6 +81,9 @@
         },
         {
           "$ref": "#/definitions/IFrameworkPluginNextInputsConfig"
+        },
+        {
+          "$ref": "#/definitions/IFrameworkPluginMiniProgramInputsConfig"
         }
       ]
     },
@@ -497,9 +500,10 @@
           "$ref": "#/definitions/Record<string,string|number|boolean>"
         },
         "runtime": {
-          "description": "运行时环境配置，可选值： `Nodejs8.9, Nodejs10.15 Php7, Java8`",
+          "description": "运行时环境配置，可选值： `Nodejs8.9, Nodejs10.15 Php7, Java8, Go1`",
           "default": "Nodejs10.15",
           "enum": [
+            "Go1",
             "Java8",
             "Nodejs10.15",
             "Nodejs8.9",
@@ -995,6 +999,140 @@
         "use",
         "inputs"
       ]
+    },
+    "IFrameworkPluginMiniProgramInputsConfig": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "enum": [
+            "@cloudbase/framework-plugin-mp"
+          ]
+        },
+        "inputs": {
+          "description": "导出接口用于生成 JSON Schema 来进行智能提示",
+          "type": "object",
+          "properties": {
+            "appid": {
+              "description": "小程序应用的 appid",
+              "type": "string"
+            },
+            "privateKeyPath": {
+              "description": "小程序应用的部署私钥的本地相对路径",
+              "default": "./private.key",
+              "type": "string"
+            },
+            "localPath": {
+              "description": "小程序项目的本地相对路径",
+              "default": "./",
+              "type": "string"
+            },
+            "ignores": {
+              "description": "小程序应用部署时忽略的文件路径，支持通配符",
+              "default": [
+                "node_modules/**/*"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "deployMode": {
+              "description": "小程序应用的部署模式",
+              "default": "preview",
+              "enum": [
+                "preview",
+                "upload"
+              ],
+              "type": "string"
+            },
+            "previewOptions": {
+              "description": "预览代码的选项",
+              "$ref": "#/definitions/IMiniProgramPreviewOptions"
+            },
+            "uploadOptions": {
+              "description": "上传代码的选项",
+              "$ref": "#/definitions/IMiniProgramUploadOptions"
+            }
+          },
+          "required": [
+            "appid",
+            "localPath",
+            "privateKeyPath"
+          ],
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      "required": [
+        "use",
+        "inputs"
+      ]
+    },
+    "IMiniProgramPreviewOptions": {
+      "type": "object",
+      "properties": {
+        "desc": {
+          "description": "小程序的版本描述",
+          "default": "CloudBase Framework 一键预览",
+          "type": "string"
+        },
+        "setting": {
+          "description": "小程序应用的编译设置",
+          "$ref": "#/definitions/IMiniProgramBuildSetting"
+        },
+        "qrcodeOutputPath": {
+          "description": "生成的预览二维码保存在本地的路径",
+          "type": "string"
+        },
+        "pagePath": {
+          "description": "小程序应用的预览页面地址",
+          "default": "pages/index/index",
+          "type": "string"
+        },
+        "searchQuery": {
+          "description": "小程序应用的预览页面参数",
+          "default": "",
+          "type": "string"
+        },
+        "scene": {
+          "description": "小程序应用的预览页面场景值",
+          "default": 1011,
+          "type": "number"
+        }
+      }
+    },
+    "IMiniProgramBuildSetting": {
+      "type": "object",
+      "properties": {
+        "es6": {
+          "description": "编译设置 - es6 转 es5",
+          "default": true,
+          "type": "boolean"
+        },
+        "minify": {
+          "description": "编译设置 - 压缩代码",
+          "type": "boolean"
+        }
+      }
+    },
+    "IMiniProgramUploadOptions": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "description": "小程序应用上传的版本号",
+          "type": "string"
+        },
+        "desc": {
+          "description": "小程序应用的版本描述",
+          "default": "CloudBase Framework 一键上传",
+          "type": "string"
+        },
+        "setting": {
+          "description": "小程序应用的编译设置",
+          "$ref": "#/definitions/IMiniProgramBuildSetting"
+        }
+      }
     }
   }
 }
