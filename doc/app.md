@@ -12,6 +12,10 @@
 
 一键部署按钮生成页面：[https://docs.cloudbase.net/framework/deploy-button.html](https://docs.cloudbase.net/framework/deploy-button.html)
 
+## 应用模板列表
+
+<https://github.com/TencentCloudBase/cloudbase-templates>
+
 ## 应用开发指南
 
 CloudBase App 项目需要满足以下的应用 3 要素
