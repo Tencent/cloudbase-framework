@@ -50,7 +50,7 @@ cloudbase framework:deploy
         "inputs": {
           "appid": "",
           "privateKeyPath": "",
-          "localpath": "./",
+          "localPath": "./",
           "ignores": "[node_modules/**/*]",
           "deployMode": "preview",
           "previewOptions": {
@@ -117,7 +117,7 @@ cloudbase framework:deploy
         "inputs": {
           "appid": "",
           "privateKeyPath": "",
-          "localpath": "./",
+          "localPath": "./",
           "ignores": "[node_modules/**/*]",
           "deployMode": "preview",
           "previewOptions": {
@@ -159,7 +159,7 @@ cloudbase framework:deploy
         "inputs": {
           "appid": "",
           "privateKeyPath": "",
-          "localpath": "./",
+          "localPath": "./",
           "ignores": "[node_modules/**/*]",
           "deployMode": "upload",
           "uploadOptions": {
