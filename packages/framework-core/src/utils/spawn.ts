@@ -21,7 +21,11 @@ export async function spawnPromise(
     cm.stdout.on("data", (data) => {
       stdout += data;
     });
+    let stderr = "";
+    cm.stderr.on("data", (data) => {
+      stderr += data;
+    })
     cm.on("error", reject);
-    cm.on("close", (code) => (code === 0 ? resolve(stdout) : reject(code)));
+    cm.on("close", (code) => (code === 0 ? resolve(stdout) : reject(stderr)));
   });
 }
