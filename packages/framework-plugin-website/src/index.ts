@@ -173,6 +173,7 @@ class WebsitePlugin extends Plugin {
 
     const command = buildCommand || commands?.build
     if (command) {
+      this.api.logger.info(command);
       await promisify(exec)(injectEnvVariables(command, envVariables));
     }
 
