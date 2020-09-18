@@ -45,5 +45,6 @@
     "@cloudbase/framework-plugin-nuxt": "^1.2.2-alpha.0",
     "@cloudbase/framework-plugin-website": "^1.2.2-alpha.0",
     "typescript-json-schema": "^0.42.0"
-  }
+  },
+  "gitHead": "eda76ed5cca679e3f45bb684bcd152a40b6eebce"
 }
