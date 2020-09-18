@@ -25,7 +25,7 @@ const packageInfo = require("../package");
 const SUPPORT_COMMANDS = ["deploy", "compile", "run"];
 
 interface CommandParams {
-  runCommand?: string;
+  runCommandKey?: string;
 }
 
 export async function run(
@@ -139,7 +139,7 @@ Framework`,
     const compileResult = await pluginManager.compile(module);
     samManager.generate(samMeta, JSON.parse(JSON.stringify(compileResult)));
   } else if (command === "run") {
-    await pluginManager.run(module, params?.runCommand);
+    await pluginManager.run(module, params?.runCommandKey);
   }
 
   logger.info("✨ done");

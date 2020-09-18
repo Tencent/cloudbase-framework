@@ -120,10 +120,10 @@ export default class PluginManager {
    *
    * @param id
    */
-  async run(id?: string, runCommand?: string) {
+  async run(id?: string, runCommandKey?: string) {
     return this.callPluginHook("run", {
       id,
-      params: { runCommand },
+      params: { runCommandKey },
       icon: emoji("🚢"),
     });
   }

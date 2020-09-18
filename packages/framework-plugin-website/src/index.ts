@@ -3,6 +3,7 @@ import fs from "fs";
 import os from "os";
 import { exec } from "child_process";
 import { promisify } from "util";
+import merge from "lodash.merge";
 
 import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
 import { StaticBuilder } from "@cloudbase/static-builder";
@@ -12,7 +13,9 @@ const DEFAULT_INPUTS = {
   outputPath: "dist",
   cloudPath: "/",
   ignore: [".git", ".github", "node_modules", "cloudbaserc.js"],
-  installCommand: "npm install --prefer-offline --no-audit --progress=false",
+  commands: {
+    install: "npm install --prefer-offline --no-audit --progress=false"
+  }
 };
 
 /**
@@ -23,11 +26,13 @@ export interface IFrameworkPluginWebsiteInputs {
    * 安装命令，如`npm install`，没有可不传
    *
    * @default npm install --prefer-offline --no-audit --progress=false
+   * @deprecated 此配置将被废弃，请使用新的配置 commands.install 代替
    */
   installCommand?: string;
   /**
    * 构建命令，如`npm run build`，没有可不传
    *
+   * @deprecated 此配置将被废弃，请使用新的配置 commands.build 代替
    */
   buildCommand?: string;
   /**
@@ -54,9 +59,11 @@ export interface IFrameworkPluginWebsiteInputs {
    */
   envVariables?: Record<string, string>;
   /**
-   * 执行 cloudbase framework:run 时，运行的默认指令
+   * 自定义命令
+   * 
+   * @default { build: "npm run build" }
    */
-  runCommand?: string;
+  commands?: Record<string, string>;
 }
 
 type ResolvedInputs = typeof DEFAULT_INPUTS & IFrameworkPluginWebsiteInputs;
@@ -158,14 +165,15 @@ class WebsitePlugin extends Plugin {
     await this.installPackage();
 
     const {
-      outputPath,
       cloudPath,
       buildCommand,
       envVariables,
+      commands
     } = this.resolvedInputs;
 
-    if (buildCommand) {
-      await promisify(exec)(injectEnvVariables(buildCommand, envVariables));
+    const command = buildCommand || commands?.build
+    if (command) {
+      await promisify(exec)(injectEnvVariables(command, envVariables));
     }
 
     const includes = [
@@ -217,18 +225,21 @@ class WebsitePlugin extends Plugin {
   /**
    * 执行本地命令
    */
-  async run(params: { runCommand: string }) {
-    this.api.logger.debug("WebsitePlugin: run");
+  async run(params: { runCommandKey: string }) {
+    this.api.logger.debug(`WebsitePlugin: run ${params?.runCommandKey}`);
 
-    const runCommand = params?.runCommand || this.resolvedInputs.runCommand;
+    const { commands, envVariables } = this.resolvedInputs;
+    const command = commands[params?.runCommandKey];
 
-    if (!runCommand) return;
+    if (!command) return;
 
+    this.api.logger.info(command);
     await new Promise((resolve, reject) => {
       const cmd = exec(
-        injectEnvVariables(runCommand, this.resolvedInputs.envVariables)
+        injectEnvVariables(command, envVariables)
       );
       cmd.stdout?.pipe(process.stdout);
+      cmd.stderr?.pipe(process.stderr);
       cmd.on("close", (code) => {
         resolve(code);
       });
@@ -242,11 +253,12 @@ class WebsitePlugin extends Plugin {
    * 安装依赖
    */
   async installPackage() {
-    const { installCommand } = this.resolvedInputs;
+    const { installCommand, commands } = this.resolvedInputs;
+    const command = installCommand || commands?.install;
     try {
       if (fs.statSync("package.json")) {
-        this.api.logger.info(installCommand);
-        return promisify(exec)(installCommand);
+        this.api.logger.info(command);
+        return promisify(exec)(command);
       }
     } catch (e) {}
   }
@@ -301,7 +313,7 @@ class WebsitePlugin extends Plugin {
 }
 
 function resolveInputs(inputs: any) {
-  return Object.assign({}, DEFAULT_INPUTS, inputs);
+  return merge({}, DEFAULT_INPUTS, inputs);
 }
 
 function injectEnvVariables(command: string, envVariables: any): string {
