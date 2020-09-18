@@ -46,5 +46,5 @@
     "@cloudbase/framework-plugin-website": "^1.2.3-alpha.0",
     "typescript-json-schema": "^0.42.0"
   },
-  "gitHead": "eda76ed5cca679e3f45bb684bcd152a40b6eebce"
+  "gitHead": "70c11d9fb556dd7f6b4b4c03eddf9cb558ccd958"
 }
