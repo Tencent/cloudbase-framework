@@ -24,12 +24,9 @@ CloudBase Framework 部署需要创建一个 cloudbaserc.json，填写如下配�
           "functions": [
             {
               "name": "nuxt-ssr-echo",
-              "config": {
-                "timeout": 5,
-                "envVariables": {},
-                "runtime": "Nodejs10.15",
-                "memorySize": 128
-              }
+              "timeout": 5,
+              "envVariables": {},
+              "runtime": "Nodejs10.15",
             }
           ],
           "servicePaths": {
