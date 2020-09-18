@@ -231,7 +231,7 @@ class ContainerPlugin extends Plugin {
       Object.assign(
         {},
         DEFAULT_INPUTS,
-        this.api.bumpVersion ? { version: Date.now() } : {}
+        this.api.bumpVersion ? { version: String(Date.now()) } : {}
       )
     );
 
