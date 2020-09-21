@@ -70,6 +70,11 @@ export interface ICloudFunction {
    */
   runtime?: "Nodejs10.15" | "Nodejs8.9" | "Php7" | "Java8" | "Go1";
   /**
+   * 函数运行时内存配置	
+   * @default 128
+   */
+  memory?: 128 | 256 | 512 | 1024 | 2048;
+  /**
    * VPC
    */
   vpc?: IFunctionVPC;

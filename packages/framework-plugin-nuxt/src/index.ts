@@ -7,6 +7,8 @@ import { plugin as FunctionPlugin } from "@cloudbase/framework-plugin-function";
 import { NuxtBuilder } from "@cloudbase/nuxt-builder";
 
 const DEFAULT_INPUTS = {
+  memory: 128,
+  timeout: 5,
   runtime: "Nodejs10.15",
   entry: "./",
   name: "nuxt-ssr",
@@ -46,9 +48,22 @@ export interface IFrameworkPluginNuxtInputs {
   buildCommand?: string;
   /**
    * 函数运行时版本
-   * @default "Nodejs10.15
+   * @default "Nodejs10.15"
    */
   runtime?: "Nodejs10.15" | "Nodejs8.9";
+  /**
+   * 函数运行时内存配置	
+   * @default 128
+   */
+  memory?: 128 | 256 | 512 | 1024 | 2048;
+  /**
+   * 函数超时时间（1 - 60S）
+   */
+  timeout?: number;
+  /**
+   * 包含环境变量的键值对
+   */
+  envVariables?: Record<string, string | number | boolean>;
 }
 
 type ResolvedInputs = typeof DEFAULT_INPUTS & IFrameworkPluginNuxtInputs;
@@ -133,6 +148,9 @@ class NuxtPlugin extends Plugin {
           handler: srcFunction.entry,
           runtime: this.resolvedInputs.runtime,
           installDependency: true,
+          memory: this.resolvedInputs.memory,
+          timeout: this.resolvedInputs.timeout,
+          envVariables: this.resolvedInputs.envVariables,
         },
       ],
       servicePaths: {
