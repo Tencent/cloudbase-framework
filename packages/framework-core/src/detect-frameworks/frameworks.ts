@@ -221,7 +221,7 @@ export default [
     },
   },
   {
-    name: "云应用",
+    name: "云托管",
     key: "container",
     detect: [
       {
@@ -293,11 +293,11 @@ export default [
     detect: [
       {
         path: "project.config.json",
-        match: "miniprogramRoot"
+        match: "miniprogramRoot",
       },
       {
         path: "project.config.json",
-        match: "appid"
+        match: "appid",
       },
     ],
     plugin: "@cloudbase/framework-plugin-mp",
@@ -309,7 +309,7 @@ export default [
       privateKeyPath: {
         value: "./private.key",
         desc: "📦 小程序应用的部署私钥的本地路径",
-      }
-    }
+      },
+    },
   },
 ];

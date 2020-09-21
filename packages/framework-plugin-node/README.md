@@ -8,7 +8,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/TencentCloudBase/cloudbase-framework/pulls)
 [![star](https://img.shields.io/github/stars/TencentCloudBase/cloudbase-framework?style=social)](https://github.com/TencentCloudBase/cloudbase-framework)
 
-**云开发 CloudBase Framework 框架「Node.js App」插件**： 通过云开发 **[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework)** 框架将 Node 应用一键部署云开发环境，提供自动弹性伸缩的高性能 Node 应用服务，支持底层部署为函数或者 Serverless 云应用，可以搭配其他插件如 Website 插件、函数插件实现云端一体开发。
+**云开发 CloudBase Framework 框架「Node.js App」插件**： 通过云开发 **[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework)** 框架将 Node 应用一键部署云开发环境，提供自动弹性伸缩的高性能 Node 应用服务，支持底层部署为函数或者 云托管，可以搭配其他插件如 Website 插件、函数插件实现云端一体开发。
 
 ## 功能特性
 
@@ -130,7 +130,7 @@ exports.tcbGetApp = async () => {
 
 ### `platform`
 
-选填，底层使用平台，支持 `container`（ serverless 云应用） 和 `function` （云函数）, 默认是 `function`
+选填，底层使用平台，支持 `container`（ 云托管） 和 `function` （云函数）, 默认是 `function`
 
 ### `containerOptions`
 
@@ -187,6 +187,7 @@ exports.tcbGetApp = async () => {
 具体配置信息请参考 [@cloudbase/framework-plugin-function](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/packages/framework-plugin-function/README.md#functions) 配置
 
 ### `wrapExpress`
+
 选填，当 `platform` 选择 `function` 时，可以支持自动为函数包上一层 express
 
 例如

@@ -57,7 +57,7 @@ export interface IFrameworkPluginNodeInputs {
    */
   path: string;
   /**
-   * 服务名，会生成同名云函数或者云应用
+   * 服务名，会生成同名云函数或者云托管
    * @default node-app
    */
   name: string;
@@ -71,13 +71,13 @@ export interface IFrameworkPluginNodeInputs {
    */
   buildCommand?: string;
   /**
-   * 底层使用平台，支持 `container`（ serverless 云应用） 和 `function` （云函数）
+   * 底层使用平台，支持 `container`（ 云托管） 和 `function` （云函数）
    * @default function
    */
   platform?: "function" | "container";
   /**
    *
-   * 云应用自定义选项
+   * 云托管自定义选项
    *
    * 选填，当 `platform` 选择 `container` 时，可以支持自定义更多高级设置，例如 CPU 内存等
    * 例如
