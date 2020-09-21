@@ -26,7 +26,7 @@
 - 新增 Next SSR 应用模板 (#70) @fanyegong
 - 支持 App Entrypoint
 - Deno 插件应用进程改为默认使用 denon 来管理 (#69) @TabSpace
-- Container 插件调整云应用最大副本数
+- Container 插件调整云托管最大副本数
 
 ## [0.9.0] - 2020-08-17
 
@@ -83,8 +83,8 @@
 - cloudbaserc 配置文件支持模板变量
 - 支持指定模式 `mode` 来选择不同的配置
 - 提升插件安装和依赖安装速度
-- 支持自动检测 Dockerfile 项目生成云应用配置
-- 云应用插件支持注入环境变量
+- 支持自动检测 Dockerfile 项目生成云托管配置
+- 云托管插件支持注入环境变量
 - 支持自动检测 Hexo、Gatsbyjs 项目
 
 ### Bugfixes
@@ -157,11 +157,11 @@
 
 ### Features
 
-- 新增 Container 插件支持云应用部署
-- Node 插件新增支持函数和云应用两种模式部署
-- 新增 Dart 插件，支持部署 Flutter 后端 Dart 云应用
-- 新增 Node.js 云应用模板
-- 新增 Aqueduct (Dart Server) 云应用模板
+- 新增 Container 插件支持云托管部署
+- Node 插件新增支持函数和云托管两种模式部署
+- 新增 Dart 插件，支持部署 Flutter 后端 Dart 云托管
+- 新增 Node.js 云托管模板
+- 新增 Aqueduct (Dart Server) 云托管模板
 - 新增 2 套 React 全栈应用模板
 
 ### Bugfixes

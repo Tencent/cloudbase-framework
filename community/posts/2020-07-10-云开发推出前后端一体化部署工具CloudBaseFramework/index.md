@@ -14,7 +14,7 @@ tags:
   - 数据库
   - ClouBase Framework
   - 静态网站托管
-  - Serverless 云应用
+  - 云托管
 ---
 
 # 云开发推出「前后端一体化部署工具」CloudBase Framework
@@ -77,7 +77,7 @@ tags:
 
 ![](https://main.qcloudimg.com/raw/ba3478f95ded79dea875ff14cdb51b2e.png)
 
-[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework) 目前支持了 Vue、React 等前端框架，也支持 Nuxt 等 SSR 框架，基于 Node 开发的应用如 Express、Koa 等也可以一键托管。除此之外，借助底层 Serverless 云应用的能力，也可以部署其他后端的应用（PHP、Java、Go 等），值得一提的是可以部署 Dart Server，可以配合 Flutter 实现 Dart 语言的云端一体化，这也是国内云厂商对 Dart 语言和生态的一大补充。
+[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework) 目前支持了 Vue、React 等前端框架，也支持 Nuxt 等 SSR 框架，基于 Node 开发的应用如 Express、Koa 等也可以一键托管。除此之外，借助底层 云托管的能力，也可以部署其他后端的应用（PHP、Java、Go 等），值得一提的是可以部署 Dart Server，可以配合 Flutter 实现 Dart 语言的云端一体化，这也是国内云厂商对 Dart 语言和生态的一大补充。
 
 ### 自动检测框架
 
@@ -131,7 +131,7 @@ tags:
 - **云调用**：几行代码实现微信开放能力的调用
 - **云函数**：轻量级的计算能力
 - **云存储**：实现文件的存储和下载
-- **Serverless 云应用**：极简方式使用 Kubenetes 容器
+- **云托管**：极简方式使用 Kubenetes 容器
 - **扩展能力**：可以免开发安装 CMS 内容管理系统等扩展能力
 
 ## 快速开始
@@ -172,22 +172,22 @@ cloudbase init --template nuxt-ssr
 
 目前支持的一体化应用模板如下：
 
-| 名称                          | 应用示例介绍                                   | 模板 id           |
-| ----------------------------- | ---------------------------------------------- | ----------------- |
-| Vue 应用                      | Vue + 云函数 + 静态网站部署                    | `vue`             |
-| React 应用                    | React + 云函数 + 静态网站部署                  | `react-starter`   |
-| React 全栈应用                | React + 云函数 + 静态网站部署+ 云数据库        | `react-demo`      |
-| Nuxt SPA 应用                 | Nuxt SPA + 云函数 + 静态网站部署               | `nuxt-spa`        |
-| Nuxt SSR 应用                 | Nuxt SSR + 服务端部署 + 静态网站部署           | `nuxt-ssr`        |
-| Koa 应用                      | Koa + 服务端部署                               | `koa-starter`     |
-| Express 应用                  | Express + 服务端部署                           | `express-starter` |
-| Nest 应用                     | Nest + 服务端部署                              | `nest-starter`    |
-| Node.js 云函数示例            | Node.js 云函数                                 | `node-starter`    |
-| PHP 云函数示例                | PHP 云函数                                     | `php-starter`     |
-| Java 云函数示例               | Java 云函数                                    | `java-starter`    |
-| VuePresss 网站应用            | VuePresss + 静态网站部署                       | `vuepress`        |
-| Node.js 云应用                | Node.js + Serverless 云应用部署                | `node`            |
-| Aqueduct (Dart Server) 云应用 | Aqueduct (Dart Server) + Serverless 云应用部署 | `dart`            |
+| 名称                          | 应用示例介绍                            | 模板 id           |
+| ----------------------------- | --------------------------------------- | ----------------- |
+| Vue 应用                      | Vue + 云函数 + 静态网站部署             | `vue`             |
+| React 应用                    | React + 云函数 + 静态网站部署           | `react-starter`   |
+| React 全栈应用                | React + 云函数 + 静态网站部署+ 云数据库 | `react-demo`      |
+| Nuxt SPA 应用                 | Nuxt SPA + 云函数 + 静态网站部署        | `nuxt-spa`        |
+| Nuxt SSR 应用                 | Nuxt SSR + 服务端部署 + 静态网站部署    | `nuxt-ssr`        |
+| Koa 应用                      | Koa + 服务端部署                        | `koa-starter`     |
+| Express 应用                  | Express + 服务端部署                    | `express-starter` |
+| Nest 应用                     | Nest + 服务端部署                       | `nest-starter`    |
+| Node.js 云函数示例            | Node.js 云函数                          | `node-starter`    |
+| PHP 云函数示例                | PHP 云函数                              | `php-starter`     |
+| Java 云函数示例               | Java 云函数                             | `java-starter`    |
+| VuePresss 网站应用            | VuePresss + 静态网站部署                | `vuepress`        |
+| Node.js 云托管                | Node.js + 云托管部署                    | `node`            |
+| Aqueduct (Dart Server) 云托管 | Aqueduct (Dart Server) + 云托管部署     | `dart`            |
 
 4. **部署应用**
 
@@ -249,15 +249,15 @@ cloudbase framework:deploy
 
 目前 [CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework) 官方提供的插件有：
 
-| 插件                                                                         | 最新版本                                                                                                                                                  | 插件介绍                                                       |
-| ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| [@cloudbase/framework-plugin-website](packages/framework-plugin-website)     | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-website)](https://www.npmjs.com/package/@cloudbase/framework-plugin-website)     | 一键部署网站应用                                               |
-| [@cloudbase/framework-plugin-node](packages/framework-plugin-node)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-node)](https://www.npmjs.com/package/@cloudbase/framework-plugin-node)           | 一键部署 Node 应用（支持底层部署为函数或者 Serverless 云应用） |
-| [@cloudbase/framework-plugin-nuxt](packages/framework-plugin-nuxt)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-nuxt)](https://www.npmjs.com/package/@cloudbase/framework-plugin-nuxt)           | 一键部署 Nuxt SSR 应用                                         |
-| [@cloudbase/framework-plugin-function](packages/framework-plugin-function)   | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-nuxt)](https://www.npmjs.com/package/@cloudbase/framework-plugin-function)       | 一键部署函数资源                                               |
-| [@cloudbase/framework-plugin-container](packages/framework-plugin-container) | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-container)](https://www.npmjs.com/package/@cloudbase/framework-plugin-container) | 一键部署云应用容器服务                                         |
-| [@cloudbase/framework-plugin-dart](packages/framework-plugin-dart)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-dart)](https://www.npmjs.com/package/@cloudbase/framework-plugin-dart)           | 一键部署 Dart 云应用                                           |
-| [@cloudbase/framework-plugin-database](packages/framework-plugin-database)   | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-database)](https://www.npmjs.com/package/@cloudbase/framework-plugin-database)   | 一键声明式部署云开发 NoSQL 云数据库                            |
+| 插件                                                                         | 最新版本                                                                                                                                                  | 插件介绍                                            |
+| ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| [@cloudbase/framework-plugin-website](packages/framework-plugin-website)     | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-website)](https://www.npmjs.com/package/@cloudbase/framework-plugin-website)     | 一键部署网站应用                                    |
+| [@cloudbase/framework-plugin-node](packages/framework-plugin-node)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-node)](https://www.npmjs.com/package/@cloudbase/framework-plugin-node)           | 一键部署 Node 应用（支持底层部署为函数或者 云托管） |
+| [@cloudbase/framework-plugin-nuxt](packages/framework-plugin-nuxt)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-nuxt)](https://www.npmjs.com/package/@cloudbase/framework-plugin-nuxt)           | 一键部署 Nuxt SSR 应用                              |
+| [@cloudbase/framework-plugin-function](packages/framework-plugin-function)   | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-nuxt)](https://www.npmjs.com/package/@cloudbase/framework-plugin-function)       | 一键部署函数资源                                    |
+| [@cloudbase/framework-plugin-container](packages/framework-plugin-container) | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-container)](https://www.npmjs.com/package/@cloudbase/framework-plugin-container) | 一键部署云托管容器服务                              |
+| [@cloudbase/framework-plugin-dart](packages/framework-plugin-dart)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-dart)](https://www.npmjs.com/package/@cloudbase/framework-plugin-dart)           | 一键部署 Dart 云托管                                |
+| [@cloudbase/framework-plugin-database](packages/framework-plugin-database)   | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-database)](https://www.npmjs.com/package/@cloudbase/framework-plugin-database)   | 一键声明式部署云开发 NoSQL 云数据库                 |
 
 ## 愿景
 

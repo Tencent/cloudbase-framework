@@ -5,7 +5,7 @@ import path from "path";
 
 const DEFAULT_INPUTS = {
   uploadType: "package",
-  description: "基于云开发 CloudBase Framework 部署的云应用",
+  description: "基于云开发 CloudBase Framework 部署的云托管",
   isPublic: true,
   flowRatio: 100,
   cpu: 1,
@@ -128,7 +128,7 @@ export interface IFrameworkPluginContainerInputs {
    */
   localAbsolutePath?: string;
   /**
-   * 环境变量键值对，会被注入到云应用的运行时环境变量中
+   * 环境变量键值对，会被注入到云托管的运行时环境变量中
    */
   envVariables?: Record<string, string>;
   /**

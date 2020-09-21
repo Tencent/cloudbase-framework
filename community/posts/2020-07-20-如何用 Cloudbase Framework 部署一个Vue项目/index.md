@@ -11,7 +11,7 @@ tags:
   - Vue
   - ClouBase Framework
   - 静态网站托管
-  - Serverless 云应用
+  - 云托管
 ---
 
 # 如何用 Cloudbase Framework 部署一个 Vue 项目
@@ -20,16 +20,15 @@ tags:
 
 Cloudbase Framework 是云开发官方出品的前后端一体化部署工具。目前已经 **[开源](https://github.com/TencentCloudBase/cloudbase-framework)** 。
 
-关于 Cloudbase Framework 的介绍，bookerzhao（赵兵）发布过一篇 [《**云开发推出「前后端一体化部署工具」CloudBase Framework》**](https://zhuanlan.zhihu.com/p/159302477)。想必大家看完，一定都磨刀霍霍。今天就给大家带来一篇实战文章，如何用Cloudbase Framework部署一个Vue 项目。
-
+关于 Cloudbase Framework 的介绍，bookerzhao（赵兵）发布过一篇 [《**云开发推出「前后端一体化部署工具」CloudBase Framework》**](https://zhuanlan.zhihu.com/p/159302477)。想必大家看完，一定都磨刀霍霍。今天就给大家带来一篇实战文章，如何用 Cloudbase Framework 部署一个 Vue 项目。
 
 ## 准备工作
 
 ### 第一步：确保本地安装了 Node.js
 
-node 版本需要在10以上，如果没有安装，请前往 [官网](https://nodejs.org/en/) 安装，建议选择 LTS 版本。
+node 版本需要在 10 以上，如果没有安装，请前往 [官网](https://nodejs.org/en/) 安装，建议选择 LTS 版本。
 
-### 第二步：拥有腾讯云账号、[开通环境](https://cloud.tencent.com/document/product/876/41391)，获得**环境ID**
+### 第二步：拥有腾讯云账号、[开通环境](https://cloud.tencent.com/document/product/876/41391)，获得**环境 ID**
 
 ### 第三步：安装 Cloudbase CLI
 
@@ -37,7 +36,7 @@ node 版本需要在10以上，如果没有安装，请前往 [官网](https://n
 npm i -g @cloudbase/cli
 ```
 
- 检查是否安装成功。如果有版本输出，就代表安装成功了。
+检查是否安装成功。如果有版本输出，就代表安装成功了。
 
 ```
 cloudbase -v
@@ -56,7 +55,7 @@ cloudbase 命令可以简写成 tcb（Tencent CloudBase 的简称）。
 - 应用配置初始化与部署
 - 云函数相关
 - 文件上传、下载、删除、权限设置
-- HTTP Service相关
+- HTTP Service 相关
 
 ### 第四步：登录 Cloudbase
 
@@ -70,7 +69,6 @@ cloudbase login
 
 准备工作都做好以后，我们就可以着手部署相关的工作了。
 
-
 ## 部署 Vue 应用
 
 总的来说，用 Cloudbase Framework 部署一个 Vue 应用，只需要两步。第一步：初始化项目配置；第二步，部署。
@@ -83,13 +81,13 @@ cloudbase login
 cloudbase init --without-template
 ```
 
- 选择关联环境后，会在项目根目录，生成一个 cloudbasrc.json 文件。云开发环境 ID 会被写进这个文件。
+选择关联环境后，会在项目根目录，生成一个 cloudbasrc.json 文件。云开发环境 ID 会被写进这个文件。
 
 ```json
-{"envId":"static-176d4a"}
+{ "envId": "static-176d4a" }
 ```
 
- 接下来，输入以下命令，进行部署。
+接下来，输入以下命令，进行部署。
 
 ```
 cloudbase framework:deploy
@@ -99,13 +97,13 @@ cloudbase framework:deploy
 
 **这个命令会做以下几件事：**
 
-1）安装插件 [@cloudbase/framework-plugin-website](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-website )。在cloudbaserc.json里，你会发现执行这个命令后，新增了这个插件。
+1）安装插件 [@cloudbase/framework-plugin-website](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-website)。在 cloudbaserc.json 里，你会发现执行这个命令后，新增了这个插件。
 
 ![](https://main.qcloudimg.com/raw/92f36b98595d0fbcc35b59583f6d1fe7.png)
 
-2）读取云开发环境ID
+2）读取云开发环境 ID
 
-3）读取publicPath，并将应用资源托管到`/`下。因为my-vue-app是用vue-cli创建的项目，所以publicPath默认为"/"
+3）读取 publicPath，并将应用资源托管到`/`下。因为 my-vue-app 是用 vue-cli 创建的项目，所以 publicPath 默认为"/"
 
 4）打包
 
@@ -127,7 +125,7 @@ cloudbase framework:deploy
 cloudbase init --template=vue
 ```
 
- 执行命令后，会让你选择关联环境、选择云开发模板（Vue 应用）、输入项目名称。这里，我们的项目名是cloudbase-example。
+执行命令后，会让你选择关联环境、选择云开发模板（Vue 应用）、输入项目名称。这里，我们的项目名是 cloudbase-example。
 
 **需要注意的是，cloudbase 默认会创建一个全栈 Vue 应用，如果你只想要一个静态 Vue 应用，需要手动去掉云函数部分的代码。**
 
@@ -135,7 +133,7 @@ cloudbase init --template=vue
 
 ![``](https://main.qcloudimg.com/raw/0ef39afcb5dc86a880f3110e6dcab964.png)
 
-cloudebaserc.json里，会默认安装两个插件。之前提到的 [@cloudbase/framework-plugin-website ](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-website ) 和 云函数部署相关的 [@cloudbase/framework-plugin-function](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-function)
+cloudebaserc.json 里，会默认安装两个插件。之前提到的 [@cloudbase/framework-plugin-website ](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-website) 和 云函数部署相关的 [@cloudbase/framework-plugin-function](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-function)
 
 ![](https://main.qcloudimg.com/raw/a2acd68f20a7defeb9cc326df91fa273.png)
 
@@ -153,7 +151,7 @@ cloudebaserc.json里，会默认安装两个插件。之前提到的 [@cloudbase
 
 ![](https://main.qcloudimg.com/raw/2d677c81537af4afeab5c4335ac12297.png)
 
-而这个方法，会去调用名为“vue-echo” 的云函数。这个云函数做的就是“echo”的工作，返回一个对象，key名为“event”, value是你传入的对象 `{ "foo": "bar" }`
+而这个方法，会去调用名为“vue-echo” 的云函数。这个云函数做的就是“echo”的工作，返回一个对象，key 名为“event”, value 是你传入的对象 `{ "foo": "bar" }`
 
 ![](https://main.qcloudimg.com/raw/d1caddd5e0ec78542b8882631ea63619.png)
 
@@ -175,18 +173,17 @@ cloudebaserc.json里，会默认安装两个插件。之前提到的 [@cloudbase
 cloudbase framework:deploy
 ```
 
- 部署成功
+部署成功
 
 ![](https://main.qcloudimg.com/raw/aa57d8d728455aec30e74d41b2fe529f.png)
-
 
 ## 待优化的地方
 
 在体验过程中，用户反馈了这些问题，我们之后会逐步优化。
 
-1）初始化新项目时，支持自动安装node_modules
+1）初始化新项目时，支持自动安装 node_modules
 
-目前执行`cloudbase init --template=vue` 时，是不会执行`npm install`的脚本来安装node_modules的。
+目前执行`cloudbase init --template=vue` 时，是不会执行`npm install`的脚本来安装 node_modules 的。
 
 2）初始化项目，支持仅初始化静态 Vue 应用。
 
@@ -194,8 +191,7 @@ cloudbase framework:deploy
 
 3） 优化静态网站托管缓存
 
-将 cloudPath 从 `/a` 更改到  `/b` 时， `/a` 依然能请求到静态资源。而我们期望的是“覆盖”： `/a` 下不能请求到静态资源。
-
+将 cloudPath 从 `/a` 更改到 `/b` 时， `/a` 依然能请求到静态资源。而我们期望的是“覆盖”： `/a` 下不能请求到静态资源。
 
 如果你在部署过程中，遇到了问题，或者希望我们能支持新功能，欢迎 issues 反馈~~
 
@@ -203,4 +199,4 @@ cloudbase framework:deploy
 
 Github 开源地址：https://github.com/TencentCloudBase/cloudbase-framework
 
-欢迎给我们点个star，帮助我们做得更好。
+欢迎给我们点个 star，帮助我们做得更好。

@@ -2,8 +2,9 @@
 
 CloudBase Framework 支持在配置文件 **cloudbaserc.json** 中声明环境变量 `envVariables`，该环境变量可以在应用的运行时中获取到。
 
-目前 CloudBase Framework 所有插件均已支持 `envVariables` 字段，下面分别介绍在云函数、云应用、静态网站部署等插件中注入和读取环境变量的方法。
-> 
+目前 CloudBase Framework 所有插件均已支持 `envVariables` 字段，下面分别介绍在云函数、云托管、静态网站部署等插件中注入和读取环境变量的方法。
+
+>
 
 ## Vue 应用模板（云函数 + 静态网站部署）
 
@@ -55,10 +56,10 @@ CloudBase Framework 支持在配置文件 **cloudbaserc.json** 中声明环境�
 
 ### 读取环境变量
 
-* 在云函数中通过 `process.env` 来获取环境变量
-* 在静态文件中通过读取根目录下的 `/cloudbaseenv.json` 文件的内容来获取环境变量
+- 在云函数中通过 `process.env` 来获取环境变量
+- 在静态文件中通过读取根目录下的 `/cloudbaseenv.json` 文件的内容来获取环境变量
 
-## Node.js 云应用
+## Node.js 云托管
 
 ### 声明环境变量
 
@@ -88,4 +89,4 @@ CloudBase Framework 支持在配置文件 **cloudbaserc.json** 中声明环境�
 
 ### 读取环境变量
 
-* 在云应用中通过 `process.env` 来获取环境变量
+- 在云托管中通过 `process.env` 来获取环境变量
