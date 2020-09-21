@@ -125,9 +125,10 @@
               "description": "环境变量键值对，会被注入到静态网站根目录下的 `/cloudbaseenv.json`",
               "$ref": "#/definitions/Record<string,string>"
             },
-            "runCommand": {
-              "description": "执行 cloudbase framework:run 时，运行的默认指令",
-              "type": "string"
+            "commands": {
+              "description": "自定义命令",
+              "default": "{ build: \"npm run build\" }",
+              "$ref": "#/definitions/Record<string,string>"
             }
           },
           "$schema": "http://json-schema.org/draft-07/schema#"
