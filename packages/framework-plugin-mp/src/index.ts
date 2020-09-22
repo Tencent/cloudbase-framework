@@ -116,8 +116,16 @@ interface IMiniProgramBuildSetting {
   es6?: boolean
   /**
    * 编译设置 - 压缩代码
+   * 
+   * @default true
    */
   minify?: boolean
+  /**
+   * 编译设置 - 开启代码保护
+   * 
+   * @default true
+   */
+  codeProtect?: boolean
 }
 
 const SUPPORT_DEPLOY_MODE = ["upload", "preview"];
@@ -169,7 +177,7 @@ class MiniProgramsPlugin extends Plugin {
       throw new Error(`CloudBase Framework: 不支持的小程序部署模式 '${deployMode}'`);
     }
 
-    if (!fs.existsSync(path.resolve(projectPath, MP_CONFIG_FILENAME))) {
+    if (!fs.existsSync(path.resolve(projectPath, localPath, MP_CONFIG_FILENAME))) {
       throw new Error('项目内找不到小程序配置文件 project.config.json，请在 cloudbaserc.json 中指明小程序应用的项目路径 localPath.');
     }
 
