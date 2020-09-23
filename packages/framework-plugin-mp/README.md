@@ -1,4 +1,4 @@
-<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-database">![Tencent CloudBase Framework Database Plugin](https://main.qcloudimg.com/raw/3de9cef4b6ac7c72f9519f13d063fc13.jpg)</a>
+<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-mp">![Tencent CloudBase Framework MP Plugin](https://main.qcloudimg.com/raw/3de9cef4b6ac7c72f9519f13d063fc13.jpg)</a>
 
 # Tencent CloudBase Framework MiniProgram Plugin
 
