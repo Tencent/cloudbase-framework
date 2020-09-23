@@ -1,4 +1,4 @@
-<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-database">![Tencent CloudBase Framework Database Plugin](https://main.qcloudimg.com/raw/3de9cef4b6ac7c72f9519f13d063fc13.jpg)</a>
+<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-mp">![Tencent CloudBase Framework MP Plugin](https://main.qcloudimg.com/raw/3de9cef4b6ac7c72f9519f13d063fc13.jpg)</a>
 
 # Tencent CloudBase Framework MiniProgram Plugin
 
@@ -51,7 +51,7 @@ cloudbase framework:deploy
           "appid": "",
           "privateKeyPath": "",
           "localPath": "./",
-          "ignores": "[node_modules/**/*]",
+          "ignores": ["node_modules/**/*"],
           "deployMode": "preview",
           "previewOptions": {
             "desc": "CloudBase Framework 一键预览",
@@ -82,11 +82,11 @@ cloudbase framework:deploy
 
 ### `localPath`
 
-选填，小程序项目的本地相对路径，默认值 `./`
+选填，小程序项目 `project.config.json` 所在的本地路径，默认值 `./`
 
 ### `ignores`
 
-选填，小程序应用部署时忽略的文件路径，支持通配符
+选填，小程序应用部署时忽略的文件路径，支持通配符，默认值`["node_modules/**/*"]`
 
 ### `deployMode`
 
@@ -118,7 +118,7 @@ cloudbase framework:deploy
           "appid": "",
           "privateKeyPath": "",
           "localPath": "./",
-          "ignores": "[node_modules/**/*]",
+          "ignores": ["node_modules/**/*"],
           "deployMode": "preview",
           "previewOptions": {
             "desc": "一键预览",
@@ -160,7 +160,7 @@ cloudbase framework:deploy
           "appid": "",
           "privateKeyPath": "",
           "localPath": "./",
-          "ignores": "[node_modules/**/*]",
+          "ignores": ["node_modules/**/*"],
           "deployMode": "upload",
           "uploadOptions": {
             "version": "1.0.0",

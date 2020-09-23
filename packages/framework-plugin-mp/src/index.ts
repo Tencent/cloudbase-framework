@@ -2,6 +2,8 @@ import fs from "fs";
 import path from "path";
 import url from "url";
 
+import { exec } from "child_process";
+import { promisify } from "util";
 import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
 import * as CI from "miniprogram-ci";
 
@@ -28,7 +30,7 @@ interface IFrameworkPluginMiniProgramInputs {
   /**
    * 小程序应用部署时忽略的文件路径，支持通配符
    * 
-   * @default ["node_modules/**\/*"]
+   * @default ["node_modules\/**\/*"]
    */
   ignores?: string[]
   /**
@@ -45,6 +47,12 @@ interface IFrameworkPluginMiniProgramInputs {
    * 上传代码的选项
    */
   uploadOptions?: IMiniProgramUploadOptions
+  /**
+   * 自定义命令
+   * 
+   * @default { build: "cd ./miniprogram && npm install" }
+   */
+  commands?: Record<string, string>;
 }
 
 interface IMiniProgramUploadOptions {
@@ -108,17 +116,25 @@ interface IMiniProgramBuildSetting {
   es6?: boolean
   /**
    * 编译设置 - 压缩代码
+   * 
+   * @default true
    */
   minify?: boolean
+  /**
+   * 编译设置 - 开启代码保护
+   * 
+   * @default true
+   */
+  codeProtect?: boolean
 }
 
 const SUPPORT_DEPLOY_MODE = ["upload", "preview"];
+const MP_CONFIG_FILENAME = "project.config.json";
+const NOT_NPM_ERROR = "__NO_NODE_MODULES__ NPM packages not found";
 
 class MiniProgramsPlugin extends Plugin {
   protected resolvedInputs: IFrameworkPluginMiniProgramInputs;
   protected buildOutput: any;
-  // ci
-  protected ciProject: any;
 
   constructor(
     public name: string,
@@ -130,7 +146,7 @@ class MiniProgramsPlugin extends Plugin {
     const DEFAULT_INPUTS = {
       localPath: './',
       deployMode: 'preview',
-      ignores: ["node_modules/**\/*"]
+      ignores: ["node_modules/**/*"]
     };
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
   }
@@ -144,13 +160,14 @@ class MiniProgramsPlugin extends Plugin {
   }
 
   initCI() {
-    const { appid, privateKeyPath, localPath, ignores, deployMode } = this.resolvedInputs;
+    const { projectPath } = this.api;
+    const { appid, privateKeyPath, localPath, deployMode } = this.resolvedInputs;
 
     if (!appid) {
       throw new Error('小程序 appid 不能为空，请在 cloudbaserc.json 中指明 appid. 小程序 appid 一般可以在 project.config.json 中找到');
     }
 
-    if (!privateKeyPath || !fs.existsSync(path.join(this.api.projectPath, privateKeyPath))) {
+    if (!privateKeyPath || !fs.existsSync(path.resolve(projectPath, privateKeyPath))) {
       throw new Error('找不到小程序的部署私钥，请在 cloudbaserc.json 指明私钥文件路径 privateKeyPath. 小程序的部署私钥可在微信公众平台上登录后获取');
     }
 
@@ -158,13 +175,9 @@ class MiniProgramsPlugin extends Plugin {
       throw new Error(`CloudBase Framework: 不支持的小程序部署模式 '${deployMode}'`);
     }
 
-    this.ciProject = new CI.Project({
-      appid,
-      type: 'miniProgram',
-      projectPath: path.join(this.api.projectPath, localPath),
-      privateKeyPath,
-      ignores
-    });
+    if (!fs.existsSync(path.resolve(projectPath, localPath, MP_CONFIG_FILENAME))) {
+      throw new Error('项目内找不到小程序配置文件 project.config.json，请在 cloudbaserc.json 中指明小程序应用的项目路径 localPath.');
+    }
   }
 
   /**
@@ -187,6 +200,32 @@ class MiniProgramsPlugin extends Plugin {
    */
   async build() {
     this.api.logger.debug("MiniProgramPlugin: build", this.resolvedInputs);
+
+    const {
+      build: buildCommand,
+      install: installCommand
+    } = this.resolvedInputs.commands || {};
+
+    /**
+     * 安装依赖
+     */
+    if (installCommand) {
+      this.api.logger.info(installCommand);
+      await promisify(exec)(installCommand);
+    }
+
+    /**
+     * 构建
+     */
+    if (buildCommand) {
+      this.api.logger.info(buildCommand);
+      await promisify(exec)(buildCommand);
+    }
+
+    /**
+     * 编译小程序NPM
+     */
+    await this.ciPackNpm();
   }
 
   /**
@@ -268,7 +307,7 @@ class MiniProgramsPlugin extends Plugin {
       desc,
       setting,
       qrcodeFormat: 'image',
-      qrcodeOutputDest: path.join(this.api.projectPath, qrcodeOutputPath),
+      qrcodeOutputDest: path.resolve(this.api.projectPath, qrcodeOutputPath),
       pagePath,
       searchQuery,
       scene
@@ -280,12 +319,40 @@ class MiniProgramsPlugin extends Plugin {
     if (result?.subPackageInfo) {
       const link = this.api.genClickableLink(url.format({
         protocol: 'file:',
-        host: path.join(this.api.projectPath, qrcodeOutputPath)
+        host: path.resolve(this.api.projectPath, qrcodeOutputPath)
       }));
       this.api.logger.info(`${this.api.emoji("🚀")} 小程序（预览版）部署成功，预览二维码地址：${link}`);
     } else {
       throw new Error(`小程序（预览版）部署失败 ${result}`);
     }
+  }
+
+  async ciPackNpm() {
+    // 需要暂时关掉 stdout, 避免 miniprogram-ci 的内容打印到控制台
+    pauseConsoleOutput();
+    const result = await CI.packNpm(this.ciProject, {
+      reporter: (infos) => { console.log(infos) }
+    }).catch((err) => {
+      return err;
+    })
+    resumeConsoleOutput();
+
+    if (result instanceof Error && !(result.message.startsWith(NOT_NPM_ERROR))) {
+      throw new Error(`小程序 NPM 构建失败 ${result}`);
+    }
+  }
+
+  get ciProject() {
+    const { projectPath } = this.api;
+    const { appid, localPath, privateKeyPath, ignores } = this.resolvedInputs;
+
+    return new CI.Project({
+      appid,
+      type: 'miniProgram',
+      projectPath: path.resolve(projectPath, localPath),
+      privateKeyPath: path.resolve(projectPath, privateKeyPath),
+      ignores
+    });
   }
 }
 
