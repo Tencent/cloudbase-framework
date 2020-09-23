@@ -30,7 +30,7 @@ interface IFrameworkPluginMiniProgramInputs {
   /**
    * 小程序应用部署时忽略的文件路径，支持通配符
    * 
-   * @default ["node_modules/**\/*"]
+   * @default ["node_modules\/**\/*"]
    */
   ignores?: string[]
   /**
@@ -135,8 +135,6 @@ const NOT_NPM_ERROR = "__NO_NODE_MODULES__ NPM packages not found";
 class MiniProgramsPlugin extends Plugin {
   protected resolvedInputs: IFrameworkPluginMiniProgramInputs;
   protected buildOutput: any;
-  // ci
-  protected ciProject: any;
 
   constructor(
     public name: string,
@@ -148,7 +146,7 @@ class MiniProgramsPlugin extends Plugin {
     const DEFAULT_INPUTS = {
       localPath: './',
       deployMode: 'preview',
-      ignores: ["node_modules/**\/*"]
+      ignores: ["node_modules/**/*"]
     };
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
   }
@@ -163,7 +161,7 @@ class MiniProgramsPlugin extends Plugin {
 
   initCI() {
     const { projectPath } = this.api;
-    const { appid, privateKeyPath, localPath, ignores, deployMode } = this.resolvedInputs;
+    const { appid, privateKeyPath, localPath, deployMode } = this.resolvedInputs;
 
     if (!appid) {
       throw new Error('小程序 appid 不能为空，请在 cloudbaserc.json 中指明 appid. 小程序 appid 一般可以在 project.config.json 中找到');
@@ -180,14 +178,6 @@ class MiniProgramsPlugin extends Plugin {
     if (!fs.existsSync(path.resolve(projectPath, localPath, MP_CONFIG_FILENAME))) {
       throw new Error('项目内找不到小程序配置文件 project.config.json，请在 cloudbaserc.json 中指明小程序应用的项目路径 localPath.');
     }
-
-    this.ciProject = new CI.Project({
-      appid,
-      type: 'miniProgram',
-      projectPath: path.resolve(this.api.projectPath, localPath),
-      privateKeyPath,
-      ignores
-    });
   }
 
   /**
@@ -212,14 +202,30 @@ class MiniProgramsPlugin extends Plugin {
     this.api.logger.debug("MiniProgramPlugin: build", this.resolvedInputs);
 
     const {
-      commands
-    } = this.resolvedInputs;
+      build: buildCommand,
+      install: installCommand
+    } = this.resolvedInputs.commands || {};
 
-    const command = commands?.build
-    if (command) {
-      this.api.logger.info(command);
-      await promisify(exec)(command);
+    /**
+     * 安装依赖
+     */
+    if (installCommand) {
+      this.api.logger.info(installCommand);
+      await promisify(exec)(installCommand);
     }
+
+    /**
+     * 构建
+     */
+    if (buildCommand) {
+      this.api.logger.info(buildCommand);
+      await promisify(exec)(buildCommand);
+    }
+
+    /**
+     * 编译小程序NPM
+     */
+    await this.ciPackNpm();
   }
 
   /**
@@ -236,8 +242,6 @@ class MiniProgramsPlugin extends Plugin {
    */
   async deploy() {
     this.api.logger.debug("MiniProgramPlugin: deploy", this.resolvedInputs, this.buildOutput);
-
-    await this.ciPackNpm();
 
     const { deployMode } = this.resolvedInputs;
     switch(deployMode) {
@@ -336,6 +340,19 @@ class MiniProgramsPlugin extends Plugin {
     if (result instanceof Error && !(result.message.startsWith(NOT_NPM_ERROR))) {
       throw new Error(`小程序 NPM 构建失败 ${result}`);
     }
+  }
+
+  get ciProject() {
+    const { projectPath } = this.api;
+    const { appid, localPath, privateKeyPath, ignores } = this.resolvedInputs;
+
+    return new CI.Project({
+      appid,
+      type: 'miniProgram',
+      projectPath: path.resolve(projectPath, localPath),
+      privateKeyPath: path.resolve(projectPath, privateKeyPath),
+      ignores
+    });
   }
 }
 
