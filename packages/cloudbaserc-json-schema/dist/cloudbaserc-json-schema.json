@@ -11,7 +11,10 @@
     "version": {
       "type": "string",
       "description": "version 表示当前配置文件的版本，目前支持的版本号有：\"2.0\"。当 version 字段不存在时，默认当前配置文件为 \"1.0\" 版本。",
-      "enum": ["1.0", "2.0"],
+      "enum": [
+        "1.0",
+        "2.0"
+      ],
       "default": "2.0"
     },
     "envId": {
@@ -42,11 +45,82 @@
               "$ref": "#/definitions/pluginConfig"
             }
           }
+        },
+        "hooks": {
+          "type": "object",
+          "title": "生命周期钩子配置",
+          "description": "Framework 1.2.x 版本支持，CloudBase Framework 生命周期钩子",
+          "examples": [
+            {
+              "preDeploy": {
+                "type": "execCommand",
+                "commands": [
+                  "echo 1"
+                ]
+              },
+              "postDeploy": {
+                "type": "callFunction",
+                "functions": [
+                  {
+                    "functionName": "function1",
+                    "params": {
+                      "foo": 1
+                    }
+                  },
+                  {
+                    "functionName": "function2",
+                    "params": {
+                      "bar": 2
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "properties": {
+            "preDeploy": {
+              "type": "object",
+              "title": "preDeploy 钩子",
+              "description": "在执行 framework deploy 之前执行的钩子",
+              "default": {},
+              "examples": [
+                {
+                  "type": "execCommand",
+                  "commands": [
+                    "echo 1"
+                  ]
+                }
+              ],
+              "required": [
+                "type",
+                "commands"
+              ],
+              "$ref": "#/definitions/hooksExecCommand",
+              "additionalProperties": true
+            },
+            "postDeploy": {
+              "type": "object",
+              "title": "postDeploy 钩子",
+              "description": "在执行 framework deploy 部署资源成功后执行的钩子",
+              "default": {},
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/hooksExecCommand"
+                },
+                {
+                  "$ref": "#/definitions/hooksCallFunction"
+                }
+              ],
+              "additionalProperties": true
+            }
+          }
         }
       }
     }
   },
-  "required": ["envId"],
+  "required": [
+    "envId"
+  ],
   "definitions": {
     "pluginConfig": {
       "anyOf": [
@@ -82,13 +156,129 @@
         }
       ]
     },
+    "hooksExecCommand": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "title": "类型",
+          "description": "钩子的类型",
+          "default": "execCommand",
+          "examples": [
+            "execCommand"
+          ]
+        },
+        "commands": {
+          "type": "array",
+          "description": "要执行的命令行命令",
+          "default": [],
+          "examples": [
+            [
+              "echo 1"
+            ]
+          ],
+          "additionalItems": true,
+          "items": {
+            "anyOf": [
+              {
+                "type": "string",
+                "title": "命令行命令",
+                "default": "",
+                "examples": [
+                  "echo 1"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    "hooksCallFunction": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "title": "类型",
+          "description": "钩子的类型",
+          "default": "callFunction",
+          "examples": [
+            "callFunction"
+          ]
+        },
+        "functions": {
+          "type": "array",
+          "title": "要调用的函数及参数",
+          "default": [],
+          "examples": [
+            [
+              {
+                "functionName": "function1",
+                "params": {
+                  "foo": 1
+                }
+              },
+              {
+                "functionName": "function2",
+                "params": {
+                  "bar": 2
+                }
+              }
+            ]
+          ],
+          "additionalItems": true,
+          "items": {
+            "anyOf": [
+              {
+                "type": "object",
+                "description": "函数名及参数配置",
+                "default": {},
+                "examples": [
+                  {
+                    "functionName": "function1",
+                    "params": {
+                      "foo": 1
+                    }
+                  }
+                ],
+                "required": [
+                  "functionName"
+                ],
+                "properties": {
+                  "functionName": {
+                    "type": "string",
+                    "title": "云函数的名称",
+                    "default": "",
+                    "examples": [
+                      "function1"
+                    ]
+                  },
+                  "params": {
+                    "type": "object",
+                    "title": "调用函数时的参数",
+                    "description": "JSON类型",
+                    "default": {},
+                    "examples": [
+                      {
+                        "foo": 1
+                      }
+                    ],
+                    "additionalProperties": true
+                  }
+                },
+                "additionalProperties": true
+              }
+            ]
+          }
+        }
+      }
+    },
     "IFrameworkPluginWebsiteInputsConfig": {
       "additionalProperties": false,
       "type": "object",
       "properties": {
         "use": {
           "type": "string",
-          "enum": ["@cloudbase/framework-plugin-website"]
+          "enum": [
+            "@cloudbase/framework-plugin-website"
+          ]
         },
         "inputs": {
           "description": "导出接口用于生成 JSON Schema 来进行智能提示",
@@ -115,7 +305,12 @@
             },
             "ignore": {
               "description": "静态资源部署时忽略的文件路径，支持通配符",
-              "default": [".git", ".github", "node_modules", "cloudbaserc.js"],
+              "default": [
+                ".git",
+                ".github",
+                "node_modules",
+                "cloudbaserc.js"
+              ],
               "type": "array",
               "items": {
                 "type": "string"
@@ -134,7 +329,10 @@
           "$schema": "http://json-schema.org/draft-07/schema#"
         }
       },
-      "required": ["use", "inputs"]
+      "required": [
+        "use",
+        "inputs"
+      ]
     },
     "Record<string,string>": {
       "type": "object"
@@ -145,7 +343,9 @@
       "properties": {
         "use": {
           "type": "string",
-          "enum": ["@cloudbase/framework-plugin-node"]
+          "enum": [
+            "@cloudbase/framework-plugin-node"
+          ]
         },
         "inputs": {
           "description": "导出接口用于生成 JSON Schema 来进行智能提示",
@@ -154,7 +354,10 @@
             "runtime": {
               "description": "Node 运行时版本",
               "default": "Nodejs10.15",
-              "enum": ["Nodejs10.15", "Nodejs8.9"],
+              "enum": [
+                "Nodejs10.15",
+                "Nodejs8.9"
+              ],
               "type": "string"
             },
             "entry": {
@@ -184,7 +387,10 @@
             "platform": {
               "description": "底层使用平台，支持 `container`（ 云托管） 和 `function` （云函数）",
               "default": "function",
-              "enum": ["container", "function"],
+              "enum": [
+                "container",
+                "function"
+              ],
               "type": "string"
             },
             "containerOptions": {
@@ -202,11 +408,17 @@
               "type": "boolean"
             }
           },
-          "required": ["name", "path"],
+          "required": [
+            "name",
+            "path"
+          ],
           "$schema": "http://json-schema.org/draft-07/schema#"
         }
       },
-      "required": ["use", "inputs"]
+      "required": [
+        "use",
+        "inputs"
+      ]
     },
     "IFrameworkPluginContainerInputs": {
       "description": "导出接口用于生成 JSON Schema 来进行智能提示",
@@ -214,7 +426,11 @@
       "properties": {
         "uploadType": {
           "description": "容器镜像代码来源类别\n\n支持`package|image|repository`3 种，分别代表本地代码包、镜像地址和 git 仓库地址。默认是`package`, 选择`image`时需要填写 `imageInfo`, 选择 `repository` 需要填写`codeDetail`",
-          "enum": ["image", "package", "repository"],
+          "enum": [
+            "image",
+            "package",
+            "repository"
+          ],
           "type": "string"
         },
         "serviceName": {
@@ -264,7 +480,9 @@
         },
         "policyType": {
           "description": "策略类型(cpu)，默认值 `cpu`",
-          "enum": ["cpu"],
+          "enum": [
+            "cpu"
+          ],
           "type": "string"
         },
         "policyThreshold": {
@@ -316,7 +534,10 @@
           "$ref": "#/definitions/IContainerCodeDetail"
         }
       },
-      "required": ["serviceName", "servicePath"]
+      "required": [
+        "serviceName",
+        "servicePath"
+      ]
     },
     "IContainerImageInfo": {
       "type": "object",
@@ -326,7 +547,9 @@
           "type": "string"
         }
       },
-      "required": ["imageUrl"]
+      "required": [
+        "imageUrl"
+      ]
     },
     "IContainerCodeDetail": {
       "type": "object",
@@ -340,7 +563,9 @@
           "type": "string"
         }
       },
-      "required": ["url"]
+      "required": [
+        "url"
+      ]
     },
     "IFrameworkPluginNuxtInputsConfig": {
       "additionalProperties": false,
@@ -348,7 +573,9 @@
       "properties": {
         "use": {
           "type": "string",
-          "enum": ["@cloudbase/framework-plugin-nuxt"]
+          "enum": [
+            "@cloudbase/framework-plugin-nuxt"
+          ]
         },
         "inputs": {
           "description": "导出接口用于生成 JSON Schema 来进行智能提示",
@@ -382,14 +609,20 @@
             "runtime": {
               "description": "函数运行时版本",
               "default": "\"Nodejs10.15",
-              "enum": ["Nodejs10.15", "Nodejs8.9"],
+              "enum": [
+                "Nodejs10.15",
+                "Nodejs8.9"
+              ],
               "type": "string"
             }
           },
           "$schema": "http://json-schema.org/draft-07/schema#"
         }
       },
-      "required": ["use", "inputs"]
+      "required": [
+        "use",
+        "inputs"
+      ]
     },
     "IFrameworkPluginFunctionInputsConfig": {
       "additionalProperties": false,
@@ -397,7 +630,9 @@
       "properties": {
         "use": {
           "type": "string",
-          "enum": ["@cloudbase/framework-plugin-function"]
+          "enum": [
+            "@cloudbase/framework-plugin-function"
+          ]
         },
         "inputs": {
           "description": "导出接口用于生成 JSON Schema 来进行智能提示",
@@ -423,7 +658,10 @@
           "$schema": "http://json-schema.org/draft-07/schema#"
         }
       },
-      "required": ["use", "inputs"]
+      "required": [
+        "use",
+        "inputs"
+      ]
     },
     "ICloudFunction": {
       "type": "object",
@@ -448,7 +686,13 @@
         "runtime": {
           "description": "运行时环境配置，可选值： `Nodejs8.9, Nodejs10.15 Php7, Java8, Go1`",
           "default": "Nodejs10.15",
-          "enum": ["Go1", "Java8", "Nodejs10.15", "Nodejs8.9", "Php7"],
+          "enum": [
+            "Go1",
+            "Java8",
+            "Nodejs10.15",
+            "Nodejs8.9",
+            "Php7"
+          ],
           "type": "string"
         },
         "vpc": {
@@ -474,7 +718,9 @@
           }
         }
       },
-      "required": ["name"]
+      "required": [
+        "name"
+      ]
     },
     "Record<string,string|number|boolean>": {
       "type": "object"
@@ -491,7 +737,10 @@
           "type": "string"
         }
       },
-      "required": ["subnetId", "vpcId"]
+      "required": [
+        "subnetId",
+        "vpcId"
+      ]
     },
     "IFrameworkPluginContainerInputsConfig": {
       "additionalProperties": false,
@@ -499,7 +748,9 @@
       "properties": {
         "use": {
           "type": "string",
-          "enum": ["@cloudbase/framework-plugin-container"]
+          "enum": [
+            "@cloudbase/framework-plugin-container"
+          ]
         },
         "inputs": {
           "description": "导出接口用于生成 JSON Schema 来进行智能提示",
@@ -507,7 +758,11 @@
           "properties": {
             "uploadType": {
               "description": "容器镜像代码来源类别\n\n支持`package|image|repository`3 种，分别代表本地代码包、镜像地址和 git 仓库地址。默认是`package`, 选择`image`时需要填写 `imageInfo`, 选择 `repository` 需要填写`codeDetail`",
-              "enum": ["image", "package", "repository"],
+              "enum": [
+                "image",
+                "package",
+                "repository"
+              ],
               "type": "string"
             },
             "serviceName": {
@@ -557,7 +812,9 @@
             },
             "policyType": {
               "description": "策略类型(cpu)，默认值 `cpu`",
-              "enum": ["cpu"],
+              "enum": [
+                "cpu"
+              ],
               "type": "string"
             },
             "policyThreshold": {
@@ -609,11 +866,17 @@
               "$ref": "#/definitions/IContainerCodeDetail"
             }
           },
-          "required": ["serviceName", "servicePath"],
+          "required": [
+            "serviceName",
+            "servicePath"
+          ],
           "$schema": "http://json-schema.org/draft-07/schema#"
         }
       },
-      "required": ["use", "inputs"]
+      "required": [
+        "use",
+        "inputs"
+      ]
     },
     "IFrameworkPluginDartInputsConfig": {
       "additionalProperties": false,
@@ -621,7 +884,9 @@
       "properties": {
         "use": {
           "type": "string",
-          "enum": ["@cloudbase/framework-plugin-dart"]
+          "enum": [
+            "@cloudbase/framework-plugin-dart"
+          ]
         },
         "inputs": {
           "description": "导出接口用于生成 JSON Schema 来进行智能提示",
@@ -657,11 +922,17 @@
               "type": "boolean"
             }
           },
-          "required": ["serviceName", "servicePath"],
+          "required": [
+            "serviceName",
+            "servicePath"
+          ],
           "$schema": "http://json-schema.org/draft-07/schema#"
         }
       },
-      "required": ["use", "inputs"]
+      "required": [
+        "use",
+        "inputs"
+      ]
     },
     "IFrameworkPluginDatabaseInputsConfig": {
       "additionalProperties": false,
@@ -669,7 +940,9 @@
       "properties": {
         "use": {
           "type": "string",
-          "enum": ["@cloudbase/framework-plugin-database"]
+          "enum": [
+            "@cloudbase/framework-plugin-database"
+          ]
         },
         "inputs": {
           "description": "导出接口用于生成 JSON Schema 来进行智能提示",
@@ -683,11 +956,16 @@
               }
             }
           },
-          "required": ["collections"],
+          "required": [
+            "collections"
+          ],
           "$schema": "http://json-schema.org/draft-07/schema#"
         }
       },
-      "required": ["use", "inputs"]
+      "required": [
+        "use",
+        "inputs"
+      ]
     },
     "ICollectionInputs": {
       "type": "object",
@@ -720,7 +998,13 @@
         },
         "aclTag": {
           "description": "权限标签。包含以下取值： READONLY：所有用户可读，仅创建者和管理员可写 PRIVATE：仅创建者及管理员可读写 ADMINWRITE：所有用户可读，仅管理员可写 ADMINONLY：仅管理员可读写 CUSTOM：自定义安全规则",
-          "enum": ["ADMINONLY", "ADMINWRITE", "CUSTOM", "PRIVATE", "READONLY"],
+          "enum": [
+            "ADMINONLY",
+            "ADMINWRITE",
+            "CUSTOM",
+            "PRIVATE",
+            "READONLY"
+          ],
           "type": "string"
         },
         "aclRule": {
@@ -728,7 +1012,9 @@
           "type": "string"
         }
       },
-      "required": ["collectionName"]
+      "required": [
+        "collectionName"
+      ]
     },
     "ICreateIndex": {
       "type": "object",
@@ -751,7 +1037,11 @@
           }
         }
       },
-      "required": ["keys", "name", "unique"]
+      "required": [
+        "keys",
+        "name",
+        "unique"
+      ]
     },
     "IIndexKey": {
       "type": "object",
@@ -764,11 +1054,18 @@
         },
         "direction": {
           "description": "字段排序，可枚举值：-1（降序）、1（升序）、2dsphere（地理位置）",
-          "enum": ["-1", "1", "2dsphere"],
+          "enum": [
+            "-1",
+            "1",
+            "2dsphere"
+          ],
           "type": "string"
         }
       },
-      "required": ["direction", "name"]
+      "required": [
+        "direction",
+        "name"
+      ]
     },
     "IDropIndex": {
       "type": "object",
@@ -778,7 +1075,9 @@
           "type": "string"
         }
       },
-      "required": ["name"]
+      "required": [
+        "name"
+      ]
     },
     "IFrameworkPluginDenoInputsConfig": {
       "additionalProperties": false,
@@ -786,7 +1085,9 @@
       "properties": {
         "use": {
           "type": "string",
-          "enum": ["@cloudbase/framework-plugin-deno"]
+          "enum": [
+            "@cloudbase/framework-plugin-deno"
+          ]
         },
         "inputs": {
           "description": "导出接口用于生成 JSON Schema 来进行智能提示",
@@ -826,7 +1127,10 @@
           "$schema": "http://json-schema.org/draft-07/schema#"
         }
       },
-      "required": ["use", "inputs"]
+      "required": [
+        "use",
+        "inputs"
+      ]
     },
     "IFrameworkPluginNextInputsConfig": {
       "additionalProperties": false,
@@ -834,7 +1138,9 @@
       "properties": {
         "use": {
           "type": "string",
-          "enum": ["@cloudbase/framework-plugin-next"]
+          "enum": [
+            "@cloudbase/framework-plugin-next"
+          ]
         },
         "inputs": {
           "description": "导出接口用于生成 JSON Schema 来进行智能提示",
@@ -863,14 +1169,20 @@
             "runtime": {
               "description": "函数运行时版本",
               "default": "\"Nodejs10.15",
-              "enum": ["Nodejs10.15", "Nodejs8.9"],
+              "enum": [
+                "Nodejs10.15",
+                "Nodejs8.9"
+              ],
               "type": "string"
             }
           },
           "$schema": "http://json-schema.org/draft-07/schema#"
         }
       },
-      "required": ["use", "inputs"]
+      "required": [
+        "use",
+        "inputs"
+      ]
     },
     "IFrameworkPluginMiniProgramInputsConfig": {
       "additionalProperties": false,
@@ -878,7 +1190,9 @@
       "properties": {
         "use": {
           "type": "string",
-          "enum": ["@cloudbase/framework-plugin-mp"]
+          "enum": [
+            "@cloudbase/framework-plugin-mp"
+          ]
         },
         "inputs": {
           "description": "导出接口用于生成 JSON Schema 来进行智能提示",
@@ -900,7 +1214,9 @@
             },
             "ignores": {
               "description": "小程序应用部署时忽略的文件路径，支持通配符",
-              "default": ["node_modules/**/*"],
+              "default": [
+                "node_modules/**/*"
+              ],
               "type": "array",
               "items": {
                 "type": "string"
@@ -909,7 +1225,10 @@
             "deployMode": {
               "description": "小程序应用的部署模式",
               "default": "preview",
-              "enum": ["preview", "upload"],
+              "enum": [
+                "preview",
+                "upload"
+              ],
               "type": "string"
             },
             "previewOptions": {
@@ -921,11 +1240,18 @@
               "$ref": "#/definitions/IMiniProgramUploadOptions"
             }
           },
-          "required": ["appid", "localPath", "privateKeyPath"],
+          "required": [
+            "appid",
+            "localPath",
+            "privateKeyPath"
+          ],
           "$schema": "http://json-schema.org/draft-07/schema#"
         }
       },
-      "required": ["use", "inputs"]
+      "required": [
+        "use",
+        "inputs"
+      ]
     },
     "IMiniProgramPreviewOptions": {
       "type": "object",

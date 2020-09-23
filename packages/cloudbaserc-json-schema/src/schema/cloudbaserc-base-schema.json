@@ -42,6 +42,68 @@
               "$ref": "#/definitions/pluginConfig"
             }
           }
+        },
+        "hooks": {
+          "type": "object",
+          "title": "生命周期钩子配置",
+          "description": "Framework 1.2.x 版本支持，CloudBase Framework 生命周期钩子",
+          "examples": [
+            {
+              "preDeploy": {
+                "type": "execCommand",
+                "commands": ["echo 1"]
+              },
+              "postDeploy": {
+                "type": "callFunction",
+                "functions": [
+                  {
+                    "functionName": "function1",
+                    "params": {
+                      "foo": 1
+                    }
+                  },
+                  {
+                    "functionName": "function2",
+                    "params": {
+                      "bar": 2
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "properties": {
+            "preDeploy": {
+              "type": "object",
+              "title": "preDeploy 钩子",
+              "description": "在执行 framework deploy 之前执行的钩子",
+              "default": {},
+              "examples": [
+                {
+                  "type": "execCommand",
+                  "commands": ["echo 1"]
+                }
+              ],
+              "required": ["type", "commands"],
+              "$ref": "#/definitions/hooksExecCommand",
+              "additionalProperties": true
+            },
+            "postDeploy": {
+              "type": "object",
+              "title": "postDeploy 钩子",
+              "description": "在执行 framework deploy 部署资源成功后执行的钩子",
+              "default": {},
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/hooksExecCommand"
+                },
+                {
+                  "$ref": "#/definitions/hooksCallFunction"
+                }
+              ],
+              "additionalProperties": true
+            }
+          }
         }
       }
     }
@@ -50,6 +112,106 @@
   "definitions": {
     "pluginConfig": {
       "anyOf": []
+    },
+    "hooksExecCommand": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "title": "类型",
+          "description": "钩子的类型",
+          "default": "execCommand",
+          "examples": ["execCommand"]
+        },
+        "commands": {
+          "type": "array",
+          "description": "要执行的命令行命令",
+          "default": [],
+          "examples": [["echo 1"]],
+          "additionalItems": true,
+          "items": {
+            "anyOf": [
+              {
+                "type": "string",
+                "title": "命令行命令",
+                "default": "",
+                "examples": ["echo 1"]
+              }
+            ]
+          }
+        }
+      }
+    },
+    "hooksCallFunction": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "title": "类型",
+          "description": "钩子的类型",
+          "default": "callFunction",
+          "examples": ["callFunction"]
+        },
+        "functions": {
+          "type": "array",
+          "title": "要调用的函数及参数",
+          "default": [],
+          "examples": [
+            [
+              {
+                "functionName": "function1",
+                "params": {
+                  "foo": 1
+                }
+              },
+              {
+                "functionName": "function2",
+                "params": {
+                  "bar": 2
+                }
+              }
+            ]
+          ],
+          "additionalItems": true,
+          "items": {
+            "anyOf": [
+              {
+                "type": "object",
+                "description": "函数名及参数配置",
+                "default": {},
+                "examples": [
+                  {
+                    "functionName": "function1",
+                    "params": {
+                      "foo": 1
+                    }
+                  }
+                ],
+                "required": ["functionName"],
+                "properties": {
+                  "functionName": {
+                    "type": "string",
+                    "title": "云函数的名称",
+                    "default": "",
+                    "examples": ["function1"]
+                  },
+                  "params": {
+                    "type": "object",
+                    "title": "调用函数时的参数",
+                    "description": "JSON类型",
+                    "default": {},
+                    "examples": [
+                      {
+                        "foo": 1
+                      }
+                    ],
+                    "additionalProperties": true
+                  }
+                },
+                "additionalProperties": true
+              }
+            ]
+          }
+        }
+      }
     }
   }
 }
