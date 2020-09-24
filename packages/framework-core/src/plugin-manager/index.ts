@@ -266,20 +266,33 @@ export default class PluginManager {
   }
 
   async installPlugins() {
+    const pattern = /^(((@[^/]+)\/)?[^@]+)(@(.*))?$/;
+
     if (this.pluginInstallState || process.env.CLOUDBASE_FX_ENV === "dev") {
       return true;
     } else {
       const packageInfo = this.plugins.reduce((prev, curr) => {
-        let version = "latest";
+        const matches = pattern.exec(curr.name);
 
-        // 官方插件的版本，跟内核版本相同
-        if (curr.name.match(/^@cloudbase/)) {
+        if (!matches) {
+          throw new Error(`错误的插件名${curr.name}`);
+        }
+
+        let version;
+
+        const [, pkgName, , scope, , pkgVersion] = matches;
+
+        // 如指定版本，按照指定的版本
+        if (pkgVersion) {
+          version = pkgVersion;
+          // 官方插件的版本，跟内核版本相同
+        } else if (scope === "@cloudbase") {
           version = (corePackageInfo as any).version;
         } else {
           // 其他插件，取最新版本
           version = "latest";
         }
-        (prev as any)[curr.name] = version;
+        (prev as any)[pkgName] = version;
         return prev;
       }, {});
       await this.installPackage(packageInfo);
