@@ -13,6 +13,7 @@ import Context from "./context";
 import { CloudbaseFrameworkConfig } from "./types";
 import getLogger from "./logger";
 import { SamManager } from "./sam";
+import Hooks from "./hooks";
 
 export { default as Plugin } from "./plugin";
 export { default as PluginServiceApi } from "./plugin-service-api";
@@ -125,21 +126,33 @@ Framework`,
     throw new Error(`CloudBase Framework: not support command '${command}'`);
   }
 
+  const hooks = new Hooks(appConfig.hooks || {}, projectPath, samMeta);
+
   if (command === "deploy") {
-    await pluginManager.init(module);
-    await pluginManager.build(module);
-    const compileResult = await pluginManager.compile(module);
-    samManager.generate(samMeta, JSON.parse(JSON.stringify(compileResult)));
+    await hooks.callHook("preDeploy");
+    await compile();
     await samManager.install();
     await pluginManager.deploy(module);
+    await hooks.callHook("postDeploy");
   } else if (command === "compile") {
+    await hooks.callHook("preDeploy");
+    await compile();
+  } else if (command === "run") {
+    await pluginManager.run(module, params?.runCommandKey);
+  }
+
+  async function compile() {
     await pluginManager.init(module);
     await pluginManager.build(module);
 
     const compileResult = await pluginManager.compile(module);
-    samManager.generate(samMeta, JSON.parse(JSON.stringify(compileResult)));
-  } else if (command === "run") {
-    await pluginManager.run(module, params?.runCommandKey);
+
+    await hooks.callHook("postCompile");
+    const hooksSAM = hooks.genSAM();
+
+    const samSections = [...compileResult, hooksSAM];
+
+    samManager.generate(samMeta, JSON.parse(JSON.stringify(samSections)));
   }
 
   logger.info("✨ done");

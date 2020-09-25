@@ -66,7 +66,7 @@ export class SamManager {
     if (!Object.keys(template.Resources).length) {
       return this.clear();
     }
-    
+
     try {
       try {
         logger.debug("sam:install", template);
