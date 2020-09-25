@@ -608,12 +608,32 @@
             },
             "runtime": {
               "description": "函数运行时版本",
-              "default": "\"Nodejs10.15",
+              "default": "Nodejs10.15",
               "enum": [
                 "Nodejs10.15",
                 "Nodejs8.9"
               ],
               "type": "string"
+            },
+            "memory": {
+              "description": "函数运行时内存配置",
+              "default": 128,
+              "enum": [
+                1024,
+                128,
+                2048,
+                256,
+                512
+              ],
+              "type": "number"
+            },
+            "timeout": {
+              "description": "函数超时时间（1 - 60S）",
+              "type": "number"
+            },
+            "envVariables": {
+              "description": "包含环境变量的键值对",
+              "$ref": "#/definitions/Record<string,string|number|boolean>"
             }
           },
           "$schema": "http://json-schema.org/draft-07/schema#"
@@ -623,6 +643,9 @@
         "use",
         "inputs"
       ]
+    },
+    "Record<string,string|number|boolean>": {
+      "type": "object"
     },
     "IFrameworkPluginFunctionInputsConfig": {
       "additionalProperties": false,
@@ -695,6 +718,18 @@
           ],
           "type": "string"
         },
+        "memory": {
+          "description": "函数运行时内存配置",
+          "default": 128,
+          "enum": [
+            1024,
+            128,
+            2048,
+            256,
+            512
+          ],
+          "type": "number"
+        },
         "vpc": {
           "description": "VPC",
           "$ref": "#/definitions/IFunctionVPC"
@@ -721,9 +756,6 @@
       "required": [
         "name"
       ]
-    },
-    "Record<string,string|number|boolean>": {
-      "type": "object"
     },
     "IFunctionVPC": {
       "type": "object",
@@ -1238,6 +1270,11 @@
             "uploadOptions": {
               "description": "上传代码的选项",
               "$ref": "#/definitions/IMiniProgramUploadOptions"
+            },
+            "commands": {
+              "description": "自定义命令",
+              "default": "{ build: \"cd ./miniprogram && npm install\" }",
+              "$ref": "#/definitions/Record<string,string>"
             }
           },
           "required": [
@@ -1296,6 +1333,12 @@
         },
         "minify": {
           "description": "编译设置 - 压缩代码",
+          "default": true,
+          "type": "boolean"
+        },
+        "codeProtect": {
+          "description": "编译设置 - 开启代码保护",
+          "default": true,
           "type": "boolean"
         }
       }

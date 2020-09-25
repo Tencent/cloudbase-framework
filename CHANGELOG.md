@@ -1,6 +1,15 @@
 # Changelog
 
-### Bugfixes
+## [1.2.10] - 2020-09-25
+
+### Features
+
+- 新增小程序插件，可以一键预览/上传小程序应用 @lt5c
+- Website 插件配置优化 @lt5c
+- Framework run 命令优化，支持 cloudbase framework run 来执行开发等自定义命令 @lt5c
+- 新增 Hooks 功能支持应用部署前后执行自定义命令和调用函数
+- Nuxt 插件支持内存、超时时间、环境变量配置 (#90) @liulinboyi
+- Deno 插件集成构建功能(#87) @TabSpace
 
 ## [1.1.10] - 2020-09-16
 
