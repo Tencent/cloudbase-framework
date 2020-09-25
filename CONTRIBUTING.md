@@ -14,6 +14,39 @@
 
 我们会将您加入[我们的贡献者名单](https://github.com/TencentCloudBase/cloudbase-framework#contributors-）
 
+## 整体架构
+
+云开发 CloudBase Framework 基于云开发底层资源和云开发资源编排管理，整体包含 CLI 工具层、应用框架层和 CI/CD 层。
+
+- CLI 层针对主流应用框架进行了适配，可以一键无缝集成，并提供开发、一键部署等功能
+- 应用框架层提供了针对不同语言和框架的 SDK 和组件，同时对底层云资源进行抽象
+- CI/CD 层可以实现云端部署、代码平台集成、灰度发布和升级回滚等功能
+
+![](https://main.qcloudimg.com/raw/e7c525c09ce3197996924a2b70ac0c87.png)
+
+## Roadmap
+
+![](https://main.qcloudimg.com/raw/7fcf4e7822f89fc3807ccc68424e6fe5.png)
+
+🚀 表示已经实现的功能
+
+| 里程碑                                                                 | 状态 |
+| ---------------------------------------------------------------------- | ---- |
+| 框架核心功能支持插件机制，适配 Cloudbase CLI                           | 🚀   |
+| 开发 Website plugin 支持部署前端静态项目                               | 🚀   |
+| 自动检测前端框架 (Vue/React 等主流框架) 使用 Website plugin            | 🚀   |
+| 开发 Nuxt plugin 支持 Nuxt SSR 项目                                    | 🚀   |
+| 开发 Function plugin 支持自动部署函数                                  | 🚀   |
+| 开发 Node Api Plugin 支持一键部署 Node 应用                            | 🚀   |
+| 插件支持编译成 SAM 描述                                                | 🚀   |
+| 自动检测 Express/ Koa 等主流 Node 框架使用 Node Api Plugin             | 🚀   |
+| 云开发全栈框架支持                                                     |      |
+| Node Api Plugin 支持建模和代码生成                                     |      |
+| 结合 Github Action、Coding 等平台的 CI/CD 功能                         |      |
+| 支持后端部分容器化构建，提供服务函数化构建的另一个选项                 | 🚀   |
+| 开发 SAM Plugin 支持 SAM 扩展插件，框架可引入第三方 SAM 扩展（如 CMS） |      |
+| 开发 Flutter Plugin 支持 Flutter 的 Dart 后端一键部署                  | 🚀   |
+
 ## 开发脚本
 
 ### 本地开发
