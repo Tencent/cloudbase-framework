@@ -16,6 +16,8 @@ import { spawnPromise } from "../utils/spawn";
 interface PluginData {
   id: string;
   name: string;
+  version: string;
+  scope: string;
   inputs: any;
   pluginInstance?: Plugin;
   api?: PluginServiceApi;
@@ -158,13 +160,25 @@ export default class PluginManager {
    * @param config
    */
   private resolvePlugins(config: Config) {
+    const pattern = /^(((@[^/]+)\/)?[^@]+)(@(.*))?$/;
     const allPlugins = Object.entries(config.plugins).map(
       ([id, pluginConfig]) => {
         const { use, inputs } = pluginConfig;
+
+        const matches = pattern.exec(use);
+
+        if (!matches) {
+          throw new Error(`错误的插件名${use}`);
+        }
+
+        const [, pkgName, , scope, , version] = matches;
+
         return {
           id,
-          name: use,
+          name: pkgName,
+          scope,
           inputs: inputs,
+          version,
         };
       }
     );
@@ -272,27 +286,19 @@ export default class PluginManager {
       return true;
     } else {
       const packageInfo = this.plugins.reduce((prev, curr) => {
-        const matches = pattern.exec(curr.name);
-
-        if (!matches) {
-          throw new Error(`错误的插件名${curr.name}`);
-        }
-
+        const pkgVersion = curr.version;
         let version;
-
-        const [, pkgName, , scope, , pkgVersion] = matches;
-
         // 如指定版本，按照指定的版本
         if (pkgVersion) {
           version = pkgVersion;
           // 官方插件的版本，跟内核版本相同
-        } else if (scope === "@cloudbase") {
+        } else if (curr.scope === "@cloudbase") {
           version = (corePackageInfo as any).version;
         } else {
           // 其他插件，取最新版本
           version = "latest";
         }
-        (prev as any)[pkgName] = version;
+        (prev as any)[curr.name] = version;
         return prev;
       }, {});
       await this.installPackage(packageInfo);
