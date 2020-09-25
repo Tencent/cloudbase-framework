@@ -23,7 +23,7 @@
 如果是目前已有的小程序应用项目
 
 ```bash
-cloudbase init --without-template
+cloudbase
 ```
 
 ### 步骤三. 一键部署
@@ -90,20 +90,20 @@ cloudbase framework:deploy
 
 ### `deployMode`
 
-选填，小程序应用的部署模式，支持 `preview|upload` 2种部署模式
+选填，小程序应用的部署模式，支持 `preview|upload` 2 种部署模式
 
 ### `previewOptions`
 
 `deployMode` 填写为 `preview` 时需要填写`previewOptions`，类型是对象格式
 
-| 属性名称           | 类型                          | 是否必填 | 描述        |
-| ----------------- | ---------------------------- | -------- | ----------- |
-| desc              | String                       | 否       | 小程序应用的版本描述 |
-| setting           | IMiniProgramBuildSetting 对象 | 否       | 小程序应用的编译设置 |
-| qrcodeOutputPath  | String                       | 否       | 生成的预览二维码保存在本地的路径 |
-| pagePath          | String                       | 否       | 小程序应用的预览页面地址 |
-| searchQuery       | String                       | 否       | 小程序应用的预览页面参数 |
-| scene             | Number                       | 否       | 小程序应用的预览页面场景值 |
+| 属性名称         | 类型                          | 是否必填 | 描述                             |
+| ---------------- | ----------------------------- | -------- | -------------------------------- |
+| desc             | String                        | 否       | 小程序应用的版本描述             |
+| setting          | IMiniProgramBuildSetting 对象 | 否       | 小程序应用的编译设置             |
+| qrcodeOutputPath | String                        | 否       | 生成的预览二维码保存在本地的路径 |
+| pagePath         | String                        | 否       | 小程序应用的预览页面地址         |
+| searchQuery      | String                        | 否       | 小程序应用的预览页面参数         |
+| scene            | Number                        | 否       | 小程序应用的预览页面场景值       |
 
 例如
 
@@ -141,11 +141,11 @@ cloudbase framework:deploy
 
 `deployMode` 填写为 `upload` 时需要填写`uploadOptions`，类型是对象格式
 
-| 属性名称  | 类型                          | 是否必填 | 描述        |
-| -------- | ---------------------------- | -------- | ----------- |
+| 属性名称 | 类型                          | 是否必填 | 描述                   |
+| -------- | ----------------------------- | -------- | ---------------------- |
 | version  | String 对象                   | 否       | 小程序应用上传的版本号 |
-| desc     | String 对象                   | 否       | 小程序应用的版本描述 |
-| setting  | IMiniProgramBuildSetting 对象 | 否       | 小程序应用的编译设置 |
+| desc     | String 对象                   | 否       | 小程序应用的版本描述   |
+| setting  | IMiniProgramBuildSetting 对象 | 否       | 小程序应用的编译设置   |
 
 例如
 
@@ -168,7 +168,7 @@ cloudbase framework:deploy
             "setting": {
               "es6": false
             }
-          },
+          }
         }
       }
     }
