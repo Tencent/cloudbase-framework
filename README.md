@@ -176,11 +176,7 @@ cloudbase
 
 可以在在项目下手动创建一个 `cloudbaserc.json`，填写如下配置文件，调用 `cloudbase framework:deploy` 进行部署
 
-或者直接运行
-
-- `cloudbase init --without-template`
-
-- `cloudbase framework:deploy` 进行自动检测并部署
+或者直接运行 `cloudbase` 来进行自动检测并部署
 
 ```json
 {

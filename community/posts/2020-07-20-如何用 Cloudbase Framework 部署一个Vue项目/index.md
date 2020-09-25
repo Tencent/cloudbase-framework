@@ -78,7 +78,7 @@ cloudbase login
 如果你的项目已经存在，在项目根目录，执行以下命令，生成项目配置。
 
 ```
-cloudbase init --without-template
+cloudbase
 ```
 
 选择关联环境后，会在项目根目录，生成一个 cloudbasrc.json 文件。云开发环境 ID 会被写进这个文件。

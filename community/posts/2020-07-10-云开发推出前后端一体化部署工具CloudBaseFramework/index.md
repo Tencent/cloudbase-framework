@@ -154,7 +154,9 @@ cloudbase login
 
 3. **初始化一个应用**
 
-通过 CloudBase 命令行工具我们可以非常方便地创建一个应用，如果在现有应用中使用，可以执行 `cloudbase init --without-template`
+通过 CloudBase 命令行工具我们可以非常方便地创建一个应用，如果在现有应用中使用，可以执行 `cloudbase` 命令来进行智能检测和初始化
+
+如果需要创建一个新的应用
 
 ```bash
 cloudbase init
