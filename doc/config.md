@@ -180,37 +180,37 @@ framework 部署阶段前后的钩子配置，可以在这里自定义应用不�
 }
 ```
 
-### `framework.plugins.preDeploy`
+### `framework.hooks.preDeploy`
 
 类型: Object
 
 前置钩子，在执行 Framework 完整的构建部署动作之前执行的钩子，可以执行一些命令行命令
 
-#### `framework.plugins.preDeploy.type`
+#### `framework.hooks.preDeploy.type`
 
 类型: String
 
 前置钩子的类型，目前仅支持 'execCommand' 表示执行命令行命令
 
-#### `framework.plugins.preDeploy.commands`
+#### `framework.hooks.preDeploy.commands`
 
 类型: 数组
 
 要执行的命令，支持数组形式，如 `["echo 1", "echo 2", "echo 3", "echo 4"]`
 
-### `framework.plugins.postDeploy`
+### `framework.hooks.postDeploy`
 
 类型: Object
 
 后置钩子，在执行 Framework 部署之后，在云端调用的钩子，可以调用一些云函数
 
-#### `framework.plugins.preDeploy.type`
+#### `framework.hooks.postDeploy.type`
 
 类型: String
 
 前置钩子的类型，目前仅支持 'callFunction' 代表在云端执行云函数
 
-#### `framework.plugins.preDeploy.functions`
+#### `framework.hooks.postDeploy.functions`
 
 类型: 数组
 
