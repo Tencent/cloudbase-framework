@@ -142,10 +142,95 @@ framework 使用的插件配置，你可以配置多个插件，插件可以帮�
 
 framework 部署阶段前后的钩子配置，可以在这里自定义应用不同声明周期的执行
 
-### `framework.plugins.preDeploy`
+示例
+
+```json
+{
+  "envId": "{{env.ENV_ID}}",
+  "$schema": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json",
+  "version": "2.0",
+  "framework": {
+    "name": "nuxt-ssr",
+    "plugins": {
+    }
+  },
+  "hooks": {
+    "preDeploy": {
+      "type": "execCommand",
+      "commands": ["echo 1", "echo 2", "echo 3", "echo 4"]
+    },
+    "postDeploy": {
+      "type": "callFunction",
+      "functions": [
+        {
+          "functionName": "nuxt-ssr-echo",
+          "params": {
+            "foo": "bar"
+          }
+        },
+        {
+          "functionName": "nuxt-ssr-echo",
+          "params": {
+            "foo2": "bar2"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+### `framework.hooks.preDeploy`
+
+类型: Object
 
 前置钩子，在执行 Framework 完整的构建部署动作之前执行的钩子，可以执行一些命令行命令
 
-### `framework.plugins.postDeploy`
+#### `framework.hooks.preDeploy.type`
+
+类型: String
+
+前置钩子的类型，目前仅支持 'execCommand' 表示执行命令行命令
+
+#### `framework.hooks.preDeploy.commands`
+
+类型: 数组
+
+要执行的命令，支持数组形式，如 `["echo 1", "echo 2", "echo 3", "echo 4"]`
+
+### `framework.hooks.postDeploy`
+
+类型: Object
 
 后置钩子，在执行 Framework 部署之后，在云端调用的钩子，可以调用一些云函数
+
+#### `framework.hooks.postDeploy.type`
+
+类型: String
+
+前置钩子的类型，目前仅支持 'callFunction' 代表在云端执行云函数
+
+#### `framework.hooks.postDeploy.functions`
+
+类型: 数组
+
+要调用的云函数列表，支持数组，例如
+
+```json
+ [
+  {
+    "functionName": "nuxt-ssr-echo",
+    "params": {
+      "foo": "bar"
+    }
+  },
+  {
+    "functionName": "nuxt-ssr-echo",
+    "params": {
+      "foo2": "bar2"
+    }
+  }
+]
+```
+
+
