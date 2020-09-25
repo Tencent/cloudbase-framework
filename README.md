@@ -44,12 +44,12 @@
 - [项目示例](#examples)
 - [插件](#plugins)
 - [配置示例](#conf)
-- [整体架构](#architect)
-- [Roadmap](#roadmap)
-- [贡献指南](#contribute)
-- [License](#license)
 - [Changelog](#changelog)
-- [在线交流群](#qq)
+- [License](#license)
+- [优秀应用案例](#user)
+- [在线交流群](#community)
+- [Contributors](#contributor)
+- [贡献指南](#contribute)
 
 ## <a name="quick-start"></a> 快速开始
 
@@ -107,7 +107,7 @@ cloudbase framework:deploy
 
 模板可以自由定制，你可以根据自己的需要创建任何语言、框架的模板工程，并通过模板工程一键生成你的初始工程，原有的工程可以很容易改造成 cloudbase 的模板项目，只需要创建一个 cloudbaserc.json，填写必要的配置即可。
 
-更多模板相关介绍，可以点击[前往](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/template.md)
+更多模板相关介绍，可以点击[查看模板文档](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/template.md)
 
 ## <a name="plugins"></a>插件
 
@@ -121,9 +121,39 @@ cloudbase framework:deploy
 
 ### 自动检测生成插件配置流程
 
-- `cloudbase init --without-template` 生成项目配置·
+可以在项目目录下直接运行 `cloudbase` 命令进行自动检测生成插件配置文件并部署
 
-- `cloudbase framework:deploy` 进行自动检测生成插件配置文件并部署
+```
+cloudbase
+
+
+✔ 是否使用云开发部署当前项目 <Projects/test/test-vue> ？ (Y/n) · true
+✔ 选择关联环境 · webpage - [webpage:按量计费]
+   ______ __                   __ ____
+  / ____// /____   __  __ ____/ // __ ) ____ _ _____ ___
+ / /    / // __ \ / / / // __  // __  |/ __ `// ___// _ \
+/ /___ / // /_/ // /_/ // /_/ // /_/ // /_/ /(__  )/  __/
+\_________\____/ \__,_/ \__,_//_____/ \__,_//____/ \___/       __
+   / ____/_____ ____ _ ____ ___   ___  _      __ ____   _____ / /__
+  / /_   / ___// __ `// __ `__ \ / _ \| | /| / // __ \ / ___// //_/
+ / __/  / /   / /_/ // / / / / //  __/| |/ |/ // /_/ // /   / ,<
+/_/    /_/    \__,_//_/ /_/ /_/ \___/ |__/|__/ \____//_/   /_/|_|
+
+
+ CloudBase Framework  info     Version v1.2.10
+ CloudBase Framework  info     Github: https://github.com/TencentCloudBase/cloudbase-framework
+
+ CloudBase Framework  info     EnvId webpage
+? 检测到当前项目包含 Vue.js 项目
+
+  🔨 构建脚本 `npm run build`
+  📦 本地静态文件目录 `dist`
+
+  是否需要修改默认配置 No
+? 请输入应用唯一标识(支持大小写字母数字及连字符, 同一账号下不能相同) test-vue
+? 是否需要保存当前项目配置，保存配置之后下次不会再次询问 Yes
+ CloudBase Framework  info     📦 install plugins
+```
 
 ### 目前支持的插件列表
 
@@ -186,54 +216,7 @@ cloudbase framework:deploy
 }
 ```
 
-更多配置详细参数说明，可以查看配置说明文档，点击[前往](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/config.md)
-
-## <a name="architect"></a> 整体架构
-
-云开发 CloudBase Framework 基于云开发底层资源和云开发资源编排管理，整体包含 CLI 工具层、应用框架层和 CI/CD 层。
-
-- CLI 层针对主流应用框架进行了适配，可以一键无缝集成，并提供开发、一键部署等功能
-- 应用框架层提供了针对不同语言和框架的 SDK 和组件，同时对底层云资源进行抽象
-- CI/CD 层可以实现云端部署、代码平台集成、灰度发布和升级回滚等功能
-
-![](https://main.qcloudimg.com/raw/e7c525c09ce3197996924a2b70ac0c87.png)
-
-## <a name="roadmap"></a>Roadmap
-
-![](https://main.qcloudimg.com/raw/7fcf4e7822f89fc3807ccc68424e6fe5.png)
-
-🚀 表示已经实现的功能
-
-| 里程碑                                                                 | 状态 |
-| ---------------------------------------------------------------------- | ---- |
-| 框架核心功能支持插件机制，适配 Cloudbase CLI                           | 🚀   |
-| 开发 Website plugin 支持部署前端静态项目                               | 🚀   |
-| 自动检测前端框架 (Vue/React 等主流框架) 使用 Website plugin            | 🚀   |
-| 开发 Nuxt plugin 支持 Nuxt SSR 项目                                    | 🚀   |
-| 开发 Function plugin 支持自动部署函数                                  | 🚀   |
-| 开发 Node Api Plugin 支持一键部署 Node 应用                            | 🚀   |
-| 插件支持编译成 SAM 描述                                                | 🚀   |
-| 自动检测 Express/ Koa 等主流 Node 框架使用 Node Api Plugin             | 🚀   |
-| 云开发全栈框架支持                                                     |      |
-| Node Api Plugin 支持建模和代码生成                                     |      |
-| 结合 Github Action、Coding 等平台的 CI/CD 功能                         |      |
-| 支持后端部分容器化构建，提供服务函数化构建的另一个选项                 | 🚀   |
-| 开发 SAM Plugin 支持 SAM 扩展插件，框架可引入第三方 SAM 扩展（如 CMS） |      |
-| 开发 Flutter Plugin 支持 Flutter 的 Dart 后端一键部署                  | 🚀   |
-
-## <a name="contribute"></a>贡献指南
-
-欢迎大家参与到 CloudBase Framework 的开发工作，贡献一份力量
-
-您可以选择如下的贡献方式：
-
-- [贡献技术文章](./community/posts/README.md)
-- [贡献应用](./doc/app.md)
-- 贡献代码，提交 Pull Request
-- 反馈 bug，提交 Issue
-- 在技术会议上发表技术演讲
-
-贡献方式请参考 [贡献指南](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/CONTRIBUTING.md) 文档
+更多配置详细参数说明，可以查看配置说明文档，点击[查看配置文档](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/config.md)
 
 ## <a name="changelog"></a> Changelog
 
@@ -243,7 +226,9 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 
 开源协议文档请参阅 [Apache License 2.0](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/LICENSE)
 
-## <a name="qq"></a> 在线交流群
+## <a name="user"></a> 优秀应用案例
+
+## <a name="community"></a> 在线交流群
 
 <table>
   <tr>
@@ -260,7 +245,7 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
   </tr>
 </table>
 
-## Contributors ✨
+## <a name="contributor"></a> Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
@@ -308,3 +293,17 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+## <a name="contribute"></a>贡献指南
+
+欢迎大家参与到 CloudBase Framework 的开发工作，贡献一份力量
+
+您可以选择如下的贡献方式：
+
+- [贡献技术文章](./community/posts/README.md)
+- [贡献应用模板和案例](./doc/app.md)
+- 贡献代码，提交 Pull Request
+- 反馈 bug，提交 Issue
+- 在技术会议上发表技术演讲
+
+贡献方式请参考 [贡献指南](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/CONTRIBUTING.md) 文档
