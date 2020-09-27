@@ -22,6 +22,7 @@ export class DenoBuilder extends Builder {
       denonVersion: '',
       name: 'deno-app',
       path: '/deno-app',
+      autoBuild: true,
       ...options,
     };
 

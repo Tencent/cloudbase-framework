@@ -95,6 +95,10 @@ cloudbase framework:deploy
 
 但不推荐如此管理项目，推荐使用 denon 配置文件，并在部署前进行本地编译。
 
+### `autoBuild`
+
+选填，是否云端自动构建，布尔值格式，默认值 `true`
+
 ## 关于 denon
 
 docker 使用 [denon](https://github.com/denosaurs/denon) 来管理 deno 进程，以便于管理 deno 启动参数。

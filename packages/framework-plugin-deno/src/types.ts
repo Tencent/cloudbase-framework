@@ -23,7 +23,6 @@ export interface IFrameworkPluginDenoInputs {
    */
   denonVersion?: string;
   /**
-   *
    * 入口文件
    *
    * 配置入口文件为 `entry.ts` 后，docker 编译时，会执行 `deno install entry.ts`。
@@ -33,6 +32,12 @@ export interface IFrameworkPluginDenoInputs {
    * @default ''
    */
   entry?: string;
+  /**
+   * 是否云端自动构建
+   *
+   * @default true
+   */
+  autoBuild?: boolean;
   /**
    * 服务路径配置
    *

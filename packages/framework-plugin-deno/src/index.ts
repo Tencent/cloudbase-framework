@@ -27,6 +27,7 @@ class DenoPlugin extends Plugin {
       // denonVersion example: @2.4.0
       denonVersion: '',
       entry: '',
+      autoBuild: true,
       serviceName: 'deno-app',
       servicePath: '/deno-app',
       projectPath: '.',
@@ -63,6 +64,7 @@ class DenoPlugin extends Plugin {
       runtime,
       denonVersion,
       entry,
+      autoBuild,
       serviceName,
       servicePath,
     } = this.resolvedInputs;
@@ -75,6 +77,7 @@ class DenoPlugin extends Plugin {
         runtime,
         denonVersion,
         entry,
+        autoBuild,
         name: serviceName,
         path: servicePath,
       }
