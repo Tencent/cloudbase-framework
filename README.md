@@ -224,6 +224,11 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 
 ## <a name="user"></a> 优秀应用案例
 
+<!-- START mdmod {replace: usercases} -->
+<!-- END mdmod -->
+
+[持续征集优秀应用案例](https://github.com/TencentCloudBase/cloudbase-framework/issues/91)
+
 ## <a name="community"></a> 在线交流群
 
 <table>
