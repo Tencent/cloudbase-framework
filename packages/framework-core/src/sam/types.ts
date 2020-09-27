@@ -29,6 +29,15 @@ export interface ISAM {
     Properties: any[];
     DependsOn: string[];
   }[];
+
+  Config: {
+    Login: {
+      Platform: string;
+      PlatformId?: string;
+      PlatformSecret?: string;
+      Status: string
+    }[];
+  };
 }
 
 export interface IExtensionFile {
