@@ -1,7 +1,7 @@
 pipeline {
     agent {
       docker {
-        image 'binggg/cloudbase-framework-runner:1.0.0'
+        image 'binggg/cloudbase-framework-runner:latest'
         reuseNode true
       }
     }
@@ -99,7 +99,7 @@ pipeline {
             steps {
                 sh '''
                 cd oneclick-deploy
-                cloudbase framework deploy -e "$ENV_ID" --verbose
+                CI=false cloudbase framework deploy -e "$ENV_ID" --verbose
                 '''
             }
         }
