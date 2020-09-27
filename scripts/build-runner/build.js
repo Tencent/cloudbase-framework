@@ -5,8 +5,7 @@ const { promisify } = require('util');
 const { writeFileSync } = require('fs');
 
 const coreVersion = require('../../lerna.json').version;
-const tag = coreVersion;
-const tagName = `binggg/cloudbase-framework-runner:${tag}`;
+const tagName = `binggg/cloudbase-framework-runner:latest`;
 
 const promisifyGlob = promisify(glob);
 
@@ -17,7 +16,7 @@ const promisifyGlob = promisify(glob);
   const packages = {
     name: 'cloudbase-framework-registry',
     dependencies: builtInPlugins.reduce((prev, cur) => {
-      prev[cur] = `^${coreVersion}`;
+      prev[`@cloudbase/${cur}`] = `^${coreVersion}`;
       return prev;
     }, {}),
   };
