@@ -1,0 +1,16 @@
+{
+    "name": "cloudbase-framework-registry",
+    "dependencies": {
+        "framework-plugin-auth": "^1.2.10",
+        "framework-plugin-container": "^1.2.10",
+        "framework-plugin-dart": "^1.2.10",
+        "framework-plugin-database": "^1.2.10",
+        "framework-plugin-deno": "^1.2.10",
+        "framework-plugin-function": "^1.2.10",
+        "framework-plugin-mp": "^1.2.10",
+        "framework-plugin-next": "^1.2.10",
+        "framework-plugin-node": "^1.2.10",
+        "framework-plugin-nuxt": "^1.2.10",
+        "framework-plugin-website": "^1.2.10"
+    }
+}

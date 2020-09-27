@@ -1,0 +1,117 @@
+pipeline {
+    agent {
+      docker {
+        image 'binggg/cloudbase-framework-runner:1.0.0'
+        reuseNode true
+      }
+    }
+    stages  {
+        stage("检出 ZIP 包") {
+            when { environment name: 'BUILD_TYPE', value: 'ZIP' }
+            steps {
+                sh '''
+                curl -fsSL "$CODE_URL_WITH_AUTH" -o code.zip
+                unzip code.zip -d oneclick-deploy-temp
+                cd oneclick-deploy-temp
+                # 检测源码根目录是否位于解压后的文件夹中, 即 github 的 archive 压缩包解压等结构
+                dircount=$(ls -d */ | wc -l)
+                filecount=$(ls -l | wc -l)
+                if [ $dircount -eq 1 ] && [ $filecount  -eq 2  ]; then
+                    # 取出解压后文件夹中的第一个文件夹名字, 即源码根目录的名字
+                    dir=$(ls -d */ | head -1)
+                    echo "project root dir: $dir"
+                    mv "$dir" ../oneclick-deploy-temp2
+                    cd ..
+                else
+                    cd ..
+                    mv oneclick-deploy-temp oneclick-deploy-temp2
+                fi
+
+                # 未设置环境变量 PROJ_DIR
+                if [ -z "$PROJ_DIR" ]; then
+                    mv oneclick-deploy-temp2 oneclick-deploy
+                else
+                    cd oneclick-deploy-temp2
+                    # 判断 $PROJ_DIR 是否存在
+                    if [ -d "$PROJ_DIR" ]; then
+                        echo "'$PROJ_DIR' should be the tcb project's root dir"
+                        mv "$PROJ_DIR" ../oneclick-deploy
+                    else
+                        echo "'$PROJ_DIR' not exists in '$CODE_URL_WITH_AUTH'"
+                        exit 1
+                    fi
+
+                    cd ..
+                fi
+                cd oneclick-deploy
+                # 配置文件 cloudbaserc.* 个数, 为 0 即不存在
+                cfgCount=$(ls -f cloudbaserc.* | wc -l)
+                if [ $cfgCount -eq 0 ]; then
+                    echo "'$CODE_URL_WITH_AUTH' is not a valid tencent cloudbase project"
+                    exit 1
+                fi
+                '''
+            }
+        }
+        stage("检出代码仓库") {
+            when { environment name: 'BUILD_TYPE', value: 'CODE_REPO' }
+            steps {
+                sh '''
+                # 只克隆分支的最新一次提交代码(使用参数 --depth 1), 提升克隆速度
+                git clone --depth 1 --branch "$CODE_REF" "$CODE_URL_WITH_AUTH" oneclick-deploy-temp2
+
+                # 未设置环境变量 PROJ_DIR
+                if [ -z "$PROJ_DIR" ]; then
+                    mv oneclick-deploy-temp2 oneclick-deploy
+                else
+                    cd oneclick-deploy-temp2
+                    # 判断 $PROJ_DIR 是否存在
+                    if [ -d "$PROJ_DIR" ]; then
+                        echo "'$PROJ_DIR' should be the tcb project's root dir"
+                        mv "$PROJ_DIR" ../oneclick-deploy
+                    else
+                        echo "'$PROJ_DIR' not exists in the '$CODE_URL_WITH_AUTH'"
+                        exit 1
+                    fi
+
+                    cd ..
+                fi
+
+                cd oneclick-deploy
+                # 配置文件 cloudbaserc.* 个数, 为 0 即不存在
+                cfgCount=$(ls -f cloudbaserc.* | wc -l)
+                if [ $cfgCount -eq 0 ]; then
+                    echo "'$CODE_URL_WITH_AUTH' is not a valid tencent cloudbase project"
+                    exit 1
+                fi
+                '''
+            }
+        }
+        stage("安装依赖/认证") {
+            steps {
+                sh '''
+                cd oneclick-deploy
+                cloudbase login --apiKeyId "$API_SECRET_ID"  --apiKey "$API_SECRET_KEY" --token "$API_TOKEN"
+                '''
+            }
+        }
+        stage("部署") {
+            steps {
+                sh '''
+                cd oneclick-deploy
+                cloudbase framework deploy -e "$ENV_ID" --verbose
+                '''
+            }
+        }
+    }
+    post {
+        // 构建结束时的操作
+        always {
+           sh '''
+           rm -rf oneclick-deploy
+           rm -rf oneclick-deploy-temp
+           rm -rf oneclick-deploy-temp2
+           '''
+        }
+    }
+}
