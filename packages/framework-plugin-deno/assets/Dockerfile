@@ -13,11 +13,10 @@ EXPOSE 80
 
 WORKDIR /app
 COPY . .
-RUN deno install --allow-read --allow-run --allow-write --allow-net -f -q --unstable https://deno.land/x/denon/denon.ts
+RUN deno install --allow-read --allow-run --allow-write --allow-net -f -q --unstable https://deno.land/x/denon<%= denonVersion %>/denon.ts
 RUN denon build
 <% if (entry) { %>
 RUN deno install <%= entry %>
 <% } %>
 
-ENTRYPOINT ["denon"]
-CMD ["start"]
+CMD denon start
