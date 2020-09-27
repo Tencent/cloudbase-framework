@@ -83,6 +83,10 @@ cloudbase framework:deploy
 
 选填，Deno 运行时版本，字符串格式，如 `'v1.3.0'`，默认值 `'latest'`
 
+### `denonVersion`
+
+选填，Denon 版本，字符串格式，如 `'@2.4.0'`，默认值 `''`
+
 ### `entry`
 
 选填，入口文件，字符串格式，默认值 `''`

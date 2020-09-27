@@ -7,19 +7,6 @@ interface BuilderOptions {
   projectPath: string;
 }
 
-interface BuilderBuildOptions {
-  // 使用镜像
-  dockerImage?: string;
-  // 运行时环境
-  runtime?: string;
-  // 启动入口文件
-  entry?: string;
-  // 路径
-  path: string;
-  // 服务名
-  name: string;
-}
-
 export class DenoBuilder extends Builder {
   constructor(options: BuilderOptions) {
     super({
@@ -28,13 +15,18 @@ export class DenoBuilder extends Builder {
     });
   }
 
-  async build(localDir: string, options: BuilderBuildOptions) {
+  async build(localDir: string, options: object) {
     const { distDir, projectDir } = this;
-    const containerName = options?.name || 'deno-app';
-    const appDir = path.join(distDir, containerName);
     const spec:any = {
+      runtime: 'latest',
+      denonVersion: '',
+      name: 'deno-app',
+      path: '/deno-app',
       ...options,
     };
+
+    const containerName = spec.name;
+    const appDir = path.join(distDir, containerName);
 
     spec.denoVersion = '';
     if (spec.runtime && spec.runtime !== 'latest') {
@@ -62,7 +54,7 @@ export class DenoBuilder extends Builder {
       ],
       routes: [
         {
-          path: options.path,
+          path: spec.path,
           targetType: 'container',
           target: containerName,
         },
