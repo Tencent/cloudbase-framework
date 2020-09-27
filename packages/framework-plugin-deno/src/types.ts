@@ -1,24 +1,29 @@
-import { IFrameworkPluginContainerInputs } from "@cloudbase/framework-plugin-container";
+import { IFrameworkPluginContainerInputs } from '@cloudbase/framework-plugin-container';
 
 /**
  * 导出接口用于生成 JSON Schema 来进行智能提示
  */
 export interface IFrameworkPluginDenoInputs {
   /**
-   * Dockerfile 源镜像，字符串格式，默认值 `'debian:buster-slim'`
+   * Dockerfile 源镜像
    *
-   * @default debian:buster-slim
+   * @default 'debian:buster-slim'
    */
   dockerImage?: string;
   /**
-   * Deno 运行时版本，字符串格式，如 `'v1.3.0'`，默认值 `'latest'`
+   * Deno 运行时版本 如 'v1.3.0'
    *
-   * @default latest
+   * @default 'latest'
    */
   runtime?: string;
   /**
+   * Denon 版本，如 '@2.4.0'
    *
-   * 入口文件，字符串格式，默认值 `''`
+   * @default 'latest'
+   */
+  denonVersion?: string;
+  /**
+   * 入口文件
    *
    * 配置入口文件为 `entry.ts` 后，docker 编译时，会执行 `deno install entry.ts`。
    *
@@ -28,21 +33,27 @@ export interface IFrameworkPluginDenoInputs {
    */
   entry?: string;
   /**
-   * 服务路径配置，字符串格式，如 `'/deno-app'`
+   * 是否云端自动构建
    *
-   * @default /deno-app
+   * @default true
+   */
+  autoBuild?: boolean;
+  /**
+   * 服务路径配置
+   *
+   * @default '/deno-app'
    */
   servicePath?: string;
   /**
-   * 服务名，字符串格式，如 `'deno-app'`
+   * 服务名
    *
-   * @default deno-app
+   * @default 'deno-app'
    */
   serviceName?: string;
   /**
-   * 本地代码文件夹相对于项目根目录的路径，字符串格式，默认值 `'./'`
+   * 本地代码文件夹相对于项目根目录的路径
    *
-   * @default ./
+   * @default './'
    */
   projectPath?: string;
 }
