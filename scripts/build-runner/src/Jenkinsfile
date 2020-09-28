@@ -108,6 +108,7 @@ pipeline {
         // 构建结束时的操作
         always {
            sh '''
+           cloudbase logout
            rm -rf oneclick-deploy
            rm -rf oneclick-deploy-temp
            rm -rf oneclick-deploy-temp2
