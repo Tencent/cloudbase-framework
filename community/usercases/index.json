@@ -4,5 +4,11 @@
     "link": "https://cms-demo-1252710547.tcloudbaseapp.com/#/login",
     "repo": "https://github.com/TencentCloudBase/cloudbase-extension-cms",
     "logo": ""
+  },
+  {
+    "name": "Hi头像",
+    "link": "https://face.xiaoxili.com",
+    "repo": "https://github.com/hi-our/hi-face",
+    "logo": "https://image-hosting.xiaoxili.com/img/img/20200920/eca5f4fa2f7f5512fe236d5dfd05f1c0-b879e7.jpg"
   }
 ]
