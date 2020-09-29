@@ -9,10 +9,12 @@ const config = {
         readFileSync(path.join(__dirname, '../community/usercases/index.json'))
       );
       const renderCell = (item) => {
-        return `<td style="text-align:center;"><img width="25" src="${
+        return `<td style="text-align:center;"><a href="${
+          item.link
+        }"><img width="25" src="${
           item.logo ||
           'https://main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png'
-        }"><br/><a href="${item.link}">${item.name}</a><br></td>`;
+        }"></a><br/><a href="${item.repo}">${item.name}</a></td>`;
       };
       const maxWidth = 5;
       return `
@@ -34,7 +36,7 @@ function renderTable(data, renderCell, maxWidth = 10) {
       const n = i * maxWidth + j;
       const item = data[n];
       console.log(item);
-      content += `<td>${item ? renderCell(item) : '' || ''}</td>`;
+      content += `${item ? renderCell(item) : '' || ''}`;
     }
     content += `
 </tr>

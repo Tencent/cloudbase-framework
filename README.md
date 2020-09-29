@@ -227,7 +227,7 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 
 <table>
 
-  <tr><td><td style="text-align:center;"><img width="25" src="https://main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png"><br/><a href="https://cms-demo-1252710547.tcloudbaseapp.com/#/login">CloudBase CMS</a><br></td></td><td><td style="text-align:center;"><img width="25" src="https://image-hosting.xiaoxili.com/img/img/20200920/eca5f4fa2f7f5512fe236d5dfd05f1c0-b879e7.jpg"><br/><a href="https://face.xiaoxili.com">Hi头像</a><br></td></td><td><td style="text-align:center;"><img width="25" src="https://main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png"><br/><a href="https://acc.cloudbase.vip/todo">CloudBase TodoList</a><br></td></td><td></td><td></td>
+  <tr><td style="text-align:center;"><a href="https://cms-demo-1252710547.tcloudbaseapp.com/#/login"><img width="25" src="https://main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png"></a><br/><a href="https://github.com/TencentCloudBase/cloudbase-extension-cms">CloudBase CMS</a></td><td style="text-align:center;"><a href="https://face.xiaoxili.com"><img width="25" src="https://image-hosting.xiaoxili.com/img/img/20200920/eca5f4fa2f7f5512fe236d5dfd05f1c0-b879e7.jpg"></a><br/><a href="https://github.com/hi-our/hi-face">Hi头像</a></td><td style="text-align:center;"><a href="https://acc.cloudbase.vip/todo"><img width="25" src="https://main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png"></a><br/><a href="https://github.com/TCloudBase/WEB-TodoList-framework">CloudBase TodoList</a></td>
 </tr>
 
 </table>
