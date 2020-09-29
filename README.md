@@ -250,9 +250,7 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-20-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-21-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -284,12 +282,12 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/juukee"><img src="https://avatars0.githubusercontent.com/u/28680837?v=4" width="100px;" alt=""/><br /><sub><b>juukee</b></sub></a><br /><a href="https://github.com/TencentCloudBase/cloudbase-framework/issues?q=author%3Ajuukee" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://blog.heyliubo.top"><img src="https://avatars1.githubusercontent.com/u/41336612?v=4" width="100px;" alt=""/><br /><sub><b>Albert Liu</b></sub></a><br /><a href="https://github.com/TencentCloudBase/cloudbase-framework/commits?author=liulinboyi" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/SearchFan"><img src="https://avatars1.githubusercontent.com/u/42856891?v=4" width="100px;" alt=""/><br /><sub><b>SearchFan</b></sub></a><br /><a href="https://github.com/TencentCloudBase/cloudbase-framework/issues?q=author%3ASearchFan" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="http://a.dnuise.cn"><img src="https://avatars2.githubusercontent.com/u/48037743?v=4" width="100px;" alt=""/><br /><sub><b>Zira</b></sub></a><br /><a href="#example-wasfzxt" title="Examples">💡</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
