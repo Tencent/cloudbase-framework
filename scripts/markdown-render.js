@@ -11,10 +11,10 @@ const config = {
       const renderCell = (item) => {
         return `<td style="text-align:center;"><a target="_blank" href="${
           item.link
-        }"><img width="25" src="${
+        }"><img width="14" src="${
           item.logo ||
           'https://main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png'
-        }"></a><a target="_blank" href="${item.repo}">${item.name}</a></td>`;
+        }"></a>  <a target="_blank" href="${item.repo}">${item.name}</a></td>`;
       };
       const maxWidth = 5;
       return `
