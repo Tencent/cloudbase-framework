@@ -87,11 +87,16 @@ export interface ICloudFunction {
    * 函数产物路径，相对于函数根目录 functionRootPath，例如 Go 语言可指定二进制文件路径，Java 可以指定 jar 包文件地址
    */
   functionDistPath?: string;
-
   /**
    * 忽略的文件
    */
   ignore?: string[];
+  /**
+   * 安全规则，配置前先阅读文档 https://docs.cloudbase.net/cloud-function/security-rules.html
+   * 
+   * @default { invoke: true }
+   */
+  aclRule?: Record<string, any>;
 }
 
 export interface IFunctionVPC {
@@ -110,6 +115,8 @@ type ResolveInputs = IFrameworkPluginFunctionInputs & {
   functions: ICloudFunction[];
   servicePaths: {};
 };
+
+type AclTag = "READONLY" | "PRIVATE" | "ADMINWRITE" | "ADMINONLY" | "CUSTOM"
 
 class FunctionPlugin extends Plugin {
   protected resolvedInputs: ResolveInputs;
@@ -309,7 +316,7 @@ class FunctionPlugin extends Plugin {
     this.api.logger.info(`${this.api.emoji("🚀")} 云函数部署成功`);
   }
 
-  functionConfigToSAM(functionConfig: any) {
+  functionConfigToSAM(functionConfig: ICloudFunction) {
     return Object.assign({
       Type: "CloudBase::Function",
       Properties: Object.assign(
@@ -326,7 +333,7 @@ class FunctionPlugin extends Plugin {
           VpcConfig: functionConfig.vpc,
           HttpPath: this.resolvedInputs.servicePaths[functionConfig.name],
           InstallDependency:
-            functionConfig.runtime.includes("Node") &&
+            functionConfig.runtime?.includes("Node") &&
             "installDependency" in functionConfig
               ? functionConfig.installDependency
               : false,
@@ -340,6 +347,10 @@ class FunctionPlugin extends Plugin {
         },
         this.api.versionRemark && {
           VersionRemark: this.api.versionRemark,
+        },
+        functionConfig.aclRule && {
+          AclTag: "CUSTOM" as AclTag,
+          AclRule: this.genAclRule(functionConfig)
         }
       ),
     });
@@ -362,6 +373,13 @@ class FunctionPlugin extends Plugin {
     }
 
     return result;
+  }
+
+  genAclRule(functionConfig: ICloudFunction): string {
+    const aclRule: Record<string, any> = {};
+    aclRule[functionConfig.name] = functionConfig.aclRule;
+
+    return JSON.stringify(aclRule);
   }
 }
 
