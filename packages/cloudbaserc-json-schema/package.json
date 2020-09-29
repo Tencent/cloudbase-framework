@@ -27,8 +27,6 @@
   },
   "scripts": {
     "prepublishOnly": "node src/index",
-    "build": "npm -v",
-    "postbuild": "node src/index"
   },
   "bugs": {
     "url": "https://github.com/TencentCloudBase/cloudbase-framework/issues"
