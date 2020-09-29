@@ -197,6 +197,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "wasfzxt",
+      "name": "Zira",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/48037743?v=4",
+      "profile": "http://a.dnuise.cn",
+      "contributions": [
+        "example"
+      ]
     }
   ],
   "contributorsPerLine": 7,
