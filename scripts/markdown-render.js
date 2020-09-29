@@ -9,12 +9,12 @@ const config = {
         readFileSync(path.join(__dirname, '../community/usercases/index.json'))
       );
       const renderCell = (item) => {
-        return `<td style="text-align:center;"><a href="${
+        return `<td style="text-align:center;"><a target="_blank" href="${
           item.link
         }"><img width="25" src="${
           item.logo ||
           'https://main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png'
-        }"></a><br/><a href="${item.repo}">${item.name}</a></td>`;
+        }"></a><a target="_blank" href="${item.repo}">${item.name}</a></td>`;
       };
       const maxWidth = 5;
       return `
