@@ -12,7 +12,7 @@ const config = {
         return `<td style="text-align:center;"><img width="25" src="${
           item.logo ||
           'https://main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png'
-        }"><br/><a href="${item.link}">${item.name}</a><br><td>`;
+        }"><br/><a href="${item.link}">${item.name}</a><br></td>`;
       };
       const maxWidth = 5;
       return `
