@@ -27,12 +27,12 @@ jobs:
           git config user.email github-actions@github.com
           git pull
           git checkout -b gitee-bak
-          sed -i -e "s#https://github.com/TencentCloudBase/cloudbase-framework/blob/master#https://gitee.com/TencentCloudBase/cloudbase-framework/blob/gitee#g" ./**/*.md
+          sed -i -e "s#https:\/\/github.com\/TencentCloudBase\/cloudbase-framework\/blob\/master#https:\/\/gitee.com\/TencentCloudBase\/cloudbase-framework\/blob\/gitee#g" ./**/*.md
           sed -i -e "s#tdl_anchor=github\&tdl_site=0#tdl_anchor=gitee\&tdl_site=0#g" ./**/*.md  
           sed -i -e "s#https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates#https%3A%2F%2Fgitee.com%2FTencentCloudBase%2Fcloudbase-templates#g" ./**/*.md
-          sed -i -e "s#https://github.com/TencentCloudBase/cloudbase-templates/tree/master#https://gitee.com/TencentCloudBase/cloudbase-templates/tree/gitee#g" ./**/*.md
-          sed -i -e "s#https://github.com/TencentCloudBase/cloudbase-framework/tree/master#https://gitee.com/TencentCloudBase/cloudbase-framework/tree/gitee#g" ./**/*.md
-          sed -i -e "s#https://github.com/TencentCloudBase/cloudbase-framework#https://gitee.com/TencentCloudBase/cloudbase-framework#g" ./**/*.md
+          sed -i -e "s#https:\/\/github.com\/TencentCloudBase\/cloudbase-templates\/tree\/master#https:\/\/gitee.com\/TencentCloudBase\/cloudbase-templates\/tree\/gitee#g" ./**/*.md
+          sed -i -e "s#https:\/\/github.com\/TencentCloudBase\/cloudbase-framework\/tree\/master#https:\/\/gitee.com\/TencentCloudBase\/cloudbase-framework\/tree\/gitee#g" ./**/*.md
+          sed -i -e "s#https:\/\/github.com\/TencentCloudBase\/cloudbase-framework#https:\/\/gitee.com\/TencentCloudBase\/cloudbase-framework#g" ./**/*.md
           git diff
           
       # Runs a set of commands using the runners shell
