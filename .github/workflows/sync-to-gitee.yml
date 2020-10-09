@@ -23,15 +23,15 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Build
         run: |
+          git pull 
+          git branch -a
+          git checkout gitee
+          git merge master --allow-unrelated-histories
           echo 'build'
           
       # Runs a set of commands using the runners shell
       - name: Push to gitee branch
         run: |
-          git pull
-          git branch -a
-          git checkout gitee
-          git merge master
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
