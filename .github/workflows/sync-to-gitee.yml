@@ -23,6 +23,8 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Build
         run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git pull 
           git branch -a
           git checkout gitee
@@ -32,8 +34,6 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Push to gitee branch
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
           git add .
           git commit -m "doc(readme): use gitee link (generated)"
           git push
