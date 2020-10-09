@@ -6,7 +6,7 @@
 
 下面是部署按钮的示例，可以尝试点击来一键部署一个 Vue 全栈项目。
 
-[![](https://main.qcloudimg.com/raw/95b6b680ef97026ae10809dbd6516117.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=vue&appName=example-app)
+[![](https://main.qcloudimg.com/raw/95b6b680ef97026ae10809dbd6516117.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=vue&appName=example-app)
 
 您可以为自己的项目生成一个自定义的部署按钮，只需要填写表单来生成代码片段，然后就可以嵌入到您的 Git 仓库 README 页面、博客、文章等其他可以展示链接的地方，让用户可以快速一键部署和复制一个前后端应用。
 
