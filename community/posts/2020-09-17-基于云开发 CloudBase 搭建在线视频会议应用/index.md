@@ -37,7 +37,7 @@ tags:
 
 只需要点击下方按钮，跳转到腾讯云控制台，即可在云端一键安装一个在线视频会议应用
 
-[![](https://main.qcloudimg.com/raw/95b6b680ef97026ae10809dbd6516117.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https%3A%2F%2Fgithub.com%2Foe%2Fserverless-zoom-with-webrtc&workDir=meeting-simple&appName=meeting-simple)
+[![](https://main.qcloudimg.com/raw/95b6b680ef97026ae10809dbd6516117.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2Foe%2Fserverless-zoom-with-webrtc&workDir=meeting-simple&appName=meeting-simple)
 
 ### 本地部署
 
@@ -823,7 +823,7 @@ cloudbase framework:deploy
 
 Github 开源地址：[https://github.com/TencentCloudBase/cloudbase-framework](https://github.com/TencentCloudBase/cloudbase-framework)
 
-欢迎给 CloudBase Framework 一个 🌟 star 
+欢迎给 CloudBase Framework 一个 🌟 star
 
 ## CloudBase Framework 核心贡献者计划
 
