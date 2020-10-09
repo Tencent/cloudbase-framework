@@ -28,6 +28,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Push to gitee branch
         run: |
+          git branch -a
           git checkout gitee
           git merge master
           git config user.name github-actions
