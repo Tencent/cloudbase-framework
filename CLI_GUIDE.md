@@ -32,9 +32,9 @@
 
 - 注册腾讯云账号，并完成实名认证
 
-- 进入[云开发控制台](https://console.cloud.tencent.com/tcb)，授权开通云开发
+- 进入[云开发控制台](https://console.cloud.tencent.com/tcb?tdl_anchor=github&tdl_site=0)，授权开通云开发
 
-- 点击进入控制台[创建按量计费环境](https://console.cloud.tencent.com/tcb/env/index?action=CreateEnv)（温馨提示，无资源消耗时，按量计费不产生任何费用）
+- 点击进入控制台[创建按量计费环境](https://console.cloud.tencent.com/tcb/env/index?action=CreateEnv&tdl_anchor=github&tdl_site=0)（温馨提示，无资源消耗时，按量计费不产生任何费用）
 
 ##### 切换包年包月计费方式为按量计费
 
@@ -42,7 +42,7 @@
 
 - 登录腾讯云云开发控制台
 
-- 在[云开发 CloudBase 控制台-环境-资源购买](https://console.cloud.tencent.com/tcb/env/resource) 中的【计费模式】中点击【切换按量付费】即可。
+- 在[云开发 CloudBase 控制台-环境-资源购买](https://console.cloud.tencent.com/tcb/env/resource?tdl_anchor=github&tdl_site=0) 中的【计费模式】中点击【切换按量付费】即可。
 
 ![](https://main.qcloudimg.com/raw/3d01c3ab51c8bc195c6ea8d435363ad5.jpg)
 
@@ -54,11 +54,9 @@
 
 ##### 切换为按量计费
 
-- 在[云开发 CloudBase 控制台-环境-资源购买](https://console.cloud.tencent.com/tcb/env/resource) 中的【计费模式】中点击【切换按量付费】即可。
+- 在[云开发 CloudBase 控制台-环境-资源购买](https://console.cloud.tencent.com/tcb/env/resource?tdl_anchor=github&tdl_site=0) 中的【计费模式】中点击【切换按量付费】即可。
 
 ![](https://main.qcloudimg.com/raw/3d01c3ab51c8bc195c6ea8d435363ad5.jpg)
-
-
 
 注：首次开通云开发环境后，需等待大约 3 分钟方可正常使用
 

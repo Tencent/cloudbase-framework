@@ -227,4 +227,4 @@ exports.tcbGetApp = async () => {
 ## 文档资料
 
 - 云开发官网地址： [https://cloudbase.net/](https://cloudbase.net/)
-- 云开发控制台地址： [https://console.cloud.tencent.com/tcb](https://console.cloud.tencent.com/tcb)
+- 云开发控制台地址： [https://console.cloud.tencent.com/tcb](https://console.cloud.tencent.com/tcb?tdl_anchor=github&tdl_site=0)

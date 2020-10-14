@@ -4,34 +4,7 @@ import getLogger, { Logger } from "../logger";
 import path from "path";
 import os from "os";
 import { Generator } from "../generator";
-
-interface BuilderOptions {
-  type: string;
-  projectPath: string;
-}
-interface BuildResult {
-  container?: {
-    name: string;
-    options: any;
-    source: string;
-    entry: string;
-  }[];
-  functions?: {
-    name: string;
-    options: any;
-    source: string;
-    entry: string;
-  }[];
-  routes?: {
-    path: string;
-    targetType: string;
-    target: string;
-  }[];
-  static?: {
-    src: string;
-    cloudPath: string;
-  }[];
-}
+import { BuildResult, BuilderOptions } from "../types";
 
 export abstract class Builder {
   protected distDir: string;
