@@ -318,6 +318,7 @@ class ContainerPlugin extends Plugin {
       this.resolvedInputs,
       this.buildOutput
     );
+    this.api.logger.info(`${this.api.emoji("🚀")} 云托管应用部署成功,`);
   }
 
   toSAM() {

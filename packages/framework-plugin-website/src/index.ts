@@ -257,14 +257,7 @@ class WebsitePlugin extends Plugin {
       this.resolvedInputs,
       this.buildOutput
     );
-
-    const url = this.api.genClickableLink(
-      `https://${this.website.cdnDomain + this.resolvedInputs.cloudPath}`
-    );
-    this.api.logger.info(
-      `${this.api.emoji("🚀")} 网站部署成功, 访问地址：${url}`
-    );
-
+    this.api.logger.info(`${this.api.emoji("🚀")} 网站部署成功`);
     await this.zipBuilder.clean();
     await this.builder.clean();
   }

@@ -91,7 +91,7 @@ export interface ICloudFunction {
   ignore?: string[];
   /**
    * 安全规则，配置前先阅读文档 https://docs.cloudbase.net/cloud-function/security-rules.html
-   * 
+   *
    * @default { invoke: true }
    */
   aclRule?: Record<string, any>;
@@ -114,7 +114,7 @@ type ResolveInputs = IFrameworkPluginFunctionInputs & {
   servicePaths: {};
 };
 
-type AclTag = "READONLY" | "PRIVATE" | "ADMINWRITE" | "ADMINONLY" | "CUSTOM"
+type AclTag = "READONLY" | "PRIVATE" | "ADMINWRITE" | "ADMINONLY" | "CUSTOM";
 
 class FunctionPlugin extends Plugin {
   protected resolvedInputs: ResolveInputs;
@@ -295,22 +295,6 @@ class FunctionPlugin extends Plugin {
       })
     );
 
-    // 批量处理云接入
-    await Promise.all(
-      Object.entries(this.resolvedInputs.servicePaths).map(
-        async ([, servicePath]) => {
-          let url = `https://${this.api.envId}.service.tcloudbase.com${servicePath}`;
-          if (url[url.length - 1] !== "/") {
-            url = url + "/";
-          }
-          url = this.api.genClickableLink(url);
-          this.api.logger.info(
-            `${this.api.emoji("🚀")} 云接入服务发布成功，访问地址: ${url}`
-          );
-        }
-      )
-    );
-
     this.api.logger.info(`${this.api.emoji("🚀")} 云函数部署成功`);
   }
 
@@ -348,7 +332,7 @@ class FunctionPlugin extends Plugin {
         },
         functionConfig.aclRule && {
           AclTag: "CUSTOM" as AclTag,
-          AclRule: this.genAclRule(functionConfig)
+          AclRule: this.genAclRule(functionConfig),
         }
       ),
     });
