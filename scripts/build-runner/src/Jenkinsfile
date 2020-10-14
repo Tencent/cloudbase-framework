@@ -1,7 +1,7 @@
 pipeline {
     agent {
       docker {
-        image 'coding-public-docker.pkg.coding.net/public/docker/nodejs:14'
+        image 'binggg/cloudbase-framework-runner:latest'
         reuseNode true
       }
     }
@@ -90,7 +90,6 @@ pipeline {
         stage("安装依赖/认证") {
             steps {
                 sh '''
-                npm install -g @cloudbase/cli@latest
                 cd oneclick-deploy
                 cloudbase login --apiKeyId "$API_SECRET_ID"  --apiKey "$API_SECRET_KEY" --token "$API_TOKEN"
                 '''
@@ -100,7 +99,7 @@ pipeline {
             steps {
                 sh '''
                 cd oneclick-deploy
-                cloudbase framework:deploy -e "$ENV_ID"
+                CI=false cloudbase framework deploy -e "$ENV_ID" --verbose
                 '''
             }
         }
@@ -109,6 +108,7 @@ pipeline {
         // 构建结束时的操作
         always {
            sh '''
+           cloudbase logout
            rm -rf oneclick-deploy
            rm -rf oneclick-deploy-temp
            rm -rf oneclick-deploy-temp2

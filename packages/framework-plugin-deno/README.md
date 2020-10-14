@@ -83,6 +83,10 @@ cloudbase framework:deploy
 
 选填，Deno 运行时版本，字符串格式，如 `'v1.3.0'`，默认值 `'latest'`
 
+### `denonVersion`
+
+选填，Denon 版本，字符串格式，如 `'@2.4.0'`，默认值 `''`
+
 ### `entry`
 
 选填，入口文件，字符串格式，默认值 `''`
@@ -90,6 +94,10 @@ cloudbase framework:deploy
 配置入口文件为 `entry.ts` 后，docker 编译时，会执行 `deno install entry.ts`。
 
 但不推荐如此管理项目，推荐使用 denon 配置文件，并在部署前进行本地编译。
+
+### `autoBuild`
+
+选填，是否云端自动构建，布尔值格式，默认值 `true`
 
 ## 关于 denon
 
@@ -135,4 +143,4 @@ scripts:
 
 - 云开发官网地址： [https://cloudbase.net/](https://cloudbase.net/)
 - 云开发静态网站开通指南：[https://docs.cloudbase.net/hosting/](https://docs.cloudbase.net/hosting/)
-- 云开发控制台地址： [https://console.cloud.tencent.com/tcb](https://console.cloud.tencent.com/tcb)
+- 云开发控制台地址： [https://console.cloud.tencent.com/tcb](https://console.cloud.tencent.com/tcb?tdl_anchor=github&tdl_site=0)

@@ -6,16 +6,17 @@ import { promisify } from "util";
 import merge from "lodash.merge";
 
 import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
+import { BuildResult } from "@cloudbase/framework-core/src/types";
 import { StaticBuilder } from "@cloudbase/static-builder";
-import { StaticDeployer } from "@cloudbase/static-deployer";
+import { ZipBuilder } from "./zip-builder";
 
 const DEFAULT_INPUTS = {
   outputPath: "dist",
   cloudPath: "/",
   ignore: [".git", ".github", "node_modules", "cloudbaserc.js"],
   commands: {
-    install: "npm install --prefer-offline --no-audit --progress=false"
-  }
+    install: "npm install --prefer-offline --no-audit --progress=false",
+  },
 };
 
 /**
@@ -60,7 +61,7 @@ export interface IFrameworkPluginWebsiteInputs {
   envVariables?: Record<string, string>;
   /**
    * 自定义命令
-   * 
+   *
    * @default { build: "npm run build" }
    */
   commands?: Record<string, string>;
@@ -70,9 +71,9 @@ type ResolvedInputs = typeof DEFAULT_INPUTS & IFrameworkPluginWebsiteInputs;
 
 class WebsitePlugin extends Plugin {
   protected builder: StaticBuilder;
-  protected deployer: StaticDeployer;
+  protected zipBuilder: ZipBuilder;
   protected resolvedInputs: ResolvedInputs;
-  protected buildOutput: any;
+  protected buildOutput: BuildResult;
   // 静态托管信息
   protected website: any;
 
@@ -91,9 +92,10 @@ class WebsitePlugin extends Plugin {
         this.resolvedInputs.outputPath
       ),
     });
-    this.deployer = new StaticDeployer({
-      cloudbaseManager: this.api.cloudbaseManager as any,
+    this.zipBuilder = new ZipBuilder({
+      projectPath: this.api.projectPath,
     });
+    this.buildOutput = {};
   }
 
   /**
@@ -114,6 +116,10 @@ class WebsitePlugin extends Plugin {
    * 编译为 SAM 模板
    */
   async compile() {
+    const uploadResults = await this.upload();
+    this.api.logger.debug("website uploadResults", uploadResults);
+    const [website, staticConfig] = uploadResults as any;
+
     return {
       EnvType: "PostPay",
       Resources: Object.assign(
@@ -121,9 +127,15 @@ class WebsitePlugin extends Plugin {
         this.getStaticResourceSam(
           "Website",
           "为开发者提供静态网页托管的能力，包括HTML、CSS、JavaScript、字体等常见资源。",
-          ""
+          website.codeUri,
+          website.cloudPath
         ),
-        this.getStaticResourceSam("ConfigEnv", "配置文件", "")
+        this.getStaticResourceSam(
+          "ConfigEnv",
+          "配置文件",
+          staticConfig.codeUri,
+          staticConfig.cloudPath
+        )
       ),
       EntryPoint: [
         {
@@ -135,15 +147,63 @@ class WebsitePlugin extends Plugin {
     };
   }
 
-  getStaticResourceSam(name: string, description: string, codeUri: string) {
+  getStaticResourceSam(
+    name: string,
+    description: string,
+    codeUri: string,
+    deployPath: string
+  ) {
     return {
       [name]: {
         Type: "CloudBase::StaticStore",
         Properties: {
           Description: description,
+          CodeUri: codeUri,
+          DeployPath: deployPath,
         },
       },
     };
+  }
+
+  async upload() {
+    const deployContent = [
+      ...(this.buildOutput.static || []),
+      ...(this.buildOutput.staticConfig || []),
+    ];
+
+    let zipFiles = (
+      await this.zipBuilder.build(
+        deployContent.map((item: any, index: any) => {
+          return {
+            name: item.name,
+            localPath: item.src,
+            zipFileName: `static-${index}.zip`,
+            ignore: this.resolvedInputs.ignore,
+          };
+        })
+      )
+    ).zipFiles;
+
+    this.api.logger.debug("website zipFiles", zipFiles);
+
+    return Promise.all(
+      deployContent.map(async (item, index) => {
+        let zipFile = zipFiles[index];
+        let codeUris = (await this.api.samManager.uploadFile([
+          {
+            fileType: "STATIC",
+            fileName: zipFile.entry,
+            filePath: zipFile.source,
+          },
+        ])) as any;
+
+        console.log(codeUris);
+
+        return Object.assign({}, item, {
+          codeUri: codeUris[0].codeUri,
+        });
+      })
+    );
   }
 
   /**
@@ -160,7 +220,7 @@ class WebsitePlugin extends Plugin {
    * 构建
    */
   async build() {
-    // cloudPath 会影响publicpath 和 baseroute 等配置，需要处理
+    // cloudPath 会影响 publicPath 和 baseRoute 等配置，需要处理
     this.api.logger.debug("WebsitePlugin: build", this.resolvedInputs);
     await this.installPackage();
 
@@ -168,10 +228,10 @@ class WebsitePlugin extends Plugin {
       cloudPath,
       buildCommand,
       envVariables,
-      commands
+      commands,
     } = this.resolvedInputs;
 
-    const command = buildCommand || commands?.build
+    const command = buildCommand || commands?.build;
     if (command) {
       this.api.logger.info(command);
       await promisify(exec)(injectEnvVariables(command, envVariables));
@@ -198,21 +258,6 @@ class WebsitePlugin extends Plugin {
       this.buildOutput
     );
 
-    const deployContent = this.buildOutput.static.concat(
-      this.buildOutput.staticConfig
-    );
-
-    await Promise.all([
-      ...deployContent.map((item: any) =>
-        this.deployer.deploy({
-          localPath: item.src,
-          cloudPath: item.cloudPath,
-          ignore: this.resolvedInputs.ignore,
-        })
-      ),
-      this.fetchHostingInfo(),
-    ]);
-
     const url = this.api.genClickableLink(
       `https://${this.website.cdnDomain + this.resolvedInputs.cloudPath}`
     );
@@ -220,6 +265,7 @@ class WebsitePlugin extends Plugin {
       `${this.api.emoji("🚀")} 网站部署成功, 访问地址：${url}`
     );
 
+    await this.zipBuilder.clean();
     await this.builder.clean();
   }
 
@@ -236,9 +282,7 @@ class WebsitePlugin extends Plugin {
 
     this.api.logger.info(command);
     await new Promise((resolve, reject) => {
-      const cmd = exec(
-        injectEnvVariables(command, envVariables)
-      );
+      const cmd = exec(injectEnvVariables(command, envVariables));
       cmd.stdout?.pipe(process.stdout);
       cmd.stderr?.pipe(process.stderr);
       cmd.on("close", (code) => {
@@ -298,11 +342,9 @@ class WebsitePlugin extends Plugin {
     try {
       const hostingRes = await Hosting.getHostingInfo({ envId });
 
-      if (!hostingRes.data.length) {
-        throw new Error("未开通静态托管");
+      if (hostingRes.data.length) {
+        website = hostingRes.data[0];
       }
-
-      website = hostingRes.data[0];
     } catch (e) {
       this.api.logger.debug(e);
     }
