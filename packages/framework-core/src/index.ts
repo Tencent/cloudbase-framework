@@ -2,6 +2,7 @@ import { promisify } from "util";
 import figlet from "figlet";
 import chalk from "chalk";
 import { genClickableLink } from "./utils/link";
+import { emoji } from "./utils/emoji";
 
 const gradient = require("gradient-string");
 chalk.level = 1;
@@ -14,6 +15,7 @@ import { CloudBaseFrameworkConfig } from "./types";
 import getLogger from "./logger";
 import { SamManager } from "./sam";
 import Hooks from "./hooks";
+import { fetchDomains } from "./api/domain";
 
 export { default as Plugin } from "./plugin";
 export { default as PluginServiceApi } from "./plugin-service-api";
@@ -174,6 +176,35 @@ export class CloudBaseFrameworkCore {
     await this.samManager.install();
     await this.pluginManager.deploy(module);
     await this.hooks.callHook("postDeploy");
+    const appEntry = await this.samManager.getAppEntry();
+    if (appEntry.length) {
+      const domains = await fetchDomains();
+
+      const entryLogInfo = appEntry
+        .map((entry: any) => {
+          let url;
+          let base;
+          switch (entry.EntryType) {
+            case "StaitcStore":
+              base = domains.static;
+              break;
+            case "HttpService":
+              base = domains.static;
+              break;
+          }
+          url = `https://${base}${
+            entry.HttpEntryPath
+              ? entry.HttpEntryPath[0] === "/"
+                ? entry.HttpEntryPath
+                : `/${entry.HttpEntryPath}`
+              : ""
+          }`;
+          return `${emoji("🔗")} ${entry.Label}: ${genClickableLink(url)}`;
+        })
+        .join("\n");
+      getLogger().info(`${emoji("🌐")} 应用入口信息:
+${entryLogInfo}`);
+    }
   }
 
   /**

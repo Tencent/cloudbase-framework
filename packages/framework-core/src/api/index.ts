@@ -11,6 +11,7 @@ export class CloudApi {
   constructor() {}
 
   static init({ secretId, secretKey, token, envId }: ICloudApiOptions) {
+    CloudApi.envId = envId;
     CloudApi.tcbService = new CloudApiService({
       service: "tcb",
       credential: {
@@ -35,6 +36,7 @@ export class CloudApi {
   public static tcbService: CloudApiService;
   // 账号维度的 TCB 服务，不需要传入 EnvId
   public static tcbUinService: CloudApiService;
+  public static envId: string;
 
   public static fetchStream = fetchStream;
   public static fetch = fetch;
