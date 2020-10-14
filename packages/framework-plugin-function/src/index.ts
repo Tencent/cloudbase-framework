@@ -3,8 +3,6 @@ import archiver from "archiver";
 import fs from "fs";
 import { Plugin, PluginServiceApi, Builder } from "@cloudbase/framework-core";
 import { mkdirSync } from "@cloudbase/toolbox";
-import getLogger from "@cloudbase/framework-core/lib/logger";
-
 /**
  * 导出接口用于生成 JSON Schema 来进行智能提示
  */
@@ -70,7 +68,7 @@ export interface ICloudFunction {
    */
   runtime?: "Nodejs10.15" | "Nodejs8.9" | "Php7" | "Java8" | "Go1";
   /**
-   * 函数运行时内存配置	
+   * 函数运行时内存配置
    * @default 128
    */
   memory?: 128 | 256 | 512 | 1024 | 2048;

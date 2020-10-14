@@ -210,3 +210,42 @@ export interface IUnbindGatewayDomainOptions {
   envId: string;
   domain: string;
 }
+
+export interface BuilderOptions {
+  type: string;
+  projectPath: string;
+}
+
+export interface BuildResult {
+  container?: {
+    name: string;
+    options: any;
+    source: string;
+    entry: string;
+  }[];
+  functions?: {
+    name: string;
+    options: any;
+    source: string;
+    entry: string;
+  }[];
+  routes?: {
+    path: string;
+    targetType: string;
+    target: string;
+  }[];
+  static?: {
+    src: string;
+    cloudPath: string;
+  }[];
+  staticConfig?: {
+    src: string;
+    cloudPath: string;
+  }[];
+  zipFiles?: {
+    name: string;
+    options: any;
+    source: string;
+    entry: string;
+  }[];
+}

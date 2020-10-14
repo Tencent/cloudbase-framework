@@ -33,7 +33,8 @@
     "@cloudbase/static-builder": "^1.2.10",
     "@cloudbase/static-deployer": "^1.2.10",
     "@types/lodash.merge": "^4.6.6",
-    "lodash.merge": "^4.6.2"
+    "lodash.merge": "^4.6.2",
+    "archiver": "^4.0.2"
   },
   "devDependencies": {
     "typescript": "^3.9.2"
