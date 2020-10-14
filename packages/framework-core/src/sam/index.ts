@@ -63,7 +63,10 @@ export class SamManager {
     let extensionId: string;
 
     // 没有资源需要部署的情况不走 SAM安装
-    if (!Object.keys(template.Resources).length && !Object.keys(template.Config || {}).length) {
+    if (
+      !Object.keys(template.Resources).length &&
+      !Object.keys(template.Config || {}).length
+    ) {
       return this.clear();
     }
 
@@ -97,6 +100,10 @@ export class SamManager {
       throw e;
     }
     this.clear();
+  }
+
+  getAppEntry() {
+    return this.samObj?.EntryPoint || [];
   }
 
   /**

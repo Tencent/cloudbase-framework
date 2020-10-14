@@ -197,8 +197,6 @@ class WebsitePlugin extends Plugin {
           },
         ])) as any;
 
-        console.log(codeUris);
-
         return Object.assign({}, item, {
           codeUri: codeUris[0].codeUri,
         });
