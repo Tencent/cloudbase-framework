@@ -29,22 +29,179 @@ interface CommandParams {
   runCommandKey?: string;
 }
 
+/**
+ *
+ * 提供 CLI 调用
+ *
+ * @param cloudbaseFrameworkConfig
+ * @param command
+ * @param module
+ * @param params
+ */
 export async function run(
-  {
-    projectPath,
-    cloudbaseConfig,
-    logLevel = "info",
-    config,
-    resourceProviders,
-    bumpVersion,
-    versionRemark,
-  }: CloudbaseFrameworkConfig,
+  cloudbaseFrameworkConfig: CloudbaseFrameworkConfig,
   command: "deploy" = "deploy",
   module?: string,
   params?: CommandParams
 ) {
-  const logger = getLogger(logLevel);
+  const frameworkCore = new CloudBaseFrameworkCore(cloudbaseFrameworkConfig);
 
+  if (!SUPPORT_COMMANDS.includes(command)) {
+    throw new Error(`CloudBase Framework: not support command '${command}'`);
+  }
+  await frameworkCore.init();
+  await frameworkCore[command](module, params);
+
+  const logger = getLogger();
+  logger.info("✨ done");
+}
+
+/**
+ * CloudBase Framework 核心实现类
+ */
+export class CloudBaseFrameworkCore {
+  pluginManager!: PluginManager;
+  samManager!: SamManager;
+  samMeta!: Record<string, any>;
+  hooks!: Hooks;
+
+  constructor(public frameworkConfig: CloudbaseFrameworkConfig) {}
+
+  async init() {
+    const {
+      projectPath,
+      cloudbaseConfig,
+      logLevel = "info",
+      config,
+      resourceProviders,
+      bumpVersion,
+      versionRemark,
+    } = this.frameworkConfig;
+
+    const logger = getLogger(logLevel);
+
+    await showBanner();
+    logger.info(`Version ${chalk.green(`v${packageInfo.version}`)}`);
+    logger.info(
+      `Github: ${genClickableLink(
+        "https://github.com/TencentCloudBase/cloudbase-framework"
+      )}
+`
+    );
+
+    logger.info(`EnvId ${chalk.green(cloudbaseConfig.envId)}`);
+
+    if (
+      !projectPath ||
+      !cloudbaseConfig ||
+      !cloudbaseConfig.secretId ||
+      !cloudbaseConfig.secretKey
+    ) {
+      throw new Error("CloudBase Framework: config info missing");
+    }
+
+    const appConfig = await resolveConfig(projectPath, config);
+
+    if (!appConfig) {
+      logger.info("⚠️ 未识别到框架配置");
+      return;
+    }
+
+    CloudApi.init({
+      secretId: cloudbaseConfig.secretId,
+      secretKey: cloudbaseConfig.secretKey,
+      token: cloudbaseConfig.token || "",
+      envId: cloudbaseConfig.envId,
+    });
+
+    this.samManager = new SamManager({
+      projectPath,
+    });
+    const context = new Context({
+      appConfig,
+      projectConfig: config,
+      cloudbaseConfig,
+      projectPath,
+      logLevel,
+      resourceProviders,
+      samManager: this.samManager,
+      bumpVersion: !!bumpVersion,
+      versionRemark: versionRemark || "",
+    });
+
+    this.pluginManager = new PluginManager(context);
+
+    const appName = `fx-${appConfig.name || "app"}`;
+    this.samMeta = {
+      Name: appName,
+      Version: appConfig.version || "1.0.0",
+      DisplayName: appName,
+      Description: appConfig.description || "基于 CloudBase Framework 构建",
+    };
+
+    this.hooks = new Hooks(appConfig.hooks || {}, projectPath, this.samMeta);
+  }
+
+  /**
+   * 调用命令
+   *
+   * @param module
+   * @param params
+   */
+  async run(module?: string, params?: CommandParams) {
+    await this.pluginManager.run(module, params?.runCommandKey);
+  }
+
+  /**
+   * 编译应用
+   *
+   * @param module
+   * @param params
+   */
+  async compile(module?: string, params?: CommandParams) {
+    await this.hooks.callHook("preDeploy");
+    await this._compile(module);
+  }
+
+  /**
+   * 编译并部署应用
+   * @param module
+   * @param params
+   */
+  async deploy(module?: string, params?: CommandParams) {
+    await this.hooks.callHook("preDeploy");
+    await this._compile(module);
+    await this.samManager.install();
+    await this.pluginManager.deploy(module);
+    await this.hooks.callHook("postDeploy");
+  }
+
+  /**
+   * 编译 SAM
+   * @param module
+   */
+  private async _compile(module?: string) {
+    await this.pluginManager.init(module);
+    await this.pluginManager.build(module);
+
+    const compileResult = await this.pluginManager.compile(module);
+
+    await this.hooks.callHook("postCompile");
+    const hooksSAM = this.hooks.genSAM();
+
+    const samSections = [...compileResult, hooksSAM];
+
+    this.samManager.generate(
+      this.samMeta,
+      JSON.parse(JSON.stringify(samSections))
+    );
+  }
+}
+
+/**
+ * 展示 CloudBase Framework 横幅
+ */
+async function showBanner() {
   try {
     const data = await promisify(figlet.text as any)(
       `CloudBase
@@ -63,107 +220,4 @@ Framework`,
       )
     );
   } catch (e) {}
-
-  logger.info(`Version ${chalk.green(`v${packageInfo.version}`)}`);
-  logger.info(
-    `Github: ${genClickableLink(
-      "https://github.com/TencentCloudBase/cloudbase-framework"
-    )}
-`
-  );
-
-  logger.info(`EnvId ${chalk.green(cloudbaseConfig.envId)}`);
-
-  if (
-    !projectPath ||
-    !cloudbaseConfig ||
-    !cloudbaseConfig.secretId ||
-    !cloudbaseConfig.secretKey
-  ) {
-    throw new Error("CloudBase Framework: config info missing");
-  }
-
-  const appConfig = await resolveConfig(projectPath, config);
-
-  if (!appConfig) {
-    logger.info("⚠️ 未识别到框架配置");
-    return;
-  }
-
-  CloudApi.init({
-    secretId: cloudbaseConfig.secretId,
-    secretKey: cloudbaseConfig.secretKey,
-    token: cloudbaseConfig.token || "",
-    envId: cloudbaseConfig.envId,
-  });
-
-  const samManager = new SamManager({
-    projectPath,
-  });
-  const context = new Context({
-    appConfig,
-    projectConfig: config,
-    cloudbaseConfig,
-    projectPath,
-    logLevel,
-    resourceProviders,
-    samManager,
-    bumpVersion: !!bumpVersion,
-    versionRemark: versionRemark || "",
-  });
-
-  const pluginManager = new PluginManager(context);
-
-  const appName = `fx-${appConfig.name || "app"}`;
-  const samMeta = {
-    Name: appName,
-    Version: appConfig.version || "1.0.0",
-    DisplayName: appName,
-    Description: appConfig.description || "基于 CloudBase Framework 构建",
-  };
-
-  if (!SUPPORT_COMMANDS.includes(command)) {
-    throw new Error(`CloudBase Framework: not support command '${command}'`);
-  }
-
-  const hooks = new Hooks(appConfig.hooks || {}, projectPath, samMeta);
-
-  if (command === "deploy") {
-    await hooks.callHook("preDeploy");
-    await compile();
-    await samManager.install();
-    await pluginManager.deploy(module);
-    await hooks.callHook("postDeploy");
-  } else if (command === "compile") {
-    await hooks.callHook("preDeploy");
-    await compile();
-  } else if (command === "run") {
-    await pluginManager.run(module, params?.runCommandKey);
-  }
-
-  async function compile() {
-    await pluginManager.init(module);
-    await pluginManager.build(module);
-
-    const compileResult = await pluginManager.compile(module);
-
-    await hooks.callHook("postCompile");
-    const hooksSAM = hooks.genSAM();
-
-    const samSections = [...compileResult, hooksSAM];
-
-    samManager.generate(samMeta, JSON.parse(JSON.stringify(samSections)));
-  }
-
-  logger.info("✨ done");
-}
-
-async function getAppId(cloudApi: typeof CloudApi) {
-  const res = await cloudApi.tcbService.request("DescribeEnvs");
-
-  if (!res.EnvList[0]) {
-    throw new Error("请提供正确的环境id");
-  }
-
-  return res.EnvList[0].Storages[0].AppId;
 }
