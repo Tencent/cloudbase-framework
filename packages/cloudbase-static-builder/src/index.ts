@@ -78,15 +78,18 @@ export class StaticBuilder extends Builder {
     options: StaticBuilderBuildOptions
   ) {
     // 1. 读取旧配置
-    const url = `https://${options.domain}/${CONFIG_FILE_NAME}`;
-    const streamRes = await fetchStream(url);
     let originConfig;
-    if (streamRes?.status == 200) {
-      originConfig = await streamRes.json().catch((err) => {
-        return {};
-      });
-    } else {
-      originConfig = {};
+
+    if (options.domain) {
+      const url = `https://${options.domain}/${CONFIG_FILE_NAME}`;
+      const streamRes = await fetchStream(url);
+      if (streamRes?.status == 200) {
+        originConfig = await streamRes.json().catch((err) => {
+          return {};
+        });
+      } else {
+        originConfig = {};
+      }
     }
 
     // 2. 整合配置
