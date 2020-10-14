@@ -16,9 +16,7 @@ const config = {
           'https://main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png'
         }"><br /><sub><b>${
           item.name
-        }</b></sub></a><br/><a target="_blank" href="${
-          item.repo
-        }">💻</a> <a target="_blank" href="${item.link}">🌐</a></td>`;
+        }</b></sub></a><br/><a target="_blank" href="${item.link}">🌐</a></td>`;
       };
       const maxWidth = 5;
       return `
