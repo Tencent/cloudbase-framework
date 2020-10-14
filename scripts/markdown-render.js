@@ -9,12 +9,16 @@ const config = {
         readFileSync(path.join(__dirname, '../community/usercases/index.json'))
       );
       const renderCell = (item) => {
-        return `<td style="text-align:center;"><a target="_blank" href="${
-          item.link
-        }"><img width="14" src="${
+        return `<td align="center"><a target="_blank" href="${
+          item.repo
+        }"><img width="100px;" src="${
           item.logo ||
           'https://main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png'
-        }"></a>  <a target="_blank" href="${item.repo}">${item.name}</a></td>`;
+        }"><br /><sub><b>${
+          item.name
+        }</b></sub></a><br/><a target="_blank" href="${
+          item.repo
+        }">💻</a> <a target="_blank" href="${item.link}">🌐</a></td>`;
       };
       const maxWidth = 5;
       return `
@@ -58,6 +62,9 @@ ${content}
 
   console.log(defines);
   await spawnPromise(`npx mdmod README.md ${defines}`, {
+    cwd: path.join(__dirname, '../'),
+  });
+  await spawnPromise(`npx mdmod packages/framework-core/README.md ${defines}`, {
     cwd: path.join(__dirname, '../'),
   });
 })();
