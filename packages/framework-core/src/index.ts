@@ -10,7 +10,7 @@ import PluginManager from "./plugin-manager";
 import { CloudApi } from "./api";
 import resolveConfig from "./config/resolve-config";
 import Context from "./context";
-import { CloudbaseFrameworkConfig } from "./types";
+import { CloudBaseFrameworkConfig } from "./types";
 import getLogger from "./logger";
 import { SamManager } from "./sam";
 import Hooks from "./hooks";
@@ -39,7 +39,7 @@ interface CommandParams {
  * @param params
  */
 export async function run(
-  cloudbaseFrameworkConfig: CloudbaseFrameworkConfig,
+  cloudbaseFrameworkConfig: CloudBaseFrameworkConfig,
   command: "deploy" = "deploy",
   module?: string,
   params?: CommandParams
@@ -65,7 +65,7 @@ export class CloudBaseFrameworkCore {
   samMeta!: Record<string, any>;
   hooks!: Hooks;
 
-  constructor(public frameworkConfig: CloudbaseFrameworkConfig) {}
+  constructor(public frameworkConfig: CloudBaseFrameworkConfig) {}
 
   async init() {
     const {

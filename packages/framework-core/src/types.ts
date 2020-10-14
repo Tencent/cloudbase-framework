@@ -28,7 +28,7 @@ export interface ResourceProviders {
   [key: string]: any;
 }
 
-export interface CloudbaseFrameworkConfig {
+export interface CloudBaseFrameworkConfig {
   projectPath: string;
   cloudbaseConfig: CloudBaseConfig;
   logLevel?: string;
