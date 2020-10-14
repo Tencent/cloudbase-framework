@@ -35,18 +35,18 @@ interface CommandParams {
  *
  * 提供 CLI 调用
  *
- * @param cloudbaseFrameworkConfig
+ * @param cloudBaseFrameworkConfig
  * @param command
  * @param module
  * @param params
  */
 export async function run(
-  cloudbaseFrameworkConfig: CloudBaseFrameworkConfig,
+  cloudBaseFrameworkConfig: CloudBaseFrameworkConfig,
   command: "deploy" = "deploy",
   module?: string,
   params?: CommandParams
 ) {
-  const frameworkCore = new CloudBaseFrameworkCore(cloudbaseFrameworkConfig);
+  const frameworkCore = new CloudBaseFrameworkCore(cloudBaseFrameworkConfig);
 
   if (!SUPPORT_COMMANDS.includes(command)) {
     throw new Error(`CloudBase Framework: not support command '${command}'`);
