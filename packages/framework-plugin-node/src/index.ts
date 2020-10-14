@@ -121,14 +121,8 @@ class NodePlugin extends Plugin {
     );
 
     await this.pluginImpl.deploy(params);
-    let url = `https://${this.api.envId}.service.tcloudbase.com${this.resolvedInputs.path}`;
-    if (url[url.length - 1] !== "/") {
-      url = url + "/";
-    }
-    url = this.api.genClickableLink(url);
-    this.api.logger.info(
-      `${this.api.emoji("🚀")} Node 应用部署成功,访问地址: ${url}`
-    );
+
+    this.api.logger.info(`${this.api.emoji("🚀")} Node 应用部署成功`);
   }
 }
 

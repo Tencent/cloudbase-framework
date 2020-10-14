@@ -146,15 +146,7 @@ class DartPlugin extends Plugin {
 
     await this.dartBuilder.clean();
 
-    let url = `https://${this.api.envId}.service.tcloudbase.com${this.resolvedInputs.servicePath}`;
-    if (url[url.length - 1] !== "/") {
-      url = url + "/";
-    }
-    url = this.api.genClickableLink(url);
-
-    this.api.logger.info(
-      `${this.api.emoji("🚀")} Dart 应用部署成功,访问地址: ${url}`
-    );
+    this.api.logger.info(`${this.api.emoji("🚀")} Dart 应用部署成功`);
   }
 }
 
