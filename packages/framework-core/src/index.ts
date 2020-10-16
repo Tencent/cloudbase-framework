@@ -189,7 +189,7 @@ export class CloudBaseFrameworkCore {
               base = domains.static;
               break;
             case "HttpService":
-              base = domains.static;
+              base = domains.service;
               break;
           }
           url = `https://${base}${
