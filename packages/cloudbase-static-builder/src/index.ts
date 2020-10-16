@@ -79,7 +79,6 @@ export class StaticBuilder extends Builder {
   ) {
     // 1. 读取旧配置
     let originConfig;
-
     if (options.domain) {
       const url = `https://${options.domain}/${CONFIG_FILE_NAME}`;
       const streamRes = await fetchStream(url);
@@ -90,8 +89,11 @@ export class StaticBuilder extends Builder {
       } else {
         originConfig = {};
       }
+    } else {
+      // 域名为空, 则静态托管还未开通
+      originConfig = {}
     }
-
+    
     // 2. 整合配置
     const resolvedConfig = Object.assign({}, originConfig, options.config);
 
