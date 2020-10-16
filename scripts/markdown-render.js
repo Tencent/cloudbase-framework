@@ -10,7 +10,7 @@ const config = {
       );
       const renderCell = (item) => {
         return `<td align="center"><a target="_blank" href="${
-          item.repo
+          item.repo || item.link
         }"><img width="100px;" src="${
           item.logo ||
           'https://main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png'
