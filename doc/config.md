@@ -1,6 +1,6 @@
 # 配置
 
-CloudBase Framework 部署需要创建一个 cloudbaserc.json，填写如下配置文件，调用 `cloudbase framework:deploy` 进行部署
+CloudBase Framework 部署需要创建一个 cloudbaserc.json，填写如下配置文件，调用 `cloudbase framework deploy` 进行部署
 
 ```json
 {
@@ -28,7 +28,7 @@ CloudBase Framework 部署需要创建一个 cloudbaserc.json，填写如下配�
               "name": "nuxt-ssr-echo",
               "timeout": 5,
               "envVariables": {},
-              "runtime": "Nodejs10.15",
+              "runtime": "Nodejs10.15"
             }
           ],
           "servicePaths": {
@@ -94,7 +94,7 @@ framework 使用的插件配置，你可以配置多个插件，插件可以帮�
 
 类型：Object
 
-插件别名，使用`cloudbase framework:deploy <deploy_name>`可以完成插件这个工作流
+插件别名，使用`cloudbase framework deploy <deploy_name>`可以完成插件这个工作流
 
 ### `framework.plugins.<deploy_name>.use`
 
@@ -151,8 +151,7 @@ framework 部署阶段前后的钩子配置，可以在这里自定义应用不�
   "version": "2.0",
   "framework": {
     "name": "nuxt-ssr",
-    "plugins": {
-    }
+    "plugins": {}
   },
   "hooks": {
     "preDeploy": {
@@ -217,7 +216,7 @@ framework 部署阶段前后的钩子配置，可以在这里自定义应用不�
 要调用的云函数列表，支持数组，例如
 
 ```json
- [
+[
   {
     "functionName": "nuxt-ssr-echo",
     "params": {
@@ -232,5 +231,3 @@ framework 部署阶段前后的钩子配置，可以在这里自定义应用不�
   }
 ]
 ```
-
-

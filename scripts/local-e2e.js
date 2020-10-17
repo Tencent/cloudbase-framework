@@ -69,7 +69,7 @@ async function getTemplates() {
 async function installTemplate(template) {
   console.log(`install template ${template.path} ${template.name}`);
   await spawnPromise(
-    `cloudbase framework:deploy -e ${process.env.envId} --verbose`,
+    `cloudbase framework deploy -e ${process.env.envId} --verbose`,
     {
       cwd: path.join(cwd, 'cloudbase-templates', template.path),
     }

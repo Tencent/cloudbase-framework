@@ -15,7 +15,7 @@ cloudbase init --template vue
 ✔ 初始化项目vue成功！
 
 ℹ 👉 执行命令 cd vue 进入项目文件夹
-ℹ 👉 开发完成后，执行命令 cloudbase framework:deploy 一键部署
+ℹ 👉 开发完成后，执行命令 cloudbase framework deploy 一键部署
 ```
 
 or

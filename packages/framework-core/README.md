@@ -68,7 +68,7 @@ cloudbase init
 3. **部署应用**
 
 ```bash
-cloudbase framework:deploy
+cloudbase framework deploy
 ```
 
 **一键部署一个 Vue CLI 创建的 项目**
@@ -173,7 +173,7 @@ cloudbase
 
 例如一个 Vue 的全栈项目，包含网站前端和云函数
 
-可以在在项目下手动创建一个 `cloudbaserc.json`，填写如下配置文件，调用 `cloudbase framework:deploy` 进行部署
+可以在在项目下手动创建一个 `cloudbaserc.json`，填写如下配置文件，调用 `cloudbase framework deploy` 进行部署
 
 或者直接运行 `cloudbase` 来进行自动检测并部署
 
