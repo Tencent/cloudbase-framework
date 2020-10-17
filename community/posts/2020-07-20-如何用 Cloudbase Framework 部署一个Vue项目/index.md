@@ -90,7 +90,7 @@ cloudbase
 接下来，输入以下命令，进行部署。
 
 ```
-cloudbase framework:deploy
+cloudbase framework deploy
 ```
 
 ![](https://main.qcloudimg.com/raw/831e938cf46b4f3c160787b3c3fa8ca5.png)
@@ -170,7 +170,7 @@ cloudebaserc.json 里，会默认安装两个插件。之前提到的 [@cloudbas
 输入以下命令，进行部署。
 
 ```
-cloudbase framework:deploy
+cloudbase framework deploy
 ```
 
 部署成功

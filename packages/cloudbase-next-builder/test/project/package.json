@@ -8,9 +8,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "deploy": "cloudbase framework:deploy",
-    "deploy:client": "cloudbase framework:deploy client",
-    "deploy:server": "cloudbase framework:deploy server",
+    "deploy": "cloudbase framework deploy",
+    "deploy:client": "cloudbase framework deploy client",
+    "deploy:server": "cloudbase framework deploy server",
     "export": "next export"
   },
   "dependencies": {

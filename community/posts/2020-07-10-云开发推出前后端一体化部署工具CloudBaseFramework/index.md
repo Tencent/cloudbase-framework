@@ -96,7 +96,7 @@ tags:
       run: |
         npm i @cloudbase/cli
         cloudbase login --apiKeyId ${{secrets.SECRETID}}  --apiKey ${{secrets.SECRETKEY}}
-        cloudbase framework:deploy
+        cloudbase framework deploy
 ```
 
 ## 亮点 2: 一体化，易扩展
@@ -196,7 +196,7 @@ cloudbase init --template nuxt-ssr
 接下来，只需要进入到项目目录中调用命令进行部署
 
 ```bash
-cloudbase framework:deploy
+cloudbase framework deploy
 ```
 
 ![](https://main.qcloudimg.com/raw/ae4a181e01c1f3278dc48940a5839551.png)
