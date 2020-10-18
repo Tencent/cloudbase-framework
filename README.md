@@ -243,7 +243,7 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
    <td>
       微信群
       <br>
-      <img src="https://main.qcloudimg.com/raw/797ae4a001cf79c39382944350c4904d.png" width="100px;" alt=""/>
+      <img src="https://main.qcloudimg.com/raw/730411c9377192efbe27d0093f5d8a89.png" width="100px;" alt=""/>
     </td>
     <td>
       QQ 群
