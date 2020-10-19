@@ -68,7 +68,7 @@ cloudbase init
 3. **部署应用**
 
 ```bash
-cloudbase framework:deploy
+cloudbase framework deploy
 ```
 
 **一键部署一个 Vue CLI 创建的 项目**
@@ -173,7 +173,7 @@ cloudbase
 
 例如一个 Vue 的全栈项目，包含网站前端和云函数
 
-可以在在项目下手动创建一个 `cloudbaserc.json`，填写如下配置文件，调用 `cloudbase framework:deploy` 进行部署
+可以在在项目下手动创建一个 `cloudbaserc.json`，填写如下配置文件，调用 `cloudbase framework deploy` 进行部署
 
 或者直接运行 `cloudbase` 来进行自动检测并部署
 
@@ -227,7 +227,7 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 
 <table>
 
-  <tr><td style="text-align:center;"><a target="_blank" href="https://cms-demo-1252710547.tcloudbaseapp.com/#/login"><img width="14" src="https://main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png"></a>  <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-extension-cms">CloudBase CMS</a></td><td style="text-align:center;"><a target="_blank" href="https://face.xiaoxili.com"><img width="14" src="https://image-hosting.xiaoxili.com/img/img/20200920/eca5f4fa2f7f5512fe236d5dfd05f1c0-b879e7.jpg"></a>  <a target="_blank" href="https://github.com/hi-our/hi-face">Hi头像</a></td><td style="text-align:center;"><a target="_blank" href="https://acc.cloudbase.vip/todo"><img width="14" src="https://main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png"></a>  <a target="_blank" href="https://github.com/TCloudBase/WEB-TodoList-framework">CloudBase TodoList</a></td>
+  <tr><td align="center"><a target="_blank" href="https://ilive.qq.com/"><img width="100px;" src="https://nowpic.gtimg.com/feeds_pic/ajNVdqHZLLCSibq1Mbc4x7v3q63wjgXdKJUbUuynLCj1RUbuu0yOvdw/"><br /><sub><b>腾讯直播</b></sub></a><br/><a target="_blank" href="https://ilive.qq.com/">🌐</a></td><td align="center"><a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-extension-cms"><img width="100px;" src="https://main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png"><br /><sub><b>CloudBase CMS</b></sub></a><br/><a target="_blank" href="https://cms-demo-1252710547.tcloudbaseapp.com/#/login">🌐</a></td><td align="center"><a target="_blank" href="https://github.com/hi-our/hi-face"><img width="100px;" src="https://image-hosting.xiaoxili.com/img/img/20200920/eca5f4fa2f7f5512fe236d5dfd05f1c0-b879e7.jpg"><br /><sub><b>Hi头像</b></sub></a><br/><a target="_blank" href="https://face.xiaoxili.com">🌐</a></td><td align="center"><a target="_blank" href="https://github.com/TCloudBase/WEB-TodoList-framework"><img width="100px;" src="https://main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png"><br /><sub><b>CloudBase TodoList</b></sub></a><br/><a target="_blank" href="https://acc.cloudbase.vip/todo">🌐</a></td>
 </tr>
 
 </table>
@@ -243,7 +243,7 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
    <td>
       微信群
       <br>
-      <img src="https://main.qcloudimg.com/raw/797ae4a001cf79c39382944350c4904d.png" width="100px;" alt=""/>
+      <img src="https://main.qcloudimg.com/raw/730411c9377192efbe27d0093f5d8a89.png" width="100px;" alt=""/>
     </td>
     <td>
       QQ 群
@@ -259,7 +259,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-21-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-22-orange.svg?style=flat-square)](#contributors-)
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
@@ -287,12 +287,15 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="http://evecalm.com"><img src="https://avatars2.githubusercontent.com/u/1655294?v=4" width="100px;" alt=""/><br /><sub><b>Saiya</b></sub></a><br /><a href="#talk-oe" title="Talks">📢</a> <a href="https://github.com/TencentCloudBase/cloudbase-framework/issues?q=author%3Aoe" title="Bug reports">🐛</a> <a href="#blog-oe" title="Blogposts">📝</a></td>
-    <td align="center"><a href="https://github.com/mirageql"><img src="https://avatars1.githubusercontent.com/u/69442876?v=4" width="100px;" alt=""/><br /><sub><b>mirageql</b></sub></a><br /><a href="https://github.com/TencentCloudBase/cloudbase-framework/commits?author=mirageql" title="Code">💻</a> <a href="#blog-mirageql" title="Blogposts">📝</a></td>
+    <td align="center"><a href="https://github.com/mirageql"><img src="https://avatars1.githubusercontent.com/u/69442876?v=4" width="100px;" alt=""/><br /><sub><b>mirageql</b></sub></a><br /><a href="https://github.com/TencentCloudBase/cloudbase-framework/commits?author=mirageql" title="Code">💻</a> <a href="#blog-mirageql" title="Blogposts">📝</a> <a href="#example-mirageql" title="Examples">💡</a></td>
     <td align="center"><a href="https://github.com/TabSpace"><img src="https://avatars0.githubusercontent.com/u/550449?v=4" width="100px;" alt=""/><br /><sub><b>Tab Liang</b></sub></a><br /><a href="https://github.com/TencentCloudBase/cloudbase-framework/commits?author=TabSpace" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/juukee"><img src="https://avatars0.githubusercontent.com/u/28680837?v=4" width="100px;" alt=""/><br /><sub><b>juukee</b></sub></a><br /><a href="https://github.com/TencentCloudBase/cloudbase-framework/issues?q=author%3Ajuukee" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://blog.heyliubo.top"><img src="https://avatars1.githubusercontent.com/u/41336612?v=4" width="100px;" alt=""/><br /><sub><b>Albert Liu</b></sub></a><br /><a href="https://github.com/TencentCloudBase/cloudbase-framework/commits?author=liulinboyi" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/SearchFan"><img src="https://avatars1.githubusercontent.com/u/42856891?v=4" width="100px;" alt=""/><br /><sub><b>SearchFan</b></sub></a><br /><a href="https://github.com/TencentCloudBase/cloudbase-framework/issues?q=author%3ASearchFan" title="Bug reports">🐛</a></td>
     <td align="center"><a href="http://a.dnuise.cn"><img src="https://avatars2.githubusercontent.com/u/48037743?v=4" width="100px;" alt=""/><br /><sub><b>Zira</b></sub></a><br /><a href="#example-wasfzxt" title="Examples">💡</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://www.mscoder.cn/"><img src="https://avatars3.githubusercontent.com/u/80653?v=4" width="100px;" alt=""/><br /><sub><b>代码抄写狮</b></sub></a><br /><a href="https://github.com/TencentCloudBase/cloudbase-framework/issues?q=author%3ADaZiYuan" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 

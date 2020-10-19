@@ -42,7 +42,7 @@ cloudbase init
 ### 步骤三. 一键部署
 
 ```bash
-cloudbase framework:deploy
+cloudbase framework deploy
 ```
 
 ## 配置

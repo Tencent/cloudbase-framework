@@ -23,7 +23,7 @@ cloudbase init --tempate next-ssr
 进入到项目目录，在命令行执行
 
 ```
-cloudbase framework:deploy
+cloudbase framework deploy
 ```
 
 ## 开发命令及配置
@@ -47,5 +47,3 @@ npm run deploy
 ### Next 相关开发配置
 
 查看 [Configuration Reference](https://nextjs.org/docs/api-reference/next.config.js/introduction).
-
-

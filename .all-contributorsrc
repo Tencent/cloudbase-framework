@@ -160,7 +160,8 @@
       "profile": "https://github.com/mirageql",
       "contributions": [
         "code",
-        "blog"
+        "blog",
+        "example"
       ]
     },
     {
@@ -206,6 +207,15 @@
       "profile": "http://a.dnuise.cn",
       "contributions": [
         "example"
+      ]
+    },
+    {
+      "login": "DaZiYuan",
+      "name": "代码抄写狮",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/80653?v=4",
+      "profile": "https://www.mscoder.cn/",
+      "contributions": [
+        "bug"
       ]
     }
   ],

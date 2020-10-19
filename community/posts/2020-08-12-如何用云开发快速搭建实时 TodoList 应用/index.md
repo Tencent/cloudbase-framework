@@ -88,7 +88,7 @@ tags:
 
     {
       "scripts": {
-        "deploy:database": "cloudbase framework:deploy database"
+        "deploy:database": "cloudbase framework deploy database"
       }
     }
 
