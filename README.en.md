@@ -44,7 +44,7 @@ cloudbase init
 4.  **Deploy the application**
 
 ```bash
-cloudbase framework:deploy
+cloudbase framework deploy
 ```
 
 **Deploy a project created by Vue CLI with one click**
@@ -96,7 +96,7 @@ The configuration of the plug-in can be filled in manually or automatically gene
 
 - `cloudbase init --without-template` generates project configuration·
 
-- `cloudbase framework:deploy` automatically detects and generates plug-in configuration files and deploys
+- `cloudbase framework deploy` automatically detects and generates plug-in configuration files and deploys
 
 ### List of currently supported plugins
 
@@ -116,13 +116,13 @@ The configuration of the plug-in can be filled in manually or automatically gene
 
 For example, a Vue full-stack project, including website front-end and cloud functions
 
-You can manually create a `cloudbaserc.json` under the project, fill in the following configuration file, and call `cloudbase framework:deploy` for deployment
+You can manually create a `cloudbaserc.json` under the project, fill in the following configuration file, and call `cloudbase framework deploy` for deployment
 
 Or run directly
 
 - `cloudbase init --without-template`
 
-- `cloudbase framework:deploy` for automatic detection and deployment
+- `cloudbase framework deploy` for automatic detection and deployment
 
 ```json
 {

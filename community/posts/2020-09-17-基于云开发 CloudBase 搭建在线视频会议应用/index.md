@@ -800,7 +800,7 @@ ENV_ID=tcb-demo-10cf5b
 执行 ClouBase Framework 的一键部署命令
 
 ```bash
-cloudbase framework:deploy
+cloudbase framework deploy
 ```
 
 ![](https://tva1.sinaimg.cn/large/007S8ZIlgy1gib81yq9zlj30sq0gp44r.jpg)

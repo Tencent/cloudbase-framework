@@ -62,7 +62,7 @@ npm run dev
 ```bash
 npm run link
 # 在项目中使用本地框架
-CLOUDBASE_FX_ENV=dev cloudbase framework:deploy
+CLOUDBASE_FX_ENV=dev cloudbase framework deploy
 ```
 
 ### 执行完整端到端部署测试

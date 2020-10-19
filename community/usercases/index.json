@@ -1,5 +1,11 @@
 [
   {
+    "name": "腾讯直播",
+    "link": "https://ilive.qq.com/",
+    "repo": "",
+    "logo": "https://nowpic.gtimg.com/feeds_pic/ajNVdqHZLLCSibq1Mbc4x7v3q63wjgXdKJUbUuynLCj1RUbuu0yOvdw/"
+  },
+  {
     "name": "CloudBase CMS",
     "link": "https://cms-demo-1252710547.tcloudbaseapp.com/#/login",
     "repo": "https://github.com/TencentCloudBase/cloudbase-extension-cms",
