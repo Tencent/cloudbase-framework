@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/framework-plugin-function",
-  "version": "1.3.1-alpha.0",
+  "version": "1.3.1-beta.13+bb5bc7f",
   "description": "云开发 Tencent CloudBase Framework Function Plugin 插件，将项目下的云函数一键部署云开发环境，提供自动弹性伸缩的高性能函数服务。",
   "author": "Tencent CloudBase Team",
   "homepage": "https://github.com/TencentCloudBase/cloudbase-framework#readme",
@@ -30,7 +30,7 @@
     "url": "https://github.com/TencentCloudBase/cloudbase-framework/issues"
   },
   "dependencies": {
-    "@cloudbase/framework-core": "^1.3.0-alpha.0",
+    "@cloudbase/framework-core": "^1.3.1-beta.13+bb5bc7f",
     "@cloudbase/toolbox": "^0.4.14",
     "archiver": "^4.0.2"
   },
@@ -39,5 +39,5 @@
     "jest": "^26.0.1",
     "typescript": "^3.9.2"
   },
-  "gitHead": "70c11d9fb556dd7f6b4b4c03eddf9cb558ccd958"
+  "gitHead": "bb5bc7f796de942899728fdcee53f446117d3296"
 }
