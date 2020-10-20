@@ -2,7 +2,13 @@ const spawnPromise = require('./spawn');
 const path = require('path');
 const { readFileSync } = require('fs');
 
+const markdownFiles = [
+  'README.md',
+  "packages/framework-core/README.md",
+  "doc/plugin.md"
+]
 const config = {
+  // 渲染用户案例
   usercases: {
     async get() {
       const data = JSON.parse(
@@ -23,6 +29,23 @@ const config = {
 ${renderTable(data, renderCell, maxWidth)}
 
 [持续征集优秀应用案例](https://github.com/TencentCloudBase/cloudbase-framework/issues/91)
+`;
+    },
+  },
+  // 渲染插件
+  plugins: {
+    async get() {
+      const data = JSON.parse(
+        readFileSync(path.join(__dirname, '../community/plugins/index.json'))
+      );
+
+      return `
+| 插件链接 | 插件 | 最新版本 | 插件介绍 |
+| -------- | ---- | -------- | -------- |
+${data.map(item => {
+  return `| <a href="${item.link}"><img width="200" src="${item.cover}"></a>   | [${item.npmPackageName}](${item.link})     | [![Npm version](https://img.shields.io/npm/v/${item.npmPackageName})](https://www.npmjs.com/package/${item.npmPackageName})     | ${item.description}|`
+}).join('\n')}
+<!-- 新增/删除/修改插件信息，请修改 community/plugins/index.json，然后执行 npm run build:markdown-->
 `;
     },
   },
@@ -58,11 +81,7 @@ ${content}
     )
   ).join(' ');
 
-  console.log(defines);
-  await spawnPromise(`npx mdmod README.md ${defines}`, {
+  await Promise.all(markdownFiles.map(mdFile => spawnPromise(`npx mdmod ${mdFile} ${defines}`, {
     cwd: path.join(__dirname, '../'),
-  });
-  await spawnPromise(`npx mdmod packages/framework-core/README.md ${defines}`, {
-    cwd: path.join(__dirname, '../'),
-  });
+  })))
 })();

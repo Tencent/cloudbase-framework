@@ -1,16 +1,19 @@
-<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-mp">![Tencent CloudBase Framework MP Plugin](https://main.qcloudimg.com/raw/3de9cef4b6ac7c72f9519f13d063fc13.jpg)</a>
+<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-auth">![Tencent CloudBase Framework MP Plugin](https://main.qcloudimg.com/raw/8f7534f7f3a3f3a8df2cf861040f6a8c.jpg)</a>
 
-# Tencent CloudBase Framework MiniProgram Plugin
+# Tencent CloudBase Framework Auth Plugin
 
 [![Github License](https://img.shields.io/github/license/TencentCloudBase/cloudbase-framework)](LICENSE)
-[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-container)](https://www.npmjs.com/package/@cloudbase/framework-plugin-container)
+[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-auth)](https://www.npmjs.com/package/@cloudbase/framework-plugin-auth)
 [![issue](https://img.shields.io/github/issues/TencentCloudBase/cloudbase-framework)](https://github.com/TencentCloudBase/cloudbase-framework/issues)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/TencentCloudBase/cloudbase-framework/pulls)
 [![star](https://img.shields.io/github/stars/TencentCloudBase/cloudbase-framework?style=social)](https://github.com/TencentCloudBase/cloudbase-framework)
 
-**云开发 CloudBase Framework 框架「小程序」插件**： 通过云开发 **[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework)** 框架一键部署微信小程序应用。
+**云开发 CloudBase Framework 框架「登录配置」插件**： 通过云开发 **[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework)** 框架一键设置环境下的登录配置。
 
 ## 功能特性
+
+- 支持未登录、匿名登录登录设置
+- 后续会支持开放平台、公众号、账号密码等其他登录方式配置
 
 ## 使用方法
 
@@ -18,18 +21,37 @@
 
 具体步骤请参照 [准备云开发环境和 CloudBase CLI 命令工具](../../CLI_GUIDE.md)
 
-### 步骤二. 进入项目目录进行初始化
+### 步骤二. 编写 cloudbaserc.json 配置
 
-如果是目前已有的小程序应用项目
+在 `framework.plugins` 中新增登录插件配置
 
-```bash
-cloudbase
+```json
+{
+  "envId": "YOU_ENV_ID",
+  "framework": {
+    "plugins": {
+      "auth": {
+        "use": "@cloudbase/framework-plugin-auth",
+        "inputs": {
+          "configs": [
+            {
+              "platform": "NONLOGIN",
+              "status": "ENABLE"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
 ```
+
+具体配置信息请参考下面的配置文档
 
 ### 步骤三. 一键部署
 
 ```bash
-cloudbase framework:deploy
+cloudbase framework deploy
 ```
 
 ## 配置
@@ -38,143 +60,43 @@ cloudbase framework:deploy
 
 ### 配置示例
 
-`cloudbase init` 之后会创建云开发的配置文件 `cloudbaserc.json`，可在配置文件的 plugins 里修改和写入插件配置
+云开发的配置文件 `cloudbaserc.json`，可在配置文件的 plugins 里修改和写入插件配置
 
 ```json
 {
-  "envId": "{{envId}}",
+  "envId": "YOU_ENV_ID",
   "framework": {
     "plugins": {
       "client": {
-        "use": "@cloudbase/framework-plugin-mp",
+        "use": "@cloudbase/framework-plugin-auth",
         "inputs": {
-          "appid": "",
-          "privateKeyPath": "",
-          "localPath": "./",
-          "ignores": ["node_modules/**/*"],
-          "deployMode": "preview",
-          "previewOptions": {
-            "desc": "CloudBase Framework 一键预览",
-            "setting": {
-              "es6": true
-            },
-            "qrcodeOutputPath": "./qrcode.jpg",
-            "pagePath": "pages/index/index"
-          }
+          "configs": [
+            {
+              "platform": "NONLOGIN",
+              "status": "ENABLE"
+            }
+          ]
         }
       }
     }
   }
 }
 ```
-
-> 默认模板的 `appid` 和 `privateKeyPath` 为空，需要开发者填入
 
 ### 配置参数说明
 
-### `appid`
+### `configs`
 
-必填，小程序应用的 appid
+必填，类型为数组格式 Array.<Login 对象>
 
-### `privateKeyPath`
+#### Login 对象
 
-必填，小程序应用的部署私钥的本地相对路径
-
-### `localPath`
-
-选填，小程序项目 `project.config.json` 所在的本地路径，默认值 `./`
-
-### `ignores`
-
-选填，小程序应用部署时忽略的文件路径，支持通配符，默认值`["node_modules/**/*"]`
-
-### `deployMode`
-
-选填，小程序应用的部署模式，支持 `preview|upload` 2 种部署模式
-
-### `previewOptions`
-
-`deployMode` 填写为 `preview` 时需要填写`previewOptions`，类型是对象格式
-
-| 属性名称         | 类型                          | 是否必填 | 描述                             |
-| ---------------- | ----------------------------- | -------- | -------------------------------- |
-| desc             | String                        | 否       | 小程序应用的版本描述             |
-| setting          | IMiniProgramBuildSetting 对象 | 否       | 小程序应用的编译设置             |
-| qrcodeOutputPath | String                        | 否       | 生成的预览二维码保存在本地的路径 |
-| pagePath         | String                        | 否       | 小程序应用的预览页面地址         |
-| searchQuery      | String                        | 否       | 小程序应用的预览页面参数         |
-| scene            | Number                        | 否       | 小程序应用的预览页面场景值       |
-
-例如
-
-```json
-{
-  "envId": "{{envId}}",
-  "framework": {
-    "plugins": {
-      "client": {
-        "use": "@cloudbase/framework-plugin-mp",
-        "inputs": {
-          "appid": "",
-          "privateKeyPath": "",
-          "localPath": "./",
-          "ignores": ["node_modules/**/*"],
-          "deployMode": "preview",
-          "previewOptions": {
-            "desc": "一键预览",
-            "setting": {
-              "es6": false
-            },
-            "qrcodeOutputPath": "./qrcode.jpg",
-            "pagePath": "pages/index/index",
-            "searchQuery": "",
-            "scene": 1011
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-### `uploadOptions`
-
-`deployMode` 填写为 `upload` 时需要填写`uploadOptions`，类型是对象格式
-
-| 属性名称 | 类型                          | 是否必填 | 描述                   |
-| -------- | ----------------------------- | -------- | ---------------------- |
-| version  | String 对象                   | 否       | 小程序应用上传的版本号 |
-| desc     | String 对象                   | 否       | 小程序应用的版本描述   |
-| setting  | IMiniProgramBuildSetting 对象 | 否       | 小程序应用的编译设置   |
-
-例如
-
-```json
-{
-  "envId": "{{envId}}",
-  "framework": {
-    "plugins": {
-      "client": {
-        "use": "@cloudbase/framework-plugin-mp",
-        "inputs": {
-          "appid": "",
-          "privateKeyPath": "",
-          "localPath": "./",
-          "ignores": ["node_modules/**/*"],
-          "deployMode": "upload",
-          "uploadOptions": {
-            "version": "1.0.0",
-            "desc": "CloudBase Framework 一键上传",
-            "setting": {
-              "es6": false
-            }
-          }
-        }
-      }
-    }
-  }
-}
-```
+| 属性名称       | 类型     | 长度 | 是否必填 | 描述                                                                                                                                                                                                                                           |
+| -------------- | -------- | ---- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| platform       | `String` | 1-32 | 是       | 平台名称，可枚举值：<br>WECHAT-OPEN：微信开放平台；<br>WECHAT-PUBLIC：微信公众平台；<br>QQ-MINI：QQ 小程序；<br>CUSTOM：自定义登录；<br>ANONYMOUS：匿名登录；<br>EMAIL：邮箱登录；<br>NONLOGIN：未登录<br>**目前仅支持 ANONYMOUS 和 NONLOGIN** |
+| status         | `String` | 1-32 | 否       | 默认开启，可枚举值：ENABLE；DISABLE。                                                                                                                                                                                                          |
+| platformId     | `String` | 1-64 | 否       | 第三方平台的 AppID                                                                                                                                                                                                                             |
+| platformSecret | `String` | 1-64 | 否       | 第三方平台的 AppSecret                                                                                                                                                                                                                         |
 
 ## 更多插件
 
@@ -182,6 +104,6 @@ cloudbase framework:deploy
 
 ## 文档资料
 
+- 云开发登录鉴权文档：<https://docs.cloudbase.net/authentication/introduce.html>
 - 云开发官网地址： [https://cloudbase.net/](https://cloudbase.net/)
-- 云开发静态网站开通指南：[https://docs.cloudbase.net/hosting/](https://docs.cloudbase.net/hosting/)
-- 云开发控制台地址： [https://console.cloud.tencent.com/tcb](https://console.cloud.tencent.com/tcb)
+- 云开发控制台地址： [https://console.cloud.tencent.com/tcb](https://console.cloud.tencent.com/tcb?tdl_anchor=github&tdl_site=0)
