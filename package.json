@@ -15,7 +15,8 @@
     "link": "node scripts/link-packages.js",
     "commit": "npx git-cz",
     "license": "node scripts/license-checker.js",
-    "build:image": "node scripts/build-runner/build.js"
+    "build:image": "node scripts/build-runner/build.js",
+    "build:markdown": "node scripts/markdown-render.js"
   },
   "devDependencies": {
     "conventional-changelog-cli": "^2.0.34",
