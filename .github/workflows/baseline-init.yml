@@ -7,8 +7,6 @@ name: Baseline-Init
 on:
   push:
     branches: [master]
-  pull_request:
-    branches: [master]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -21,6 +19,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+    
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
 
       # Runs a single command using the runners shell
       - name: Install Deps
