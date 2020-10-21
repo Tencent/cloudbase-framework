@@ -43,6 +43,10 @@ const supportPluginsConfig = [
   {
     name: '@cloudbase/framework-plugin-mp',
     inputsInterfaceName: 'IFrameworkPluginMiniProgramInputs',
+  },
+   {
+    name: '@cloudbase/framework-plugin-auth',
+    inputsInterfaceName: 'IFrameworkPluginAuthInputs',
   }
 ];
 

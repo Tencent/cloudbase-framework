@@ -42,6 +42,7 @@
     "@cloudbase/framework-plugin-node": "^1.3.1-beta.16+62d841a",
     "@cloudbase/framework-plugin-nuxt": "^1.3.1-beta.16+62d841a",
     "@cloudbase/framework-plugin-website": "^1.3.1-beta.16+62d841a",
+    "@cloudbase/framework-plugin-auth": "^1.3.1-beta.16+62d841a",
     "typescript-json-schema": "^0.42.0"
   },
   "gitHead": "62d841aac1b42b7eb0639cbb54b859e1576915ec"
