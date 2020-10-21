@@ -153,6 +153,9 @@
         },
         {
           "$ref": "#/definitions/IFrameworkPluginMiniProgramInputsConfig"
+        },
+        {
+          "$ref": "#/definitions/IFrameworkPluginAuthInputsConfig"
         }
       ]
     },
@@ -1378,6 +1381,73 @@
           "$ref": "#/definitions/IMiniProgramBuildSetting"
         }
       }
+    },
+    "IFrameworkPluginAuthInputsConfig": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "enum": [
+            "@cloudbase/framework-plugin-auth"
+          ]
+        },
+        "inputs": {
+          "description": "导出接口用于生成 JSON Schema 来进行智能提示",
+          "type": "object",
+          "properties": {
+            "configs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IAuthConfig"
+              }
+            }
+          },
+          "required": [
+            "configs"
+          ],
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      "required": [
+        "use",
+        "inputs"
+      ]
+    },
+    "IAuthConfig": {
+      "type": "object",
+      "properties": {
+        "platform": {
+          "description": "登录平台",
+          "enum": [
+            "ANONYMOUS",
+            "NONLOGIN"
+          ],
+          "type": "string"
+        },
+        "status": {
+          "description": "开通状态",
+          "enum": [
+            "DISABLE",
+            "ENABLE"
+          ],
+          "type": "string"
+        },
+        "platformId": {
+          "description": "登录平台的 AppID，选填",
+          "type": "string"
+        },
+        "platformSecret": {
+          "description": "登录平台的 AppSecret，选填",
+          "type": "string"
+        }
+      },
+      "required": [
+        "platform",
+        "platformId",
+        "platformSecret",
+        "status"
+      ]
     }
   }
 }
