@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/framework-plugin-auth",
-  "version": "1.3.1-beta.16+62d841a",
+  "version": "1.3.1",
   "description": "云开发 Tencent CloudBase Framework Auth Plugin 插件，可以一键设置项目下的登录配置。",
   "author": "Tencent CloudBase Team",
   "homepage": "https://github.com/TencentCloudBase/cloudbase-framework#readme",
@@ -30,7 +30,7 @@
     "url": "https://github.com/TencentCloudBase/cloudbase-framework/issues"
   },
   "dependencies": {
-    "@cloudbase/framework-core": "^1.3.1-beta.16+62d841a"
+    "@cloudbase/framework-core": "^1.3.1"
   },
   "devDependencies": {
     "jest": "^26.0.1",
