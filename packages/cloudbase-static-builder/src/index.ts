@@ -83,7 +83,7 @@ export class StaticBuilder extends Builder {
       const url = `https://${options.domain}/${CONFIG_FILE_NAME}`;
       const streamRes = await fetchStream(url);
       if (streamRes?.status == 200) {
-        originConfig = await streamRes.json().catch((err) => {
+        originConfig = await streamRes.json().catch(() => {
           return {};
         });
       } else {
@@ -91,9 +91,9 @@ export class StaticBuilder extends Builder {
       }
     } else {
       // 域名为空, 则静态托管还未开通
-      originConfig = {}
+      originConfig = {};
     }
-    
+
     // 2. 整合配置
     const resolvedConfig = Object.assign({}, originConfig, options.config);
 
