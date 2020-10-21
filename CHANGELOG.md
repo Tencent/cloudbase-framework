@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.2] - 2020-10-21
+
+### Features
+
+- 新增登录插件，支持一键配置登录配置 @lt5c
+- Function 插件新增支持配置安全规则 @lt5c
+- Website 插件底层优化 @binggg
+- 优化应用入口信息展示
+
+### Bugfixes
+
+- 修复 website 插件边界问题报错 #98
+
 ## [1.2.10] - 2020-09-25
 
 ### Features
