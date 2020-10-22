@@ -35,6 +35,7 @@
     "@cloudbase/toolbox": "^0.4.19",
     "@types/archiver": "^3.1.1",
     "@types/lodash.merge": "^4.6.6",
+    "@types/node-fetch": "^2.5.7",
     "archiver": "^4.0.2",
     "lodash.merge": "^4.6.2"
   },
