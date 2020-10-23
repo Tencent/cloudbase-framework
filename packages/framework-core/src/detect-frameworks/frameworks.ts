@@ -312,4 +312,29 @@ export default [
       },
     },
   },
+  {
+    name: "Aqueduct Dart",
+    key: "aqueduct-dart",
+    detect: [
+      {
+        path: "./pubspec.yaml",
+        match: "aqueduct"
+      }
+    ],
+    plugin: "@cloudbase/framework-plugin-dart",
+    config: {
+      serviceName: {
+        value: "dartapp",
+        desc: "💡 服务名",
+      },
+      servicePath: {
+        value: "/dartapp",
+        desc: "🔌 云端访问云接入路径",
+      },
+      framework: {
+        value: "aqueduct",
+        desc: "🔧 Dart App 框架"
+      }
+    },
+  },
 ];

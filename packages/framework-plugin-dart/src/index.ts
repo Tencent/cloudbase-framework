@@ -6,9 +6,10 @@ import {
 import { DartBuilder } from "./builder";
 
 const DEFAULT_INPUTS = {
-  servicePath: "/dart-api",
-  serviceName: "dart-api",
+  servicePath: "/dartapp",
+  serviceName: "dartapp",
   localPath: "./",
+  framework: "aqueduct"
 };
 
 /**
@@ -16,14 +17,14 @@ const DEFAULT_INPUTS = {
  */
 export interface IFrameworkPluginDartInputs {
   /**
-   * 服务名，字符串格式，如 `dart-api`
+   * 服务名，字符串格式，如 `dartapp`
    *
-   * @default dart-api
+   * @default dartapp
    */
   serviceName: string;
   /**
-   * 服务访问路径配置, 字符串格式, 如 `/dart-api`
-   * @default /dart-api
+   * 服务访问路径配置, 字符串格式, 如 `/dartapp`
+   * @default /dartapp
    */
   servicePath: string;
   /**
@@ -47,6 +48,12 @@ export interface IFrameworkPluginDartInputs {
    * @default true
    */
   isPublic?: boolean;
+  /**
+   * Dart App 应用框架，如 `aqueduct`
+   * 
+   * @default aqueduct
+   */
+  framework?: string;
 }
 
 type ResolvedInputs = IFrameworkPluginDartInputs & typeof DEFAULT_INPUTS;
