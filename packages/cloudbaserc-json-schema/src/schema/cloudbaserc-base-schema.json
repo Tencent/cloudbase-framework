@@ -38,7 +38,7 @@
         "plugins": {
           "additionalProperties": false,
           "patternProperties": {
-            "^[a-zA-Z0-9]+$": {
+            "^[a-zA-Z0-9\\-]+$": {
               "$ref": "#/definitions/pluginConfig"
             }
           }
