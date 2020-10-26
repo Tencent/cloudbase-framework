@@ -3,7 +3,7 @@ FROM coding-public-docker.pkg.coding.net/public/docker/nodejs:14
 COPY ./package.json /root/cloudbase-framework/registry/package.json
 
 RUN  npm config set registry https://registry.npm.taobao.org
-RUN  npm install -g @cloudbase/cli@latest
+RUN  npm install -g @cloudbase/cli@latest pnpm
 RUN cd /root/cloudbase-framework/registry/ && npm install
 
 COPY index.js /usr/opts/
