@@ -218,6 +218,30 @@ imageUrl 格式为 [registry-url]/[namespace]/[image]:[tag]，支持腾讯云 cc
 }
 ```
 
+### `volumeMounts`
+
+挂载目录设置，1.4.0 版本以后支持
+
+类型是对象格式，key 为挂载路径，value 为挂载的 CFS Addon 的 Name
+
+例如
+
+```json
+{
+  "use": "@cloudbase/framework-plugin-container",
+  "inputs": {
+    "serviceName": "deno",
+    "servicePath": "/deno",
+    "localPath": "./",
+    "uploadType": "repository",
+    "codeDetail": {
+      "name": "deno-docker",
+      "url": "https://github.com/TabSpace/deno-docker"
+    }
+  }
+}
+```
+
 ## 更多插件
 
 请访问 [CloudBase Framework 插件列表](https://github.com/TencentCloudBase/cloudbase-framework#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84%E6%8F%92%E4%BB%B6%E5%88%97%E8%A1%A8) 搭配使用其他插件

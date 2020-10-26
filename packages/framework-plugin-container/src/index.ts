@@ -165,6 +165,13 @@ export interface IFrameworkPluginContainerInputs {
    * ```
    */
   codeDetail?: IContainerCodeDetail;
+
+  /**
+   * 挂载目录
+   * 1.4.0 版本以后支持
+   * key 为挂载路径，value为挂载的 CFS Addon 的 Name
+   */
+  volumeMounts?: Record<string, string>;
 }
 
 interface IContainerImageInfo {
@@ -342,6 +349,7 @@ class ContainerPlugin extends Plugin {
       uploadType,
       imageInfo,
       codeDetail,
+      volumeMounts,
     } = this.resolvedInputs;
 
     let otherProperties;
@@ -374,6 +382,41 @@ class ContainerPlugin extends Plugin {
         break;
     }
 
+    let volumeMountsInfo;
+
+    if (volumeMounts && Object.keys(volumeMounts).length) {
+      volumeMountsInfo = Object.entries(volumeMounts).reduce(
+        (prev, cur) => {
+          const [path, addonName] = cur;
+          const VolumeMounts = prev.VolumeMounts as any[];
+          const Volumes = prev.Volumes as any[];
+
+          VolumeMounts.push({
+            MountPath: path,
+            Name: addonName,
+          });
+
+          if (
+            !Volumes.find((volume) => {
+              return volume.Name === addonName;
+            })
+          ) {
+            Volumes.push({
+              Name: addonName,
+              Type: "nfs",
+              Path: "/",
+              Server: `\${Outputs.${addonName}.Properties.InstanceIp}`,
+            });
+          }
+          return prev;
+        },
+        {
+          Volumes: [],
+          VolumeMounts: [],
+        }
+      );
+    }
+
     return {
       Type: "CloudBase::CloudBaseRun",
       Properties: Object.assign(
@@ -401,7 +444,8 @@ class ContainerPlugin extends Plugin {
         },
         this.api.versionRemark && {
           VersionRemark: this.api.versionRemark,
-        }
+        },
+        volumeMountsInfo
       ),
     };
   }
