@@ -12,8 +12,18 @@ async function spawnPromise(command, options) {
         options
       )
     );
+
+    let stdout = "";
+    cm.stdout && cm.stdout.on("data", (data) => {
+      stdout += data;
+    });
+    let stderr = "";
+    cm.stderr && cm.stdout.on("data", (data) => {
+      stderr += data;
+    });
+
     cm.on('error', reject);
-    cm.on('close', (code) => (code === 0 ? resolve() : reject(code)));
+    cm.on('close', (code) => (code === 0 ? resolve(stdout) : reject(stderr)));
   });
 }
 
