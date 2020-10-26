@@ -7,7 +7,7 @@ export const DEFAULT_SAM = {
   License: "MIT",
   Description: "CLoudBase Framework创建的应用",
   Category: "CloudApp",
-  Tags: ["CloudBase"],
+  Tags: [],
   SourceUrl: "https://github.com/TencentCloudBase/cloudbase-framework",
   ReleaseNotesUrl:
     "https://github.com/TencentCloudBase/cloudbase-framework/releases",

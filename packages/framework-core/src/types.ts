@@ -14,6 +14,30 @@ export interface Config {
       };
     };
   };
+  version?: string;
+  description?: string;
+  repo?: {
+    url: string;
+    workDir: string;
+    branch: string;
+  };
+  tags?: string[];
+  environment?: Record<string, string>;
+  network?: {
+    uniqVpcId: string;
+    cloudBaseRun: boolean;
+  };
+  addons?: AddonConfig[];
+}
+
+export interface AddonConfig {
+  type: string;
+  name: string;
+  instanceId?: string;
+  password?: string;
+  plan?: Record<string, any>;
+  region?: string;
+  vpcId?: string;
 }
 
 export interface CloudBaseConfig {

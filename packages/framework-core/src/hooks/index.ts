@@ -28,11 +28,7 @@ interface ICallFunctionConfig {
 
 export default class Hooks {
   private sam: Record<string, any> = {};
-  constructor(
-    public hooksConfig: IHooksConfig,
-    public projectPath: string,
-    public samMeta: Record<string, any>
-  ) {
+  constructor(public hooksConfig: IHooksConfig, public projectPath: string) {
     // postDeploy 是调用函数类型时，提前到 postCompile 阶段，转换为 SAM 在云端执行
     if (
       hooksConfig.postDeploy &&

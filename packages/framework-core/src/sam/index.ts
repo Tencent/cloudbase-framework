@@ -40,18 +40,25 @@ export class SamManager {
         prev = [...prev, ...(cur || [])];
         return prev;
       }, []);
+
     this.samObj = merge(DEFAULT_SAM, meta, ...samSections, {
       EntryPoint,
     });
-    this.samObj.Resources = Object.entries(this.samObj.Resources || {}).reduce(
-      (prev: Record<string, any>, cur) => {
-        const [name, resource] = cur;
-        prev[name] = resource;
-        return prev;
-      },
-      {}
+    this.samObj.Resources = JSON.parse(
+      JSON.stringify(
+        Object.entries(this.samObj.Resources || {}).reduce(
+          (prev: Record<string, any>, cur) => {
+            const [name, resource] = cur;
+            prev[name] = resource;
+            return prev;
+          },
+          {}
+        )
+      )
     );
+
     const samYaml = JSYaml.safeDump(this.samObj);
+
     fs.writeFileSync(path.join(this.projectPath, "TCBSAM.yaml"), samYaml);
   }
 

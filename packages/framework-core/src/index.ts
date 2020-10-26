@@ -1,6 +1,8 @@
 import { promisify } from "util";
 import figlet from "figlet";
 import chalk from "chalk";
+import merge from "lodash.merge";
+
 import { genClickableLink } from "./utils/link";
 import { emoji } from "./utils/emoji";
 
@@ -11,9 +13,10 @@ import PluginManager from "./plugin-manager";
 import { CloudApi } from "./api";
 import resolveConfig from "./config/resolve-config";
 import Context from "./context";
-import { CloudBaseFrameworkConfig } from "./types";
+import { CloudBaseFrameworkConfig, Config } from "./types";
 import getLogger from "./logger";
 import { SamManager } from "./sam";
+import { genAddonSam } from "./sam/addon";
 import Hooks from "./hooks";
 import { fetchDomains } from "./api/domain";
 
@@ -64,7 +67,7 @@ export async function run(
 export class CloudBaseFrameworkCore {
   pluginManager!: PluginManager;
   samManager!: SamManager;
-  samMeta!: Record<string, any>;
+  appConfig!: Config;
   hooks!: Hooks;
 
   constructor(public frameworkConfig: CloudBaseFrameworkConfig) {}
@@ -132,16 +135,8 @@ export class CloudBaseFrameworkCore {
     });
 
     this.pluginManager = new PluginManager(context);
-
-    const appName = `fx-${appConfig.name || "app"}`;
-    this.samMeta = {
-      Name: appName,
-      Version: appConfig.version || "1.0.0",
-      DisplayName: appName,
-      Description: appConfig.description || "基于 CloudBase Framework 构建",
-    };
-
-    this.hooks = new Hooks(appConfig.hooks || {}, projectPath, this.samMeta);
+    this.appConfig = appConfig;
+    this.hooks = new Hooks(appConfig.hooks || {}, projectPath);
   }
 
   /**
@@ -176,6 +171,7 @@ export class CloudBaseFrameworkCore {
     await this.samManager.install();
     await this.pluginManager.deploy(module);
     await this.hooks.callHook("postDeploy");
+
     const appEntry = await this.samManager.getAppEntry();
     if (appEntry.length) {
       const domains = await fetchDomains();
@@ -218,13 +214,55 @@ ${entryLogInfo}`);
     const compileResult = await this.pluginManager.compile(module);
 
     await this.hooks.callHook("postCompile");
-    const hooksSAM = this.hooks.genSAM();
 
+    const samMeta = this.generateSamMeta();
+    const hooksSAM = this.hooks.genSAM();
     const samSections = [...compileResult, hooksSAM];
 
-    this.samManager.generate(
-      this.samMeta,
-      JSON.parse(JSON.stringify(samSections))
+    this.samManager.generate(samMeta, JSON.parse(JSON.stringify(samSections)));
+  }
+
+  generateSamMeta() {
+    const appName = `${this.appConfig.name || "fx-app"}`;
+
+    return merge(
+      {
+        Name: appName,
+        Version: this.appConfig.version || "1.0.0",
+        DisplayName: appName,
+        Description:
+          this.appConfig.description || "基于 CloudBase Framework 构建",
+        Tags: this.appConfig.tags || [],
+        Globals: {
+          // 全局环境变量
+          Environment: {
+            Variables: this.appConfig.environment || {},
+          },
+        },
+        // repo 信息
+        ...(this.appConfig.repo
+          ? {
+              SourceUrl: this.appConfig.repo.url,
+              SourceDir: this.appConfig.repo.workDir || ".",
+              SourceBranch: this.appConfig.repo.branch,
+            }
+          : {}),
+        Resources: {
+          // 网络 VPC 设置
+          ...(this.appConfig.network
+            ? {
+                Network: {
+                  Type: "CloudBase::VPC",
+                  Properties: {
+                    UniqVpcId: this.appConfig.network?.uniqVpcId,
+                    CloudBaseRun: this.appConfig.network?.cloudBaseRun,
+                  },
+                },
+              }
+            : {}),
+        },
+      },
+      this.appConfig.addons?.length ? genAddonSam(this.appConfig.addons) : {}
     );
   }
 }
