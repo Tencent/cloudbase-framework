@@ -79,7 +79,7 @@ export class StaticBuilder extends Builder {
   ) {
     // 1. 读取旧配置
     let originConfig;
-    if (options.domain) {
+    if (options.domain && options.config) {
       const url = `https://${options.domain}/${CONFIG_FILE_NAME}`;
       const streamRes = await fetchStream(url);
       if (streamRes?.status == 200) {
