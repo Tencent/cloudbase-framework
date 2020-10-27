@@ -5,7 +5,8 @@ const { promisify } = require('util');
 const { writeFileSync } = require('fs');
 
 const coreVersion = require('../../lerna.json').version;
-const tagName = `binggg/cloudbase-framework-runner:latest`;
+const tag = process.env.BUILD_TAG || 'latest'
+const tagName = `binggg/cloudbase-framework-runner:${tag}`;
 
 const promisifyGlob = promisify(glob);
 
@@ -28,9 +29,10 @@ const promisifyGlob = promisify(glob);
     JSON.stringify(packages, null, 4)
   );
 
-  await spawnPromise(`docker build . --no-cache -t ${tagName}`, {
+  await spawnPromise(`docker build --build-arg tag=${tag} --no-cache -t ${tagName} .`, {
     cwd: path.join(__dirname, './src'),
   });
 
+  // 推送镜像
   await spawnPromise(`docker push ${tagName}`, {});
 })();
