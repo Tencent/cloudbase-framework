@@ -1,5 +1,5 @@
 import { ICloudBaseConfig } from "../types";
-import { isObject } from '../utils/type-check';
+import { isObject } from "../utils/type-check";
 import { detect } from "../detect-frameworks";
 import inquirer from "inquirer";
 import chalk from "chalk";
@@ -15,6 +15,7 @@ export default async function resolveConfig(
   projectPath: string,
   config: ICloudBaseConfig | undefined
 ) {
+  // 针对 cloudbaserc.js 等脚本文件，会创建一份单独的 json 配置文件
   const independentFrameworkConfig = await readFrameworkConfig(projectPath);
 
   let finalFrameworkConfig = independentFrameworkConfig || config?.framework;
@@ -32,12 +33,15 @@ export default async function resolveConfig(
         if (answer.isModifyConfig) {
           inputs = await modifyFrameworkConfig(item.config);
         } else {
-          inputs = {}
+          inputs = {};
           if (isObject(item.config)) {
-            inputs = Object.entries(item.config).reduce((prev: any, cur: any) => {
-              prev[cur[0] as string] = cur[1].value;
-              return prev;
-            }, {} as any);
+            inputs = Object.entries(item.config).reduce(
+              (prev: any, cur: any) => {
+                prev[cur[0] as string] = cur[1].value;
+                return prev;
+              },
+              {} as any
+            );
           }
         }
         plugins[item.key] = {
@@ -69,7 +73,40 @@ export default async function resolveConfig(
     }
   }
 
-  return finalFrameworkConfig;
+  // 应用 addon 等配置信息设置
+  const extraData = await getExtraData();
+
+  return { ...finalFrameworkConfig, ...extraData };
+}
+
+// 获取 addon 等额外配置
+async function getExtraData() {
+  let extraData = {};
+
+  // 如果是云端构建，优先从环境变量中读取
+  if (process.env.CLOUDBASE_CIID) {
+    extraData = {
+      repo: jsonParse(process.env.TCB_CODE_REPO),
+      tags: jsonParse(process.env.TCB_TAGS),
+      environment: jsonParse(process.env.TCB_ENVIRONMENT), // 环境变量
+      network: jsonParse(process.env.TCB_NETWORK_CONFIG), // 网络配置
+      addons: jsonParse(process.env.TCB_ADDON_CONFIG), // 云上关联的资源
+    };
+  }
+
+  // @todo 如果远程存在配置，读取远程配置
+
+  return extraData;
+}
+
+function jsonParse(str: string | undefined) {
+  let json;
+  try {
+    json = str ? JSON.parse(str) : undefined;
+  } catch (e) {
+    throw new Error(`JSON 格式错误: ${str}`);
+  }
+  return json;
 }
 
 function promptModify(framework: any) {
@@ -95,7 +132,7 @@ function promptWriteConfig() {
 
 function formatFrameworkConfig(config: any) {
   if (!isObject(config)) {
-    return '';
+    return "";
   }
   return Object.entries(config)
     .map(
