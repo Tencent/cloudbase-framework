@@ -104,20 +104,23 @@ export class CloudBaseFrameworkCore {
     ) {
       throw new Error("CloudBase Framework: config info missing");
     }
-
-    const appConfig = await resolveConfig(projectPath, config);
-
-    if (!appConfig) {
-      logger.info("⚠️ 未识别到框架配置");
-      return;
-    }
-
     CloudApi.init({
       secretId: cloudbaseConfig.secretId,
       secretKey: cloudbaseConfig.secretKey,
       token: cloudbaseConfig.token || "",
       envId: cloudbaseConfig.envId,
     });
+
+    const appConfig = await resolveConfig(
+      projectPath,
+      config,
+      cloudbaseConfig.envId
+    );
+
+    if (!appConfig) {
+      logger.info("⚠️ 未识别到框架配置");
+      return;
+    }
 
     this.samManager = new SamManager({
       projectPath,

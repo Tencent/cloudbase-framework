@@ -6,23 +6,41 @@ import chalk from "chalk";
 import fs from "fs";
 import path from "path";
 import { ConfigParser } from "@cloudbase/toolbox";
+import { describeCloudBaseProjectLatestVersionList } from "../api/app";
+import getLogger from "../logger";
 
 chalk.level = 1;
 
 const FRAMEWORK_CONFIG_FILENAME = "cloudbase-framework.json";
+const DEFAULT_CONFIG = {
+  envId: "",
+  version: "2.0",
+  $schema: "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json",
+};
 
 export default async function resolveConfig(
   projectPath: string,
-  config: ICloudBaseConfig | undefined
+  config: ICloudBaseConfig | undefined,
+  envId: string
 ) {
+  const logger = getLogger();
+  // 解析配置文件
+  const { rcConfig, extraData, projectName } = await resolveRcConfig(
+    projectPath,
+    config,
+    envId
+  );
   // 针对 cloudbaserc.js 等脚本文件，会创建一份单独的 json 配置文件
   const independentFrameworkConfig = await readFrameworkConfig(projectPath);
 
-  let finalFrameworkConfig = independentFrameworkConfig || config?.framework;
+  let originFrameworkConfig = independentFrameworkConfig || rcConfig?.framework;
+  let finalFrameworkConfig;
 
-  if (!finalFrameworkConfig) {
-    const detectedFrameworks = await detect(projectPath, config);
+  if (!originFrameworkConfig?.plugins) {
+    logger.debug("检测项目框架");
+    const detectedFrameworks = await detect(projectPath, rcConfig);
     let plugins: any = {};
+    let projectName = originFrameworkConfig?.name;
 
     if (detectedFrameworks.length) {
       for (let item of detectedFrameworks) {
@@ -49,54 +67,219 @@ export default async function resolveConfig(
           inputs,
         };
       }
+    } else {
+      logger.warn("未检测到项目 plugins 设置，请手动填写配置文件");
     }
 
-    let name: string = path.basename(projectPath);
+    if (!projectName) {
+      const nameAnswer = await collectAppName(projectPath);
 
-    const nameAnswer = await inquirer.prompt({
-      type: "input",
-      name: "name",
-      message:
-        "请输入应用唯一标识(支持大小写字母数字及连字符, 同一账号下不能相同)",
-      default: name,
-    });
+      projectName = nameAnswer;
+    }
 
-    finalFrameworkConfig = {
-      name: nameAnswer.name,
+    finalFrameworkConfig = Object.assign({}, originFrameworkConfig, {
+      name: projectName,
       plugins,
-    };
+    });
+  }
 
-    // 是否写入配置文件
+  if (projectName !== originFrameworkConfig.name) {
+    finalFrameworkConfig = Object.assign(
+      {},
+      originFrameworkConfig,
+      finalFrameworkConfig,
+      {
+        name: projectName,
+      }
+    );
+  }
+
+  // 检查是否要写入配置文件
+  //  是否写入配置文件
+  const isRcConfigChanged = rcConfig !== config;
+  const isFrameworkConfigChanged =
+    finalFrameworkConfig !== originFrameworkConfig;
+
+  logger.debug("RC 配置文件变更", isRcConfigChanged, rcConfig);
+  logger.debug(
+    "Framework 配置文件变更",
+    isFrameworkConfigChanged,
+    finalFrameworkConfig
+  );
+
+  if (isRcConfigChanged || isFrameworkConfigChanged) {
     const answer = await promptWriteConfig();
+
     if (answer.isWriteConfig) {
-      await writeConfig(projectPath, config, finalFrameworkConfig);
+      await writeConfig(
+        projectPath,
+        isRcConfigChanged && rcConfig,
+        isFrameworkConfigChanged && finalFrameworkConfig
+      );
     }
   }
 
-  // 应用 addon 等配置信息设置
-  const extraData = await getExtraData();
+  if (!Object.keys(finalFrameworkConfig.plugins || {}).length) {
+    process.exit();
+  }
 
   return { ...finalFrameworkConfig, ...extraData };
 }
 
-// 获取 addon 等额外配置
-async function getExtraData() {
-  let extraData = {};
+async function getCloudProjectInfo(projectName: string | undefined) {
+  let projectData;
+  // 如果远程存在配置
+  if (projectName) {
+    const projectList = (
+      await describeCloudBaseProjectLatestVersionList({
+        ProjectName: projectName,
+      })
+    ).ProjectList;
 
-  // 如果是云端构建，优先从环境变量中读取
+    if (projectList.length) {
+      const projectInfo = projectList[0];
+      projectData = getProjectDataFromProjectInfo(projectInfo);
+    }
+
+    return projectData;
+  }
+}
+
+function getProjectDataFromProjectInfo(projectInfo: any) {
+  const {
+    Tags,
+    Parameters,
+    Source,
+    AddonConfig,
+    NetworkConfig,
+    Name,
+    RcJson,
+  } = projectInfo;
+
+  return {
+    rcConfig: jsonParse(RcJson),
+    extraData: {
+      repo: Source,
+      tags: Tags,
+      environment: Parameters.reduce((prev: any, cur: any) => {
+        const { Value, Key } = cur;
+        prev[Key] = Value;
+        return prev;
+      }, {}),
+      network: jsonParse(NetworkConfig),
+      addons: jsonParse(AddonConfig),
+    },
+    projectName: Name,
+  };
+}
+
+async function resolveRcConfig(
+  projectPath: string,
+  config: ICloudBaseConfig | undefined,
+  envId: string
+) {
+  const logger = getLogger();
+
+  let rcConfig = config;
+  let extraData = {};
+  let projectName = config?.framework?.name;
+
+  // 如果是云端构建，从环境变量中读取
   if (process.env.CLOUDBASE_CIID) {
-    extraData = {
-      repo: jsonParse(process.env.TCB_CODE_REPO),
-      tags: jsonParse(process.env.TCB_TAGS),
-      environment: jsonParse(process.env.TCB_ENVIRONMENT), // 环境变量
-      network: jsonParse(process.env.TCB_NETWORK_CONFIG), // 网络配置
-      addons: jsonParse(process.env.TCB_ADDON_CONFIG), // 云上关联的资源
-    };
+    logger.debug("云端构建场景");
+    extraData = getCIProjectInfo();
+    rcConfig = jsonParse(process.env.TCB_RC_JSON);
+    // 如果是本地构建，且本地存在配置文件
+  } else if (config && config.framework) {
+    logger.debug("本地构建，本地存在配置文件", config);
+    if (!projectName) {
+      projectName = await collectAppName(projectPath);
+    }
+
+    let cloudProjectInfo = await getCloudProjectInfo(projectName);
+
+    // 如果远程存在同名项目，使用远程data配置和项目名
+    if (cloudProjectInfo) {
+      logger.debug("远程存在同名项目", cloudProjectInfo.projectName);
+      extraData = cloudProjectInfo.extraData;
+      // 远程没有同名项目，从项目列表中选择或者新建项目
+    } else {
+      logger.info("远程不存在同名项目");
+      let selectedProject = await selectProjects();
+      // 没有选择项目，新建项目
+      if (!selectedProject) {
+        logger.debug("新建项目");
+        extraData = {};
+        // 选择了项目，使用云端项目信息，配置使用本地，项目名更换为云端项目
+      } else {
+        logger.debug("选择项目", selectedProject.projectName);
+        let projectData = selectedProject;
+        extraData = projectData.extraData;
+        projectName = projectData.projectName;
+      }
+    }
+    // 如果本地构建，且没有配置文件
+  } else {
+    logger.debug("本地构建，本地不存在配置文件", config);
+    let selectedProject = await selectProjects();
+    // 没有选择项目，新建项目, 配置使用模板
+    if (!selectedProject) {
+      projectName = await collectAppName(projectPath);
+      extraData = {};
+      rcConfig = Object.assign({}, DEFAULT_CONFIG, {
+        envId,
+      });
+      // 选择了项目，使用云端项目信息，配置使用云端配置，项目名更换为云端项目名
+    } else {
+      let projectData = selectedProject;
+
+      extraData = projectData.extraData;
+      projectName = projectData.projectName;
+      rcConfig = Object.assign({}, DEFAULT_CONFIG, projectData.rcConfig, {
+        envId,
+        framework: {
+          name: projectName,
+        },
+      });
+    }
   }
 
-  // @todo 如果远程存在配置，读取远程配置
+  logger.debug(
+    "项目配置信息",
+    "rcConfig",
+    rcConfig,
+    "extraData",
+    extraData,
+    "projectName",
+    projectName
+  );
 
-  return extraData;
+  return {
+    rcConfig,
+    extraData,
+    projectName,
+  };
+}
+
+async function collectAppName(projectPath: string): Promise<string> {
+  const logger = getLogger();
+  let name: string = path.basename(projectPath);
+
+  let nameAnswer = await inquirer.prompt({
+    type: "input",
+    name: "name",
+    message: "请输入应用唯一标识(支持 A-Z a-z 0-9 及 -, 同一账号下不能相同)",
+    default: name,
+  });
+  let pattern = /^[a-z][A-Za-z0-9-]*$/;
+  if (!pattern.exec(nameAnswer.name) || nameAnswer.name.length > 16) {
+    logger.info(
+      "请输入正确的应用名称，支持 A-Z a-z 0-9 及 -, 只能用字母开头，最长 16 位"
+    );
+    return await collectAppName(projectPath);
+  }
+
+  return nameAnswer.name;
 }
 
 function jsonParse(str: string | undefined) {
@@ -107,6 +290,42 @@ function jsonParse(str: string | undefined) {
     throw new Error(`JSON 格式错误: ${str}`);
   }
   return json;
+}
+
+async function selectProjects() {
+  const allProjectList = (
+    await describeCloudBaseProjectLatestVersionList({})
+  ).ProjectList.map(getProjectDataFromProjectInfo);
+
+  let selectAnswer = await inquirer.prompt({
+    type: "list",
+    name: "app",
+    message: "请选择对应云上的应用名称，或者创建新的应用",
+    choices: [
+      ...allProjectList.map((item: any, index: number) => {
+        return {
+          value: String(index),
+          name: `应用: ${item.projectName}`,
+        };
+      }),
+      {
+        value: null,
+        name: "创建新的应用",
+      },
+    ],
+  });
+
+  return allProjectList[(selectAnswer as any).app];
+}
+
+function getCIProjectInfo() {
+  return {
+    repo: jsonParse(process.env.TCB_CODE_REPO),
+    tags: jsonParse(process.env.TCB_TAGS),
+    environment: jsonParse(process.env.TCB_ENVIRONMENT), // 环境变量
+    network: jsonParse(process.env.TCB_NETWORK_CONFIG), // 网络配置
+    addons: jsonParse(process.env.TCB_ADDON_CONFIG), // 云上关联的资源
+  };
 }
 
 function promptModify(framework: any) {
@@ -126,7 +345,7 @@ function promptWriteConfig() {
   return inquirer.prompt({
     type: "confirm",
     name: "isWriteConfig",
-    message: `是否需要保存当前项目配置，保存配置之后下次不会再次询问`,
+    message: `是否需要保存当前项目配置到项目中`,
   });
 }
 
@@ -157,16 +376,20 @@ function modifyFrameworkConfig(frameworkConfig: any = {}) {
 
 async function writeConfig(
   projectPath: string,
-  config: any,
+  rcConfig: any,
   frameworkConfig: any
 ) {
   const configJsonPath = path.join(projectPath, "cloudbaserc.json");
 
-  if (fs.existsSync(configJsonPath)) {
+  if (rcConfig) {
+    fs.writeFileSync(configJsonPath, JSON.stringify(rcConfig, null, 4));
+  }
+
+  if (fs.existsSync(configJsonPath) && frameworkConfig) {
     const parser = new ConfigParser({
       configPath: configJsonPath,
     });
-    parser.update("framework", frameworkConfig);
+    await parser.update("framework", frameworkConfig);
   } else {
     fs.writeFileSync(
       path.join(projectPath, FRAMEWORK_CONFIG_FILENAME),
