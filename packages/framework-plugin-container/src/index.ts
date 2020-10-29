@@ -8,9 +8,10 @@ const DEFAULT_INPUTS = {
   description: "基于云开发 CloudBase Framework 部署的云托管",
   isPublic: true,
   flowRatio: 100,
-  cpu: 1,
-  mem: 1,
-  minNum: 1,
+  mode: "low-cost",
+  cpu: 0.25,
+  mem: 0.5,
+  minNum: 0,
   maxNum: 10,
   policyType: "cpu",
   policyThreshold: 60,
@@ -20,6 +21,18 @@ const DEFAULT_INPUTS = {
   version: "1.0.0",
   localPath: "./",
   envVariables: {},
+};
+const MODE_INPUTS = {
+  "low-cost": {
+    cpu: 0.25,
+    mem: 0.5,
+    minNum: 0,
+  },
+  "high-availability": {
+    cpu: 1,
+    mem: 1,
+    minNum: 1,
+  },
 };
 
 /**
@@ -50,6 +63,18 @@ export interface IFrameworkPluginContainerInputs {
    */
   isPublic?: boolean;
   /**
+   * 副本模式
+   *
+   * 1.4.0 版本以后支持
+   *
+   * 支持 "low-cost" | "high-availability"
+   * "low-cost" 代表低成本模式，会有冷启动延时，锁定最小副本数为0，规格默认值为0.25C0.5G，副本最小个数不可修改，要修改需要先切换模式。
+   * "high-availability" 代表高可用模式，不存在冷启动，最小副本数不可以为0，规格默认值为1C1G，要修改最小副本数到0需要先切换模式。
+   *
+   * @default low-cost
+   */
+  mode?: "low-cost" | "high-availability";
+  /**
    * 流量占比（0-100）
    * @minimum 0
    * @maximum 100
@@ -58,20 +83,20 @@ export interface IFrameworkPluginContainerInputs {
    */
   flowRatio?: number;
   /**
-   * CPU 的大小，1-128, 单位：核，默认值 `1`
-   * @default 1
+   * CPU 的大小，0.25-128, 单位：核，默认值 `0.25`
+   * @default 0.25
    */
   cpu?: number;
   /**
-   * Mem 的大小，1-128, 单位：G，默认值 `1`
+   * Mem 的大小，0.5-128, 单位：G，默认值 `0.5`
    *
-   * @default 1
+   * @default 0.5
    */
   mem?: number;
   /**
-   * 最小副本数, 1-50，默认值 `1`
+   * 最小副本数, 1-50，默认值 `0`
    *
-   * @default 1
+   * @default 0
    */
   minNum?: number;
   /**
@@ -221,7 +246,7 @@ interface IContainerCodeDetail {
 type ResolvedInputs = typeof DEFAULT_INPUTS & IFrameworkPluginContainerInputs;
 
 class ContainerPlugin extends Plugin {
-  protected resolvedInputs: ResolvedInputs;
+  protected resolvedInputs!: ResolvedInputs;
   protected buildOutput: any;
   protected containerApi: ContainerApi;
   protected builder: ContainerBuilder;
@@ -233,17 +258,6 @@ class ContainerPlugin extends Plugin {
   ) {
     super(name, api, inputs);
 
-    this.resolvedInputs = resolveInputs(
-      this.inputs,
-      Object.assign(
-        {},
-        DEFAULT_INPUTS,
-        this.api.bumpVersion ? { version: String(Date.now()) } : {}
-      )
-    );
-
-    this.checkInputs();
-
     this.containerApi = new ContainerApi(this.api.cloudApi, this.api.logger);
     this.builder = new ContainerBuilder({
       projectPath: this.api.projectPath,
@@ -254,7 +268,65 @@ class ContainerPlugin extends Plugin {
    * 初始化
    */
   async init() {
-    this.api.logger.debug("ContainerPlugin: init", this.resolvedInputs);
+    this.api.logger.debug("ContainerPlugin: init", this.inputs);
+
+    this.inputs.mode || "low-cost";
+    let modeInputs = MODE_INPUTS[this.inputs.mode || "low-cost"];
+
+    this.resolvedInputs = resolveInputs(
+      this.inputs,
+      Object.assign(
+        {},
+        DEFAULT_INPUTS,
+        modeInputs,
+        this.api.bumpVersion ? { version: String(Date.now()) } : {}
+      )
+    );
+
+    const {
+      uploadType,
+      codeDetail,
+      imageInfo,
+      mode,
+      minNum,
+    } = this.resolvedInputs;
+    // 检查镜像参数
+    switch (uploadType) {
+      case "repository":
+        if (!codeDetail || !codeDetail.url) {
+          throw new Error(
+            "uploadType 填写为 repository 时，应提供正确的 codeDetail 信息"
+          );
+        }
+        break;
+      case "image":
+        if (!imageInfo || !imageInfo.imageUrl) {
+          throw new Error("uploadType 填写为 image 时，应提供 imageInfo 信息");
+        }
+        break;
+      default:
+        break;
+    }
+
+    // 检查副本模式
+    // "low-cost" 代表低成本模式，会有冷启动延时，锁定最小副本数为0，规格默认值为0.25C0.5G，副本最小个数不可修改，要修改需要先切换模式。
+    // "high-availability" 代表高可用模式，不存在冷启动，最小副本数不可以为0，规格默认值为1C1G，要修改最小副本数到0需要先切换模式。
+    switch (mode) {
+      case "low-cost":
+        if (minNum !== 0) {
+          throw new Error(
+            '副本模式设置为 "low-cost" 时代表低成本模式，锁定最小副本数为0，规格默认值为0.25C0.5G，副本最小个数不可修改，存在冷启动延时，要修改需要先切换模式。'
+          );
+        }
+        break;
+      case "high-availability":
+        if (minNum === 0) {
+          throw new Error(
+            '副本模式设置为 "high-availability" 代表高可用模式，不存在冷启动，最小副本数不可以为0，规格默认值为1C1G，要修改最小副本数到0需要先切换模式。'
+          );
+        }
+        break;
+    }
   }
 
   /**
@@ -467,26 +539,6 @@ class ContainerPlugin extends Plugin {
     }
 
     return result;
-  }
-
-  checkInputs() {
-    const { uploadType, codeDetail, imageInfo } = this.resolvedInputs;
-    switch (uploadType) {
-      case "repository":
-        if (!codeDetail || !codeDetail.url) {
-          throw new Error(
-            "uploadType 填写为 repository 时，应提供正确的 codeDetail 信息"
-          );
-        }
-        break;
-      case "image":
-        if (!imageInfo || !imageInfo.imageUrl) {
-          throw new Error("uploadType 填写为 image 时，应提供 imageInfo 信息");
-        }
-        break;
-      default:
-        break;
-    }
   }
 }
 

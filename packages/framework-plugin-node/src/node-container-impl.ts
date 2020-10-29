@@ -89,6 +89,9 @@ class NodeContainerPlugin extends Plugin {
         localAbsolutePath: res.container[0].source,
       }
     );
+
+    await this.containerPlugin.init();
+
     return this.containerPlugin.build();
   }
 

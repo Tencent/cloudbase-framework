@@ -9,7 +9,7 @@ const DEFAULT_INPUTS = {
   servicePath: "/dartapp",
   serviceName: "dartapp",
   localPath: "./",
-  framework: "aqueduct"
+  framework: "aqueduct",
 };
 
 /**
@@ -50,7 +50,7 @@ export interface IFrameworkPluginDartInputs {
   isPublic?: boolean;
   /**
    * Dart App 应用框架，如 `aqueduct`
-   * 
+   *
    * @default aqueduct
    */
   framework?: string;
@@ -134,6 +134,8 @@ class DartPlugin extends Plugin {
         this.resolvedInputs
       )
     );
+
+    await this.containerPlugin.init();
 
     // 构建 container 最终产物
     await this.containerPlugin.build();

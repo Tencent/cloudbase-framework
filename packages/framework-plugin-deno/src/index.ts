@@ -91,6 +91,8 @@ class DenoPlugin extends Plugin {
       )
     );
 
+    await this.containerPlugin.init();
+
     // 构建 container 最终产物
     await this.containerPlugin.build();
   }
