@@ -75,6 +75,25 @@ export interface IFrameworkPluginContainerInputs {
    */
   mode?: "low-cost" | "high-availability";
   /**
+   * 用户自定义采集日志路径
+   *
+   * String	1-1024
+   * @maxLength 1024
+   */
+  customLogs?: string;
+  /**
+   * 延迟多长时间开始健康检查（单位s）0-1000
+   *
+   * @minimum 0
+   * @maximum 1000
+   *
+   */
+  initialDelaySeconds?: number;
+  /**
+   * 版本备注
+   */
+  versionRemark?: string;
+  /**
    * 流量占比（0-100）
    * @minimum 0
    * @maximum 100
@@ -422,6 +441,9 @@ class ContainerPlugin extends Plugin {
       imageInfo,
       codeDetail,
       volumeMounts,
+      versionRemark,
+      customLogs,
+      initialDelaySeconds,
     } = this.resolvedInputs;
 
     let otherProperties;
@@ -509,6 +531,9 @@ class ContainerPlugin extends Plugin {
           BuildDir: buildDir,
           Path: servicePath,
           EnvParams: JSON.stringify(envVariables),
+          VersionRemark: versionRemark,
+          CustomLogs: customLogs,
+          InitialDelaySeconds: initialDelaySeconds,
         },
         otherProperties,
         this.api.bumpVersion && {

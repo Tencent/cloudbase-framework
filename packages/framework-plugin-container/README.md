@@ -254,6 +254,22 @@ imageUrl 格式为 [registry-url]/[namespace]/[image]:[tag]，支持腾讯云 cc
 }
 ```
 
+### `customLogs`
+
+可选，用户自定义采集日志路径, 1.4.0 版本以后支持
+
+字符串格式，最长支持 1024
+
+### `initialDelaySeconds`
+
+可选，延迟多长时间开始健康检查
+
+单位 s，支持设置 0-1000
+
+### `versionRemark`
+
+可选，版本备注信息
+
 ## 更多插件
 
 请访问 [CloudBase Framework 插件列表](https://github.com/TencentCloudBase/cloudbase-framework#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84%E6%8F%92%E4%BB%B6%E5%88%97%E8%A1%A8) 搭配使用其他插件
