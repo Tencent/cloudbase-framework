@@ -24,17 +24,19 @@ export default async function resolveConfig(
   envId: string
 ) {
   const logger = getLogger();
+  const isCloudBuild = !!process.env.CLOUDBASE_CIID;
   // 解析配置文件
-  const { rcConfig, extraData, projectName } = await resolveRcConfig(
-    projectPath,
-    config,
-    envId
-  );
+  const {
+    rcConfig,
+    extraData,
+    projectName,
+    originProjectInfo,
+  } = await resolveRcConfig(projectPath, config, envId);
   // 针对 cloudbaserc.js 等脚本文件，会创建一份单独的 json 配置文件
   const independentFrameworkConfig = await readFrameworkConfig(projectPath);
 
   let originFrameworkConfig = independentFrameworkConfig || rcConfig?.framework;
-  let finalFrameworkConfig;
+  let finalFrameworkConfig = originFrameworkConfig;
 
   if (!originFrameworkConfig?.plugins) {
     logger.debug("检测项目框架");
@@ -107,7 +109,7 @@ export default async function resolveConfig(
     finalFrameworkConfig
   );
 
-  if (isRcConfigChanged || isFrameworkConfigChanged) {
+  if (!isCloudBuild && (isRcConfigChanged || isFrameworkConfigChanged)) {
     const answer = await promptWriteConfig();
 
     if (answer.isWriteConfig) {
@@ -123,7 +125,10 @@ export default async function resolveConfig(
     process.exit();
   }
 
-  return { ...finalFrameworkConfig, ...extraData };
+  return {
+    appConfig: { ...finalFrameworkConfig, ...extraData },
+    originProjectInfo,
+  };
 }
 
 async function getCloudProjectInfo(projectName: string | undefined) {
@@ -170,6 +175,7 @@ function getProjectDataFromProjectInfo(projectInfo: any) {
       addons: jsonParse(AddonConfig),
     },
     projectName: Name,
+    originProjectInfo: projectInfo,
   };
 }
 
@@ -183,6 +189,7 @@ async function resolveRcConfig(
   let rcConfig = config;
   let extraData = {};
   let projectName = config?.framework?.name;
+  let originProjectInfo;
 
   // 如果是云端构建，从环境变量中读取
   if (process.env.CLOUDBASE_CIID) {
@@ -202,6 +209,7 @@ async function resolveRcConfig(
     if (cloudProjectInfo) {
       logger.debug("远程存在同名项目", cloudProjectInfo.projectName);
       extraData = cloudProjectInfo.extraData;
+      originProjectInfo = cloudProjectInfo.originProjectInfo;
       // 远程没有同名项目，从项目列表中选择或者新建项目
     } else {
       logger.info("远程不存在同名项目");
@@ -216,6 +224,7 @@ async function resolveRcConfig(
         let projectData = selectedProject;
         extraData = projectData.extraData;
         projectName = projectData.projectName;
+        originProjectInfo = projectData.originProjectInfo;
       }
     }
     // 如果本地构建，且没有配置文件
@@ -241,6 +250,7 @@ async function resolveRcConfig(
           name: projectName,
         },
       });
+      originProjectInfo = projectData.originProjectInfo;
     }
   }
 
@@ -258,6 +268,7 @@ async function resolveRcConfig(
     rcConfig,
     extraData,
     projectName,
+    originProjectInfo,
   };
 }
 

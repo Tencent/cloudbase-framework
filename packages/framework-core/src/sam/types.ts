@@ -1,6 +1,7 @@
 // SAM 属性定义
 export interface ISAM {
   TCBSAMFormatVersion: string;
+  Name: string;
   License: string;
   Description: string;
   Category: string;
@@ -13,6 +14,9 @@ export interface ISAM {
     Title: String;
     Content: any[];
   }[];
+  Globals: Record<string, any>;
+  SourceDir: string;
+  SourceBranch: string;
   Author: {
     AuthorName: string;
     Email: string;
@@ -25,17 +29,19 @@ export interface ISAM {
   }[];
 
   Resources: {
-    Type: string;
-    Properties: any[];
-    DependsOn: string[];
-  }[];
+    [key: string]: {
+      Type: string;
+      Properties: any[];
+      DependsOn: string[];
+    };
+  };
 
   Config: {
     Login: {
       Platform: string;
       PlatformId?: string;
       PlatformSecret?: string;
-      Status: string
+      Status: string;
     }[];
   };
 }

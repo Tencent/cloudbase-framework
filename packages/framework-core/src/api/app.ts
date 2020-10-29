@@ -36,7 +36,7 @@ export async function createAndDeployCloudBaseProject({
   Name: string;
   Parameters: Record<string, string>[];
   RcJson: string;
-  Source: string;
+  Source: Record<string, any>;
   AddonConfig: string;
   NetworkConfig: string;
 }) {

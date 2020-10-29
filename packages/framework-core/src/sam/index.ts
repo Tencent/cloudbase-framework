@@ -57,7 +57,8 @@ export class SamManager {
       )
     );
 
-    const samYaml = JSYaml.safeDump(this.samObj);
+    // parse 和 stringify 是为了去掉undefined等 yaml 不支持的格式
+    const samYaml = JSYaml.safeDump(JSON.parse(JSON.stringify(this.samObj)));
 
     fs.writeFileSync(path.join(this.projectPath, "TCBSAM.yaml"), samYaml);
   }
@@ -65,9 +66,11 @@ export class SamManager {
   /**
    * 安装
    */
-  async install() {
+  async install(createProjectVersion?: (template: ISAM) => Promise<any>) {
     const template = this.readSam();
+    let isCloudBuild = !!process.env.CLOUDBASE_CIID;
     let extensionId: string;
+    let ciId: string | undefined = process.env.CLOUDBASE_CIID;
 
     // 没有资源需要部署的情况不走 SAM安装
     if (
@@ -75,6 +78,10 @@ export class SamManager {
       !Object.keys(template.Config || {}).length
     ) {
       return this.clear();
+    }
+
+    if (typeof createProjectVersion === "function") {
+      ciId = await createProjectVersion(template);
     }
 
     try {
@@ -92,14 +99,17 @@ export class SamManager {
         }
       }
 
-      // 云端一键部署时不轮询查询结果
-      if (process.env.CLOUDBASE_CIID) {
+      // 回调扩展信息，和项目关联
+      if (ciId) {
         await this.samApi.reportCloudBaseCIResultCallback(
-          process.env.CLOUDBASE_CIID,
+          ciId,
           process.env.CLOUDBASE_TRACEID || "",
           extensionId
         );
-      } else {
+      }
+
+      // 云端一键部署时不轮询查询结果
+      if (!isCloudBuild) {
         await this.checkStatus(extensionId);
       }
     } catch (e) {

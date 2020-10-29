@@ -19,6 +19,8 @@ import { SamManager } from "./sam";
 import { genAddonSam } from "./sam/addon";
 import Hooks from "./hooks";
 import { fetchDomains } from "./api/domain";
+import { ISAM } from "./sam/types";
+import { createAndDeployCloudBaseProject } from "./api/app";
 
 export { default as Plugin } from "./plugin";
 export { default as PluginServiceApi } from "./plugin-service-api";
@@ -69,6 +71,7 @@ export class CloudBaseFrameworkCore {
   samManager!: SamManager;
   appConfig!: Config;
   hooks!: Hooks;
+  projectInfo!: Record<string, any> | undefined;
 
   constructor(public frameworkConfig: CloudBaseFrameworkConfig) {}
 
@@ -111,11 +114,13 @@ export class CloudBaseFrameworkCore {
       envId: cloudbaseConfig.envId,
     });
 
-    const appConfig = await resolveConfig(
+    const { appConfig, originProjectInfo } = await resolveConfig(
       projectPath,
       config,
       cloudbaseConfig.envId
     );
+
+    this.projectInfo = originProjectInfo;
 
     if (!appConfig) {
       logger.info("⚠️ 未识别到框架配置");
@@ -171,7 +176,7 @@ export class CloudBaseFrameworkCore {
   async deploy(module?: string, params?: CommandParams) {
     await this.hooks.callHook("preDeploy");
     await this._compile(module);
-    await this.samManager.install();
+    await this.samManager.install(this.createProjectVersion.bind(this));
     await this.pluginManager.deploy(module);
     await this.hooks.callHook("postDeploy");
 
@@ -267,6 +272,51 @@ ${entryLogInfo}`);
       },
       this.appConfig.addons?.length ? genAddonSam(this.appConfig.addons) : {}
     );
+  }
+
+  async createProjectVersion(template: ISAM) {
+    let isCloudBuild = !!process.env.CLOUDBASE_CIID;
+
+    // 云端部署直接返回
+    if (isCloudBuild) {
+      return process.env.CLOUDBASE_CIID;
+      // 本地部署也创建项目版本
+    } else {
+      const { Name, Globals } = template;
+
+      const Parameters = this.transpileEnvironments(
+        Globals?.Environment?.Variables
+      );
+
+      const Source = this.projectInfo?.Source || {
+        Type: "local",
+        Url: "",
+        Name: "",
+        WorkDir: "",
+        Headers: {},
+      };
+
+      // 旧的字段保持 JSON 格式，新字段使用字符串格式
+      const data = await createAndDeployCloudBaseProject({
+        Name,
+        Parameters,
+        Source,
+        RcJson: JSON.stringify(this.appConfig),
+        AddonConfig: JSON.stringify(this.appConfig.addons),
+        NetworkConfig: JSON.stringify(this.appConfig.network),
+      });
+
+      return data?.RequestId;
+    }
+  }
+
+  transpileEnvironments(environment: Record<string, string>) {
+    return Object.entries(environment || {}).map(([Key, Value]) => {
+      return {
+        Key,
+        Value,
+      };
+    });
   }
 }
 
