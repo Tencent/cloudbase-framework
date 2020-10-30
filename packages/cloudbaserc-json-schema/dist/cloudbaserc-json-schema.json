@@ -41,7 +41,7 @@
         "plugins": {
           "additionalProperties": false,
           "patternProperties": {
-            "^[a-zA-Z0-9]+$": {
+            "^[a-zA-Z0-9\\-]+$": {
               "$ref": "#/definitions/pluginConfig"
             }
           }
@@ -453,6 +453,30 @@
           "default": true,
           "type": "boolean"
         },
+        "mode": {
+          "description": "副本模式\n\n1.4.0 版本以后支持\n\n支持 \"low-cost\" | \"high-availability\"\n\"low-cost\" 代表低成本模式，会有冷启动延时，锁定最小副本数为0，规格默认值为0.25C0.5G，副本最小个数不可修改，要修改需要先切换模式。\n\"high-availability\" 代表高可用模式，不存在冷启动，最小副本数不可以为0，规格默认值为1C1G，要修改最小副本数到0需要先切换模式。",
+          "default": "low-cost",
+          "enum": [
+            "high-availability",
+            "low-cost"
+          ],
+          "type": "string"
+        },
+        "customLogs": {
+          "description": "用户自定义采集日志路径\n\nString\t1-1024",
+          "maxLength": 1024,
+          "type": "string"
+        },
+        "initialDelaySeconds": {
+          "description": "延迟多长时间开始健康检查（单位s）0-1000",
+          "minimum": 0,
+          "maximum": 1000,
+          "type": "number"
+        },
+        "versionRemark": {
+          "description": "版本备注",
+          "type": "string"
+        },
         "flowRatio": {
           "description": "流量占比（0-100）",
           "minimum": 0,
@@ -461,18 +485,18 @@
           "type": "number"
         },
         "cpu": {
-          "description": "CPU 的大小，1-128, 单位：核，默认值 `1`",
-          "default": 1,
+          "description": "CPU 的大小，0.25-128, 单位：核，默认值 `0.25`",
+          "default": 0.25,
           "type": "number"
         },
         "mem": {
-          "description": "Mem 的大小，1-128, 单位：G，默认值 `1`",
-          "default": 1,
+          "description": "Mem 的大小，0.5-128, 单位：G，默认值 `0.5`",
+          "default": 0.5,
           "type": "number"
         },
         "minNum": {
-          "description": "最小副本数, 1-50，默认值 `1`",
-          "default": 1,
+          "description": "最小副本数, 1-50，默认值 `0`",
+          "default": 0,
           "type": "number"
         },
         "maxNum": {
@@ -535,6 +559,10 @@
         "codeDetail": {
           "description": "`uploadType` 填写为 `repository` 时需要填写`codeDetail`，类型是对象格式\n\n例如\n\n```json\n{\n   \"envId\": \"{{envId}}\",\n   \"framework\": {\n     \"name\": \"capp-example\",\n     \"plugins\": {\n       \"client\": {\n         \"use\": \"@cloudbase/framework-plugin-container\",\n         \"inputs\": {\n           \"serviceName\": \"deno\",\n           \"servicePath\": \"/deno\",\n           \"localPath\": \"./\",\n           \"uploadType\": \"repository\",\n           \"codeDetail\": {\n             \"name\": \"deno-docker\",\n             \"url\": \"https://github.com/TabSpace/deno-docker\"\n           }\n         }\n       }\n     }\n   }\n}\n```",
           "$ref": "#/definitions/IContainerCodeDetail"
+        },
+        "volumeMounts": {
+          "description": "挂载目录\n1.4.0 版本以后支持\nkey 为挂载路径，value为挂载的 CFS Addon 的 Name",
+          "$ref": "#/definitions/Record<string,string>"
         }
       },
       "required": [
@@ -825,6 +853,30 @@
               "default": true,
               "type": "boolean"
             },
+            "mode": {
+              "description": "副本模式\n\n1.4.0 版本以后支持\n\n支持 \"low-cost\" | \"high-availability\"\n\"low-cost\" 代表低成本模式，会有冷启动延时，锁定最小副本数为0，规格默认值为0.25C0.5G，副本最小个数不可修改，要修改需要先切换模式。\n\"high-availability\" 代表高可用模式，不存在冷启动，最小副本数不可以为0，规格默认值为1C1G，要修改最小副本数到0需要先切换模式。",
+              "default": "low-cost",
+              "enum": [
+                "high-availability",
+                "low-cost"
+              ],
+              "type": "string"
+            },
+            "customLogs": {
+              "description": "用户自定义采集日志路径\n\nString\t1-1024",
+              "maxLength": 1024,
+              "type": "string"
+            },
+            "initialDelaySeconds": {
+              "description": "延迟多长时间开始健康检查（单位s）0-1000",
+              "minimum": 0,
+              "maximum": 1000,
+              "type": "number"
+            },
+            "versionRemark": {
+              "description": "版本备注",
+              "type": "string"
+            },
             "flowRatio": {
               "description": "流量占比（0-100）",
               "minimum": 0,
@@ -833,18 +885,18 @@
               "type": "number"
             },
             "cpu": {
-              "description": "CPU 的大小，1-128, 单位：核，默认值 `1`",
-              "default": 1,
+              "description": "CPU 的大小，0.25-128, 单位：核，默认值 `0.25`",
+              "default": 0.25,
               "type": "number"
             },
             "mem": {
-              "description": "Mem 的大小，1-128, 单位：G，默认值 `1`",
-              "default": 1,
+              "description": "Mem 的大小，0.5-128, 单位：G，默认值 `0.5`",
+              "default": 0.5,
               "type": "number"
             },
             "minNum": {
-              "description": "最小副本数, 1-50，默认值 `1`",
-              "default": 1,
+              "description": "最小副本数, 1-50，默认值 `0`",
+              "default": 0,
               "type": "number"
             },
             "maxNum": {
@@ -907,6 +959,10 @@
             "codeDetail": {
               "description": "`uploadType` 填写为 `repository` 时需要填写`codeDetail`，类型是对象格式\n\n例如\n\n```json\n{\n   \"envId\": \"{{envId}}\",\n   \"framework\": {\n     \"name\": \"capp-example\",\n     \"plugins\": {\n       \"client\": {\n         \"use\": \"@cloudbase/framework-plugin-container\",\n         \"inputs\": {\n           \"serviceName\": \"deno\",\n           \"servicePath\": \"/deno\",\n           \"localPath\": \"./\",\n           \"uploadType\": \"repository\",\n           \"codeDetail\": {\n             \"name\": \"deno-docker\",\n             \"url\": \"https://github.com/TabSpace/deno-docker\"\n           }\n         }\n       }\n     }\n   }\n}\n```",
               "$ref": "#/definitions/IContainerCodeDetail"
+            },
+            "volumeMounts": {
+              "description": "挂载目录\n1.4.0 版本以后支持\nkey 为挂载路径，value为挂载的 CFS Addon 的 Name",
+              "$ref": "#/definitions/Record<string,string>"
             }
           },
           "required": [
@@ -936,13 +992,13 @@
           "type": "object",
           "properties": {
             "serviceName": {
-              "description": "服务名，字符串格式，如 `dart-api`",
-              "default": "dart-api",
+              "description": "服务名，字符串格式，如 `dartapp`",
+              "default": "dartapp",
               "type": "string"
             },
             "servicePath": {
-              "description": "服务访问路径配置, 字符串格式, 如 `/dart-api`",
-              "default": "/dart-api",
+              "description": "服务访问路径配置, 字符串格式, 如 `/dartapp`",
+              "default": "/dartapp",
               "type": "string"
             },
             "localPath": {
@@ -963,6 +1019,11 @@
               "description": "是否对外网开放访问，默认值 `true`",
               "default": true,
               "type": "boolean"
+            },
+            "framework": {
+              "description": "Dart App 应用框架，如 `aqueduct`",
+              "default": "aqueduct",
+              "type": "string"
             }
           },
           "required": [
