@@ -46,7 +46,8 @@ ${data
   .map((item) => {
     return (
       `| <a href="${item.link}"><img width="200" src="${item.cover}"></a>  | [${item.npmPackageName}](${item.link}) ` +
-      `|[![Npm version](https://img.shields.io/npm/v/${item.npmPackageName})](https://www.npmjs.com/package/${item.npmPackageName})` +
+      `|[![Npm version](https://img.shields.io/npm/v/${item.npmPackageName})]` +
+      `(https://www.npmjs.com/package/${item.npmPackageName})` +
       ` | ${item.description}|`
     );
   })
