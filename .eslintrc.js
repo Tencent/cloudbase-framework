@@ -1,6 +1,3 @@
 module.exports = {
-  extends: [
-    '@tencent/eslint-config-tencent',
-    '@tencent/eslint-config-tencent/ts',
-  ],
+  extends: ['@tencent/eslint-config-tencent'],
 };

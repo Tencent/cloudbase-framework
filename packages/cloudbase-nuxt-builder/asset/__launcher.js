@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 require = require('esm')(module);
 const path = require('path');
 const Koa = require('koa');
