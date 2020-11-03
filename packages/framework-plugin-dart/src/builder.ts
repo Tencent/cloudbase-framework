@@ -1,6 +1,6 @@
-import path from "path";
-import fs from "fs-extra";
-import { Builder } from "@cloudbase/framework-core";
+import path from 'path';
+import fs from 'fs-extra';
+import { Builder } from '@cloudbase/framework-core';
 
 interface BuilderOptions {
   /**
@@ -24,14 +24,14 @@ interface BuilderBuildOptions {
 export class DartBuilder extends Builder {
   constructor(options: BuilderOptions) {
     super({
-      type: "dart",
+      type: 'dart',
       ...options,
     });
   }
 
   async build(localDir: string, options: BuilderBuildOptions) {
     const { distDir, projectDir } = this;
-    const containerName = options?.name || "dartapp";
+    const containerName = options?.name || 'dartapp';
     const appDir = path.join(distDir, containerName);
 
     fs.ensureDirSync(appDir);
@@ -41,8 +41,8 @@ export class DartBuilder extends Builder {
 
     // 加入 Dockerfile
     await fs.copy(
-      path.resolve(__dirname, "../assets/Dockerfile"),
-      path.join(appDir, "Dockerfile")
+      path.resolve(__dirname, '../assets/Dockerfile'),
+      path.join(appDir, 'Dockerfile')
     );
 
     return {
@@ -56,7 +56,7 @@ export class DartBuilder extends Builder {
       routes: [
         {
           path: options.path,
-          targetType: "container",
+          targetType: 'container',
           target: containerName,
         },
       ],

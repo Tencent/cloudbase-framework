@@ -1,11 +1,11 @@
-import { CloudApi } from ".";
+import { CloudApi } from '.';
 
 export async function describeStaticRes() {
-  return CloudApi.tcbService.request("DescribeStaticStore", {});
+  return CloudApi.tcbService.request('DescribeStaticStore', {});
 }
 
 export async function describeCloudBaseGWService() {
-  return CloudApi.tcbUinService.request("DescribeCloudBaseGWService", {
+  return CloudApi.tcbUinService.request('DescribeCloudBaseGWService', {
     ServiceId: CloudApi.envId,
   });
 }

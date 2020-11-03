@@ -1,4 +1,4 @@
-import { IFrameworkPluginContainerInputs } from "@cloudbase/framework-plugin-container";
+import { IFrameworkPluginContainerInputs } from '@cloudbase/framework-plugin-container';
 
 /**
  * 导出接口用于生成 JSON Schema 来进行智能提示

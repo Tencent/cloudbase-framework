@@ -1,8 +1,8 @@
-import path from "path";
-import archiver from "archiver";
-import fs from "fs";
-import { Builder } from "@cloudbase/framework-core";
-import { mkdirSync } from "@cloudbase/toolbox";
+import path from 'path';
+import archiver from 'archiver';
+import fs from 'fs';
+import { Builder } from '@cloudbase/framework-core';
+import { mkdirSync } from '@cloudbase/toolbox';
 
 interface ZipBuilderBuildOptions {
   name: string;
@@ -21,44 +21,40 @@ interface ZipBuilderOptions {
 export class ZipBuilder extends Builder {
   constructor(options: ZipBuilderOptions) {
     super({
-      type: "zip",
+      type: 'zip',
       ...options,
     });
   }
 
   async build(options: ZipBuilderBuildOptions[]) {
-    const zipFiles = await Promise.all(
-      options.map(async (option) => {
-        const localZipPath = path.join(this.distDir, option.zipFileName);
+    const zipFiles = await Promise.all(options.map(async (option) => {
+      const localZipPath = path.join(this.distDir, option.zipFileName);
 
-        if (!fs.existsSync(this.distDir)) {
-          mkdirSync(this.distDir);
-        }
+      if (!fs.existsSync(this.distDir)) {
+        mkdirSync(this.distDir);
+      }
 
-        if (!fs.existsSync(option.localPath)) {
-          throw new Error(
-            `目录或者文件 ${path.basename(option.localPath)} 不存在`
-          );
-        }
+      if (!fs.existsSync(option.localPath)) {
+        throw new Error(`目录或者文件 ${path.basename(option.localPath)} 不存在`);
+      }
 
-        const fileStats = fs.statSync(option.localPath);
+      const fileStats = fs.statSync(option.localPath);
 
-        if (fileStats.isFile()) {
-          this.logger.debug("option.localPath", option.localPath, localZipPath);
-          await this.zipFile(option.localPath, localZipPath);
-        } else if (fileStats.isDirectory()) {
-          this.logger.debug("option.localPath", option.localPath, localZipPath);
-          await this.zipDir(option.localPath, localZipPath, option.ignore);
-        }
+      if (fileStats.isFile()) {
+        this.logger.debug('option.localPath', option.localPath, localZipPath);
+        await this.zipFile(option.localPath, localZipPath);
+      } else if (fileStats.isDirectory()) {
+        this.logger.debug('option.localPath', option.localPath, localZipPath);
+        await this.zipDir(option.localPath, localZipPath, option.ignore);
+      }
 
-        return {
-          name: option.name,
-          options: {},
-          source: localZipPath,
-          entry: option.zipFileName,
-        };
-      })
-    );
+      return {
+        name: option.name,
+        options: {},
+        source: localZipPath,
+        entry: option.zipFileName,
+      };
+    }));
 
     return {
       zipFiles,
@@ -68,14 +64,14 @@ export class ZipBuilder extends Builder {
   async zipFile(src: string, dest: string) {
     return new Promise((resolve, reject) => {
       // create a file to stream archive data to.
-      var output = fs.createWriteStream(dest);
-      var archive = archiver("zip", {
+      const output = fs.createWriteStream(dest);
+      const archive = archiver('zip', {
         zlib: { level: 9 }, // Sets the compression level.
       });
-      output.on("close", () => {
+      output.on('close', () => {
         resolve();
       });
-      archive.on("error", reject);
+      archive.on('error', reject);
       archive.file(src, {
         name: path.basename(src),
       });
@@ -87,16 +83,16 @@ export class ZipBuilder extends Builder {
   async zipDir(src: string, dest: string, ignore?: string[]) {
     return new Promise((resolve, reject) => {
       // create a file to stream archive data to.
-      var output = fs.createWriteStream(dest);
-      var archive = archiver("zip", {
+      const output = fs.createWriteStream(dest);
+      const archive = archiver('zip', {
         zlib: { level: 9 }, // Sets the compression level.
       });
-      output.on("close", () => {
+      output.on('close', () => {
         resolve();
       });
-      archive.on("error", reject);
+      archive.on('error', reject);
       archive.glob(
-        "**/*",
+        '**/*',
         {
           cwd: src,
           ignore: ignore || [],

@@ -38,5 +38,8 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "prettier": {
+    "singleQuote": true
   }
 }

@@ -1,4 +1,4 @@
-import { Deployer, DeployerOptions } from "@cloudbase/framework-core";
+import { Deployer, DeployerOptions } from '@cloudbase/framework-core';
 
 interface StaticDeployerOptions extends DeployerOptions {}
 
