@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 require = require('esm')(module);
 const path = require('path');
 const Koa = require('koa');
@@ -12,7 +13,7 @@ if (config.default) {
 
 config.dev = false;
 async function main(...args) {
-  let event = args[0];
+  const event = args[0];
   // 针对部署在子路径的情况需要手动带上路径前缀
   event.path = path.join('/*path*/', event.path);
   const nuxt = new Nuxt(config);

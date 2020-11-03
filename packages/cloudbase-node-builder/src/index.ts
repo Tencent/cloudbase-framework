@@ -3,7 +3,7 @@ import fse from "fs-extra";
 import archiver from "archiver";
 import { Builder } from "@cloudbase/framework-core";
 
-const __launcher = fse.readFileSync(
+const Launcher = fse.readFileSync(
   path.resolve(__dirname, "../asset/__launcher.js"),
   "utf-8"
 );
@@ -39,10 +39,8 @@ export class NodeBuilder extends Builder {
   async build(entry: string, options?: NodeBuilderBuildOptions) {
     const { distDir, projectDir, distDirName } = this;
     const entryFile = path.resolve(projectDir, entry);
-    const {
-      name: functionName = 'nodeapp',
-      wrapExpress = false,
-    } = options || {};
+    const { name: functionName = "nodeapp", wrapExpress = false } =
+      options || {};
     const appDir = path.join(distDir, functionName);
 
     const packageJson = await this.generatePackageJson(functionName, entryFile);
@@ -57,8 +55,10 @@ export class NodeBuilder extends Builder {
 
     await fse.writeFile(
       path.resolve(appDir, "./tcbindex.js"),
-      __launcher.replace("/*entryPath*/", entryRelativePath)
-        .replace(/\/\/#wrapExpress\s/g, wrapExpress ? '' : '// ')
+      Launcher.replace("/*entryPath*/", entryRelativePath).replace(
+        /\/\/ #wrapExpress\s/g,
+        wrapExpress ? "" : "// "
+      )
     );
 
     await fse.copy(path.resolve(projectDir), path.join(appDir));
@@ -86,8 +86,8 @@ export class NodeBuilder extends Builder {
   async zipDir(src: string, dest: string) {
     return new Promise((resolve, reject) => {
       // create a file to stream archive data to.
-      var output = fse.createWriteStream(dest);
-      var archive = archiver("zip", {
+      const output = fse.createWriteStream(dest);
+      const archive = archiver("zip", {
         zlib: { level: 9 }, // Sets the compression level.
       });
       output.on("close", resolve);
@@ -127,7 +127,8 @@ export class NodeBuilder extends Builder {
         if ("/" === topDir) {
           // 但是没有经过 projectDir
           // 再经历下 projectDir 目录
-          targetRoot = topDir = projectDir;
+          targetRoot = projectDir;
+          topDir = projectDir;
           continue;
         }
         // 这里连 projectDir 都跑过了，跳出

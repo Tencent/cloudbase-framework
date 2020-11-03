@@ -19,10 +19,15 @@
     "build:markdown": "node scripts/markdown-render.js"
   },
   "devDependencies": {
+    "@tencent/eslint-config-tencent": "^0.12.2",
+    "@typescript-eslint/eslint-plugin": "^4.6.1",
+    "@typescript-eslint/parser": "^4.6.1",
     "conventional-changelog-cli": "^2.0.34",
     "cz-conventional-changelog": "^3.2.0",
+    "eslint": "^7.12.1",
     "lerna": "^3.20.2",
-    "license-checker": "^25.0.1"
+    "license-checker": "^25.0.1",
+    "typescript": "^4.0.5"
   },
   "dependencies": {
     "@cloudbase/toolbox": "^0.4.11",
