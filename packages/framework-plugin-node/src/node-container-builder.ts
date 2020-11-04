@@ -1,7 +1,7 @@
-import path from "path";
-import fse from "fs-extra";
+import path from 'path';
+import fse from 'fs-extra';
 
-import { Builder } from "@cloudbase/framework-core";
+import { Builder } from '@cloudbase/framework-core';
 
 interface NodeContainerBuilderBuildOptions {
   dockerImage: string;
@@ -21,7 +21,7 @@ interface NodeContainerBuilderOptions {
 export class NodeContainerBuilder extends Builder {
   constructor(options: NodeContainerBuilderOptions) {
     super({
-      type: "node-container",
+      type: 'node-container',
       ...options,
     });
   }
@@ -30,7 +30,7 @@ export class NodeContainerBuilder extends Builder {
 
     await Promise.all([
       this.generator.generate(
-        path.join(__dirname, "../assets"),
+        path.join(__dirname, '../assets'),
         distDir,
         options || {}
       ),
@@ -40,10 +40,10 @@ export class NodeContainerBuilder extends Builder {
     return {
       container: [
         {
-          name: "node-container",
+          name: 'node-container',
           options: {},
           source: distDir,
-          entry: options?.entry || "",
+          entry: options?.entry || '',
         },
       ],
     };

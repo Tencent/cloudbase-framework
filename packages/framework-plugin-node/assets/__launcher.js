@@ -1,3 +1,4 @@
+/* eslint-disable */
 const entry = require('./<%= entry %>');
 
 (async () => {
@@ -10,3 +11,4 @@ const entry = require('./<%= entry %>');
 
   app.listen(<%= port || 80 %>);
 })()
+/* eslint-enable */

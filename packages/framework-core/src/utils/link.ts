@@ -1,5 +1,5 @@
-import chalk from "chalk";
-import terminalLink from "terminal-link";
+import chalk from 'chalk';
+import terminalLink from 'terminal-link';
 
 chalk.level = 1;
 

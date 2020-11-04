@@ -1,4 +1,4 @@
-import { spawn, SpawnOptionsWithoutStdio } from "child_process";
+import { spawn, SpawnOptionsWithoutStdio } from 'child_process';
 
 export async function spawnPromise(
   command: string,
@@ -12,20 +12,20 @@ export async function spawnPromise(
       Object.assign(
         {
           shell: true,
-          stdio: "inherit",
+          stdio: 'inherit',
         },
         options
       )
     );
-    let stdout = "";
-    cm.stdout?.on("data", (data) => {
+    let stdout = '';
+    cm.stdout?.on('data', (data) => {
       stdout += data;
     });
-    let stderr = "";
-    cm.stderr?.on("data", (data) => {
+    let stderr = '';
+    cm.stderr?.on('data', (data) => {
       stderr += data;
     });
-    cm.on("error", reject);
-    cm.on("close", (code) => (code === 0 ? resolve(stdout) : reject(stderr)));
+    cm.on('error', reject);
+    cm.on('close', code => (code === 0 ? resolve(stdout) : reject(stderr)));
   });
 }

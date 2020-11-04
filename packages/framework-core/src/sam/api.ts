@@ -1,5 +1,5 @@
-import { CloudApi } from "../api";
-import { IExtensionFile } from "./types";
+import { CloudApi } from '../api';
+import { IExtensionFile } from './types';
 
 export class SamApi {
   constructor() {}
@@ -14,7 +14,7 @@ export class SamApi {
    */
 
   createAndInstall(template: string) {
-    return CloudApi.tcbService.request("CreatePrivateExtensionAndInstall", {
+    return CloudApi.tcbService.request('CreatePrivateExtensionAndInstall', {
       Template: template,
     });
   }
@@ -23,7 +23,7 @@ export class SamApi {
    * 查询扩展任务的状态
    */
   fetchExtensionTaskStatus(ids: string[]) {
-    return CloudApi.tcbService.request("DescribeExtensionTaskStatus", {
+    return CloudApi.tcbService.request('DescribeExtensionTaskStatus', {
       ExtensionIds: ids,
     });
   }
@@ -36,7 +36,7 @@ export class SamApi {
     traceId: string,
     extensionId: string
   ) {
-    return CloudApi.tcbService.request("CloudBaseCIResultCallback", {
+    return CloudApi.tcbService.request('CloudBaseCIResultCallback', {
       CIID: ciId,
       TraceId: traceId,
       ExtensionID: extensionId,
@@ -47,7 +47,7 @@ export class SamApi {
    * 描述扩展上传文件信息
    */
   describeExtensionUploadInfo(files: IExtensionFile[]) {
-    return CloudApi.tcbUinService.request("DescribeExtensionUploadInfo", {
+    return CloudApi.tcbUinService.request('DescribeExtensionUploadInfo', {
       ExtensionFiles: files,
     });
   }

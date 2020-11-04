@@ -1,9 +1,9 @@
-import frameworksInfo from "./frameworks";
-import fs from "fs";
-import path from "path";
-import { resolve } from "path";
-import getLogger from "../logger";
-import { ICloudBaseConfig } from "../types";
+import frameworksInfo from './frameworks';
+import fs from 'fs';
+import path, { resolve } from 'path';
+
+import getLogger from '../logger';
+import { ICloudBaseConfig } from '../types';
 
 const logger = getLogger();
 
@@ -11,7 +11,7 @@ export async function detect(
   projectRootPath: string,
   projectConfig: ICloudBaseConfig | undefined
 ) {
-  let frameworks: any = [];
+  const frameworks: any = [];
 
   const finalFrameworksInfo = renderFrameworkConfig(frameworksInfo, {
     projectConfig,
@@ -25,26 +25,24 @@ export async function detect(
 
         let matchedFramework;
 
-        if (typeof match !== "undefined") {
+        if (typeof match !== 'undefined') {
           const content = await fs.promises.readFile(
             resolve(projectRootPath, path),
-            "utf-8"
+            'utf-8'
           );
           const matchResult = content.match(new RegExp(match));
 
           if (matchResult) {
             matchedFramework = matchResult;
           }
-        } else if (typeof exists === "boolean") {
+        } else if (typeof exists === 'boolean') {
           const fileExists = fs.existsSync(resolve(projectRootPath, path));
           matchedFramework = exists ? fileExists : !fileExists;
         }
 
         if (matchedFramework) {
           if (
-            frameworks.findIndex(
-              (item: any) => item.plugin === framework.plugin
-            ) < 0
+            frameworks.findIndex((item: any) => item.plugin === framework.plugin) < 0
           ) {
             frameworks.push(framework);
           }
@@ -61,13 +59,10 @@ export async function detect(
 function renderFrameworkConfig(frameworkConfig: any, data: any) {
   if (!frameworksInfo) return;
 
-  return JSON.parse(
-    JSON.stringify(frameworkConfig, (key: string, value) => {
-      if (typeof value === "string" && value.includes("`")) {
-        return new Function("data", "return " + value)(data);
-      } else {
-        return value;
-      }
-    })
-  );
+  return JSON.parse(JSON.stringify(frameworkConfig, (key: string, value) => {
+    if (typeof value === 'string' && value.includes('`')) {
+      return new Function('data', `return ${value}`)(data);
+    }
+    return value;
+  }));
 }

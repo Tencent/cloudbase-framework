@@ -31,7 +31,7 @@ export class DenoBuilder extends Builder {
 
     spec.denoVersion = '';
     if (spec.runtime && spec.runtime !== 'latest') {
-      spec.denoVersion = `-s ${spec.runtime}`
+      spec.denoVersion = `-s ${spec.runtime}`;
     }
 
     fs.ensureDirSync(appDir);
