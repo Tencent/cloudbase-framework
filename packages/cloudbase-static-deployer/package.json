@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/static-deployer",
-  "version": "1.3.2-beta.17+2cd0390",
+  "version": "1.3.2-beta.22+a142819",
   "description": "云开发 CloudBase 静态网站部署工具",
   "author": "Weijia Wang <starkwang@126.com>",
   "homepage": "",
@@ -31,5 +31,5 @@
     "@types/node": "^13.13.5",
     "typescript": "^3.8.3"
   },
-  "gitHead": "2cd0390be3bf7561c8ea2c2d52e7893fae8f4a78"
+  "gitHead": "a1428197045dc999569de3398e74ffece4dd6001"
 }

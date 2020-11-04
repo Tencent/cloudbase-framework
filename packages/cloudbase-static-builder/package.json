@@ -15,7 +15,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@cloudbase/framework-core": "^1.3.5",
+    "@cloudbase/framework-core": "^1.3.2-beta.22+a142819",
     "@cloudbase/toolbox": "^0.4.11",
     "@types/node-fetch": "^2.5.7",
     "cpy": "^8.1.0"
