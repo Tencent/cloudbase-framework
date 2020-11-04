@@ -1,21 +1,21 @@
-import { ICloudBaseConfig } from "../types";
-import { isObject } from "../utils/type-check";
-import { detect } from "../detect-frameworks";
-import inquirer from "inquirer";
-import chalk from "chalk";
-import fs from "fs";
-import path from "path";
-import { ConfigParser } from "@cloudbase/toolbox";
-import { describeCloudBaseProjectLatestVersionList } from "../api/app";
-import getLogger from "../logger";
+import { ICloudBaseConfig } from '../types';
+import { isObject } from '../utils/type-check';
+import { detect } from '../detect-frameworks';
+import inquirer from 'inquirer';
+import chalk from 'chalk';
+import fs from 'fs';
+import path from 'path';
+import { ConfigParser } from '@cloudbase/toolbox';
+import { describeCloudBaseProjectLatestVersionList } from '../api/app';
+import getLogger from '../logger';
 
 chalk.level = 1;
 
-const FRAMEWORK_CONFIG_FILENAME = "cloudbase-framework.json";
+const FRAMEWORK_CONFIG_FILENAME = 'cloudbase-framework.json';
 const DEFAULT_CONFIG = {
-  envId: "",
-  version: "2.0",
-  $schema: "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json",
+  envId: '',
+  version: '2.0',
+  $schema: 'https://framework-1258016615.tcloudbaseapp.com/schema/latest.json',
 };
 
 export default async function resolveConfig(
@@ -39,7 +39,7 @@ export default async function resolveConfig(
   let finalFrameworkConfig = originFrameworkConfig;
 
   if (!originFrameworkConfig?.plugins) {
-    logger.debug("检测项目框架");
+    logger.debug('检测项目框架');
     const detectedFrameworks = await detect(projectPath, rcConfig);
     let plugins: any = {};
     let projectName = originFrameworkConfig?.name;
@@ -70,7 +70,7 @@ export default async function resolveConfig(
         };
       }
     } else {
-      logger.warn("未检测到项目 plugins 设置，请手动填写配置文件");
+      logger.warn('未检测到项目 plugins 设置，请手动填写配置文件');
     }
 
     if (!projectName) {
@@ -102,9 +102,9 @@ export default async function resolveConfig(
   const isFrameworkConfigChanged =
     finalFrameworkConfig !== originFrameworkConfig;
 
-  logger.debug("RC 配置文件变更", isRcConfigChanged, rcConfig);
+  logger.debug('RC 配置文件变更', isRcConfigChanged, rcConfig);
   logger.debug(
-    "Framework 配置文件变更",
+    'Framework 配置文件变更',
     isFrameworkConfigChanged,
     finalFrameworkConfig
   );
@@ -193,12 +193,12 @@ async function resolveRcConfig(
 
   // 如果是云端构建，从环境变量中读取
   if (process.env.CLOUDBASE_CIID) {
-    logger.debug("云端构建场景");
+    logger.debug('云端构建场景');
     extraData = getCIProjectInfo();
     rcConfig = jsonParse(process.env.TCB_RC_JSON);
     // 如果是本地构建，且本地存在配置文件
   } else if (config && config.framework) {
-    logger.debug("本地构建，本地存在配置文件", config);
+    logger.debug('本地构建，本地存在配置文件', config);
     if (!projectName) {
       projectName = await collectAppName(projectPath);
     }
@@ -207,20 +207,20 @@ async function resolveRcConfig(
 
     // 如果远程存在同名项目，使用远程data配置和项目名
     if (cloudProjectInfo) {
-      logger.debug("远程存在同名项目", cloudProjectInfo.projectName);
+      logger.debug('远程存在同名项目', cloudProjectInfo.projectName);
       extraData = cloudProjectInfo.extraData;
       originProjectInfo = cloudProjectInfo.originProjectInfo;
       // 远程没有同名项目，从项目列表中选择或者新建项目
     } else {
-      logger.info("远程不存在同名项目");
+      logger.info('远程不存在同名项目');
       let selectedProject = await selectProjects();
       // 没有选择项目，新建项目
       if (!selectedProject) {
-        logger.debug("新建项目");
+        logger.debug('新建项目');
         extraData = {};
         // 选择了项目，使用云端项目信息，配置使用本地，项目名更换为云端项目
       } else {
-        logger.debug("选择项目", selectedProject.projectName);
+        logger.debug('选择项目', selectedProject.projectName);
         let projectData = selectedProject;
         extraData = projectData.extraData;
         projectName = projectData.projectName;
@@ -229,7 +229,7 @@ async function resolveRcConfig(
     }
     // 如果本地构建，且没有配置文件
   } else {
-    logger.debug("本地构建，本地不存在配置文件", config);
+    logger.debug('本地构建，本地不存在配置文件', config);
     let selectedProject = await selectProjects();
     // 没有选择项目，新建项目, 配置使用模板
     if (!selectedProject) {
@@ -255,12 +255,12 @@ async function resolveRcConfig(
   }
 
   logger.debug(
-    "项目配置信息",
-    "rcConfig",
+    '项目配置信息',
+    'rcConfig',
     rcConfig,
-    "extraData",
+    'extraData',
     extraData,
-    "projectName",
+    'projectName',
     projectName
   );
 
@@ -277,15 +277,15 @@ async function collectAppName(projectPath: string): Promise<string> {
   let name: string = path.basename(projectPath);
 
   let nameAnswer = await inquirer.prompt({
-    type: "input",
-    name: "name",
-    message: "请输入应用唯一标识(支持 A-Z a-z 0-9 及 -, 同一账号下不能相同)",
+    type: 'input',
+    name: 'name',
+    message: '请输入应用唯一标识(支持 A-Z a-z 0-9 及 -, 同一账号下不能相同)',
     default: name,
   });
   let pattern = /^[a-z][A-Za-z0-9-]*$/;
   if (!pattern.exec(nameAnswer.name) || nameAnswer.name.length > 16) {
     logger.info(
-      "请输入正确的应用名称，支持 A-Z a-z 0-9 及 -, 只能用字母开头，最长 16 位"
+      '请输入正确的应用名称，支持 A-Z a-z 0-9 及 -, 只能用字母开头，最长 16 位'
     );
     return await collectAppName(projectPath);
   }
@@ -309,9 +309,9 @@ async function selectProjects() {
   ).ProjectList.map(getProjectDataFromProjectInfo);
 
   let selectAnswer = await inquirer.prompt({
-    type: "list",
-    name: "app",
-    message: "请选择对应云上的应用名称，或者创建新的应用",
+    type: 'list',
+    name: 'app',
+    message: '请选择对应云上的应用名称，或者创建新的应用',
     choices: [
       ...allProjectList.map((item: any, index: number) => {
         return {
@@ -321,7 +321,7 @@ async function selectProjects() {
       }),
       {
         value: null,
-        name: "创建新的应用",
+        name: '创建新的应用',
       },
     ],
   });
@@ -341,8 +341,8 @@ function getCIProjectInfo() {
 
 function promptModify(framework: any) {
   return inquirer.prompt({
-    type: "confirm",
-    name: "isModifyConfig",
+    type: 'confirm',
+    name: 'isModifyConfig',
     message: `检测到当前项目包含 ${framework.name} 项目
 
 ${formatFrameworkConfig(framework.config)}
@@ -354,29 +354,29 @@ ${formatFrameworkConfig(framework.config)}
 
 function promptWriteConfig() {
   return inquirer.prompt({
-    type: "confirm",
-    name: "isWriteConfig",
+    type: 'confirm',
+    name: 'isWriteConfig',
     message: `是否需要保存当前项目配置到项目中`,
   });
 }
 
 function formatFrameworkConfig(config: any) {
   if (!isObject(config)) {
-    return "";
+    return '';
   }
   return Object.entries(config)
     .map(
       ([, config]) =>
         `  ${(config as any).desc} \`${chalk.green((config as any).value)}\``
     )
-    .join("\n");
+    .join('\n');
 }
 
 function modifyFrameworkConfig(frameworkConfig: any = {}) {
   return inquirer.prompt(
     Object.entries(frameworkConfig).map(([name, config]) => {
       return {
-        type: "input",
+        type: 'input',
         name,
         message: (config as any).desc,
         default: (config as any).value,
@@ -390,7 +390,7 @@ async function writeConfig(
   rcConfig: any,
   frameworkConfig: any
 ) {
-  const configJsonPath = path.join(projectPath, "cloudbaserc.json");
+  const configJsonPath = path.join(projectPath, 'cloudbaserc.json');
 
   if (rcConfig) {
     fs.writeFileSync(configJsonPath, JSON.stringify(rcConfig, null, 4));
@@ -400,7 +400,7 @@ async function writeConfig(
     const parser = new ConfigParser({
       configPath: configJsonPath,
     });
-    await parser.update("framework", frameworkConfig);
+    await parser.update('framework', frameworkConfig);
   } else {
     fs.writeFileSync(
       path.join(projectPath, FRAMEWORK_CONFIG_FILENAME),
@@ -413,7 +413,7 @@ function readFrameworkConfig(projectPath: string) {
   let config;
   try {
     config = JSON.parse(
-      fs.readFileSync(path.join(projectPath, FRAMEWORK_CONFIG_FILENAME), "utf8")
+      fs.readFileSync(path.join(projectPath, FRAMEWORK_CONFIG_FILENAME), 'utf8')
     );
   } catch (e) {}
   return config;

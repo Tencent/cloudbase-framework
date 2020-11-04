@@ -1,36 +1,36 @@
-import { promisify } from "util";
-import figlet from "figlet";
-import chalk from "chalk";
-import merge from "lodash.merge";
+import { promisify } from 'util';
+import figlet from 'figlet';
+import chalk from 'chalk';
+import merge from 'lodash.merge';
 
-import { genClickableLink } from "./utils/link";
-import { emoji } from "./utils/emoji";
+import { genClickableLink } from './utils/link';
+import { emoji } from './utils/emoji';
 
-const gradient = require("gradient-string");
+const gradient = require('gradient-string');
 chalk.level = 1;
 
-import PluginManager from "./plugin-manager";
-import { CloudApi } from "./api";
-import resolveConfig from "./config/resolve-config";
-import Context from "./context";
-import { CloudBaseFrameworkConfig, Config } from "./types";
-import getLogger from "./logger";
-import { SamManager } from "./sam";
-import { genAddonSam } from "./sam/addon";
-import Hooks from "./hooks";
-import { fetchDomains } from "./api/domain";
-import { ISAM } from "./sam/types";
-import { createAndDeployCloudBaseProject } from "./api/app";
+import PluginManager from './plugin-manager';
+import { CloudApi } from './api';
+import resolveConfig from './config/resolve-config';
+import Context from './context';
+import { CloudBaseFrameworkConfig, Config } from './types';
+import getLogger from './logger';
+import { SamManager } from './sam';
+import { genAddonSam } from './sam/addon';
+import Hooks from './hooks';
+import { fetchDomains } from './api/domain';
+import { ISAM } from './sam/types';
+import { createAndDeployCloudBaseProject } from './api/app';
 
-export { default as Plugin } from "./plugin";
-export { default as PluginServiceApi } from "./plugin-service-api";
-export { Builder } from "./builder";
-export { Deployer } from "./deployer";
-export { CloudApi } from "./api";
-export * from "./types";
+export { default as Plugin } from './plugin';
+export { default as PluginServiceApi } from './plugin-service-api';
+export { Builder } from './builder';
+export { Deployer } from './deployer';
+export { CloudApi } from './api';
+export * from './types';
 
-const packageInfo = require("../package");
-const SUPPORT_COMMANDS = ["deploy", "compile", "run"];
+const packageInfo = require('../package');
+const SUPPORT_COMMANDS = ['deploy', 'compile', 'run'];
 
 interface CommandParams {
   runCommandKey?: string;
@@ -47,7 +47,7 @@ interface CommandParams {
  */
 export async function run(
   cloudBaseFrameworkConfig: CloudBaseFrameworkConfig,
-  command: "deploy" = "deploy",
+  command: 'deploy' = 'deploy',
   module?: string,
   params?: CommandParams
 ) {
@@ -60,7 +60,7 @@ export async function run(
   await frameworkCore[command](module, params);
 
   const logger = getLogger();
-  logger.info("✨ done");
+  logger.info('✨ done');
 }
 
 /**
@@ -79,7 +79,7 @@ export class CloudBaseFrameworkCore {
     const {
       projectPath,
       cloudbaseConfig,
-      logLevel = "info",
+      logLevel = 'info',
       config,
       resourceProviders,
       bumpVersion,
@@ -92,7 +92,7 @@ export class CloudBaseFrameworkCore {
     logger.info(`Version ${chalk.green(`v${packageInfo.version}`)}`);
     logger.info(
       `Github: ${genClickableLink(
-        "https://github.com/TencentCloudBase/cloudbase-framework"
+        'https://github.com/TencentCloudBase/cloudbase-framework'
       )}
 `
     );
@@ -105,12 +105,12 @@ export class CloudBaseFrameworkCore {
       !cloudbaseConfig.secretId ||
       !cloudbaseConfig.secretKey
     ) {
-      throw new Error("CloudBase Framework: config info missing");
+      throw new Error('CloudBase Framework: config info missing');
     }
     CloudApi.init({
       secretId: cloudbaseConfig.secretId,
       secretKey: cloudbaseConfig.secretKey,
-      token: cloudbaseConfig.token || "",
+      token: cloudbaseConfig.token || '',
       envId: cloudbaseConfig.envId,
     });
 
@@ -123,7 +123,7 @@ export class CloudBaseFrameworkCore {
     this.projectInfo = originProjectInfo;
 
     if (!appConfig) {
-      logger.info("⚠️ 未识别到框架配置");
+      logger.info('⚠️ 未识别到框架配置');
       return;
     }
 
@@ -139,7 +139,7 @@ export class CloudBaseFrameworkCore {
       resourceProviders,
       samManager: this.samManager,
       bumpVersion: !!bumpVersion,
-      versionRemark: versionRemark || "",
+      versionRemark: versionRemark || '',
     });
 
     this.pluginManager = new PluginManager(context);
@@ -164,7 +164,7 @@ export class CloudBaseFrameworkCore {
    * @param params
    */
   async compile(module?: string, params?: CommandParams) {
-    await this.hooks.callHook("preDeploy");
+    await this.hooks.callHook('preDeploy');
     await this._compile(module);
   }
 
@@ -174,11 +174,11 @@ export class CloudBaseFrameworkCore {
    * @param params
    */
   async deploy(module?: string, params?: CommandParams) {
-    await this.hooks.callHook("preDeploy");
+    await this.hooks.callHook('preDeploy');
     await this._compile(module);
     await this.samManager.install(this.createProjectVersion.bind(this));
     await this.pluginManager.deploy(module);
-    await this.hooks.callHook("postDeploy");
+    await this.hooks.callHook('postDeploy');
 
     const appEntry = await this.samManager.getAppEntry();
     if (appEntry.length) {
@@ -189,24 +189,24 @@ export class CloudBaseFrameworkCore {
           let url;
           let base;
           switch (entry.EntryType) {
-            case "StaitcStore":
+            case 'StaitcStore':
               base = domains.static;
               break;
-            case "HttpService":
+            case 'HttpService':
               base = domains.service;
               break;
           }
           url = `https://${base}${
             entry.HttpEntryPath
-              ? entry.HttpEntryPath[0] === "/"
+              ? entry.HttpEntryPath[0] === '/'
                 ? entry.HttpEntryPath
                 : `/${entry.HttpEntryPath}`
-              : ""
+              : ''
           }`;
-          return `${emoji("🔗")} ${entry.Label}: ${genClickableLink(url)}`;
+          return `${emoji('🔗')} ${entry.Label}: ${genClickableLink(url)}`;
         })
-        .join("\n");
-      getLogger().info(`${emoji("🌐")} 应用入口信息:
+        .join('\n');
+      getLogger().info(`${emoji('🌐')} 应用入口信息:
 ${entryLogInfo}`);
     }
   }
@@ -221,7 +221,7 @@ ${entryLogInfo}`);
 
     const compileResult = await this.pluginManager.compile(module);
 
-    await this.hooks.callHook("postCompile");
+    await this.hooks.callHook('postCompile');
 
     const samMeta = this.generateSamMeta();
     const hooksSAM = this.hooks.genSAM();
@@ -231,15 +231,15 @@ ${entryLogInfo}`);
   }
 
   generateSamMeta() {
-    const appName = `${this.appConfig.name || "fx-app"}`;
+    const appName = `${this.appConfig.name || 'fx-app'}`;
 
     return merge(
       {
         Name: appName,
-        Version: this.appConfig.version || "1.0.0",
+        Version: this.appConfig.version || '1.0.0',
         DisplayName: appName,
         Description:
-          this.appConfig.description || "基于 CloudBase Framework 构建",
+          this.appConfig.description || '基于 CloudBase Framework 构建',
         Tags: this.appConfig.tags || [],
         Globals: {
           // 全局环境变量
@@ -251,7 +251,7 @@ ${entryLogInfo}`);
         ...(this.appConfig.repo
           ? {
               SourceUrl: this.appConfig.repo.url,
-              SourceDir: this.appConfig.repo.workDir || ".",
+              SourceDir: this.appConfig.repo.workDir || '.',
               SourceBranch: this.appConfig.repo.branch,
             }
           : {}),
@@ -260,7 +260,7 @@ ${entryLogInfo}`);
           ...(this.appConfig.network
             ? {
                 Network: {
-                  Type: "CloudBase::VPC",
+                  Type: 'CloudBase::VPC',
                   Properties: {
                     UniqVpcId: this.appConfig.network?.uniqVpcId,
                     CloudBaseRun: this.appConfig.network?.cloudBaseRun,
@@ -289,10 +289,10 @@ ${entryLogInfo}`);
       );
 
       const Source = this.projectInfo?.Source || {
-        Type: "local",
-        Url: "",
-        Name: "",
-        WorkDir: "",
+        Type: 'local',
+        Url: '',
+        Name: '',
+        WorkDir: '',
         Headers: {},
       };
 
@@ -329,15 +329,15 @@ async function showBanner() {
       `CloudBase
 Framework`,
       {
-        font: "Slant",
-        horizontalLayout: "fitted",
-        verticalLayoutL: "fitted",
+        font: 'Slant',
+        horizontalLayout: 'fitted',
+        verticalLayoutL: 'fitted',
       }
     );
     console.log(
       chalk.bold(
-        gradient(["cyan", "rgb(0, 111, 150)", "rgb(0, 246,136)"]).multiline(
-          data + "\n"
+        gradient(['cyan', 'rgb(0, 111, 150)', 'rgb(0, 246,136)']).multiline(
+          data + '\n'
         )
       )
     );

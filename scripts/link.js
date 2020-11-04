@@ -1,3 +1,21 @@
+/**
+ *
+ * Copyright 2020 Tencent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
 const os = require('os');
 const fs = require('fs');
 const del = require('del');
@@ -23,7 +41,7 @@ async function linkCore() {
   await link(
     path.join(process.cwd(), 'packages/framework-core'),
     path.join(globalNpmPath, '@cloudbase/cli'),
-    '@cloudbase/framework-core'
+    '@cloudbase/framework-core',
   );
 }
 
@@ -37,27 +55,25 @@ function initRegistry() {
       packageJSON,
       JSON.stringify({
         name: 'cloudbase-framework-registry',
-      })
+      }),
     );
   }
 }
 
 async function linkPlugins() {
-  const files = await promisify(fs.readdir)(
-    path.join(process.cwd(), 'packages')
-  );
+  const files = await promisify(fs.readdir)(path.join(process.cwd(), 'packages'));
 
-  const plugins = files.filter((file) => file.includes('plugin'));
+  const plugins = files.filter(file => file.includes('plugin'));
   // 插件列表
   console.log(plugins);
 
-  for (let plugin of plugins) {
+  for (const plugin of plugins) {
     console.log('\n', 'Link Plugin', plugin, '\n');
     // 创建软连接
     await link(
       path.join(process.cwd(), 'packages', plugin),
       pluginRegistry,
-      `@cloudbase/${plugin}`
+      `@cloudbase/${plugin}`,
     );
   }
 }

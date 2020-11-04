@@ -1,8 +1,25 @@
-import path from "path";
-import archiver from "archiver";
-import fs from "fs";
-import { Plugin, PluginServiceApi, Builder } from "@cloudbase/framework-core";
-import { mkdirSync } from "@cloudbase/toolbox";
+/**
+ *
+ * Copyright 2020 Tencent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+import path from 'path';
+import archiver from 'archiver';
+import fs from 'fs';
+import { Plugin, PluginServiceApi, Builder } from '@cloudbase/framework-core';
+import { mkdirSync } from '@cloudbase/toolbox';
 /**
  * 导出接口用于生成 JSON Schema 来进行智能提示
  */
@@ -66,7 +83,7 @@ export interface ICloudFunction {
    * 运行时环境配置，可选值： `Nodejs8.9, Nodejs10.15 Php7, Java8, Go1`
    * @default Nodejs10.15
    */
-  runtime?: "Nodejs10.15" | "Nodejs8.9" | "Php7" | "Java8" | "Go1";
+  runtime?: 'Nodejs10.15' | 'Nodejs8.9' | 'Php7' | 'Java8' | 'Go1';
   /**
    * 函数运行时内存配置
    * @default 128
@@ -114,7 +131,7 @@ type ResolveInputs = IFrameworkPluginFunctionInputs & {
   servicePaths: {};
 };
 
-type AclTag = "READONLY" | "PRIVATE" | "ADMINWRITE" | "ADMINONLY" | "CUSTOM";
+type AclTag = 'READONLY' | 'PRIVATE' | 'ADMINWRITE' | 'ADMINONLY' | 'CUSTOM';
 
 class FunctionPlugin extends Plugin {
   protected resolvedInputs: ResolveInputs;
@@ -134,7 +151,7 @@ class FunctionPlugin extends Plugin {
     const config = this.api.projectConfig;
 
     const DEFAULT_INPUTS = {
-      functionRootPath: config?.functionRoot || "cloudfunctions",
+      functionRootPath: config?.functionRoot || 'cloudfunctions',
       functions: config?.functions,
       servicePaths: {},
     };
@@ -146,9 +163,9 @@ class FunctionPlugin extends Plugin {
         return Object.assign(
           {},
           {
-            runtime: "Nodejs10.15",
+            runtime: 'Nodejs10.15',
             installDependency: true,
-            handler: "index.main",
+            handler: 'index.main',
           },
           func
         );
@@ -172,18 +189,18 @@ class FunctionPlugin extends Plugin {
    * 初始化
    */
   async init() {
-    this.api.logger.debug("FunctionPlugin: init", this.resolvedInputs);
+    this.api.logger.debug('FunctionPlugin: init', this.resolvedInputs);
   }
 
   async compile() {
-    this.api.logger.debug("FunctionPlugin: compile", this.resolvedInputs);
+    this.api.logger.debug('FunctionPlugin: compile', this.resolvedInputs);
 
     const builderOptions = this.functions.map((func) => {
       let fileName: string = func.name;
       let localFunctionPath: string;
 
-      if (func.runtime?.includes("Java")) {
-        fileName = func.name + ".jar";
+      if (func.runtime?.includes('Java')) {
+        fileName = func.name + '.jar';
       }
 
       if (func.functionDistPath) {
@@ -195,9 +212,9 @@ class FunctionPlugin extends Plugin {
         localFunctionPath = path.join(this.functionRootPath, fileName);
       }
 
-      if (func.runtime?.includes("Node") && func.installDependency) {
+      if (func.runtime?.includes('Node') && func.installDependency) {
         const packageJSONExists = fs.existsSync(
-          path.join(localFunctionPath, "package.json")
+          path.join(localFunctionPath, 'package.json')
         );
 
         if (!packageJSONExists) {
@@ -214,7 +231,7 @@ class FunctionPlugin extends Plugin {
         localPath: localFunctionPath,
         zipFileName: zipName,
         ignore: func.installDependency
-          ? ["node_modules/**/*", "node_modules", ...(func.ignore || [])]
+          ? ['node_modules/**/*', 'node_modules', ...(func.ignore || [])]
           : [...(func.ignore || [])],
       };
     });
@@ -224,7 +241,7 @@ class FunctionPlugin extends Plugin {
     const codeUris = await this.api.samManager.uploadFile(
       buildResult.functions.map((func) => {
         return {
-          fileType: "FUNCTION",
+          fileType: 'FUNCTION',
           fileName: `${func.name}.zip`,
           filePath: func.source,
         };
@@ -239,8 +256,8 @@ class FunctionPlugin extends Plugin {
       EntryPoint: Object.values(this.resolvedInputs.servicePaths).map(
         (servicePath) => {
           return {
-            Label: "服务地址",
-            EntryType: "HttpService",
+            Label: '服务地址',
+            EntryType: 'HttpService',
             HttpEntryPath: servicePath,
           };
         }
@@ -273,7 +290,7 @@ class FunctionPlugin extends Plugin {
    * 构建
    */
   async build() {
-    this.api.logger.debug("FunctionPlugin: build", this.resolvedInputs);
+    this.api.logger.debug('FunctionPlugin: build', this.resolvedInputs);
   }
 
   /**
@@ -281,7 +298,7 @@ class FunctionPlugin extends Plugin {
    */
   async deploy() {
     this.api.logger.debug(
-      "FunctionPlugin: deploy",
+      'FunctionPlugin: deploy',
       this.resolvedInputs,
       this.buildOutput
     );
@@ -290,21 +307,21 @@ class FunctionPlugin extends Plugin {
     await Promise.all(
       this.functions.map(async (func: any) => {
         this.api.logger.info(
-          `${this.api.emoji("🚀")} [${func.name}] 云函数部署成功`
+          `${this.api.emoji('🚀')} [${func.name}] 云函数部署成功`
         );
       })
     );
 
-    this.api.logger.info(`${this.api.emoji("🚀")} 云函数部署成功`);
+    this.api.logger.info(`${this.api.emoji('🚀')} 云函数部署成功`);
   }
 
   functionConfigToSAM(functionConfig: ICloudFunction) {
     return Object.assign({
-      Type: "CloudBase::Function",
+      Type: 'CloudBase::Function',
       Properties: Object.assign(
         {
-          Handler: functionConfig.handler || "index.main",
-          Description: "CloudBase Framework 部署的云函数",
+          Handler: functionConfig.handler || 'index.main',
+          Description: 'CloudBase Framework 部署的云函数',
           Runtime: functionConfig.runtime,
           FunctionName: functionConfig.name,
           MemorySize: functionConfig.memory || 128,
@@ -315,14 +332,14 @@ class FunctionPlugin extends Plugin {
           VpcConfig: functionConfig.vpc,
           HttpPath: this.resolvedInputs.servicePaths[functionConfig.name],
           InstallDependency:
-            functionConfig.runtime?.includes("Node") &&
-            "installDependency" in functionConfig
+            functionConfig.runtime?.includes('Node') &&
+            'installDependency' in functionConfig
               ? functionConfig.installDependency
               : false,
           CodeUri:
             this.outputs[functionConfig.name] &&
             this.outputs[functionConfig.name].codeUri,
-          Role: "TCB_QcsRole",
+          Role: 'TCB_QcsRole',
         },
         this.api.bumpVersion && {
           NewVersion: true,
@@ -331,7 +348,7 @@ class FunctionPlugin extends Plugin {
           VersionRemark: this.api.versionRemark,
         },
         functionConfig.aclRule && {
-          AclTag: "CUSTOM" as AclTag,
+          AclTag: 'CUSTOM' as AclTag,
           AclRule: this.genAclRule(functionConfig),
         }
       ),
@@ -339,11 +356,11 @@ class FunctionPlugin extends Plugin {
   }
 
   toConstantCase(name: string) {
-    let result = "";
+    let result = '';
     let lastIsDivide = true;
     for (let i = 0; i < name.length; i++) {
       let letter = name[i];
-      if (letter === "-" || letter === "_") {
+      if (letter === '-' || letter === '_') {
         lastIsDivide = true;
       } else if (lastIsDivide) {
         result += letter.toUpperCase();
@@ -386,7 +403,7 @@ interface FunctionBuilderOptions {
 export class FunctionBuilder extends Builder {
   constructor(options: FunctionBuilderOptions) {
     super({
-      type: "function",
+      type: 'function',
       ...options,
     });
   }
@@ -409,10 +426,10 @@ export class FunctionBuilder extends Builder {
         const fileStats = fs.statSync(option.localPath);
 
         if (fileStats.isFile()) {
-          this.logger.debug("option.localPath", option.localPath, localZipPath);
+          this.logger.debug('option.localPath', option.localPath, localZipPath);
           await this.zipFile(option.localPath, localZipPath);
         } else if (fileStats.isDirectory()) {
-          this.logger.debug("option.localPath", option.localPath, localZipPath);
+          this.logger.debug('option.localPath', option.localPath, localZipPath);
           await this.zipDir(option.localPath, localZipPath, option.ignore);
         }
 
@@ -434,13 +451,13 @@ export class FunctionBuilder extends Builder {
     return new Promise((resolve, reject) => {
       // create a file to stream archive data to.
       var output = fs.createWriteStream(dest);
-      var archive = archiver("zip", {
+      var archive = archiver('zip', {
         zlib: { level: 9 }, // Sets the compression level.
       });
-      output.on("close", () => {
+      output.on('close', () => {
         resolve();
       });
-      archive.on("error", reject);
+      archive.on('error', reject);
       archive.file(src, {
         name: path.basename(src),
       });
@@ -453,15 +470,15 @@ export class FunctionBuilder extends Builder {
     return new Promise((resolve, reject) => {
       // create a file to stream archive data to.
       var output = fs.createWriteStream(dest);
-      var archive = archiver("zip", {
+      var archive = archiver('zip', {
         zlib: { level: 9 }, // Sets the compression level.
       });
-      output.on("close", () => {
+      output.on('close', () => {
         resolve();
       });
-      archive.on("error", reject);
+      archive.on('error', reject);
       archive.glob(
-        "**/*",
+        '**/*',
         {
           cwd: src,
           ignore: ignore || [],

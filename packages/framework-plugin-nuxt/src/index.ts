@@ -1,20 +1,37 @@
-import { exec } from "child_process";
-import { promisify } from "util";
-import fs from "fs";
+/**
+ *
+ * Copyright 2020 Tencent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+import { exec } from 'child_process';
+import { promisify } from 'util';
+import fs from 'fs';
 
-import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
-import { plugin as FunctionPlugin } from "@cloudbase/framework-plugin-function";
-import { NuxtBuilder } from "@cloudbase/nuxt-builder";
+import { Plugin, PluginServiceApi } from '@cloudbase/framework-core';
+import { plugin as FunctionPlugin } from '@cloudbase/framework-plugin-function';
+import { NuxtBuilder } from '@cloudbase/nuxt-builder';
 
 const DEFAULT_INPUTS = {
   memory: 128,
   timeout: 5,
-  runtime: "Nodejs10.15",
-  entry: "./",
-  name: "nuxt-ssr",
-  path: "/nuxt-ssr",
-  buildCommand: "npm run build",
-  installCommand: "npm install",
+  runtime: 'Nodejs10.15',
+  entry: './',
+  name: 'nuxt-ssr',
+  path: '/nuxt-ssr',
+  buildCommand: 'npm run build',
+  installCommand: 'npm install',
 };
 
 /**
@@ -50,7 +67,7 @@ export interface IFrameworkPluginNuxtInputs {
    * 函数运行时版本
    * @default "Nodejs10.15"
    */
-  runtime?: "Nodejs10.15" | "Nodejs8.9";
+  runtime?: 'Nodejs10.15' | 'Nodejs8.9';
   /**
    * 函数运行时内存配置	
    * @default 128
@@ -92,16 +109,16 @@ class NuxtPlugin extends Plugin {
    * 初始化
    */
   async init() {
-    this.api.logger.debug("NuxtPlugin: init", this.resolvedInputs);
+    this.api.logger.debug('NuxtPlugin: init', this.resolvedInputs);
     const { installCommand } = this.resolvedInputs;
-    if (fs.existsSync("package.json")) {
+    if (fs.existsSync('package.json')) {
       this.api.logger.info(installCommand);
       return promisify(exec)(installCommand);
     }
   }
 
   async compile() {
-    this.api.logger.debug("NuxtPlugin: compile", this.resolvedInputs);
+    this.api.logger.debug('NuxtPlugin: compile', this.resolvedInputs);
 
     return this.functionPlugin.compile();
   }
@@ -125,7 +142,7 @@ class NuxtPlugin extends Plugin {
    * 构建
    */
   async build() {
-    this.api.logger.debug("NuxtPlugin: build", this.resolvedInputs);
+    this.api.logger.debug('NuxtPlugin: build', this.resolvedInputs);
 
     const { buildCommand } = this.resolvedInputs;
 
@@ -140,7 +157,7 @@ class NuxtPlugin extends Plugin {
 
     const srcFunction = this.buildOutput.functions[0];
 
-    this.functionPlugin = new FunctionPlugin("function", this.api, {
+    this.functionPlugin = new FunctionPlugin('function', this.api, {
       functionRootPath: srcFunction.source,
       functions: [
         {
@@ -164,7 +181,7 @@ class NuxtPlugin extends Plugin {
    */
   async deploy() {
     this.api.logger.debug(
-      "NuxtPlugin: deploy",
+      'NuxtPlugin: deploy',
       this.resolvedInputs,
       this.buildOutput
     );
@@ -173,7 +190,7 @@ class NuxtPlugin extends Plugin {
 
     await this.builder.clean();
 
-    this.api.logger.info(`🚀 Nuxt 应用部署成功`);
+    this.api.logger.info('🚀 Nuxt 应用部署成功');
   }
 }
 
