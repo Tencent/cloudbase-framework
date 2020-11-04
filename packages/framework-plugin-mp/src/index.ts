@@ -1,11 +1,28 @@
-import fs from "fs";
-import path from "path";
-import url from "url";
+/**
+ *
+ * Copyright 2020 Tencent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+import fs from 'fs';
+import path from 'path';
+import url from 'url';
 
-import { exec } from "child_process";
-import { promisify } from "util";
-import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
-import * as CI from "miniprogram-ci";
+import { exec } from 'child_process';
+import { promisify } from 'util';
+import { Plugin, PluginServiceApi } from '@cloudbase/framework-core';
+import * as CI from 'miniprogram-ci';
 
 /**
  * 导出接口用于生成 JSON Schema 来进行智能提示
@@ -38,7 +55,7 @@ interface IFrameworkPluginMiniProgramInputs {
    * 
    * @default "preview"
    */
-  deployMode?: "preview" | "upload"
+  deployMode?: 'preview' | 'upload'
   /**
    * 预览代码的选项
    */
@@ -128,9 +145,9 @@ interface IMiniProgramBuildSetting {
   codeProtect?: boolean
 }
 
-const SUPPORT_DEPLOY_MODE = ["upload", "preview"];
-const MP_CONFIG_FILENAME = "project.config.json";
-const NOT_NPM_ERROR = "__NO_NODE_MODULES__ NPM packages not found";
+const SUPPORT_DEPLOY_MODE = ['upload', 'preview'];
+const MP_CONFIG_FILENAME = 'project.config.json';
+const NOT_NPM_ERROR = '__NO_NODE_MODULES__ NPM packages not found';
 
 class MiniProgramsPlugin extends Plugin {
   protected resolvedInputs: IFrameworkPluginMiniProgramInputs;
@@ -146,7 +163,7 @@ class MiniProgramsPlugin extends Plugin {
     const DEFAULT_INPUTS = {
       localPath: './',
       deployMode: 'preview',
-      ignores: ["node_modules/**/*"]
+      ignores: ['node_modules/**/*']
     };
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
   }
@@ -155,7 +172,7 @@ class MiniProgramsPlugin extends Plugin {
    * 初始化
    */
   async init() {
-    this.api.logger.debug("MiniProgramPlugin: init", this.resolvedInputs);
+    this.api.logger.debug('MiniProgramPlugin: init', this.resolvedInputs);
     this.initCI();
   }
 
@@ -199,7 +216,7 @@ class MiniProgramsPlugin extends Plugin {
    * 构建
    */
   async build() {
-    this.api.logger.debug("MiniProgramPlugin: build", this.resolvedInputs);
+    this.api.logger.debug('MiniProgramPlugin: build', this.resolvedInputs);
 
     const {
       build: buildCommand,
@@ -234,17 +251,17 @@ class MiniProgramsPlugin extends Plugin {
   async compile() {
     return {
       
-    }
+    };
   }
 
   /**
    * 部署
    */
   async deploy() {
-    this.api.logger.debug("MiniProgramPlugin: deploy", this.resolvedInputs, this.buildOutput);
+    this.api.logger.debug('MiniProgramPlugin: deploy', this.resolvedInputs, this.buildOutput);
 
     const { deployMode } = this.resolvedInputs;
-    switch(deployMode) {
+    switch (deployMode) {
       case 'upload': {
         await this.ciUpload();
         return;
@@ -266,8 +283,8 @@ class MiniProgramsPlugin extends Plugin {
     // 需要暂时关掉 stdout, 避免 miniprogram-ci 的内容打印到控制台
     pauseConsoleOutput();
     const { 
-      version = "1.0.0",
-      desc = "CloudBase Framework 一键上传",
+      version = '1.0.0',
+      desc = 'CloudBase Framework 一键上传',
       setting 
     } = this.resolvedInputs.uploadOptions || {};
     const result = await CI.upload({
@@ -281,7 +298,7 @@ class MiniProgramsPlugin extends Plugin {
     resumeConsoleOutput();
 
     if (result?.subPackageInfo) {
-      this.api.logger.info(`${this.api.emoji("🚀")} 小程序（体验版v${this.resolvedInputs.uploadOptions?.version}）上传成功，请在小程序管理后台将其设置为体验版本`);
+      this.api.logger.info(`${this.api.emoji('🚀')} 小程序（体验版v${this.resolvedInputs.uploadOptions?.version}）上传成功，请在小程序管理后台将其设置为体验版本`);
     } else {
       throw new Error(`小程序（预览版）部署失败 ${result}`);
     }
@@ -294,16 +311,16 @@ class MiniProgramsPlugin extends Plugin {
     // 需要暂时关掉 stdout, 避免 miniprogram-ci 的内容打印到控制台
     pauseConsoleOutput();
     const {
-      desc = "CloudBase Framework 一键预览", 
+      desc = 'CloudBase Framework 一键预览', 
       setting,
-      qrcodeOutputPath = "./qrcode.jpg", 
-      pagePath = "pages/index/index", 
-      searchQuery = "", 
+      qrcodeOutputPath = './qrcode.jpg', 
+      pagePath = 'pages/index/index', 
+      searchQuery = '', 
       scene = 1011
     } = this.resolvedInputs.previewOptions || {};
     const result = await CI.preview({
       project: this.ciProject,
-      version: "0.0.1",
+      version: '0.0.1',
       desc,
       setting,
       qrcodeFormat: 'image',
@@ -313,7 +330,7 @@ class MiniProgramsPlugin extends Plugin {
       scene
     }).catch((err) => {
       return err;
-    })
+    });
     resumeConsoleOutput();
 
     if (result?.subPackageInfo) {
@@ -321,7 +338,7 @@ class MiniProgramsPlugin extends Plugin {
         protocol: 'file:',
         host: path.resolve(this.api.projectPath, qrcodeOutputPath)
       }));
-      this.api.logger.info(`${this.api.emoji("🚀")} 小程序（预览版）部署成功，预览二维码地址：${link}`);
+      this.api.logger.info(`${this.api.emoji('🚀')} 小程序（预览版）部署成功，预览二维码地址：${link}`);
     } else {
       throw new Error(`小程序（预览版）部署失败 ${result}`);
     }
@@ -331,10 +348,12 @@ class MiniProgramsPlugin extends Plugin {
     // 需要暂时关掉 stdout, 避免 miniprogram-ci 的内容打印到控制台
     pauseConsoleOutput();
     const result = await CI.packNpm(this.ciProject, {
-      reporter: (infos) => { console.log(infos) }
+      reporter: (infos) => {
+        console.log(infos); 
+      }
     }).catch((err) => {
       return err;
-    })
+    });
     resumeConsoleOutput();
 
     if (result instanceof Error && !(result.message.startsWith(NOT_NPM_ERROR))) {
@@ -366,10 +385,10 @@ const originalStderrWrite = process.stderr.write.bind(process.stderr);
 function pauseConsoleOutput() {
   process.stdout.write = () => {
     return true;
-  }
+  };
   process.stderr.write = () => {
     return true;
-  }
+  };
 }
 // 恢复控制台输出
 function resumeConsoleOutput() {

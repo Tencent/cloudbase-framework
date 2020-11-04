@@ -1,17 +1,34 @@
-import os from "os";
-import path from "path";
-import fs from "fs";
+/**
+ *
+ * Copyright 2020 Tencent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+import os from 'os';
+import path from 'path';
+import fs from 'fs';
 
-const corePackageInfo = require("../../package");
+const corePackageInfo = require('../../package');
 
-import { install } from "./pkg-install";
-import { emoji } from "../utils/emoji";
-import { Config } from "../types";
-import Context from "../context";
-import Plugin from "../plugin";
-import PluginServiceApi from "../plugin-service-api";
-import { mkdirSync } from "@cloudbase/toolbox";
-import { spawnPromise } from "../utils/spawn";
+import { install } from './pkg-install';
+import { emoji } from '../utils/emoji';
+import { Config } from '../types';
+import Context from '../context';
+import Plugin from '../plugin';
+import PluginServiceApi from '../plugin-service-api';
+import { mkdirSync } from '@cloudbase/toolbox';
+import { spawnPromise } from '../utils/spawn';
 
 interface PluginData {
   id: string;
@@ -29,7 +46,7 @@ interface PluginHookOption {
   icon?: string;
 }
 
-type PluginHookName = "init" | "build" | "deploy" | "compile" | "run";
+type PluginHookName = 'init' | 'build' | 'deploy' | 'compile' | 'run';
 
 /**
  * 插件管理器
@@ -41,7 +58,7 @@ export default class PluginManager {
   plugins: PluginData[];
   pluginRegistry: string;
   pluginInstallPromise: Promise<boolean>;
-  pluginInstallState: boolean = false;
+  pluginInstallState = false;
 
   constructor(context: Context) {
     this.context = context;
@@ -49,7 +66,7 @@ export default class PluginManager {
 
     this.pluginRegistry = path.join(
       os.homedir(),
-      "cloudbase-framework/registry"
+      'cloudbase-framework/registry'
     );
     this.initRegistry();
     this.pluginInstallPromise = this.installPlugins();
@@ -64,11 +81,11 @@ export default class PluginManager {
     try {
       await this.pluginInstallPromise;
       this.context.logger.debug(
-        "插件版本信息",
+        '插件版本信息',
         JSON.parse(
-          (await spawnPromise("npm ls", ["--depth=0", "--json"], {
+          (await spawnPromise('npm ls', ['--depth=0', '--json'], {
             cwd: this.pluginRegistry,
-            stdio: "pipe",
+            stdio: 'pipe',
           })) as string
         )
       );
@@ -76,7 +93,7 @@ export default class PluginManager {
       this.context.logger.debug(e);
     }
 
-    return this.callPluginHook("init", {
+    return this.callPluginHook('init', {
       id,
     });
   }
@@ -87,9 +104,9 @@ export default class PluginManager {
    * @param id
    */
   async build(id?: string) {
-    return this.callPluginHook("build", {
+    return this.callPluginHook('build', {
       id,
-      icon: emoji("🔨"),
+      icon: emoji('🔨'),
     });
   }
 
@@ -99,9 +116,9 @@ export default class PluginManager {
    * @param id
    */
   async compile(id?: string) {
-    return this.callPluginHook("compile", {
+    return this.callPluginHook('compile', {
       id,
-      icon: emoji("🧬"),
+      icon: emoji('🧬'),
     });
   }
 
@@ -111,9 +128,9 @@ export default class PluginManager {
    * @param id
    */
   async deploy(id?: string) {
-    return this.callPluginHook("deploy", {
+    return this.callPluginHook('deploy', {
       id,
-      icon: emoji("🚀"),
+      icon: emoji('🚀'),
     });
   }
 
@@ -123,10 +140,10 @@ export default class PluginManager {
    * @param id
    */
   async run(id?: string, runCommandKey?: string) {
-    return this.callPluginHook("run", {
+    return this.callPluginHook('run', {
       id,
       params: { runCommandKey },
-      icon: emoji("🚢"),
+      icon: emoji('🚢'),
     });
   }
 
@@ -142,12 +159,12 @@ export default class PluginManager {
       this.pickPlugins(id).map(async (pluginData) => {
         const pluginInstance = await this.loadPlugin(pluginData);
 
-        if (typeof pluginInstance[hook] !== "function") {
+        if (typeof pluginInstance[hook] !== 'function') {
           return;
         }
 
         this.context.logger.info(
-          `${icon || emoji("🔧")} ${hook}: ${pluginData.id}...`
+          `${icon || emoji('🔧')} ${hook}: ${pluginData.id}...`
         );
 
         return (pluginInstance[hook] as any)(params);
@@ -209,7 +226,7 @@ export default class PluginManager {
     try {
       PluginCode = require(path.join(
         this.pluginRegistry,
-        "node_modules",
+        'node_modules',
         pluginData.name
       )).plugin;
     } catch (e) {
@@ -250,7 +267,7 @@ export default class PluginManager {
    * @param packageName
    */
   private async installPackage(packageInfo: Record<string, string>) {
-    this.context.logger.info(`${emoji("📦")} install plugins`);
+    this.context.logger.info(`${emoji('📦')} install plugins`);
     await install(
       {
         ...packageInfo,
@@ -268,12 +285,12 @@ export default class PluginManager {
     if (!fs.existsSync(this.pluginRegistry)) {
       mkdirSync(this.pluginRegistry);
     }
-    const packageJSON = path.join(this.pluginRegistry, "package.json");
+    const packageJSON = path.join(this.pluginRegistry, 'package.json');
     if (!fs.existsSync(packageJSON)) {
       fs.writeFileSync(
         packageJSON,
         JSON.stringify({
-          name: "cloudbase-framework-registry",
+          name: 'cloudbase-framework-registry',
         })
       );
     }
@@ -282,7 +299,7 @@ export default class PluginManager {
   async installPlugins() {
     const pattern = /^(((@[^/]+)\/)?[^@]+)(@(.*))?$/;
 
-    if (this.pluginInstallState || process.env.CLOUDBASE_FX_ENV === "dev") {
+    if (this.pluginInstallState || process.env.CLOUDBASE_FX_ENV === 'dev') {
       return true;
     } else {
       const packageInfo = this.plugins.reduce((prev, curr) => {
@@ -292,11 +309,11 @@ export default class PluginManager {
         if (pkgVersion) {
           version = pkgVersion;
           // 官方插件的版本，跟内核版本相同
-        } else if (curr.scope === "@cloudbase") {
+        } else if (curr.scope === '@cloudbase') {
           version = (corePackageInfo as any).version;
         } else {
           // 其他插件，取最新版本
-          version = "latest";
+          version = 'latest';
         }
         (prev as any)[curr.name] = version;
         return prev;

@@ -1,11 +1,28 @@
-import path from "path";
-import fse from "fs-extra";
-import archiver from "archiver";
-import { Builder } from "@cloudbase/framework-core";
+/**
+ *
+ * Copyright 2020 Tencent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+import path from 'path';
+import fse from 'fs-extra';
+import archiver from 'archiver';
+import { Builder } from '@cloudbase/framework-core';
 
 const Launcher = fse.readFileSync(
-  path.resolve(__dirname, "../asset/__launcher.js"),
-  "utf-8"
+  path.resolve(__dirname, '../asset/__launcher.js'),
+  'utf-8'
 );
 
 interface NodeBuilderBuildOptions {
@@ -28,18 +45,18 @@ export class NodeBuilder extends Builder {
   private dependencies: Object;
   constructor(options: NodeBuilderOptions) {
     super({
-      type: "node",
+      type: 'node',
       ...options,
     });
     this.dependencies = {
-      express: "^4.17.1",
-      "serverless-http": "^2.3.2",
+      express: '^4.17.1',
+      'serverless-http': '^2.3.2',
     };
   }
   async build(entry: string, options?: NodeBuilderBuildOptions) {
     const { distDir, projectDir, distDirName } = this;
     const entryFile = path.resolve(projectDir, entry);
-    const { name: functionName = "nodeapp", wrapExpress = false } =
+    const { name: functionName = 'nodeapp', wrapExpress = false } =
       options || {};
     const appDir = path.join(distDir, functionName);
 
@@ -54,15 +71,15 @@ export class NodeBuilder extends Builder {
     fse.ensureDirSync(appDir);
 
     await fse.writeFile(
-      path.resolve(appDir, "./tcbindex.js"),
-      Launcher.replace("/*entryPath*/", entryRelativePath).replace(
+      path.resolve(appDir, './tcbindex.js'),
+      Launcher.replace('/*entryPath*/', entryRelativePath).replace(
         /\/\/ #wrapExpress\s/g,
-        wrapExpress ? "" : "// "
+        wrapExpress ? '' : '// '
       )
     );
 
     await fse.copy(path.resolve(projectDir), path.join(appDir));
-    await fse.writeJSON(path.resolve(appDir, "./package.json"), packageJson);
+    await fse.writeJSON(path.resolve(appDir, './package.json'), packageJson);
 
     return {
       functions: [
@@ -70,13 +87,13 @@ export class NodeBuilder extends Builder {
           name: functionName,
           options: {},
           source: distDir,
-          entry: "tcbindex.main",
+          entry: 'tcbindex.main',
         },
       ],
       routes: [
         {
-          path: options ? options.path || "/" : "/",
-          targetType: "function",
+          path: options ? options.path || '/' : '/',
+          targetType: 'function',
           target: functionName,
         },
       ],
@@ -87,11 +104,11 @@ export class NodeBuilder extends Builder {
     return new Promise((resolve, reject) => {
       // create a file to stream archive data to.
       const output = fse.createWriteStream(dest);
-      const archive = archiver("zip", {
+      const archive = archiver('zip', {
         zlib: { level: 9 }, // Sets the compression level.
       });
-      output.on("close", resolve);
-      archive.on("error", reject);
+      output.on('close', resolve);
+      archive.on('error', reject);
       archive.directory(src, false);
       archive.pipe(output);
       archive.finalize();
@@ -111,10 +128,10 @@ export class NodeBuilder extends Builder {
 
     // 最顶层的目录，查到这里就不要再找了
     let topDir =
-      targetRoot.slice(0, projectDir.length) === projectDir ? projectDir : "/";
+      targetRoot.slice(0, projectDir.length) === projectDir ? projectDir : '/';
 
     while (targetRoot) {
-      const targetPkgJsonPath = path.resolve(targetRoot, "package.json");
+      const targetPkgJsonPath = path.resolve(targetRoot, 'package.json');
       if (await fse.pathExists(targetPkgJsonPath)) {
         // 找到目标 package.json，读取，结束循环
         originalPackageJsonDependencies = (
@@ -124,7 +141,7 @@ export class NodeBuilder extends Builder {
       }
       if (targetRoot === topDir) {
         // 已经到最顶层
-        if ("/" === topDir) {
+        if ('/' === topDir) {
           // 但是没有经过 projectDir
           // 再经历下 projectDir 目录
           targetRoot = projectDir;

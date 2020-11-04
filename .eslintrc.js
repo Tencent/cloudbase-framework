@@ -17,7 +17,16 @@
  */
 
 module.exports = {
-  extends: ['@tencent/eslint-config-tencent'],
+  overrides: [
+    {
+      files: ['**/*.js'],
+      extends: ['@tencent/eslint-config-tencent'],
+    },
+    {
+      files: ['**/*.ts'],
+      extends: ['@tencent/eslint-config-tencent/ts'],
+    },
+  ],
   plugins: ['header'],
   rules: {
     'header/header': [2, 'resources/license-header.js'],

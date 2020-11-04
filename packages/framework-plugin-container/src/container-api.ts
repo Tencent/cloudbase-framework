@@ -1,5 +1,22 @@
-import { CloudApi } from "@cloudbase/framework-core";
-import fs from "fs";
+/**
+ *
+ * Copyright 2020 Tencent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+import { CloudApi } from '@cloudbase/framework-core';
+import fs from 'fs';
 
 export interface IApiOptions {
   secretId: string;
@@ -32,21 +49,21 @@ export class ContainerApi {
       ProjectToken,
     } = res;
 
-    this.logger.debug("describeCloudBaseRunBuildServer", res);
+    this.logger.debug('describeCloudBaseRunBuildServer', res);
 
     const url = `https://${TeamGlobalKey}-generic.pkg.coding.net/${ProjectName}/${PackageRepositoryName}/${packageName}?version=${version}`;
     const authorization = Buffer.from(
       `${ProjectGlobalKey}:${ProjectToken}`
-    ).toString("base64");
+    ).toString('base64');
 
     const response = await this.cloudApi.fetchStream(
       url,
       {
-        method: "PUT",
+        method: 'PUT',
         body: fs.createReadStream(filePath),
         headers: {
           Authorization: `Basic ${authorization}`,
-          ContentType: "application/octet-stream",
+          ContentType: 'application/octet-stream',
         },
       },
       process.env.http_proxy
@@ -55,12 +72,12 @@ export class ContainerApi {
 
     if (response.status !== 200) {
       console.error(response.url, response.statusText);
-      throw new Error("部署云托管代码失败");
+      throw new Error('部署云托管代码失败');
     }
 
-    if (text !== "success") {
+    if (text !== 'success') {
       console.error(text);
-      throw new Error("部署云托管代码失败");
+      throw new Error('部署云托管代码失败');
     }
   }
 
@@ -68,8 +85,8 @@ export class ContainerApi {
    * 查询 Coding 部署信息
    */
   describeCloudBaseRunBuildServer() {
-    return this.cloudApi.tcbService.request("DescribeCloudBaseRunBuildServer", {
-      Business: "framework",
+    return this.cloudApi.tcbService.request('DescribeCloudBaseRunBuildServer', {
+      Business: 'framework',
     });
   }
 }

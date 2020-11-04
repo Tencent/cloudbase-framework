@@ -55,7 +55,8 @@ ${renderTable(data, renderCell, maxWidth)}
 | 插件链接 | 插件 | 最新版本 | 插件介绍 |
 | -------- | ---- | -------- | -------- |
 ${data
-    .map(item => `| <a href="${item.link}"><img width="200" src="${item.cover}"></a>  | [${item.npmPackageName}](${item.link}) `
+    .map(item => `| <a href="${item.link}"><img width="200" src="${item.cover}"></a>  `
+      + `| [${item.npmPackageName}](${item.link}) `
       + `|[![Npm version](https://img.shields.io/npm/v/${item.npmPackageName})]`
       + `(https://www.npmjs.com/package/${item.npmPackageName})`
       + ` | ${item.description}|`)

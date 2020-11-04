@@ -1,24 +1,41 @@
-import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
-import { ContainerApi } from "./container-api";
-import { ContainerBuilder } from "./builder";
-import path from "path";
+/**
+ *
+ * Copyright 2020 Tencent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+import { Plugin, PluginServiceApi } from '@cloudbase/framework-core';
+import { ContainerApi } from './container-api';
+import { ContainerBuilder } from './builder';
+import path from 'path';
 
 const DEFAULT_INPUTS = {
-  uploadType: "package",
-  description: "基于云开发 CloudBase Framework 部署的云托管",
+  uploadType: 'package',
+  description: '基于云开发 CloudBase Framework 部署的云托管',
   isPublic: true,
   flowRatio: 100,
   cpu: 1,
   mem: 1,
   minNum: 1,
   maxNum: 10,
-  policyType: "cpu",
+  policyType: 'cpu',
   policyThreshold: 60,
   containerPort: 80,
-  dockerfilePath: "./Dockerfile",
-  buildDir: "./",
-  version: "1.0.0",
-  localPath: "./",
+  dockerfilePath: './Dockerfile',
+  buildDir: './',
+  version: '1.0.0',
+  localPath: './',
   envVariables: {},
 };
 
@@ -31,7 +48,7 @@ export interface IFrameworkPluginContainerInputs {
    *
    * 支持`package|image|repository`3 种，分别代表本地代码包、镜像地址和 git 仓库地址。默认是`package`, 选择`image`时需要填写 `imageInfo`, 选择 `repository` 需要填写`codeDetail`
    */
-  uploadType?: "package" | "image" | "repository";
+  uploadType?: 'package' | 'image' | 'repository';
   /**
    * 服务名，字符串格式，如 `node-api`
    */
@@ -84,7 +101,7 @@ export interface IFrameworkPluginContainerInputs {
   /**
    * 策略类型(cpu)，默认值 `cpu`
    */
-  policyType?: "cpu";
+  policyType?: 'cpu';
   /**
    * 策略阈值，1-100, 默认值 `60`
    *
@@ -247,7 +264,7 @@ class ContainerPlugin extends Plugin {
    * 初始化
    */
   async init() {
-    this.api.logger.debug("ContainerPlugin: init", this.resolvedInputs);
+    this.api.logger.debug('ContainerPlugin: init', this.resolvedInputs);
   }
 
   /**
@@ -269,9 +286,9 @@ class ContainerPlugin extends Plugin {
    * 构建
    */
   async build() {
-    this.api.logger.debug("ContainerPlugin: build", this.resolvedInputs);
+    this.api.logger.debug('ContainerPlugin: build', this.resolvedInputs);
 
-    if (this.resolvedInputs.uploadType === "package") {
+    if (this.resolvedInputs.uploadType === 'package') {
       const { serviceName, version } = this.resolvedInputs;
       const localPath =
         this.resolvedInputs.localAbsolutePath ||
@@ -294,15 +311,15 @@ class ContainerPlugin extends Plugin {
    * 生成SAM文件
    */
   async compile() {
-    this.api.logger.debug("ContainerPlugin: compile", this.resolvedInputs);
+    this.api.logger.debug('ContainerPlugin: compile', this.resolvedInputs);
     return {
       Resources: {
         [this.toConstantCase(this.resolvedInputs.serviceName)]: this.toSAM(),
       },
       EntryPoint: [
         {
-          Label: "服务入口",
-          EntryType: "HttpService",
+          Label: '服务入口',
+          EntryType: 'HttpService',
           HttpEntryPath: this.resolvedInputs.servicePath,
         },
       ],
@@ -314,11 +331,11 @@ class ContainerPlugin extends Plugin {
    */
   async deploy() {
     this.api.logger.debug(
-      "ContainerPlugin: deploy",
+      'ContainerPlugin: deploy',
       this.resolvedInputs,
       this.buildOutput
     );
-    this.api.logger.info(`${this.api.emoji("🚀")} 云托管应用部署成功,`);
+    this.api.logger.info(`${this.api.emoji('🚀')} 云托管应用部署成功,`);
   }
 
   toSAM() {
@@ -347,20 +364,20 @@ class ContainerPlugin extends Plugin {
     let otherProperties;
 
     switch (uploadType) {
-      case "package":
+      case 'package':
         otherProperties = {
           PackageName: serviceName,
           PackageVersion: version,
         };
         break;
-      case "image":
+      case 'image':
         otherProperties = {
           ImageInfo: {
             ImageUrl: imageInfo?.imageUrl,
           },
         };
         break;
-      case "repository":
+      case 'repository':
         otherProperties = {
           CodeDetail: {
             Name: {
@@ -375,7 +392,7 @@ class ContainerPlugin extends Plugin {
     }
 
     return {
-      Type: "CloudBase::CloudBaseRun",
+      Type: 'CloudBase::CloudBaseRun',
       Properties: Object.assign(
         {
           ServerName: serviceName,
@@ -407,11 +424,11 @@ class ContainerPlugin extends Plugin {
   }
 
   toConstantCase(name: string) {
-    let result = "";
+    let result = '';
     let lastIsDivide = true;
     for (let i = 0; i < name.length; i++) {
       let letter = name[i];
-      if (letter === "-" || letter === "_") {
+      if (letter === '-' || letter === '_') {
         lastIsDivide = true;
       } else if (lastIsDivide) {
         result += letter.toUpperCase();
@@ -428,16 +445,16 @@ class ContainerPlugin extends Plugin {
   checkInputs() {
     const { uploadType, codeDetail, imageInfo } = this.resolvedInputs;
     switch (uploadType) {
-      case "repository":
+      case 'repository':
         if (!codeDetail || !codeDetail.url) {
           throw new Error(
-            "uploadType 填写为 repository 时，应提供正确的 codeDetail 信息"
+            'uploadType 填写为 repository 时，应提供正确的 codeDetail 信息'
           );
         }
         break;
-      case "image":
+      case 'image':
         if (!imageInfo || !imageInfo.imageUrl) {
-          throw new Error("uploadType 填写为 image 时，应提供 imageInfo 信息");
+          throw new Error('uploadType 填写为 image 时，应提供 imageInfo 信息');
         }
         break;
       default:
