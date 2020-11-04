@@ -44,14 +44,14 @@ const promisifyGlob = promisify(glob);
 
   writeFileSync(
     path.join(__dirname, './src/package.json'),
-    JSON.stringify(packages, null, 4)
+    JSON.stringify(packages, null, 4),
   );
 
   await spawnPromise(
     `docker build --build-arg tag=${tag} --no-cache -t ${tagName} .`,
     {
       cwd: path.join(__dirname, './src'),
-    }
+    },
   );
 
   // 推送镜像

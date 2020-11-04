@@ -19,7 +19,7 @@ const path = require('path');
 
 async function frameworkTest() {
   const frameworkCore = require('../lib');
-  const result = await frameworkCore.run({
+  await frameworkCore.run({
     projectPath: path.join(__dirname, './'),
     cloudbaseConfig: {
       secretId: '',

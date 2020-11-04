@@ -27,8 +27,8 @@ async function spawnPromise(command, options) {
           shell: true,
           stdio: 'inherit',
         },
-        options
-      )
+        options,
+      ),
     );
 
     let stdout = '';

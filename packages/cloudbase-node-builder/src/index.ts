@@ -54,7 +54,7 @@ export class NodeBuilder extends Builder {
     };
   }
   async build(entry: string, options?: NodeBuilderBuildOptions) {
-    const { distDir, projectDir, distDirName } = this;
+    const { distDir, projectDir } = this;
     const entryFile = path.resolve(projectDir, entry);
     const { name: functionName = 'nodeapp', wrapExpress = false } =
       options || {};

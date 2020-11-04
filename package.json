@@ -10,7 +10,7 @@
     "publish": "lerna publish",
     "publish:beta": "lerna publish --canary --preid beta --pre-dist-tag beta",
     "test": "lerna run test",
-    "lint": "npx eslint --fix",
+    "lint": "npx eslint . --fix",
     "clean": "lerna run clean",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "link": "node scripts/link-packages.js",

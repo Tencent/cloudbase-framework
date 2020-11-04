@@ -373,7 +373,7 @@ function promptWriteConfig() {
   return inquirer.prompt({
     type: 'confirm',
     name: 'isWriteConfig',
-    message: `是否需要保存当前项目配置到项目中`,
+    message: '是否需要保存当前项目配置到项目中',
   });
 }
 

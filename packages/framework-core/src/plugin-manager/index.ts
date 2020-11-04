@@ -15,6 +15,8 @@
  * limitations under the License.
  *
  */
+
+/* eslint-disable @typescript-eslint/no-require-imports */
 import os from 'os';
 import path from 'path';
 import fs from 'fs';
@@ -281,7 +283,7 @@ export default class PluginManager {
   /**
    * 初始化插件仓库
    */
-  initRegistry() {
+  private initRegistry() {
     if (!fs.existsSync(this.pluginRegistry)) {
       mkdirSync(this.pluginRegistry);
     }
@@ -296,9 +298,7 @@ export default class PluginManager {
     }
   }
 
-  async installPlugins() {
-    const pattern = /^(((@[^/]+)\/)?[^@]+)(@(.*))?$/;
-
+  private async installPlugins() {
     if (this.pluginInstallState || process.env.CLOUDBASE_FX_ENV === 'dev') {
       return true;
     } else {

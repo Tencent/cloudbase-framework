@@ -1,4 +1,21 @@
-import merge from "lodash.merge";
+/**
+ *
+ * Copyright 2020 Tencent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+import merge from 'lodash.merge';
 
 const ADDONS: Record<string, any> = {
   CFS: {
@@ -7,13 +24,13 @@ const ADDONS: Record<string, any> = {
       return {
         Resources: {
           [name]: {
-            Type: "CloudBase::CFS",
+            Type: 'CloudBase::CFS',
             Properties: {
               InstanceName: name, // 集群名称
-              Region: region || "${TcbEnvRegion}", // 区域信息
-              UniqVpcId: vpcId || "${Outputs.Network.Properties.InstanceId}",
-              NetInterface: "VPC",
-              StorageType: "SD",
+              Region: region || '${TcbEnvRegion}', // 区域信息
+              UniqVpcId: vpcId || '${Outputs.Network.Properties.InstanceId}',
+              NetInterface: 'VPC',
+              StorageType: 'SD',
               InstanceId: instanceId,
             },
           },
@@ -36,13 +53,13 @@ const ADDONS: Record<string, any> = {
         },
         Resources: {
           [name]: {
-            Type: "CloudBase::CynosDB",
+            Type: 'CloudBase::CynosDB',
             Properties: {
               InstanceName: name, // 集群名称
-              Region: region || "${TcbEnvRegion}", // 区域信息
-              UniqVpcId: vpcId || "${Outputs.Network.Properties.InstanceId}",
-              DbType: "MYSQL",
-              DbVersion: "5.7",
+              Region: region || '${TcbEnvRegion}', // 区域信息
+              UniqVpcId: vpcId || '${Outputs.Network.Properties.InstanceId}',
+              DbType: 'MYSQL',
+              DbVersion: '5.7',
               PayMode: 0, // 0:后付费 1: 预付费
               ...(plan ? { Cpu: plan?.Cpu, MemorySize: plan?.MemorySize } : {}),
               Port: 3306,
@@ -60,7 +77,7 @@ const ADDONS: Record<string, any> = {
 
 export function genAddonSam(addons: Record<string, any>[]) {
   return addons.reduce((prev, cur) => {
-    const { type, name } = cur;
+    const { type } = cur;
     if (!((type as string) in ADDONS)) {
       throw new Error(`Addon type ${type} 暂不支持`);
     }

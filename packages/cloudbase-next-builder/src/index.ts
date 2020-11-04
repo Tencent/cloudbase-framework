@@ -20,7 +20,7 @@ import fs from 'fs-extra';
 import archiver from 'archiver';
 import { Builder } from '@cloudbase/framework-core';
 
-const __launcher = fs.readFileSync(
+const launcher = fs.readFileSync(
   path.resolve(__dirname, '../asset/__launcher.js'),
   'utf-8'
 );
@@ -59,7 +59,7 @@ export class NextBuilder extends Builder {
   }
 
   async build(entry: string, options: NextBuilderBuildOptions) {
-    const { distDir, distDirName } = this;
+    const { distDir } = this;
     const nextDistPath = path.resolve(entry, '.next');
     const nextPublicPath = path.resolve(entry, 'public');
 
@@ -93,7 +93,7 @@ export class NextBuilder extends Builder {
     // launcher
     await fs.writeFile(
       path.resolve(serviceDir, 'index.js'),
-      __launcher.replace(/\/\*path\*\//g, options.path)
+      launcher.replace(/\/\*path\*\//g, options.path)
     );
 
     return {

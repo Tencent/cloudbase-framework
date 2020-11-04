@@ -20,7 +20,7 @@ import fs from 'fs-extra';
 import archiver from 'archiver';
 import { Builder } from '@cloudbase/framework-core';
 
-const __launcher = fs.readFileSync(
+const launcher = fs.readFileSync(
   path.resolve(__dirname, '../asset/__launcher.js'),
   'utf-8'
 );
@@ -59,7 +59,7 @@ export class NuxtBuilder extends Builder {
   }
 
   async build(entry: string, options: NuxtBuilderBuildOptions) {
-    const { distDir, distDirName } = this;
+    const { distDir } = this;
     const nuxtDistPath = path.resolve(entry, '.nuxt');
 
     const serviceName = options.name;
@@ -87,7 +87,7 @@ export class NuxtBuilder extends Builder {
     // launcher
     await fs.writeFile(
       path.resolve(serviceDir, 'index.js'),
-      __launcher.replace('/*path*/', options.path)
+      launcher.replace('/*path*/', options.path)
     );
 
     // TODO: static files
