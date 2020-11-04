@@ -31,7 +31,7 @@ export async function fetchDomains() {
   const gwServiceInfo = await describeCloudBaseGWService();
   const staticResInfo = await describeStaticRes();
   return {
-    static: staticResInfo?.Data?.[0].CdnDomain,
+    static: staticResInfo?.Data?.[0]?.CdnDomain,
     service: gwServiceInfo?.DefaultDomain,
   };
 }

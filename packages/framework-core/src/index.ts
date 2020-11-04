@@ -1,3 +1,21 @@
+/**
+ *
+ * Copyright 2020 Tencent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
 import { promisify } from 'util';
 import figlet from 'figlet';
 import chalk from 'chalk';
@@ -211,25 +229,6 @@ ${entryLogInfo}`);
     }
   }
 
-  /**
-   * 编译 SAM
-   * @param module
-   */
-  private async _compile(module?: string) {
-    await this.pluginManager.init(module);
-    await this.pluginManager.build(module);
-
-    const compileResult = await this.pluginManager.compile(module);
-
-    await this.hooks.callHook('postCompile');
-
-    const samMeta = this.generateSamMeta();
-    const hooksSAM = this.hooks.genSAM();
-    const samSections = [...compileResult, hooksSAM];
-
-    this.samManager.generate(samMeta, JSON.parse(JSON.stringify(samSections)));
-  }
-
   generateSamMeta() {
     const appName = `${this.appConfig.name || 'fx-app'}`;
 
@@ -317,6 +316,25 @@ ${entryLogInfo}`);
         Value,
       };
     });
+  }
+
+  /**
+   * 编译 SAM
+   * @param module
+   */
+  private async _compile(module?: string) {
+    await this.pluginManager.init(module);
+    await this.pluginManager.build(module);
+
+    const compileResult = await this.pluginManager.compile(module);
+
+    await this.hooks.callHook('postCompile');
+
+    const samMeta = this.generateSamMeta();
+    const hooksSAM = this.hooks.genSAM();
+    const samSections = [...compileResult, hooksSAM];
+
+    this.samManager.generate(samMeta, JSON.parse(JSON.stringify(samSections)));
   }
 }
 
