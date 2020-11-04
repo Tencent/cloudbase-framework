@@ -1,0 +1,4 @@
+templates
+**/node_modules
+**/lib
+**/*.test.js

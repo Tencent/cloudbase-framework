@@ -40,7 +40,7 @@ async function licenseCheck(file, cwd) {
   const licenseCommand = path.join(
     __dirname,
     '..',
-    'node_modules/.bin/license-checker'
+    'node_modules/.bin/license-checker',
   );
   await spawnPromise(`${licenseCommand} --summary`, {
     cwd,

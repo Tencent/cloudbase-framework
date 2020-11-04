@@ -43,7 +43,7 @@ const promisifyGlob = promisify(glob);
 
   writeFileSync(
     path.join(__dirname, './src/package.json'),
-    JSON.stringify(packages, null, 4)
+    JSON.stringify(packages, null, 4),
   );
 
   await spawnPromise(`docker build . --no-cache -t ${tagName}`, {

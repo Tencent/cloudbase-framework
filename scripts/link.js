@@ -41,7 +41,7 @@ async function linkCore() {
   await link(
     path.join(process.cwd(), 'packages/framework-core'),
     path.join(globalNpmPath, '@cloudbase/cli'),
-    '@cloudbase/framework-core'
+    '@cloudbase/framework-core',
   );
 }
 
@@ -55,7 +55,7 @@ function initRegistry() {
       packageJSON,
       JSON.stringify({
         name: 'cloudbase-framework-registry',
-      })
+      }),
     );
   }
 }
@@ -73,7 +73,7 @@ async function linkPlugins() {
     await link(
       path.join(process.cwd(), 'packages', plugin),
       pluginRegistry,
-      `@cloudbase/${plugin}`
+      `@cloudbase/${plugin}`,
     );
   }
 }

@@ -27,8 +27,8 @@ async function spawnPromise(command, options) {
           shell: true,
           stdio: 'inherit',
         },
-        options
-      )
+        options,
+      ),
     );
     cm.on('error', reject);
     cm.on('close', code => (code === 0 ? resolve() : reject(code)));
