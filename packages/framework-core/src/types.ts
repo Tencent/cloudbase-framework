@@ -43,6 +43,7 @@ export interface Config {
   network?: {
     uniqVpcId: string;
     cloudBaseRun: boolean;
+    region?: string;
   };
   addons?: AddonConfig[];
 }

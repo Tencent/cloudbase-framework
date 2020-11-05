@@ -251,23 +251,24 @@ ${entryLogInfo}`);
         // repo 信息
         ...(this.appConfig.repo
           ? {
-            SourceUrl: this.appConfig.repo.url,
-            SourceDir: this.appConfig.repo.workDir || '.',
-            SourceBranch: this.appConfig.repo.branch,
-          }
+              SourceUrl: this.appConfig.repo.url,
+              SourceDir: this.appConfig.repo.workDir || '.',
+              SourceBranch: this.appConfig.repo.branch,
+            }
           : {}),
         Resources: {
           // 网络 VPC 设置
           ...(this.appConfig.network
             ? {
-              Network: {
-                Type: 'CloudBase::VPC',
-                Properties: {
-                  UniqVpcId: this.appConfig.network?.uniqVpcId,
-                  CloudBaseRun: this.appConfig.network?.cloudBaseRun,
+                Network: {
+                  Type: 'CloudBase::VPC',
+                  Properties: {
+                    UniqVpcId: this.appConfig.network?.uniqVpcId,
+                    CloudBaseRun: this.appConfig.network?.cloudBaseRun,
+                    Region: this.appConfig.network?.region || '${TcbEnvRegion}',
+                  },
                 },
-              },
-            }
+              }
             : {}),
         },
       },
