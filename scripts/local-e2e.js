@@ -39,7 +39,7 @@ async function main() {
   console.log(templates);
 
   for (const template of templates) {
-    if (template.path !== 'taro-starter') {
+    if (!['taro-starter', 'deno'].includes(template.path)) {
       await installTemplate(template);
     }
   }
@@ -54,7 +54,7 @@ async function forkTemplate() {
     'git clone https://github.com/TencentCloudBase/cloudbase-templates/',
     {
       cwd,
-    },
+    }
   );
 }
 
@@ -63,7 +63,7 @@ async function login() {
     `cloudbase login --apiKeyId  ${process.env.SecretId} --apiKey ${process.env.SecretKey}`,
     {
       cwd,
-    },
+    }
   );
 }
 
@@ -90,6 +90,6 @@ async function installTemplate(template) {
     `cloudbase framework deploy -e ${process.env.envId} --verbose`,
     {
       cwd: path.join(cwd, 'cloudbase-templates', template.path),
-    },
+    }
   );
 }
