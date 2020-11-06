@@ -41,6 +41,7 @@ import Hooks from './hooks';
 import { fetchDomains } from './api/domain';
 import { ISAM } from './sam/types';
 import { createAndDeployCloudBaseProject } from './api/app';
+import { loggers } from 'winston';
 
 export { default as Plugin } from './plugin';
 export { default as PluginServiceApi } from './plugin-service-api';
@@ -256,23 +257,6 @@ ${entryLogInfo}`);
               SourceBranch: this.appConfig.repo.branch,
             }
           : {}),
-        Resources: {
-          // 网络 VPC 设置
-          ...(this.appConfig.network
-            ? {
-                Network: {
-                  Type: 'CloudBase::VPC',
-                  Properties: {
-                    UniqVpcId: this.appConfig.network?.uniqVpcId,
-                    CloudBaseRun: this.appConfig.network?.cloudBaseRun,
-                    // @todo temp disabled
-                    Region: 'ap-guangzhou',
-                    // Region: this.appConfig.network?.region || '${TcbEnvRegion}',
-                  },
-                },
-              }
-            : {}),
-        },
       },
       this.appConfig.addons?.length ? genAddonSam(this.appConfig.addons) : {}
     );
@@ -332,17 +316,43 @@ ${entryLogInfo}`);
     await this.pluginManager.build(module);
 
     const compileResult = await this.pluginManager.compile(module);
+    const isHasContainer = !!Object.values(
+      merge({}, ...compileResult).Resources || {}
+    ).filter((resource) => (resource as any).type === 'CloudBase::CloudBaseRun')
+      .length;
 
     await this.hooks.callHook('postCompile');
 
     const samMeta = this.generateSamMeta();
     const hooksSAM = this.hooks.genSAM();
-    const samSections = [...compileResult, hooksSAM];
-
+    const networkSections = this.genNetworkSAM(isHasContainer);
+    const samSections = [...compileResult, hooksSAM, networkSections];
     this.samManager.generate(samMeta, JSON.parse(JSON.stringify(samSections)));
   }
-}
 
+  private async genNetworkSAM(isHasContainer: boolean) {
+    return {
+      Resources: {
+        // 网络 VPC 设置
+        ...(this.appConfig.network
+          ? {
+              Network: {
+                Type: 'CloudBase::VPC',
+                Properties: {
+                  UniqVpcId: this.appConfig.network?.uniqVpcId,
+                  CloudBaseRun:
+                    this.appConfig.network?.cloudBaseRun && isHasContainer,
+                  // @todo temp disabled
+                  Region: 'ap-guangzhou',
+                  // Region: this.appConfig.network?.region || '${TcbEnvRegion}',
+                },
+              },
+            }
+          : {}),
+      },
+    };
+  }
+}
 /**
  * 展示 CloudBase Framework 横幅
  */
