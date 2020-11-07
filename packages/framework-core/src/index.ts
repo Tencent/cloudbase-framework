@@ -330,7 +330,7 @@ ${entryLogInfo}`);
     this.samManager.generate(samMeta, JSON.parse(JSON.stringify(samSections)));
   }
 
-  private async genNetworkSAM(isHasContainer: boolean) {
+  private genNetworkSAM(isHasContainer: boolean) {
     return {
       Resources: {
         // 网络 VPC 设置
