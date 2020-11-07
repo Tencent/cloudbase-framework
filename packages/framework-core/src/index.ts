@@ -318,7 +318,7 @@ ${entryLogInfo}`);
     const compileResult = await this.pluginManager.compile(module);
     const isHasContainer = !!Object.values(
       merge({}, ...compileResult).Resources || {}
-    ).filter((resource) => (resource as any).type === 'CloudBase::CloudBaseRun')
+    ).filter((resource) => (resource as any).Type === 'CloudBase::CloudBaseRun')
       .length;
 
     await this.hooks.callHook('postCompile');
