@@ -342,9 +342,7 @@ ${entryLogInfo}`);
                   UniqVpcId: this.appConfig.network?.uniqVpcId,
                   CloudBaseRun:
                     this.appConfig.network?.cloudBaseRun && isHasContainer,
-                  // @todo temp disabled
-                  Region: 'ap-guangzhou',
-                  // Region: this.appConfig.network?.region || '${TcbEnvRegion}',
+                  Region: this.appConfig.network?.region || '${TcbEnvRegion}',
                 },
               },
             }

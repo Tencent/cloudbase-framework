@@ -128,6 +128,8 @@ export class SamManager {
       // 云端一键部署时不轮询查询结果
       if (!isCloudBuild) {
         await this.checkStatus(extensionId);
+      } else {
+        logger.debug('TriggerBuildEnvs', JSON.stringify(process.env));
       }
     } catch (e) {
       this.clear();
