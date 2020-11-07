@@ -249,7 +249,7 @@ CloudBase Framework 部署前后的钩子配置，可以在这里自定义应用
 | 字段     | 描述                                                                                                      | 类型                     |
 | -------- | --------------------------------------------------------------------------------------------------------- | ------------------------ |
 | `type`   | 资源类型，目前支持 `CFS` 和 `CynosDB`                                                                     | `'CFS'                   | 'CynosDB'` |
-| `name`   | 资源名称，只支持英文字母                                                                                  | `String`                 |
+| `name`   | 资源名称，只支持 a-z 0-9 和 -                                                                             | `String`                 |
 | `envMap` | 环境变量映射文件，会将云资源产生的 IP 、PORT 通过右侧定义的名称来映射为对应的环境变量名称，并注入环境变量 | `Record<string, string>` |
 
 **目前支持的资源：**
@@ -268,7 +268,7 @@ CloudBase Framework 部署前后的钩子配置，可以在这里自定义应用
       "addons": [
         {
           "type": "CynosDB",
-          "name": "Wordpress",
+          "name": "wordpress",
           "envMap": {
             "IP": "WORDPRESS-IP",
             "PORT": "WORDPRESS-PORT",
