@@ -236,6 +236,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "xcatliu",
+      "name": "xcatliu",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/5453359?v=4",
+      "profile": "http://xcatliu.com/",
+      "contributions": [
+        "example"
+      ]
     }
   ],
   "contributorsPerLine": 7,
