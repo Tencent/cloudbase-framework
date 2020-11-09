@@ -1227,6 +1227,9 @@
                 "Nodejs8.9"
               ],
               "type": "string"
+            },
+            "functionOptions": {
+              "description": "函数选项\n\n选填，可以支持自定义更多高级设置，例如 VPC 环境变量等\n\n例如\n\n```json\n{\n   \"use\": \"@cloudbase/framework-plugin-next\",\n   \"inputs\": {\n     \"path\": \"/next-ssr\",\n     \"name\": \"next-ssr\",\n     \"functionOptions\": {\n       \"timeout\": 5,\n       \"envVariables\": {\n         \"TEST_ENV\": 1\n       },\n       \"vpc\": {\n         \"vpcId\": \"xxx\",\n         \"subnetId\": \"xxx\"\n       }\n     }\n   }\n}\n```\n\n具体配置信息请参考 [@cloudbase/framework-plugin-function](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/packages/framework-plugin-function/README.md#functions) 配置"
             }
           },
           "$schema": "http://json-schema.org/draft-07/schema#"
