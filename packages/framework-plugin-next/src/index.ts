@@ -65,6 +65,37 @@ export interface IFrameworkPluginNextInputs {
    * @default "Nodejs10.15
    */
   runtime?: 'Nodejs10.15' | 'Nodejs8.9';
+
+  /**
+   * 函数选项
+   *
+   * 选填，可以支持自定义更多高级设置，例如 VPC 环境变量等
+   *
+   * 例如
+   *
+   * ```json
+   * {
+   *   "use": "@cloudbase/framework-plugin-next",
+   *   "inputs": {
+   *     "path": "/next-ssr",
+   *     "name": "next-ssr",
+   *     "functionOptions": {
+   *       "timeout": 5,
+   *       "envVariables": {
+   *         "TEST_ENV": 1
+   *       },
+   *       "vpc": {
+   *         "vpcId": "xxx",
+   *         "subnetId": "xxx"
+   *       }
+   *     }
+   *   }
+   * }
+   * ```
+   *
+   * 具体配置信息请参考 [@cloudbase/framework-plugin-function](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/packages/framework-plugin-function/README.md#functions) 配置
+   */
+  functionOptions?: any;
 }
 
 type ResolvedInputs = IFrameworkPluginNextInputs & typeof DEFAULT_INPUTS;
@@ -149,7 +180,8 @@ class NextPlugin extends Plugin {
           handler: srcFunction.entry,
           runtime: this.resolvedInputs.runtime,
           installDependency: true,
-          ignore: ['.next/cache/**']
+          ignore: ['.next/cache/**'],
+          ...(this.resolvedInputs.functionOptions || {}),
         },
       ],
       servicePaths: {
