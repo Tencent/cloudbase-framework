@@ -149,6 +149,7 @@ class NextPlugin extends Plugin {
           handler: srcFunction.entry,
           runtime: this.resolvedInputs.runtime,
           installDependency: true,
+          ignore: ['.next/cache/**']
         },
       ],
       servicePaths: {
