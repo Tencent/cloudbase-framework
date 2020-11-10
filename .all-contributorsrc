@@ -245,6 +245,15 @@
       "contributions": [
         "example"
       ]
+    },
+    {
+      "login": "seymoe",
+      "name": "唐羲",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/25032899?v=4",
+      "profile": "https://github.com/seymoe",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
