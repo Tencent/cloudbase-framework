@@ -27,7 +27,7 @@ module.exports.main = async (event, context) => {
   let app = entry;
 
   // support for async load app
-  if (entry?.tcbGetApp && typeof entry.tcbGetApp === 'function') {
+  if (entry && entry.tcbGetApp && typeof entry.tcbGetApp === 'function') {
     app = await entry.tcbGetApp();
   }
 
