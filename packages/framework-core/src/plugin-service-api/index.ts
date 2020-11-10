@@ -135,10 +135,14 @@ export default class PluginServiceApi {
   }
 
   /**
-   * 获取 samManager API
+   * 获取 cloudbase 配置
    */
+  get appConfig() {
+    return this.pluginManager.context.appConfig;
+  }
+
   /**
-   * 获取资源操作 API
+   * 获取 samManager API
    */
   get samManager(): SamManager {
     return this.pluginManager.context.samManager;

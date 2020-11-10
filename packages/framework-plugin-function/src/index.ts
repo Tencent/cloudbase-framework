@@ -316,6 +316,8 @@ class FunctionPlugin extends Plugin {
   }
 
   functionConfigToSAM(functionConfig: ICloudFunction) {
+    const networkConfig = this.api.appConfig.network;
+
     return Object.assign({
       Type: 'CloudBase::Function',
       Properties: Object.assign(
@@ -329,16 +331,20 @@ class FunctionPlugin extends Plugin {
           Environment: {
             Variables: functionConfig.envVariables,
           },
-          VpcConfig: functionConfig.vpc,
+          VpcConfig: {
+            VpcId:
+              functionConfig.vpc?.vpcId || networkConfig?.uniqVpcId
+                ? '${Outputs.Network.Properties.InstanceId}'
+                : undefined,
+            SubnetId: functionConfig.vpc?.subnetId,
+          },
           HttpPath: this.resolvedInputs.servicePaths[functionConfig.name],
           InstallDependency:
             functionConfig.runtime?.includes('Node') &&
             'installDependency' in functionConfig
               ? functionConfig.installDependency
               : false,
-          CodeUri:
-            this.outputs[functionConfig.name] &&
-            this.outputs[functionConfig.name].codeUri,
+          CodeUri: this.outputs[functionConfig.name]?.codeUri,
           Role: 'TCB_QcsRole',
         },
         this.api.bumpVersion && {
