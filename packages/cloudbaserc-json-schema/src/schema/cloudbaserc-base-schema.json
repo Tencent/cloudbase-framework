@@ -1,11 +1,12 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "id": "https://cloudbase.net/schemas/cli-1/schema",
+  "id": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json",
   "title": "CloudBase CLI Configuration",
   "type": "object",
   "properties": {
     "$schema": {
-      "type": "string"
+      "type": "string",
+      "default": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json"
     },
     "additionalProperties": false,
     "version": {
@@ -108,7 +109,7 @@
       }
     }
   },
-  "required": ["envId"],
+  "required": ["envId", "framework"],
   "definitions": {
     "pluginConfig": {
       "anyOf": []
