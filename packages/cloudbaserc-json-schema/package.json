@@ -26,7 +26,8 @@
     "url": "git+https://github.com/TencentCloudBase/cloudbase-framework.git"
   },
   "scripts": {
-    "prepublishOnly": "node src/index"
+    "prepublishOnly": "node src/index",
+    "dev": "watch -f \"src/**/*\" -r 'npm run prepublishOnly'"
   },
   "bugs": {
     "url": "https://github.com/TencentCloudBase/cloudbase-framework/issues"
@@ -45,5 +46,8 @@
     "@cloudbase/framework-plugin-website": "^1.3.9",
     "typescript-json-schema": "^0.42.0"
   },
-  "gitHead": "ff7aca7296a5ebb1bf4237302e7d987461f6ef16"
+  "gitHead": "ff7aca7296a5ebb1bf4237302e7d987461f6ef16",
+  "devDependencies": {
+    "cli-watch": "^1.0.7"
+  }
 }

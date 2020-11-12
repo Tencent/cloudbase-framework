@@ -2,6 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
+    "dev:all": "npm run bootstrap && npm run link && npm run dev",
     "bootstrap": "lerna bootstrap --no-ci",
     "dev": "lerna run dev --stream --parallel",
     "prebuild": "rm -rf **/*.tsbuildinfo",
