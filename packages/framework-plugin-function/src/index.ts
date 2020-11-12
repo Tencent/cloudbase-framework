@@ -78,7 +78,7 @@ export interface ICloudFunction {
   /**
    * 包含环境变量的键值对
    */
-  envVariables?: Record<string, string | number | boolean>;
+  envVariables?: Record<string, string>;
   /**
    * 运行时环境配置，可选值： `Nodejs8.9, Nodejs10.15 Php7, Java8, Go1`
    * @default Nodejs10.15
@@ -252,6 +252,8 @@ class FunctionPlugin extends Plugin {
       this.outputs[func.name] = codeUris[index];
     });
 
+    let a: Record<string, any> = {};
+
     return {
       EntryPoint: Object.values(this.resolvedInputs.servicePaths).map(
         (servicePath) => {
@@ -267,7 +269,7 @@ class FunctionPlugin extends Plugin {
           func
         );
         return resources;
-      }, {} as Record<string, any>),
+      }, a),
     };
   }
 
@@ -364,8 +366,7 @@ class FunctionPlugin extends Plugin {
   toConstantCase(name: string) {
     let result = '';
     let lastIsDivide = true;
-    for (let i = 0; i < name.length; i++) {
-      let letter = name[i];
+    for (let letter of name) {
       if (letter === '-' || letter === '_') {
         lastIsDivide = true;
       } else if (lastIsDivide) {
