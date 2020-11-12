@@ -218,6 +218,42 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "1377283509",
+      "name": "lichaochao",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/44151817?v=4",
+      "profile": "https://github.com/1377283509",
+      "contributions": [
+        "example"
+      ]
+    },
+    {
+      "login": "MrZhaoCn",
+      "name": "MrZhaoCn",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/18179784?v=4",
+      "profile": "https://github.com/MrZhaoCn",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "xcatliu",
+      "name": "xcatliu",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/5453359?v=4",
+      "profile": "http://xcatliu.com/",
+      "contributions": [
+        "example"
+      ]
+    },
+    {
+      "login": "seymoe",
+      "name": "唐羲",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/25032899?v=4",
+      "profile": "https://github.com/seymoe",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,

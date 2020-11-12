@@ -1,9 +1,33 @@
 [
   {
+    "name": "企业微信",
+    "link": "https://work.weixin.qq.com/",
+    "repo": "",
+    "logo": "https://main.qcloudimg.com/raw/594c677f67fa352a1b0c73cdc31c88f1.jpg"
+  },
+  {
     "name": "腾讯直播",
     "link": "https://ilive.qq.com/",
     "repo": "",
     "logo": "https://nowpic.gtimg.com/feeds_pic/ajNVdqHZLLCSibq1Mbc4x7v3q63wjgXdKJUbUuynLCj1RUbuu0yOvdw/"
+  },
+  {
+    "name": "云开发低码平台",
+    "link": "https://cloud.tencent.com/product/lowcode",
+    "repo": "",
+    "logo": "https://main.qcloudimg.com/raw/fe8883203548358b9a337bc07723796b.png"
+  },
+  {
+    "name": "心悦俱乐部",
+    "link": "https://xinyue.qq.com/",
+    "repo": "",
+    "logo": "https://main.qcloudimg.com/raw/5f4bc0fc5cb7525baf6b43732e0389c8.png"
+  },
+  {
+    "name": "健康码",
+    "link": "https://cloud.tencent.com/",
+    "repo": "",
+    "logo": "https://main.qcloudimg.com/raw/715269aa213967150d4508a5fe81d666.png"
   },
   {
     "name": "CloudBase CMS",
@@ -22,5 +46,17 @@
     "link": "https://acc.cloudbase.vip/todo",
     "repo": "https://github.com/TCloudBase/WEB-TodoList-framework",
     "logo": ""
+  },
+  {
+    "name": "校拍",
+    "link": "",
+    "repo": "https://github.com/1377283509/CampusShooting",
+    "logo": "https://gitee.com/cc_li/images/raw/master/2020/11/04/221549.jpeg"
+  },
+  {
+    "name": "Pagic",
+    "link": "",
+    "repo": "https://github.com/xcatliu/pagic",
+    "logo": "https://pagic.org/assets/pagic_logo.png"
   }
 ]
