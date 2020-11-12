@@ -91,19 +91,20 @@ cloudbase framework deploy
 
 函数配置数组，每个函数的配置格式要求如下：
 
-|     是否必填      | 类型 |                                         描述                                          |                                                                                                                 |
-| :---------------: | :--: | :-----------------------------------------------------------------------------------: | --------------------------------------------------------------------------------------------------------------- |
-|       name        |  是  |                                        String                                         | 云函数名称，即为函数部署后的名称                                                                                |  |
-|     triggers      |  否  | [`Array`](https://docs.cloudbase.net/cli/functions/configs.html#cloudfunctiontrigger) | 触发器配置                                                                                                      |
-|      handler      |  否  |                                        String                                         | 函数处理方法名称，名称格式支持“文件名称.函数名称”形式                                                           |
-|      ignore       |  否  |                                `String/Array<String>`                                 | 部署/更新云函数代码时的忽略文件，支持 glob 匹配规则                                                             |
-|      timeout      |  否  |                                        Number                                         | 函数超时时间（1 - 60S）                                                                                         |
-|   envVariables    |  否  |                                        Object                                         | 包含环境变量的键值对对象                                                                                        |
-|        vpc        |  否  |           [VPC](https://docs.cloudbase.net/cli/functions/configs.html#vpc)            | 私有网络配置                                                                                                    |
-|      runtime      |  否  |                                        String                                         | 运行时环境配置，可选值： `Nodejs8.9, Nodejs10.15 Php7, Java8,Go1`                                               |
-| installDependency |  否  |                                        Boolean                                        | 是否云端安装依赖，目前仅支持 Node.js                                                                            |
-| functionDistPath  |  否  |                                        String                                         | 函数产物路径，相对于函数根目录 functionRootPath，例如 Go 语言可指定二进制文件路径，Java 可以指定 jar 包文件地址 |
-| aclRule  |  否  |                                         Record<string, any>                                         | 安全规则配置，请参考 https://docs.cloudbase.net/cloud-function/security-rules.html |
+|     是否必填      | 类型 |                                         描述                                          |                                                                                                                               |
+| :---------------: | :--: | :-----------------------------------------------------------------------------------: | ----------------------------------------------------------------------------------------------------------------------------- |
+|       name        |  是  |                                        String                                         | 云函数名称，即为函数部署后的名称                                                                                              |  |
+|     triggers      |  否  | [`Array`](https://docs.cloudbase.net/cli/functions/configs.html#cloudfunctiontrigger) | 触发器配置                                                                                                                    |
+|      handler      |  否  |                                        String                                         | 函数处理方法名称，名称格式支持“文件名称.函数名称”形式                                                                         |
+|      ignore       |  否  |                                `String/Array<String>`                                 | 部署/更新云函数代码时的忽略文件，支持 glob 匹配规则                                                                           |
+|      timeout      |  否  |                                        Number                                         | 函数超时时间（1 - 60S）                                                                                                       |
+|   envVariables    |  否  |                                        Object                                         | 包含环境变量的键值对对象                                                                                                      |
+|        vpc        |  否  |           [VPC](https://docs.cloudbase.net/cli/functions/configs.html#vpc)            | 私有网络配置                                                                                                                  |
+|      runtime      |  否  |                                        String                                         | 运行时环境配置，可选值： `Nodejs8.9, Nodejs10.15 Php7, Java8,Go1`                                                             |
+| installDependency |  否  |                                        Boolean                                        | 是否云端安装依赖，目前仅支持 Node.js                                                                                          |
+| functionDistPath  |  否  |                                        String                                         | 函数产物路径，相对于函数根目录 functionRootPath，例如 Go 语言可指定二进制文件路径，Java 可以指定 jar 包文件地址               |
+|      aclRule      |  否  |                                  Record<string, any>                                  | 1.3 版本以后支持，安全规则配置，例如 `{ invoke: true }`，请参考 https://docs.cloudbase.net/cloud-function/security-rules.html |
+|    codeSecret     |  否  |                                        String                                         | 1.4.0 版本以后支持，代码保护密钥，传入此参数将保护代码，在控制台/IDE 中无法看到代码明文，格式为 36 位大小字母和数字           |
 
 **注：`runtime` 默认为 `Nodejs10.15`，使用 Node 运行时可不填，使用 Php 和 Java 则必填。**
 

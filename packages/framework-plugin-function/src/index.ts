@@ -109,9 +109,17 @@ export interface ICloudFunction {
   /**
    * 安全规则，配置前先阅读文档 https://docs.cloudbase.net/cloud-function/security-rules.html
    *
-   * @default { invoke: true }
+   * @example { invoke: true }
    */
   aclRule?: Record<string, any>;
+
+  /**
+   * 代码保护密钥，传入此参数将保护代码，在控制台/IDE中无法看到代码明文
+   * 格式为 36 位大小字母和数字
+   * @length 36
+   * @pattern ^[a-zA-Z0-9]$
+   */
+  codeSecret?: string;
 }
 
 export interface IFunctionVPC {
@@ -347,6 +355,7 @@ class FunctionPlugin extends Plugin {
               ? functionConfig.installDependency
               : false,
           CodeUri: this.outputs[functionConfig.name]?.codeUri,
+          CodeSecret: !!functionConfig.codeSecret,
           Role: 'TCB_QcsRole',
         },
         this.api.bumpVersion && {
