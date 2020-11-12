@@ -5,7 +5,8 @@
   "type": "object",
   "properties": {
     "$schema": {
-      "type": "string"
+      "type": "string",
+      "default": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json"
     },
     "additionalProperties": false,
     "version": {
@@ -29,14 +30,26 @@
     "framework": {
       "type": "object",
       "description": "CloudBase Framework 配置项",
+      "required": ["name", "plugins"],
       "properties": {
         "name": {
           "type": "string",
-          "description": "应用唯一标识，一个账号下最好不要有重名的 name。",
-          "maxLength": 16
+          "pattern": "^[a-zA-Z][a-zA-Z0-9_-]*$",
+          "description": "应用唯一标识，一个账号下最好不要有重名的 name。只支持A-Z a-z 0-9 - 和_",
+          "maxLength": 32,
+          "minLength": 1
         },
         "plugins": {
           "additionalProperties": false,
+          "title": "插件配置",
+          "description": "描述您的应用依赖哪些 CloudBase Framework 插件，以便根据配置来构建和部署您的应用，应用可以使用多个插件，具体插件配置方式参考插件文档。",
+          "minProperties": 1,
+          "default": {
+            "client": {
+              "use": "",
+              "inputs": {}
+            }
+          },
           "patternProperties": {
             "^[a-zA-Z0-9]+$": {
               "$ref": "#/definitions/pluginConfig"
@@ -44,9 +57,10 @@
           }
         },
         "hooks": {
+          "$id": "HooksConfig",
           "type": "object",
-          "title": "生命周期钩子配置",
-          "description": "Framework 1.2.x 版本支持，CloudBase Framework 生命周期钩子",
+          "title": "生命周期",
+          "description": "Framework 1.2.x 版本支持，CloudBase Framework 部署前后的钩子配置，可以在这里自定义应用不同生命周期的执行动作",
           "examples": [
             {
               "preDeploy": {
@@ -59,13 +73,7 @@
                   {
                     "functionName": "function1",
                     "params": {
-                      "foo": 1
-                    }
-                  },
-                  {
-                    "functionName": "function2",
-                    "params": {
-                      "bar": 2
+                      "foo": "1"
                     }
                   }
                 ]
@@ -74,6 +82,7 @@
           ],
           "properties": {
             "preDeploy": {
+              "$id": "PreDeployHooksConfig",
               "type": "object",
               "title": "preDeploy 钩子",
               "description": "在执行 framework deploy 之前执行的钩子",
@@ -89,14 +98,12 @@
               "additionalProperties": true
             },
             "postDeploy": {
+              "$id": "PostDeployHooksConfig",
               "type": "object",
               "title": "postDeploy 钩子",
               "description": "在执行 framework deploy 部署资源成功后执行的钩子",
               "default": {},
               "anyOf": [
-                {
-                  "$ref": "#/definitions/hooksExecCommand"
-                },
                 {
                   "$ref": "#/definitions/hooksCallFunction"
                 }
@@ -108,10 +115,13 @@
       }
     }
   },
-  "required": ["envId"],
+  "required": ["envId", "framework"],
   "definitions": {
     "pluginConfig": {
       "anyOf": [
+        {
+          "$ref": "#/definitions/genericPluginConfig"
+        },
         {
           "$ref": "#/definitions/IFrameworkPluginWebsiteInputsConfig"
         },
@@ -145,7 +155,36 @@
         {
           "$ref": "#/definitions/IFrameworkPluginAuthInputsConfig"
         }
-      ]
+      ],
+      "title": "单个插件配置信息",
+      "required": ["use", "inputs"],
+      "properties": {
+        "use": {
+          "type": "string",
+          "default": "",
+          "minLength": 1,
+          "description": "使用的插件 npm 包名，例如 @cloudbase/framework-plugin-website。支持指定插件版本，例如@cloudbase/framework-plugin-website@1.3.5"
+        },
+        "inputs": {
+          "type": "object",
+          "description": "插件入参配置，不同的插件，支持的入参不同，请查阅对应插件的 README 或者文档"
+        }
+      }
+    },
+    "genericPluginConfig": {
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "default": "",
+          "minLength": 1,
+          "description": "使用的插件 npm 包名，例如 @cloudbase/framework-plugin-website。支持指定插件版本，例如@cloudbase/framework-plugin-website@1.3.5"
+        },
+        "inputs": {
+          "type": "object",
+          "description": "插件入参配置，不同的插件，支持的入参不同，请查阅对应插件的 README 或者文档"
+        }
+      }
     },
     "hooksExecCommand": {
       "properties": {
@@ -234,10 +273,16 @@
                     "default": {},
                     "examples": [
                       {
-                        "foo": 1
+                        "foo": "1"
                       }
                     ],
-                    "additionalProperties": true
+                    "additionalProperties": false,
+                    "patternProperties": {
+                      "^.+$": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    }
                   }
                 },
                 "additionalProperties": true
