@@ -793,7 +793,7 @@
         },
         "envVariables": {
           "description": "包含环境变量的键值对",
-          "$ref": "#/definitions/Record<string,string|number|boolean>"
+          "$ref": "#/definitions/Record<string,string>"
         },
         "runtime": {
           "description": "运行时环境配置，可选值： `Nodejs8.9, Nodejs10.15 Php7, Java8, Go1`",
@@ -843,8 +843,12 @@
         },
         "aclRule": {
           "description": "安全规则，配置前先阅读文档 https://docs.cloudbase.net/cloud-function/security-rules.html",
-          "default": "{ invoke: true }",
           "$ref": "#/definitions/Record<string,any>"
+        },
+        "codeSecret": {
+          "description": "代码保护密钥，传入此参数将保护代码，在控制台/IDE中无法看到代码明文\n格式为 36 位大小字母和数字",
+          "pattern": "^[a-zA-Z0-9]$",
+          "type": "string"
         }
       },
       "required": [

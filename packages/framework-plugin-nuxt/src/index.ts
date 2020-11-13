@@ -69,7 +69,7 @@ export interface IFrameworkPluginNuxtInputs {
    */
   runtime?: 'Nodejs10.15' | 'Nodejs8.9';
   /**
-   * 函数运行时内存配置	
+   * 函数运行时内存配置
    * @default 128
    */
   memory?: 128 | 256 | 512 | 1024 | 2048;
@@ -80,7 +80,7 @@ export interface IFrameworkPluginNuxtInputs {
   /**
    * 包含环境变量的键值对
    */
-  envVariables?: Record<string, string | number | boolean>;
+  envVariables?: Record<string, string>;
 }
 
 type ResolvedInputs = typeof DEFAULT_INPUTS & IFrameworkPluginNuxtInputs;
