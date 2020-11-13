@@ -214,7 +214,7 @@ async function resolveRcConfig(
     extraData = getCIProjectInfo();
     rcConfig = jsonParse(process.env.TCB_RC_JSON);
     // 如果是本地构建，且本地存在配置文件
-  } else if (config && config.framework) {
+  } else if (config?.framework) {
     logger.debug('本地构建，本地存在配置文件', config);
     if (!projectName) {
       projectName = await collectAppName(projectPath);
