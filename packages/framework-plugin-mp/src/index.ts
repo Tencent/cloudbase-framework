@@ -20,7 +20,11 @@ interface IFrameworkPluginMiniProgramInputs {
    * 
    * @default "./private.key"
    */
-  privateKeyPath: string
+  privateKeyPath?: string
+  /**
+   * 小程序应用的部署私钥（需要经过base64编码）
+   */
+  privateKey?: string
   /**
    * 小程序项目的本地相对路径
    * 
@@ -161,14 +165,23 @@ class MiniProgramsPlugin extends Plugin {
 
   initCI() {
     const { projectPath } = this.api;
-    const { appid, privateKeyPath, localPath, deployMode } = this.resolvedInputs;
+    const { appid, privateKeyPath, privateKey, localPath, deployMode } = this.resolvedInputs;
 
     if (!appid) {
       throw new Error('小程序 appid 不能为空，请在 cloudbaserc.json 中指明 appid. 小程序 appid 一般可以在 project.config.json 中找到');
     }
 
-    if (!privateKeyPath || !fs.existsSync(path.resolve(projectPath, privateKeyPath))) {
-      throw new Error('找不到小程序的部署私钥，请在 cloudbaserc.json 指明私钥文件路径 privateKeyPath. 小程序的部署私钥可在微信公众平台上登录后获取');
+    // 存在私钥则直接用私钥
+    // 不存在私钥就尝试从私有路径中获取
+    if (!privateKey) {
+      if (!privateKeyPath || !fs.existsSync(path.resolve(projectPath, privateKeyPath))) {
+        throw new Error('找不到小程序的部署私钥，请在 cloudbaserc.json 指明私钥文件路径 privateKeyPath. 小程序的部署私钥可在微信公众平台上登录后获取');
+      }
+    } else {
+      const keyPath = path.resolve(projectPath, "./private.key");
+      const key = Buffer.from(privateKey, "base64");
+      fs.writeFileSync(keyPath, key.toString());
+      this.resolvedInputs.privateKeyPath = keyPath;
     }
 
     if (deployMode && !SUPPORT_DEPLOY_MODE.includes(deployMode)) {
