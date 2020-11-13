@@ -331,22 +331,25 @@ ${entryLogInfo}`);
   }
 
   private genNetworkSAM(isHasContainer: boolean) {
+    // 没有网络配置
+    if (!this.appConfig.network) {
+      return {};
+    }
+    // 没有vpcId，也没有容器
+    if (!this.appConfig.network.uniqVpcId && !isHasContainer) {
+      return {};
+    }
+
     return {
       Resources: {
-        // 网络 VPC 设置
-        ...(this.appConfig.network
-          ? {
-              Network: {
-                Type: 'CloudBase::VPC',
-                Properties: {
-                  UniqVpcId: this.appConfig.network?.uniqVpcId,
-                  CloudBaseRun:
-                    this.appConfig.network?.cloudBaseRun && isHasContainer,
-                  Region: this.appConfig.network?.region || '${TcbEnvRegion}',
-                },
-              },
-            }
-          : {}),
+        Network: {
+          Type: 'CloudBase::VPC',
+          Properties: {
+            UniqVpcId: this.appConfig.network.uniqVpcId,
+            CloudBaseRun: this.appConfig.network.cloudBaseRun,
+            Region: this.appConfig.network.region || '${TcbEnvRegion}',
+          },
+        },
       },
     };
   }
