@@ -89,4 +89,29 @@ export class ContainerApi {
       Business: 'framework',
     });
   }
+
+  /**
+   * 查询指定服务下版本列表
+   */
+  getServerVersions(serverName: string) {
+    return this.cloudApi.tcbService.request('DescribeCloudBaseRunBuildServer', {
+      Business: 'framework',
+      ServerName: serverName,
+      Offset: 0,
+      Limit: 20,
+    });
+  }
+
+  /**
+   * 查询指定版本详情
+   */
+  getVersionDetail(serverName: string, versionName: string) {
+    return this.cloudApi.tcbService.request(
+      'DescribeCloudBaseRunServerVersion',
+      {
+        ServerName: serverName,
+        VersionName: versionName,
+      }
+    );
+  }
 }

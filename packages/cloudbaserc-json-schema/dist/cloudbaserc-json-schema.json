@@ -722,7 +722,7 @@
             },
             "envVariables": {
               "description": "包含环境变量的键值对",
-              "$ref": "#/definitions/Record<string,string|number|boolean>"
+              "$ref": "#/definitions/Record<string,string>"
             }
           },
           "$schema": "http://json-schema.org/draft-07/schema#"
@@ -732,9 +732,6 @@
         "use",
         "inputs"
       ]
-    },
-    "Record<string,string|number|boolean>": {
-      "type": "object"
     },
     "IFrameworkPluginFunctionInputsConfig": {
       "additionalProperties": false,

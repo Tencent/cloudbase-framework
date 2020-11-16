@@ -580,6 +580,10 @@ class ContainerPlugin extends Plugin {
 
     return result;
   }
+
+  async getLatestVersionDetail() {
+    return this.containerApi.getServerVersions(this.inputs.serviceName);
+  }
 }
 
 function resolveInputs(inputs: any, defaultInputs: any) {
