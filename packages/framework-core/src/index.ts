@@ -41,7 +41,6 @@ import Hooks from './hooks';
 import { fetchDomains } from './api/domain';
 import { ISAM } from './sam/types';
 import { createAndDeployCloudBaseProject } from './api/app';
-import { loggers } from 'winston';
 
 export { default as Plugin } from './plugin';
 export { default as PluginServiceApi } from './plugin-service-api';

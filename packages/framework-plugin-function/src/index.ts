@@ -340,7 +340,7 @@ class FunctionPlugin extends Plugin {
           MemorySize: functionConfig.memory || 128,
           Timeout: functionConfig.timeout || 5,
           Environment: {
-            Variables: functionConfig.envVariables,
+            Variables: normalizeEnvironments(functionConfig.envVariables),
           },
           VpcConfig: {
             VpcId:
@@ -507,6 +507,20 @@ export class FunctionBuilder extends Builder {
       archive.finalize();
     });
   }
+}
+
+function normalizeEnvironments(envVariables: Record<string, any> = {}) {
+  if (!envVariables) return {};
+  let result: Record<string, string> = {};
+
+  for (let i in envVariables) {
+    let value = envVariables[i];
+    if (value) {
+      result[i] = String(value);
+    }
+  }
+
+  return result;
 }
 
 export const plugin = FunctionPlugin;

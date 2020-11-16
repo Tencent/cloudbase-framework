@@ -17,10 +17,7 @@
  */
 export const DEFAULT_SAM = {
   // //  TCBSAM语法版本
-  TCBSAMFormatVersion: '2020-06-15',
-  // // meta data
-  // SpecVersion: "v1beta",
-  // TCBSAMFormatVersion: "2019-12-24",
+  TCBSAMFormatVersion: '2020-10-21',
   License: 'MIT',
   Description: 'CLoudBase Framework创建的应用',
   Category: 'CloudApp',
