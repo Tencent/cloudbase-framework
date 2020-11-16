@@ -200,8 +200,7 @@ class DatabasePlugin extends Plugin {
   toConstantCase(name: string) {
     let result = '';
     let lastIsDivide = true;
-    for (let i = 0; i < name.length; i++) {
-      let letter = name[i];
+    for (let letter of name) {
       if (letter === '-' || letter === '_') {
         lastIsDivide = true;
       } else if (lastIsDivide) {
