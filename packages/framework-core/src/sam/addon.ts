@@ -26,6 +26,7 @@ const ADDONS: Record<string, any> = {
           [name]: {
             Type: 'CloudBase::CFS',
             Properties: {
+              Description: '为您提供安全可靠、可扩展的共享文件存储服务',
               InstanceName: name, // 集群名称
               Region: region || '${TcbEnvRegion}', // 区域信息
               UniqVpcId: vpcId || '${Outputs.Network.Properties.InstanceId}',
@@ -45,16 +46,14 @@ const ADDONS: Record<string, any> = {
 
       return {
         Inputs: {
-          ...(password
-            ? {
-                [passwordKey]: password,
-              }
-            : {}),
+          ...(password ? { [passwordKey]: password } : {}),
         },
         Resources: {
           [name]: {
             Type: 'CloudBase::CynosDB',
             Properties: {
+              Description:
+                '企业级云原生数据库，极速性能，海量存储，全面兼容开源数据库',
               InstanceName: name, // 集群名称
               Region: region || '${TcbEnvRegion}', // 区域信息
               UniqVpcId: vpcId || '${Outputs.Network.Properties.InstanceId}',

@@ -174,7 +174,9 @@ class WebsitePlugin extends Plugin {
       [name]: {
         Type: 'CloudBase::StaticStore',
         Properties: {
-          Description: description,
+          Description:
+            description ||
+            '为开发者提供静态网页托管的能力，静态资源（HTML、CSS、JavaScript、字体等）的分发由对象存储 COS 和拥有多个边缘网点的 CDN 提供支持',
           CodeUri: codeUri,
           DeployPath: deployPath,
         },

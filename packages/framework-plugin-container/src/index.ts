@@ -532,7 +532,7 @@ class ContainerPlugin extends Plugin {
       Properties: Object.assign(
         {
           ServerName: serviceName,
-          Description: description,
+          Description: description || '新一代云原生应用引擎（App Engine 2.0）',
           isPublic: isPublic,
           UploadType: uploadType,
           FlowRatio: flowRatio,

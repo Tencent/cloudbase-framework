@@ -333,7 +333,8 @@ class FunctionPlugin extends Plugin {
       Properties: Object.assign(
         {
           Handler: functionConfig.handler || 'index.main',
-          Description: 'CloudBase Framework 部署的云函数',
+          Description:
+            '无服务器执行环境，帮助您在无需购买和管理服务器的情况下运行代码',
           Runtime: functionConfig.runtime,
           FunctionName: functionConfig.name,
           MemorySize: functionConfig.memory || 128,

@@ -188,7 +188,12 @@ class DatabasePlugin extends Plugin {
 
     return {
       Type: 'CloudBase::FlexDB',
-      Properties: properties,
+      Properties: Object.assign(
+        {
+          Description: '云开发 NoSQL 数据库',
+        },
+        properties
+      ),
     };
   }
 

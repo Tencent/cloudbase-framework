@@ -345,6 +345,7 @@ ${entryLogInfo}`);
         Network: {
           Type: 'CloudBase::VPC',
           Properties: {
+            Description: 'VPC 网络配置',
             UniqVpcId: this.appConfig.network.uniqVpcId,
             CloudBaseRun: this.appConfig.network.cloudBaseRun,
             Region: this.appConfig.network.region || '${TcbEnvRegion}',
