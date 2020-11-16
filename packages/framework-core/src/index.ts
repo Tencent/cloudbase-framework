@@ -280,7 +280,6 @@ ${entryLogInfo}`);
         Url: '',
         Name: '',
         WorkDir: '',
-        Headers: {},
       };
 
       // 旧的字段保持 JSON 格式，新字段使用字符串格式
