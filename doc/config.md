@@ -1,10 +1,10 @@
-## 配置说明
+# 配置说明
 
 本文档是对 `cloudbaserc.json` 中 `framework` 相关字段的说明。
 
 在使用 [CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework) 之前，您需要需要创建一个 `cloudbaserc.json` 配置文件，`cloudbaserc.json` 文件是 CloudBase CLI 、CloudBase VSCode 插件和 CloudBase 应用的配置文件，配置文件会关系到云开发如何构建和部署您的应用。
 
-`cloudbaserc.json` 中的 `framework` 字段是 CloudBase Framework 的配置信息， `cloudbaserc.json` 的其他配置请参考 [https://docs.cloudbase.net/cli-v1/config.html](https://docs.cloudbase.net/cli-v1/config.html#zi-duan)。
+`framework` 字段是 CloudBase Framework 的配置信息，其他配置请参考 [https://docs.cloudbase.net/cli-v1/config.html](https://docs.cloudbase.net/cli-v1/config.html#zi-duan)。
 
 以下是一个 `cloudbaserc` 配置文件的示例：
 
@@ -230,10 +230,10 @@ CloudBase Framework 部署前后的钩子配置，可以在这里自定义应用
 
 `RequirementConfig` 对象格式如下：
 
-| 字段          | 描述                                                                                                                                                                         | 类型                |
-| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
-| `addons`      | 应用部署过程中用到的外部云上资源，包括 cfs、cynosdb、redis 等                                                                                                                | `AddonsConfig`      |
-| `environment` | 应用在构建时和运行时的环境变量配置声明，默认注入计算环境中(云函数、云应用)，也会在云端构建时作为构建部署的环境变量，可以在 `cloudbaserc.json` 中通过 `{{env.ENV_NAME}}` 引用 | `EnvironmentConfig` |
+| 字段          | 描述                                                                                                                                                                           | 类型                |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------- |
+| `addons`      | 应用部署过程中用到的外部云上资源，包括 cfs、cynosdb、redis 等                                                                                                                  | `AddonsConfig`      |
+| `environment` | 应用在构建时和运行时的环境变量配置声明，默认注入计算环境中(云函数、云应用)，也会在云端构建时作为构建部署的环境变量，可以在 `cloudbaserc.json` 中通过 `\{\{env.ENV_NAME}}` 引用 | `EnvironmentConfig` |
 
 #### `requirement.addons`
 
@@ -281,9 +281,9 @@ CloudBase Framework 部署前后的钩子配置，可以在这里自定义应用
 
 #### `requirement.environment`
 
-**类型**:` Record<string,EnvironmentConfig>`
+**类型**:`Record<string,EnvironmentConfig>`
 
-应用在构建时和运行时的环境变量配置声明，默认注入计算环境中(云函数、云应用)，也会在云端构建时作为构建部署的环境变量，可以在 `cloudbaserc.json` 中通过 `{{env.ENV_NAME}}` 引用
+应用在构建时和运行时的环境变量配置声明，默认注入计算环境中(云函数、云应用)，也会在云端构建时作为构建部署的环境变量，可以在 `cloudbaserc.json` 中通过 `\{\{env.ENV_NAME}}` 引用
 
 配置由环境变量的 key 和相关的环境变量选项的对象组成，环境变量选项的格式`EnvironmentConfig`
 
@@ -339,9 +339,9 @@ CloudBase Framework 部署前后的钩子配置，可以在这里自定义应用
 
 ## 模板变量
 
-配置文件支持动态变量的特性。在 `cloudbaserc.json` 中声明 `"version": "2.0" `即可启用。
+配置文件支持动态变量的特性。在 `cloudbaserc.json` 中声明 `"version": "2.0"`即可启用。
 
-动态变量特性允许`cloudbaserc.json` 配置文件中使用动态变量，从环境变量中获取动态的数据。使用`{{}}`包围的值定义为动态变量，可以引用数据源中的值。例如` {{env.ENV_ID}}`:
+动态变量特性允许`cloudbaserc.json` 配置文件中使用动态变量，从环境变量中获取动态的数据。使用`{{}}`包围的值定义为动态变量，可以引用数据源中的值。例如`\{\{env.ENV_ID}}`:
 
 第一步：在项目根目录下创建 **cloudbaserc.json** 和 **.env** 文件
 
