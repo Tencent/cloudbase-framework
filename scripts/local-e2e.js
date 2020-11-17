@@ -39,7 +39,7 @@ async function main() {
   console.log(templates);
 
   for (const template of templates) {
-    if (!['taro-starter', 'deno'].includes(template.path)) {
+    if (!['taro-starter'].includes(template.path)) {
       await installTemplate(template);
     }
   }

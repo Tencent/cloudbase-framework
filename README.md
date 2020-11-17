@@ -267,7 +267,7 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-26-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-27-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -307,6 +307,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/MrZhaoCn"><img src="https://avatars1.githubusercontent.com/u/18179784?v=4" width="100px;" alt=""/><br /><sub><b>MrZhaoCn</b></sub></a><br /><a href="https://github.com/TencentCloudBase/cloudbase-framework/commits?author=MrZhaoCn" title="Code">💻</a></td>
     <td align="center"><a href="http://xcatliu.com/"><img src="https://avatars0.githubusercontent.com/u/5453359?v=4" width="100px;" alt=""/><br /><sub><b>xcatliu</b></sub></a><br /><a href="#example-xcatliu" title="Examples">💡</a></td>
     <td align="center"><a href="https://github.com/seymoe"><img src="https://avatars3.githubusercontent.com/u/25032899?v=4" width="100px;" alt=""/><br /><sub><b>唐羲</b></sub></a><br /><a href="https://github.com/TencentCloudBase/cloudbase-framework/issues?q=author%3Aseymoe" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/marschenbiqi"><img src="https://avatars3.githubusercontent.com/u/44521251?v=4" width="100px;" alt=""/><br /><sub><b>Life</b></sub></a><br /><a href="https://github.com/TencentCloudBase/cloudbase-framework/issues?q=author%3Amarschenbiqi" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
@@ -322,10 +323,13 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 
 您可以选择如下的贡献方式：
 
-- [贡献技术文章](./community/posts/README.md)
-- [贡献应用模板和案例](./doc/app.md)
-- 贡献代码，提交 Pull Request
-- 反馈 bug，提交 Issue
+- [贡献一篇技术文章](./community/posts/README.md)
+- [贡献应用模板](./doc/app.md)
+- [提交一个应用案例](https://github.com/TencentCloudBase/cloudbase-framework/issues/91)
+- [贡献代码，提交 Pull Request](https://github.com/TencentCloudBase/cloudbase-framework/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)
+- [反馈 bug，提交 Issue](https://github.com/TencentCloudBase/cloudbase-framework/issues/new/choose)
 - 在技术会议上发表技术演讲
+
+我们会将您加入 [我们的贡献者名单](https://github.com/TencentCloudBase/cloudbase-framework#contributors-)
 
 贡献方式请参考 [贡献指南](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/CONTRIBUTING.md) 文档
