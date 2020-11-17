@@ -318,14 +318,21 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 
 ## <a name="contribute"></a>贡献指南
 
-欢迎大家参与到 CloudBase Framework 的开发工作，贡献一份力量
+<p align="center">
+<img style="display: inline;" src="https://main.qcloudimg.com/raw/2fc5a34566ddc9384da8726bfdadab41.png" width="400">
+</p>
+
+感谢您有兴趣成为 CloudBase Framework 社区贡献者！
 
 您可以选择如下的贡献方式：
 
-- [贡献技术文章](./community/posts/README.md)
-- [贡献应用模板和案例](./doc/app.md)
-- 贡献代码，提交 Pull Request
-- 反馈 bug，提交 Issue
+- [贡献一篇技术文章](./community/posts/README.md)
+- [贡献应用模板](./doc/app.md)
+- [提交一个应用案例](https://github.com/TencentCloudBase/cloudbase-framework/issues/91)
+- [贡献代码，提交 Pull Request](https://github.com/TencentCloudBase/cloudbase-framework/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)
+- [反馈 bug，提交 Issue](https://github.com/TencentCloudBase/cloudbase-framework/issues/new/choose)
 - 在技术会议上发表技术演讲
+
+我们会将您加入 [我们的贡献者名单](https://github.com/TencentCloudBase/cloudbase-framework#contributors-)
 
 贡献方式请参考 [贡献指南](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/CONTRIBUTING.md) 文档
