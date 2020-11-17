@@ -77,102 +77,98 @@ cloudbase framework deploy
 
 ## <a name="examples"></a>项目示例
 
-| 项目链接                                                                                                                                                                                                                                           | 名称                          | 应用示例介绍                            | 基于模板创建项目                                                                                                                                                                                                                                                                                                         |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/vue"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/9892a3212a49bdd65ba499f2da62ac23.png"></a>                                          | Vue 应用                      | Vue + 云函数 + 静态网站部署             | [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=vue&appName=vue)                         |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/react-starter"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/d94d993269048beb4827b2612ed53692.png"></a>                                | React 应用                    | React + 云函数 + 静态网站部署           | [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=react-starter&appName=react-starter)     |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/react-demo"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/d94d993269048beb4827b2612ed53692.png"></a>                                   | React 全栈应用                | React + 云函数 + 静态网站部署+ 云数据库 | [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=react-demo&appName=react-demo)           |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/nuxt-spa"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/4a2bb546f6d59133976dccd1ac962378.png"></a>                                     | Nuxt SPA 应用                 | Nuxt SPA + 云函数 + 静态网站部署        | [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=nuxt-spa&appName=nuxt-spa)               |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/nuxt-ssr"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/338ce75aaf22e407a02d8b5f096212d0.png"></a>                                     | Nuxt SSR 应用                 | Nuxt SSR + 服务端部署 + 静态网站部署    | [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=nuxt-ssr&appName=nuxt-ssr)               |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/koa-starter"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/bc7e3f2989fcf65b2fe8ad37ea3f69a9.png"></a>                                  | Koa 应用                      | Koa + 服务端部署                        | [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=koa-starter&appName=koa-starter)         |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/express-starter"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/ce7fa0617399ac5e7f7bdbef5efb29d9.png"></a>                              | Express 应用                  | Express + 服务端部署                    | [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=express-starter&appName=express-starter) |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/nest-starter"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/79fdd61df8b2154ccaa479301fcc57a6.png"></a>                                 | Nest 应用                     | Nest + 服务端部署                       | [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=nest-starter&appName=nest-starter)       |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/egg-starter"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/9b26c345d8180b1003954d5a7b28f41f.png"></a>                                  | Egg 应用                      | Egg + 服务端部署                        | [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=egg-starter&appName=egg-starter)         |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/node-starter"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/7b50431d8cef29d9ebb82c4ff2e6032c.png"></a>                                 | Node.js 云函数示例            | Node.js 云函数                          | [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=node-starter&appName=node-starter)       |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/php-starter"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/63782b30178cf5666fdd1e15501aba9b.png"></a>                                  | PHP 云函数示例                | PHP 云函数                              | [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=php-starter&appName=php-starter)         |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/java-starter"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/20510a20be999a59458204afcf0fe205.png"></a>                                 | Java 云函数示例               | Java 云函数                             | [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=java-starter&appName=java-starter)       |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/vuepress"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/230c115bee4300384fa557710daa2928.jpg"></a>                                     | VuePresss 网站应用            | VuePresss + 静态网站部署                | [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=vuepress&appName=vuepress)               |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/node"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/82da2591cd2aed610d7f91f9dd881930.png"></a>                                         | Node.js 云托管                | Node.js + 云托管部署                    | [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=node&appName=node)                       |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/dart"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/2d1c438165480b9a7937e3b81c4873e3.jpg"></a>                                         | Aqueduct (Dart Server) 云托管 | Aqueduct (Dart Server) + 云托管部署     | [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=dart&appName=dart)                       |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/omi-starter"><img width="200" style="max-width:none;" src="https://user-images.githubusercontent.com/11473889/88882843-4f2b7780-d265-11ea-8fcf-49cb297240c7.png"></a> | Omi 应用                      | Omi + 云函数 + 静态网站部署             | [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=omi-starter&appName=omi-starter)         |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/taro-starter"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/625bbdc0b37744aae33aff46b8aeeeb8.png"></a>                                 | taro 应用                     | taro + 云函数 + 静态网站部署            | [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=taro-starter&appName=taro-starter)       |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/deno"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/408157ecaba08c2594dc953b4c690aec.jpg"></a>                                         | Deno 云托管                   | Deno + 云托管部署                       | [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=deno&appName=deno)                       |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/next-ssr"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/918830a5ad3321fd0524eaef4c0e4c1e.png"></a>                                     | Next SSR 应用                 | Next SSR + 服务端部署 + 静态网站部署    | [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=next-ssr&appName=next-ssr)               |
-| <a href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/go-starter"><img width="200" style="max-width:none;" src="https://main.qcloudimg.com/raw/10dd8964ac25c3f40dc229a00664d914.jpg"></a>                                   | Go 云函数                     | Go + 云函数                             | [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=go-starter&appName=go-starter)           |
+<!-- START mdmod {replace: apps} -->
 
-## <a name="templates"></a>模板
+<table>
 
-云开发 CloudBase Framework 支持模板工程，提供了多种语言和框架的模板项目，只需要一个命令就可以创建一个开箱即用的工程，并且集成了开发、构建、部署的工作流。
+  <tr><td style="vertical-align: top;">
+        <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templatesreact-demo"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/cloudbase-cms/upload/2020-11-01/y37ugvjfq5gdb7koct2s70l01llb21xs-react.png">
+        <br />
+        <b>React 全栈应用示例</b></a><br/>
+        <p style="min-height: 60px;">快速搭建基于 React 结合TypeScript 开发的应用示例 使用云函数, 云数据库, 静态托管云资源</p>
+        <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=react-demo" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>
+        <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/react-demo">查看源码</a>
+        </td><td style="vertical-align: top;">
+        <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templatesnuxt-spa"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600430087100.png">
+        <br />
+        <b>Nuxt Spa 应用</b></a><br/>
+        <p style="min-height: 60px;">快速构建基于 Vue 的 SPA 应用 使用云函数, 静态托管云资源</p>
+        <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=nuxt-spa" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>
+        <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/nuxt-spa">查看源码</a>
+        </td>
+</tr>
 
-模板可以自由定制，你可以根据自己的需要创建任何语言、框架的模板工程，并通过模板工程一键生成你的初始工程，原有的工程可以很容易改造成 cloudbase 的模板项目，只需要创建一个 cloudbaserc.json，填写必要的配置即可。
+  <tr><td style="vertical-align: top;">
+        <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templatesnuxt-ssr"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600430159912.png">
+        <br />
+        <b>Nuxt SSR 应用</b></a><br/>
+        <p style="min-height: 60px;">快速构建基于 Vue 的 SSR 应用 使用云函数, 静态托管云资源</p>
+        <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=nuxt-ssr" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>
+        <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/nuxt-ssr">查看源码</a>
+        </td><td style="vertical-align: top;">
+        <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templateskoa-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600431597355.png">
+        <br />
+        <b>Koa 应用</b></a><br/>
+        <p style="min-height: 60px;">快速构建新一代更轻量 Web 应用框架 使用云函数云资源</p>
+        <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=koa-starter" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>
+        <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/koa-starter">查看源码</a>
+        </td>
+</tr>
 
-更多模板相关介绍，可以点击[查看模板文档](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/template.md)
+  <tr><td style="vertical-align: top;">
+        <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templatesexpress-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600680114724.png">
+        <br />
+        <b>Express 应用</b></a><br/>
+        <p style="min-height: 60px;">快速构建开放、极简 Web 应用框架 使用云函数云资源</p>
+        <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=express-starter" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>
+        <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/express-starter">查看源码</a>
+        </td><td style="vertical-align: top;">
+        <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templatesnest-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600434436206.png">
+        <br />
+        <b>Nest 应用</b></a><br/>
+        <p style="min-height: 60px;">快速构建一种渐进式的 Node.js 框架，用于构建高效、可靠、可扩展的服务器端应用 使用云函数云资源</p>
+        <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=nest-starter" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>
+        <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/nest-starter">查看源码</a>
+        </td>
+</tr>
 
-## <a name="plugins"></a>插件
+  <tr><td style="vertical-align: top;">
+        <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templatesegg-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600661476916.png">
+        <br />
+        <b>Egg 应用</b></a><br/>
+        <p style="min-height: 60px;">快速构建基于 Node.js 和 Koa 的 Egg 企业框架及应用 使用云函数云资源</p>
+        <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=egg-starter" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>
+        <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/egg-starter">查看源码</a>
+        </td><td style="vertical-align: top;">
+        <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templatesnode-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600662423450.png">
+        <br />
+        <b>Node.js 云函数示例</b></a><br/>
+        <p style="min-height: 60px;">快速构建 Node.js 服务端应用 使用云函数云资源</p>
+        <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=node-starter" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>
+        <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/node-starter">查看源码</a>
+        </td>
+</tr>
 
-云开发 CloudBase Framework 支持插件机制，提供了多种应用框架和云资源的插件，只需要很少的配置甚至 0 配置就可以现有应用和云开发 CloudBase Framework 框架进行集成。
+  <tr><td style="vertical-align: top;">
+        <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templatesphp-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600662775076.png">
+        <br />
+        <b>PHP 云函数示例</b></a><br/>
+        <p style="min-height: 60px;">快速构建灵活、高效的 PHP 应用框架 使用云函数云资源</p>
+        <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=php-starter" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>
+        <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/php-starter">查看源码</a>
+        </td><td style="vertical-align: top;">
+        <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templatesjava-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600663876737.png">
+        <br />
+        <b>Java 云函数示例</b></a><br/>
+        <p style="min-height: 60px;">快速构建开放、极简 Java 应用框架 使用云函数云资源</p>
+        <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=java-starter" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>
+        <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/java-starter">查看源码</a>
+        </td>
+</tr>
 
-插件可以处理应用中的一些独立单元的构建、部署、开发、调试等流程。例如 website 插件可以处理静态网站等单元，node 插件可以处理 koa 、express 等 node 应用。插件可以组合使用。
+</table>
 
-插件的配置写在 cloudbaserc 文件中，目前仅支持 JSON 文件，后续会支持 YAML。
-
-插件的配置可以手动填写，也可以自动生成，目前针对前端框架支持自动识别填写插件。
-
-### 自动检测生成插件配置流程
-
-可以在项目目录下直接运行 `cloudbase` 命令进行自动检测生成插件配置文件并部署
-
-```
-cloudbase
-
-
-✔ 是否使用云开发部署当前项目 <Projects/test/test-vue> ？ (Y/n) · true
-✔ 选择关联环境 · webpage - [webpage:按量计费]
-   ______ __                   __ ____
-  / ____// /____   __  __ ____/ // __ ) ____ _ _____ ___
- / /    / // __ \ / / / // __  // __  |/ __ `// ___// _ \
-/ /___ / // /_/ // /_/ // /_/ // /_/ // /_/ /(__  )/  __/
-\_________\____/ \__,_/ \__,_//_____/ \__,_//____/ \___/       __
-   / ____/_____ ____ _ ____ ___   ___  _      __ ____   _____ / /__
-  / /_   / ___// __ `// __ `__ \ / _ \| | /| / // __ \ / ___// //_/
- / __/  / /   / /_/ // / / / / //  __/| |/ |/ // /_/ // /   / ,<
-/_/    /_/    \__,_//_/ /_/ /_/ \___/ |__/|__/ \____//_/   /_/|_|
-
-
- CloudBase Framework  info     Version v1.2.10
- CloudBase Framework  info     Github: https://github.com/TencentCloudBase/cloudbase-framework
-
- CloudBase Framework  info     EnvId webpage
-? 检测到当前项目包含 Vue.js 项目
-
-  🔨 构建脚本 `npm run build`
-  📦 本地静态文件目录 `dist`
-
-  是否需要修改默认配置 No
-? 请输入应用唯一标识(支持大小写字母数字及连字符, 同一账号下不能相同) test-vue
-? 是否需要保存当前项目配置，保存配置之后下次不会再次询问 Yes
- CloudBase Framework  info     📦 install plugins
-```
-
-### 目前支持的插件列表
-
-<!-- START mdmod {replace: plugins} -->
-
-| 插件链接                                                                                                                                                                                                          | 插件                                                                                                                                             | 最新版本                                                                                                                                                  | 插件介绍                                            |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
-| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-website"><img width="200" src="https://main.qcloudimg.com/raw/abbc0f23ee92e8f4665ab316b6126d33.jpg"></a>   | [@cloudbase/framework-plugin-website](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-website)     | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-website)](https://www.npmjs.com/package/@cloudbase/framework-plugin-website)     | 一键部署网站应用                                    |
-| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-node"><img width="200" src="https://main.qcloudimg.com/raw/80526dcba2f27ed2619ac43b9b623d5a.jpg"></a>      | [@cloudbase/framework-plugin-node](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-node)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-node)](https://www.npmjs.com/package/@cloudbase/framework-plugin-node)           | 一键部署 Node 应用（支持底层部署为函数或者 云托管） |
-| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-nuxt"><img width="200" src="https://main.qcloudimg.com/raw/6d48ab8bc29c38558cd258b28b14f94e.jpg"></a>      | [@cloudbase/framework-plugin-nuxt](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-nuxt)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-nuxt)](https://www.npmjs.com/package/@cloudbase/framework-plugin-nuxt)           | 一键部署 Nuxt SSR 应用                              |
-| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-function"><img width="200" src="https://main.qcloudimg.com/raw/2cd529a816464f59684515f73b0a5622.jpg"></a>  | [@cloudbase/framework-plugin-function](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-function)   | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-function)](https://www.npmjs.com/package/@cloudbase/framework-plugin-function)   | 一键部署函数资源                                    |
-| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-container"><img width="200" src="https://main.qcloudimg.com/raw/7e5e467a45bdfb5f5f4cc2eb27ea71bb.jpg"></a> | [@cloudbase/framework-plugin-container](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-container) | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-container)](https://www.npmjs.com/package/@cloudbase/framework-plugin-container) | 一键部署云托管容器服务                              |
-| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-dart"><img width="200" src="https://main.qcloudimg.com/raw/fabde81e6232f0eccf4914721ee2a55c.jpg"></a>      | [@cloudbase/framework-plugin-dart](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-dart)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-dart)](https://www.npmjs.com/package/@cloudbase/framework-plugin-dart)           | 一键部署 Dart 应用                                  |
-| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-database"><img width="200" src="https://main.qcloudimg.com/raw/41a9bd0e62c638ab40cb8b8cba26696b.jpg"></a>  | [@cloudbase/framework-plugin-database](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-database)   | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-database)](https://www.npmjs.com/package/@cloudbase/framework-plugin-database)   | 一键声明式部署云开发 NoSQL 云数据库                 |
-| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-deno"><img width="200" src="https://main.qcloudimg.com/raw/70429911e53a56366c39e11f5596e790.jpg"></a>      | [@cloudbase/framework-plugin-deno](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-deno)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-deno)](https://www.npmjs.com/package/@cloudbase/framework-plugin-deno)           | 一键部署 Deno 应用                                  |
-| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-next"><img width="200" src="https://main.qcloudimg.com/raw/484de9a30676fb6ede6078622eea0274.png"></a>      | [@cloudbase/framework-plugin-next](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-next)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-next)](https://www.npmjs.com/package/@cloudbase/framework-plugin-next)           | 一键部署 Next SSR 应用                              |
-| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-mp"><img width="200" src="https://main.qcloudimg.com/raw/3de9cef4b6ac7c72f9519f13d063fc13.jpg"></a>        | [@cloudbase/framework-plugin-mp](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-mp)               | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-mp)](https://www.npmjs.com/package/@cloudbase/framework-plugin-mp)               | 一键部署微信小程序应用                              |
-| <a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-auth"><img width="200" src="https://main.qcloudimg.com/raw/8f7534f7f3a3f3a8df2cf861040f6a8c.jpg"></a>      | [@cloudbase/framework-plugin-auth](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-auth)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-auth)](https://www.npmjs.com/package/@cloudbase/framework-plugin-auth)           | 一键设置登录配置                                    |
-
-<!-- 新增/删除/修改插件信息，请修改 community/plugins/index.json，然后执行 npm run build:markdown-->
+点击进入[应用中心](https://cloudbase.net/marketplace.html)查看更多应用
 
 <!-- END mdmod -->
 
