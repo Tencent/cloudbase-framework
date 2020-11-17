@@ -80,7 +80,7 @@ ${renderTable(data, renderCell, maxWidth)}
         }" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>         <a target="_blank" href="${
           item.link + '/tree/master/' + item.workdir
         }">
-        <img src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg">
+        <img height="30px" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg">
         </a>
         </td>`;
       const maxWidth = 2;
