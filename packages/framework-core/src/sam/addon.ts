@@ -60,7 +60,7 @@ const ADDONS: Record<string, any> = {
               DbType: 'MYSQL',
               DbVersion: '5.7',
               PayMode: 0, // 0:后付费 1: 预付费
-              ...(plan ? { Cpu: plan?.Cpu, MemorySize: plan?.MemorySize } : {}),
+              ...(plan ? { Cpu: plan?.Cpu, MemorySize: plan?.Memory } : {}),
               Port: 3306,
               Password: `\${Inputs.${passwordKey}}`, // 支持引用Inputs内容，且支持拼接字符串
               StorageLimit: 1000, //最大存储容量

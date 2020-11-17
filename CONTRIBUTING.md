@@ -52,16 +52,14 @@
 ### 本地开发
 
 ```bash
-npm install
-npm run bootstrap
-npm run dev
+npm run dev:all
 ```
 
-### 本地测试框架和插件
+### 本地测试
 
 ```bash
 npm run link
-# 在项目中使用本地框架
+# 在项目中使用本地 CloudBase Framework
 CLOUDBASE_FX_ENV=dev cloudbase framework deploy
 ```
 
@@ -72,9 +70,6 @@ CLOUDBASE_FX_ENV=dev cloudbase framework deploy
 ```bash
 # 注意 $SecretId $SecretKey $EnvId 需要换成真实的值
 cloudbase login --apiKeyId $SecretId --apiKey $SecretKey
-npm install
-npm run bootstrap
-npm run build
 CLOUDBASE_FX_ENV=dev envId=$EnvId node scripts/local-e2e.js
 ```
 

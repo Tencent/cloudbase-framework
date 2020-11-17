@@ -330,7 +330,10 @@ ${entryLogInfo}`);
 
   private genNetworkSAM(isHasContainer: boolean) {
     // 没有网络配置
-    if (!this.appConfig.network) {
+    if (
+      !this.appConfig.network ||
+      !Object.keys(this.appConfig.network).length
+    ) {
       return {};
     }
     // 没有vpcId，也没有容器
