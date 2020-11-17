@@ -77,6 +77,10 @@ cloudbase framework deploy
 
 ## <a name="examples"></a>项目示例
 
+下面的快速开始部分可以帮助您更快地体验 CloudBase Framework 的能力，以便尽快开始将自己的项目部署起来。
+
+每一个例子都提供了一个 **部署按钮**，可以点击之后在云端一键部署，将应用安装在您的腾讯云开发环境中。同时我们也提供了对应的源代码，可以查看源代码，Clone 或者下载项目到本地进行修改，在本地通过 CloudBase CLI 进行一键部署。
+
 <!-- START mdmod {replace: apps} -->
 
 <table>
