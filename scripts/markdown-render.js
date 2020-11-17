@@ -69,7 +69,9 @@ ${renderTable(data, renderCell, maxWidth)}
           'https://main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png'
         }">
         <br />
-        <b>${item.title}</b></a><br/>
+        <b>${
+          item.title
+        } <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
         <p style="min-height: 60px;">${item.introduction || ''} ${
           item.resource ? '，使用' + item.resource + '云资源' : ''
         }</p>
@@ -80,7 +82,6 @@ ${renderTable(data, renderCell, maxWidth)}
         }" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>         <a target="_blank" href="${
           item.link + '/tree/master/' + item.workdir
         }">
-        <img style="margin-left: 55px;height: 20px;margin-bottom: 5px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg">
         </a>
         </td>`;
       const maxWidth = 2;

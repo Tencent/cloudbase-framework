@@ -84,18 +84,16 @@ cloudbase framework deploy
   <tr><td style="vertical-align: top;">
         <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/react-demo"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/cloudbase-cms/upload/2020-11-01/y37ugvjfq5gdb7koct2s70l01llb21xs-react.png">
         <br />
-        <b>React 全栈应用示例</b></a><br/>
+        <b>React 全栈应用示例 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
         <p style="min-height: 60px;">快速搭建基于 React 结合TypeScript 开发的应用示例 ，使用云函数, 云数据库, 静态托管云资源</p>
         <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=react-demo" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>         <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/react-demo">
-        <img style="margin-left: 55px;height: 20px;margin-bottom: 5px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg">
         </a>
         </td><td style="vertical-align: top;">
         <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/nuxt-spa"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600430087100.png">
         <br />
-        <b>Nuxt Spa 应用</b></a><br/>
+        <b>Nuxt Spa 应用 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
         <p style="min-height: 60px;">快速构建基于 Vue 的 SPA 应用 ，使用云函数, 静态托管云资源</p>
         <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=nuxt-spa" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>         <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/nuxt-spa">
-        <img style="margin-left: 55px;height: 20px;margin-bottom: 5px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg">
         </a>
         </td>
 </tr>
@@ -103,18 +101,16 @@ cloudbase framework deploy
   <tr><td style="vertical-align: top;">
         <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/nuxt-ssr"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600430159912.png">
         <br />
-        <b>Nuxt SSR 应用</b></a><br/>
+        <b>Nuxt SSR 应用 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
         <p style="min-height: 60px;">快速构建基于 Vue 的 SSR 应用 ，使用云函数, 静态托管云资源</p>
         <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=nuxt-ssr" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>         <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/nuxt-ssr">
-        <img style="margin-left: 55px;height: 20px;margin-bottom: 5px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg">
         </a>
         </td><td style="vertical-align: top;">
         <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/koa-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600431597355.png">
         <br />
-        <b>Koa 应用</b></a><br/>
+        <b>Koa 应用 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
         <p style="min-height: 60px;">快速构建新一代更轻量 Web 应用框架 ，使用云函数云资源</p>
         <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=koa-starter" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>         <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/koa-starter">
-        <img style="margin-left: 55px;height: 20px;margin-bottom: 5px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg">
         </a>
         </td>
 </tr>
@@ -122,18 +118,16 @@ cloudbase framework deploy
   <tr><td style="vertical-align: top;">
         <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/express-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600680114724.png">
         <br />
-        <b>Express 应用</b></a><br/>
+        <b>Express 应用 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
         <p style="min-height: 60px;">快速构建开放、极简 Web 应用框架 ，使用云函数云资源</p>
         <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=express-starter" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>         <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/express-starter">
-        <img style="margin-left: 55px;height: 20px;margin-bottom: 5px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg">
         </a>
         </td><td style="vertical-align: top;">
         <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/nest-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600434436206.png">
         <br />
-        <b>Nest 应用</b></a><br/>
+        <b>Nest 应用 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
         <p style="min-height: 60px;">快速构建一种渐进式的 Node.js 框架，用于构建高效、可靠、可扩展的服务器端应用 ，使用云函数云资源</p>
         <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=nest-starter" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>         <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/nest-starter">
-        <img style="margin-left: 55px;height: 20px;margin-bottom: 5px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg">
         </a>
         </td>
 </tr>
@@ -141,18 +135,16 @@ cloudbase framework deploy
   <tr><td style="vertical-align: top;">
         <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/egg-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600661476916.png">
         <br />
-        <b>Egg 应用</b></a><br/>
+        <b>Egg 应用 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
         <p style="min-height: 60px;">快速构建基于 Node.js 和 Koa 的 Egg 企业框架及应用 ，使用云函数云资源</p>
         <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=egg-starter" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>         <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/egg-starter">
-        <img style="margin-left: 55px;height: 20px;margin-bottom: 5px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg">
         </a>
         </td><td style="vertical-align: top;">
         <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/node-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600662423450.png">
         <br />
-        <b>Node.js 云函数示例</b></a><br/>
+        <b>Node.js 云函数示例 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
         <p style="min-height: 60px;">快速构建 Node.js 服务端应用 ，使用云函数云资源</p>
         <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=node-starter" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>         <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/node-starter">
-        <img style="margin-left: 55px;height: 20px;margin-bottom: 5px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg">
         </a>
         </td>
 </tr>
@@ -160,18 +152,16 @@ cloudbase framework deploy
   <tr><td style="vertical-align: top;">
         <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/php-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600662775076.png">
         <br />
-        <b>PHP 云函数示例</b></a><br/>
+        <b>PHP 云函数示例 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
         <p style="min-height: 60px;">快速构建灵活、高效的 PHP 应用框架 ，使用云函数云资源</p>
         <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=php-starter" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>         <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/php-starter">
-        <img style="margin-left: 55px;height: 20px;margin-bottom: 5px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg">
         </a>
         </td><td style="vertical-align: top;">
         <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/java-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600663876737.png">
         <br />
-        <b>Java 云函数示例</b></a><br/>
+        <b>Java 云函数示例 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
         <p style="min-height: 60px;">快速构建开放、极简 Java 应用框架 ，使用云函数云资源</p>
         <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=java-starter" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>         <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/java-starter">
-        <img style="margin-left: 55px;height: 20px;margin-bottom: 5px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg">
         </a>
         </td>
 </tr>
@@ -179,18 +169,16 @@ cloudbase framework deploy
   <tr><td style="vertical-align: top;">
         <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/vuepress"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600664138327.png">
         <br />
-        <b>VuePress 网站应用</b></a><br/>
+        <b>VuePress 网站应用 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
         <p style="min-height: 60px;">快速构建基于 VuePress 的网站应用 ，使用静态托管云资源</p>
         <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=vuepress" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>         <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/vuepress">
-        <img style="margin-left: 55px;height: 20px;margin-bottom: 5px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg">
         </a>
         </td><td style="vertical-align: top;">
         <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/node"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600664505744.png">
         <br />
-        <b>Node.js 云托管</b></a><br/>
+        <b>Node.js 云托管 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
         <p style="min-height: 60px;">快速构建一个 Node.js 的 Koa 云托管实例 ，使用云托管云资源</p>
         <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=node" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>         <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/node">
-        <img style="margin-left: 55px;height: 20px;margin-bottom: 5px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg">
         </a>
         </td>
 </tr>
@@ -198,18 +186,16 @@ cloudbase framework deploy
   <tr><td style="vertical-align: top;">
         <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/dart"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600665868642.png">
         <br />
-        <b>Aqueduct (Dart Server) 云托管</b></a><br/>
+        <b>Aqueduct (Dart Server) 云托管 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
         <p style="min-height: 60px;">快速构建一个包含多线程 HTTP 服务器框架的 Aqueduct 云托管实例 ，使用云数据库, 云托管云资源</p>
         <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=dart" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>         <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/dart">
-        <img style="margin-left: 55px;height: 20px;margin-bottom: 5px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg">
         </a>
         </td><td style="vertical-align: top;">
         <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/omi-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600670706144.svg">
         <br />
-        <b>Omi 应用</b></a><br/>
+        <b>Omi 应用 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
         <p style="min-height: 60px;">快速构建一个跨框架的 Omi 应用 ，使用云函数, 静态托管云资源</p>
         <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=omi-starter" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>         <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/omi-starter">
-        <img style="margin-left: 55px;height: 20px;margin-bottom: 5px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg">
         </a>
         </td>
 </tr>
