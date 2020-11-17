@@ -73,15 +73,15 @@ ${renderTable(data, renderCell, maxWidth)}
         <p style="min-height: 60px;">${item.introduction || ''} ${
           item.resource ? '使用' + item.resource + '云资源' : ''
         }</p>
-        <a target="_blank" href="${
-          item.link + '/tree/master/' + item.workdir
-        }">查看源码</a>
-        <br/>
         <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=${
           item.link
         }&workDir=${
           item.workdir
-        }" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>
+        }" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>         <a target="_blank" href="${
+          item.link + '/tree/master/' + item.workdir
+        }">
+        <img src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg">
+        </a>
         </td>`;
       const maxWidth = 2;
       return `
