@@ -217,7 +217,9 @@ async function resolveRcConfig(
   if (process.env.CLOUDBASE_CIID) {
     logger.debug('云端构建场景');
     extraData = getCIProjectInfo();
-    rcConfig = jsonParse(process.env.TCB_RC_JSON);
+    rcConfig = (await ConfigParser.parseRawConfig(
+      jsonParse(process.env.TCB_RC_JSON)
+    )) as ICloudBaseConfig;
     // 如果是本地构建，且本地存在配置文件
   } else if (config?.framework) {
     logger.debug('本地构建，本地存在配置文件', config);
