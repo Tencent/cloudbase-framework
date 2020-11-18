@@ -35,37 +35,46 @@ export class ContainerApi {
   /**
    *
    * 上传代码到 Coding
-   * @param packageName
-   * @param version
+   * @param serviceName
    * @param filePath
    */
-  async upload(packageName: string, version: string, filePath: string) {
-    const res = await this.describeCloudBaseRunBuildServer();
-    const {
-      TeamGlobalKey,
-      ProjectName,
-      PackageRepositoryName,
-      ProjectGlobalKey,
-      ProjectToken,
-    } = res;
+  async upload(
+    serviceName: string,
+    filePath: string
+  ): Promise<Record<string, string>> {
+    const res = await this.describeCloudBaseBuildService(serviceName);
+    const { UploadHeaders = [], UploadUrl, PackageVersion, PackageName } = res;
 
-    this.logger.debug('describeCloudBaseRunBuildServer', res);
+    this.logger.debug(
+      'describeCloudBaseBuildService',
+      res,
+      serviceName,
+      filePath
+    );
 
-    const url = `https://${TeamGlobalKey}-generic.pkg.coding.net/${ProjectName}/${PackageRepositoryName}/${packageName}?version=${version}`;
-    const authorization = Buffer.from(
-      `${ProjectGlobalKey}:${ProjectToken}`
-    ).toString('base64');
+    const data = {
+      method: 'PUT',
+      body: fs.createReadStream(filePath),
+      headers: {
+        ...UploadHeaders.reduce(
+          (
+            prev: Record<string, string>,
+            cur: { Key: string; Value: string }
+          ) => {
+            prev[cur.Key] = cur.Value;
+            return prev;
+          },
+          {}
+        ),
+        ContentType: 'application/octet-stream',
+      },
+    };
+
+    this.logger.debug('upload', data);
 
     const response = await this.cloudApi.fetchStream(
-      url,
-      {
-        method: 'PUT',
-        body: fs.createReadStream(filePath),
-        headers: {
-          Authorization: `Basic ${authorization}`,
-          ContentType: 'application/octet-stream',
-        },
-      },
+      UploadUrl,
+      data,
       process.env.http_proxy
     );
     const text = await (await response.text()).trim();
@@ -79,14 +88,19 @@ export class ContainerApi {
       console.error(text);
       throw new Error('部署云托管代码失败');
     }
+
+    return {
+      PackageVersion,
+      PackageName,
+    };
   }
 
   /**
    * 查询 Coding 部署信息
    */
-  describeCloudBaseRunBuildServer() {
-    return this.cloudApi.tcbService.request('DescribeCloudBaseRunBuildServer', {
-      Business: 'framework',
+  describeCloudBaseBuildService(serviceName: string) {
+    return this.cloudApi.tcbService.request('DescribeCloudBaseBuildService', {
+      ServiceName: serviceName,
     });
   }
 

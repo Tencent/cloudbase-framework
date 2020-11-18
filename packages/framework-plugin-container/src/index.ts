@@ -286,6 +286,7 @@ class ContainerPlugin extends Plugin {
   protected buildOutput: any;
   protected containerApi: ContainerApi;
   protected builder: ContainerBuilder;
+  protected outputs: Record<string, string>;
 
   constructor(
     public name: string,
@@ -298,6 +299,7 @@ class ContainerPlugin extends Plugin {
     this.builder = new ContainerBuilder({
       projectPath: this.api.projectPath,
     });
+    this.outputs = {};
   }
 
   /**
@@ -310,12 +312,7 @@ class ContainerPlugin extends Plugin {
 
     this.resolvedInputs = resolveInputs(
       this.inputs,
-      Object.assign(
-        {},
-        DEFAULT_INPUTS,
-        modeInputs,
-        this.api.bumpVersion ? { version: String(Date.now()) } : {}
-      )
+      Object.assign({}, DEFAULT_INPUTS, modeInputs)
     );
 
     const {
@@ -386,7 +383,7 @@ class ContainerPlugin extends Plugin {
     this.api.logger.debug('ContainerPlugin: build', this.resolvedInputs);
 
     if (this.resolvedInputs.uploadType === 'package') {
-      const { serviceName, version } = this.resolvedInputs;
+      const { serviceName } = this.resolvedInputs;
       const localPath =
         this.resolvedInputs.localAbsolutePath ||
         path.join(this.api.projectPath, this.resolvedInputs.localPath);
@@ -398,7 +395,10 @@ class ContainerPlugin extends Plugin {
 
       const distFileName = result.containers[0].source;
 
-      await this.containerApi.upload(serviceName, version, distFileName);
+      Object.assign(
+        this.outputs,
+        await this.containerApi.upload(serviceName, distFileName)
+      );
 
       this.builder.clean();
     }
@@ -450,7 +450,6 @@ class ContainerPlugin extends Plugin {
       containerPort,
       dockerfilePath,
       buildDir,
-      version,
       servicePath,
       envVariables,
       uploadType,
@@ -467,8 +466,8 @@ class ContainerPlugin extends Plugin {
     switch (uploadType) {
       case 'package':
         otherProperties = {
-          PackageName: serviceName,
-          PackageVersion: version,
+          PackageName: this.outputs.PackageName,
+          PackageVersion: this.outputs.PackageVersion,
         };
         break;
       case 'image':
