@@ -20,14 +20,14 @@ import merge from 'lodash.merge';
 const ADDONS: Record<string, any> = {
   CFS: {
     translate(addonConfig: Record<string, any>) {
-      const { name, instanceId, region, vpcId } = addonConfig;
+      const { name, instanceId, instanceName, region, vpcId } = addonConfig;
       return {
         Resources: {
           [name]: {
             Type: 'CloudBase::CFS',
             Properties: {
               Description: '为您提供安全可靠、可扩展的共享文件存储服务',
-              InstanceName: name, // 集群名称
+              InstanceName: instanceName, // 集群名称
               Region: region || '${TcbEnvRegion}', // 区域信息
               UniqVpcId: vpcId || '${Outputs.Network.Properties.InstanceId}',
               NetInterface: 'VPC',
@@ -42,7 +42,15 @@ const ADDONS: Record<string, any> = {
   },
   CynosDB: {
     translate(addonConfig: Record<string, any>) {
-      const { name, instanceId, region, vpcId, password, plan } = addonConfig;
+      const {
+        name,
+        instanceId,
+        instanceName,
+        region,
+        vpcId,
+        password,
+        plan,
+      } = addonConfig;
       const passwordKey = `${name}_PASSWORD`;
 
       return {
@@ -55,7 +63,7 @@ const ADDONS: Record<string, any> = {
             Properties: {
               Description:
                 '企业级云原生数据库，极速性能，海量存储，全面兼容开源数据库',
-              InstanceName: name, // 集群名称
+              InstanceName: instanceName, // 集群名称
               Region: region || '${TcbEnvRegion}', // 区域信息
               UniqVpcId: vpcId || '${Outputs.Network.Properties.InstanceId}',
               DbType: 'MYSQL',
