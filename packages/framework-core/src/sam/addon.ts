@@ -52,6 +52,14 @@ const ADDONS: Record<string, any> = {
         plan,
       } = addonConfig;
       const passwordKey = `${name}_PASSWORD`;
+      const STORAGE_LIMIT_MAP = {
+        1: 1000,
+        2: 5000,
+        4: 10000,
+        8: 10000,
+        16: 20000,
+      };
+      const cpu: 1 | 2 | 4 | 8 | 16 = plan?.Cpu;
 
       return {
         Inputs: {
@@ -73,7 +81,7 @@ const ADDONS: Record<string, any> = {
               UseInstanceId: true,
               Port: 3306,
               Password: `\${Inputs.${passwordKey}}`, // 支持引用Inputs内容，且支持拼接字符串
-              StorageLimit: 1000, //最大存储容量
+              StorageLimit: STORAGE_LIMIT_MAP[cpu], //最大存储容量
               InstanceCount: 1, //计算实例数 1-4
               InstanceId: instanceId,
             },
