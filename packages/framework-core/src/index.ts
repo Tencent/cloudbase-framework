@@ -183,7 +183,7 @@ export class CloudBaseFrameworkCore {
    * @param module
    * @param params
    */
-  async compile(module?: string, params?: CommandParams) {
+  async compile(module?: string) {
     await this.hooks.callHook('preDeploy');
     await this._compile(module);
   }
@@ -193,7 +193,7 @@ export class CloudBaseFrameworkCore {
    * @param module
    * @param params
    */
-  async deploy(module?: string, params?: CommandParams) {
+  async deploy(module?: string) {
     await this.hooks.callHook('preDeploy');
     await this._compile(module);
     await this.samManager.install(this.createProjectVersion.bind(this));
