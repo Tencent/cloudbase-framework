@@ -216,10 +216,12 @@ async function resolveRcConfig(
   // 如果是云端构建，从环境变量中读取
   if (process.env.CLOUDBASE_CIID) {
     logger.debug('云端构建场景');
+    const cloudRcJSON = jsonParse(process.env.TCB_RC_JSON);
+
     extraData = getCIProjectInfo();
-    rcConfig = (await ConfigParser.parseRawConfig(
-      jsonParse(process.env.TCB_RC_JSON)
-    )) as ICloudBaseConfig;
+    rcConfig = cloudRcJSON
+      ? ((await ConfigParser.parseRawConfig(cloudRcJSON)) as ICloudBaseConfig)
+      : rcConfig;
     // 如果是本地构建，且本地存在配置文件
   } else if (config?.framework) {
     logger.debug('本地构建，本地存在配置文件', config);
