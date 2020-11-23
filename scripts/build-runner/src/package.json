@@ -1,16 +1,16 @@
 {
     "name": "cloudbase-framework-registry",
     "dependencies": {
-        "@cloudbase/framework-plugin-auth": "^1.3.9",
-        "@cloudbase/framework-plugin-container": "^1.3.9",
-        "@cloudbase/framework-plugin-dart": "^1.3.9",
-        "@cloudbase/framework-plugin-database": "^1.3.9",
-        "@cloudbase/framework-plugin-deno": "^1.3.9",
-        "@cloudbase/framework-plugin-function": "^1.3.9",
-        "@cloudbase/framework-plugin-mp": "^1.3.9",
-        "@cloudbase/framework-plugin-next": "^1.3.9",
-        "@cloudbase/framework-plugin-node": "^1.3.9",
-        "@cloudbase/framework-plugin-nuxt": "^1.3.9",
-        "@cloudbase/framework-plugin-website": "^1.3.9"
+        "@cloudbase/framework-plugin-auth": "^1.3.2-beta.81",
+        "@cloudbase/framework-plugin-container": "^1.3.2-beta.81",
+        "@cloudbase/framework-plugin-dart": "^1.3.2-beta.81",
+        "@cloudbase/framework-plugin-database": "^1.3.2-beta.81",
+        "@cloudbase/framework-plugin-deno": "^1.3.2-beta.81",
+        "@cloudbase/framework-plugin-function": "^1.3.2-beta.81",
+        "@cloudbase/framework-plugin-mp": "^1.3.2-beta.81",
+        "@cloudbase/framework-plugin-next": "^1.3.2-beta.81",
+        "@cloudbase/framework-plugin-node": "^1.3.2-beta.81",
+        "@cloudbase/framework-plugin-nuxt": "^1.3.2-beta.81",
+        "@cloudbase/framework-plugin-website": "^1.3.2-beta.81"
     }
 }
