@@ -206,9 +206,11 @@ class FunctionPlugin extends Plugin {
     const builderOptions = this.functions.map((func) => {
       let fileName: string = func.name;
       let localFunctionPath: string;
+      let isNeedZip = true;
 
       if (func.runtime?.includes('Java')) {
         fileName = func.name + '.jar';
+        isNeedZip = false;
       }
 
       if (func.functionDistPath) {
@@ -238,6 +240,7 @@ class FunctionPlugin extends Plugin {
         name: func.name,
         localPath: localFunctionPath,
         zipFileName: zipName,
+        isNeedZip,
         ignore: func.installDependency
           ? ['node_modules/**/*', 'node_modules', ...(func.ignore || [])]
           : [...(func.ignore || [])],
@@ -408,6 +411,7 @@ interface FunctionBuilderBuildOptions {
   localPath: string;
   zipFileName: string;
   ignore: string[];
+  isNeedZip: boolean;
 }
 
 interface FunctionBuilderOptions {
@@ -428,7 +432,7 @@ export class FunctionBuilder extends Builder {
   async build(options: FunctionBuilderBuildOptions[]) {
     const functions = await Promise.all(
       options.map(async (option) => {
-        const localZipPath = path.join(this.distDir, option.zipFileName);
+        let source: string;
 
         if (!fs.existsSync(this.distDir)) {
           mkdirSync(this.distDir);
@@ -441,19 +445,32 @@ export class FunctionBuilder extends Builder {
         }
 
         const fileStats = fs.statSync(option.localPath);
-
-        if (fileStats.isFile()) {
-          this.logger.debug('option.localPath', option.localPath, localZipPath);
-          await this.zipFile(option.localPath, localZipPath);
-        } else if (fileStats.isDirectory()) {
-          this.logger.debug('option.localPath', option.localPath, localZipPath);
-          await this.zipDir(option.localPath, localZipPath, option.ignore);
+        if (!option.isNeedZip) {
+          source = option.localPath;
+        } else {
+          const localZipPath = path.join(this.distDir, option.zipFileName);
+          source = localZipPath;
+          if (fileStats.isFile()) {
+            this.logger.debug(
+              'option.localPath',
+              option.localPath,
+              localZipPath
+            );
+            await this.zipFile(option.localPath, localZipPath);
+          } else if (fileStats.isDirectory()) {
+            this.logger.debug(
+              'option.localPath',
+              option.localPath,
+              localZipPath
+            );
+            await this.zipDir(option.localPath, localZipPath, option.ignore);
+          }
         }
 
         return {
           name: option.name,
           options: {},
-          source: localZipPath,
+          source,
           entry: option.zipFileName,
         };
       })
