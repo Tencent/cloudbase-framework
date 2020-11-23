@@ -1,7 +1,7 @@
 pipeline {
     agent {
       docker {
-        image 'binggg/cloudbase-framework-runner:latest'
+        image 'binggg/cloudbase-framework-runner:beta'
         reuseNode true
       }
     }
@@ -78,12 +78,6 @@ pipeline {
                 fi
 
                 cd oneclick-deploy
-                # 配置文件 cloudbaserc.* 个数, 为 0 即不存在
-                cfgCount=$(ls -f cloudbaserc.* | wc -l)
-                if [ $cfgCount -eq 0 ]; then
-                    echo "'$CODE_URL_WITH_AUTH' is not a valid tencent cloudbase project"
-                    exit 1
-                fi
                 '''
             }
         }
