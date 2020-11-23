@@ -6,7 +6,7 @@ ARG tag=latest
 COPY ./package.json /root/cloudbase-framework/registry/package.json
 
 # 使用国内镜像源
-RUN npm config set registry https://registry.npm.taobao.org && \
+RUN npm config set registry http://mirrors.tencent.com/npm/ && \
     # 安装 CLI 及 PNPM
     npm install -g @cloudbase/cli@$tag pnpm && \
     echo $tag && \
