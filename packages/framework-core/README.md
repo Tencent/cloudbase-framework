@@ -84,7 +84,7 @@ cloudbase framework deploy
   <tr><td style="vertical-align: top;">
         <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/react-demo"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/cloudbase-cms/upload/2020-11-01/y37ugvjfq5gdb7koct2s70l01llb21xs-react.png">
         <br />
-        <b>React 全栈应用示例 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
+        <b>React 全栈应用 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
         <p style="min-height: 60px;">快速搭建基于 React 结合TypeScript 开发的应用示例 ，使用云函数, 云数据库, 静态托管云资源</p>
         <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/TencentCloudBase/cloudbase-templates&workDir=react-demo" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>         <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/react-demo">
         </a>
