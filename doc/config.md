@@ -122,19 +122,19 @@ framework 使用的插件配置，你可以配置多个插件，插件可以帮�
 
 插件入参配置，不同的插件，支持的入参不同，可以点击下面列表前往对应的插件地址查看具体的入参属性：
 
-- [@cloudbase/framework-plugin-website](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-website)
+- [@cloudbase/framework-plugin-website](https://gitee.com/TencentCloudBase/cloudbase-framework/tree/gitee/packages/framework-plugin-website)
 
-- [@cloudbase/framework-plugin-nuxt](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-nuxt)
+- [@cloudbase/framework-plugin-nuxt](https://gitee.com/TencentCloudBase/cloudbase-framework/tree/gitee/packages/framework-plugin-nuxt)
 
-- [@cloudbase/framework-plugin-node](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-node)
+- [@cloudbase/framework-plugin-node](https://gitee.com/TencentCloudBase/cloudbase-framework/tree/gitee/packages/framework-plugin-node)
 
-- [@cloudbase/framework-plugin-function](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-function)
+- [@cloudbase/framework-plugin-function](https://gitee.com/TencentCloudBase/cloudbase-framework/tree/gitee/packages/framework-plugin-function)
 
-- [@cloudbase/framework-plugin-database](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-database)
+- [@cloudbase/framework-plugin-database](https://gitee.com/TencentCloudBase/cloudbase-framework/tree/gitee/packages/framework-plugin-database)
 
-- [@cloudbase/framework-plugin-dart](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-dart)
+- [@cloudbase/framework-plugin-dart](https://gitee.com/TencentCloudBase/cloudbase-framework/tree/gitee/packages/framework-plugin-dart)
 
-- [@cloudbase/framework-plugin-container](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-container)
+- [@cloudbase/framework-plugin-container](https://gitee.com/TencentCloudBase/cloudbase-framework/tree/gitee/packages/framework-plugin-container)
 
 ## `framework.hooks`
 

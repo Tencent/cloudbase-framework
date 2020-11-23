@@ -6,7 +6,7 @@
 
 下面是部署按钮的示例，可以尝试点击来一键部署一个 Vue 全栈项目。
 
-[![](https://main.qcloudimg.com/raw/95b6b680ef97026ae10809dbd6516117.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=github&tdl_site=0&appUrl=https%3A%2F%2Fgithub.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=vue&appName=example-app)
+[![](https://main.qcloudimg.com/raw/95b6b680ef97026ae10809dbd6516117.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&tdl_anchor=gitee&tdl_site=0&appUrl=https%3A%2F%2Fgitee.com%2FTencentCloudBase%2Fcloudbase-templates&workDir=vue&appName=example-app)
 
 您可以为自己的项目生成一个自定义的部署按钮，只需要填写表单来生成代码片段，然后就可以嵌入到您的 Git 仓库 README 页面、博客、文章等其他可以展示链接的地方，让用户可以快速一键部署和复制一个前后端应用。
 
@@ -28,9 +28,9 @@ CloudBase App 项目需要满足以下的应用 3 要素
 
 ## 应用开发文档
 
-- 如何在云函数、云托管、网站应用中注入自定义环境变量： https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/env-variables.md
-- cloudbaserc 文件中的模板变量说明：https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/mode.md
-- cloudbaserc 文件配置文档：https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/config.md
+- 如何在云函数、云托管、网站应用中注入自定义环境变量： https://gitee.com/TencentCloudBase/cloudbase-framework/blob/gitee/doc/env-variables.md
+- cloudbaserc 文件中的模板变量说明：https://gitee.com/TencentCloudBase/cloudbase-framework/blob/gitee/doc/mode.md
+- cloudbaserc 文件配置文档：https://gitee.com/TencentCloudBase/cloudbase-framework/blob/gitee/doc/config.md
 
 ## 应用模板示例
 
