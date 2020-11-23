@@ -174,6 +174,8 @@ export class CloudBaseFrameworkCore {
    * @param params
    */
   async run(module?: string, params?: CommandParams) {
+    const logger = getLogger();
+    logger.debug('run', module, params);
     await this.pluginManager.run(module, params?.runCommandKey);
   }
 
@@ -183,7 +185,9 @@ export class CloudBaseFrameworkCore {
    * @param module
    * @param params
    */
-  async compile(module?: string) {
+  async compile(module?: string, params?: any) {
+    const logger = getLogger();
+    logger.debug('compile', module, params);
     await this.hooks.callHook('preDeploy');
     await this._compile(module);
   }
@@ -193,7 +197,9 @@ export class CloudBaseFrameworkCore {
    * @param module
    * @param params
    */
-  async deploy(module?: string) {
+  async deploy(module?: string, params?: any) {
+    const logger = getLogger();
+    logger.debug('deploy', module, params);
     await this.hooks.callHook('preDeploy');
     await this._compile(module);
     await this.samManager.install(this.createProjectVersion.bind(this));
