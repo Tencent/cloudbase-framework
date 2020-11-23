@@ -70,22 +70,14 @@ export class ContainerApi {
       },
     };
 
-    this.logger.debug('upload', data);
-
     const response = await this.cloudApi.fetchStream(
       UploadUrl,
       data,
       process.env.http_proxy
     );
-    const text = await (await response.text()).trim();
 
     if (response.status !== 200) {
       console.error(response.url, response.statusText);
-      throw new Error('部署云托管代码失败');
-    }
-
-    if (text !== 'success') {
-      console.error(text);
       throw new Error('部署云托管代码失败');
     }
 
