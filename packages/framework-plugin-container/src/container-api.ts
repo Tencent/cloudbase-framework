@@ -93,7 +93,7 @@ export class ContainerApi {
   describeCloudBaseBuildService(serviceName: string) {
     return this.cloudApi.tcbService.request('DescribeCloudBaseBuildService', {
       ServiceName: serviceName,
-      CIBusiness: 'framework-ci',
+      CIBusiness: 'cloudbaserun',
     });
   }
 
