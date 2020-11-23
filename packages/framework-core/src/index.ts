@@ -288,6 +288,9 @@ ${entryLogInfo}`);
         WorkDir: '',
       };
 
+      // 兼容类型错误
+      delete Source.Headers;
+
       // 旧的字段保持 JSON 格式，新字段使用字符串格式
       const data = await createAndDeployCloudBaseProject({
         Name,
