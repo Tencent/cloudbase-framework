@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/cloudbaserc-json-schema",
-  "version": "1.3.2-beta.87+f3b42a4",
+  "version": "1.3.2-beta.88+a074d27",
   "description": "cloudbaserc 配置文件的 JSON Schema 定义",
   "keywords": [
     "cloudbase",
@@ -33,20 +33,20 @@
     "url": "https://github.com/TencentCloudBase/cloudbase-framework/issues"
   },
   "dependencies": {
-    "@cloudbase/framework-plugin-auth": "^1.3.2-beta.87+f3b42a4",
-    "@cloudbase/framework-plugin-container": "^1.3.2-beta.87+f3b42a4",
-    "@cloudbase/framework-plugin-dart": "^1.3.2-beta.87+f3b42a4",
-    "@cloudbase/framework-plugin-database": "^1.3.2-beta.87+f3b42a4",
-    "@cloudbase/framework-plugin-deno": "^1.3.2-beta.87+f3b42a4",
-    "@cloudbase/framework-plugin-function": "^1.3.2-beta.87+f3b42a4",
-    "@cloudbase/framework-plugin-mp": "^1.3.2-beta.87+f3b42a4",
-    "@cloudbase/framework-plugin-next": "^1.3.2-beta.87+f3b42a4",
-    "@cloudbase/framework-plugin-node": "^1.3.2-beta.87+f3b42a4",
-    "@cloudbase/framework-plugin-nuxt": "^1.3.2-beta.87+f3b42a4",
-    "@cloudbase/framework-plugin-website": "^1.3.2-beta.87+f3b42a4",
+    "@cloudbase/framework-plugin-auth": "^1.3.2-beta.88+a074d27",
+    "@cloudbase/framework-plugin-container": "^1.3.2-beta.88+a074d27",
+    "@cloudbase/framework-plugin-dart": "^1.3.2-beta.88+a074d27",
+    "@cloudbase/framework-plugin-database": "^1.3.2-beta.88+a074d27",
+    "@cloudbase/framework-plugin-deno": "^1.3.2-beta.88+a074d27",
+    "@cloudbase/framework-plugin-function": "^1.3.2-beta.88+a074d27",
+    "@cloudbase/framework-plugin-mp": "^1.3.2-beta.88+a074d27",
+    "@cloudbase/framework-plugin-next": "^1.3.2-beta.88+a074d27",
+    "@cloudbase/framework-plugin-node": "^1.3.2-beta.88+a074d27",
+    "@cloudbase/framework-plugin-nuxt": "^1.3.2-beta.88+a074d27",
+    "@cloudbase/framework-plugin-website": "^1.3.2-beta.88+a074d27",
     "typescript-json-schema": "^0.42.0"
   },
-  "gitHead": "f3b42a4c1c17cf79bcb2234f11f5a63d2ed5cc93",
+  "gitHead": "a074d2786e621dfed2c807170c89129467a5f8c8",
   "devDependencies": {
     "cli-watch": "^1.0.7"
   }
