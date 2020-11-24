@@ -1,3 +1,6 @@
 [submodule "templates"]
 	path = templates
 	url = https://github.com/TencentCloudBase/cloudbase-templates
+[submodule "doc"]
+	path = doc
+	url = https://github.com/TencentCloudBase/cloudbase-framework-doc
