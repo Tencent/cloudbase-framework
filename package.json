@@ -2,6 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
+    "dev:all": "npm run bootstrap && npm run link && npm run dev",
     "bootstrap": "lerna bootstrap --no-ci",
     "dev": "lerna run dev --stream --parallel",
     "prebuild": "rm -rf **/*.tsbuildinfo",
@@ -10,6 +11,7 @@
     "publish": "lerna publish",
     "publish:beta": "lerna publish --canary --preid beta --pre-dist-tag beta",
     "test": "lerna run test",
+    "lint": "npx eslint . --fix",
     "clean": "lerna run clean",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "link": "node scripts/link-packages.js",
@@ -20,10 +22,16 @@
     "build:markdown": "node scripts/markdown-render.js"
   },
   "devDependencies": {
+    "@tencent/eslint-config-tencent": "^0.12.2",
+    "@typescript-eslint/eslint-plugin": "^4.6.1",
+    "@typescript-eslint/parser": "^4.6.1",
     "conventional-changelog-cli": "^2.0.34",
     "cz-conventional-changelog": "^3.2.0",
+    "eslint": "^7.12.1",
+    "eslint-plugin-header": "^3.1.0",
     "lerna": "^3.20.2",
-    "license-checker": "^25.0.1"
+    "license-checker": "^25.0.1",
+    "typescript": "^4.0.5"
   },
   "dependencies": {
     "@cloudbase/toolbox": "^0.4.11",
@@ -34,5 +42,8 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "prettier": {
+    "singleQuote": true
   }
 }

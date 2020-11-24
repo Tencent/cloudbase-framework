@@ -1,17 +1,34 @@
-import { exec } from "child_process";
-import { promisify } from "util";
-import fs from "fs";
+/**
+ *
+ * Copyright 2020 Tencent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+import { exec } from 'child_process';
+import { promisify } from 'util';
+import fs from 'fs';
 
-import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
-import { plugin as FunctionPlugin } from "@cloudbase/framework-plugin-function";
-import { NextBuilder } from "@cloudbase/next-builder";
+import { Plugin, PluginServiceApi } from '@cloudbase/framework-core';
+import { plugin as FunctionPlugin } from '@cloudbase/framework-plugin-function';
+import { NextBuilder } from '@cloudbase/next-builder';
 
 const DEFAULT_INPUTS = {
-  runtime: "Nodejs10.15",
-  entry: "./",
-  name: "next-ssr",
-  path: "/next-ssr",
-  buildCommand: "npm run build",
+  runtime: 'Nodejs10.15',
+  entry: './',
+  name: 'next-ssr',
+  path: '/next-ssr',
+  buildCommand: 'npm run build',
 };
 
 /**
@@ -47,7 +64,38 @@ export interface IFrameworkPluginNextInputs {
    * 函数运行时版本
    * @default "Nodejs10.15
    */
-  runtime?: "Nodejs10.15" | "Nodejs8.9";
+  runtime?: 'Nodejs10.15' | 'Nodejs8.9';
+
+  /**
+   * 函数选项
+   *
+   * 选填，可以支持自定义更多高级设置，例如 VPC 环境变量等
+   *
+   * 例如
+   *
+   * ```json
+   * {
+   *   "use": "@cloudbase/framework-plugin-next",
+   *   "inputs": {
+   *     "path": "/next-ssr",
+   *     "name": "next-ssr",
+   *     "functionOptions": {
+   *       "timeout": 5,
+   *       "envVariables": {
+   *         "TEST_ENV": 1
+   *       },
+   *       "vpc": {
+   *         "vpcId": "xxx",
+   *         "subnetId": "xxx"
+   *       }
+   *     }
+   *   }
+   * }
+   * ```
+   *
+   * 具体配置信息请参考 [@cloudbase/framework-plugin-function](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/packages/framework-plugin-function/README.md#functions) 配置
+   */
+  functionOptions?: any;
 }
 
 type ResolvedInputs = IFrameworkPluginNextInputs & typeof DEFAULT_INPUTS;
@@ -76,16 +124,16 @@ class NextPlugin extends Plugin {
    * 初始化
    */
   async init() {
-    this.api.logger.debug("NextPlugin: init", this.resolvedInputs);
+    this.api.logger.debug('NextPlugin: init', this.resolvedInputs);
 
-    if (fs.existsSync("package.json")) {
-      this.api.logger.info("npm install");
-      return promisify(exec)("npm install");
+    if (fs.existsSync('package.json')) {
+      this.api.logger.info('npm install');
+      return promisify(exec)('npm install');
     }
   }
 
   async compile() {
-    this.api.logger.debug("NextPlugin: compile", this.resolvedInputs);
+    this.api.logger.debug('NextPlugin: compile', this.resolvedInputs);
 
     return this.functionPlugin.compile();
   }
@@ -109,7 +157,7 @@ class NextPlugin extends Plugin {
    * 构建
    */
   async build() {
-    this.api.logger.debug("NextPlugin: build", this.resolvedInputs);
+    this.api.logger.debug('NextPlugin: build', this.resolvedInputs);
 
     const { buildCommand } = this.resolvedInputs;
 
@@ -124,7 +172,7 @@ class NextPlugin extends Plugin {
 
     const srcFunction = this.buildOutput.functions[0];
 
-    this.functionPlugin = new FunctionPlugin("function", this.api, {
+    this.functionPlugin = new FunctionPlugin('function', this.api, {
       functionRootPath: srcFunction.source,
       functions: [
         {
@@ -132,6 +180,8 @@ class NextPlugin extends Plugin {
           handler: srcFunction.entry,
           runtime: this.resolvedInputs.runtime,
           installDependency: true,
+          ignore: ['.next/cache/**'],
+          ...(this.resolvedInputs.functionOptions || {}),
         },
       ],
       servicePaths: {
@@ -145,7 +195,7 @@ class NextPlugin extends Plugin {
    */
   async deploy() {
     this.api.logger.debug(
-      "NextPlugin: deploy",
+      'NextPlugin: deploy',
       this.resolvedInputs,
       this.buildOutput
     );
@@ -154,7 +204,7 @@ class NextPlugin extends Plugin {
 
     await this.builder.clean();
 
-    this.api.logger.info(`🚀 Next 应用部署成功`);
+    this.api.logger.info('🚀 Next 应用部署成功');
   }
 }
 

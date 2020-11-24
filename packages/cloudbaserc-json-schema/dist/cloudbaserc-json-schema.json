@@ -1,11 +1,12 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "id": "https://cloudbase.net/schemas/cli-1/schema",
+  "id": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json",
   "title": "CloudBase CLI Configuration",
   "type": "object",
   "properties": {
     "$schema": {
-      "type": "string"
+      "type": "string",
+      "default": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json"
     },
     "additionalProperties": false,
     "version": {
@@ -32,24 +33,40 @@
     "framework": {
       "type": "object",
       "description": "CloudBase Framework 配置项",
+      "required": [
+        "name",
+        "plugins"
+      ],
       "properties": {
         "name": {
           "type": "string",
-          "description": "应用唯一标识，一个账号下最好不要有重名的 name。",
-          "maxLength": 16
+          "pattern": "^[a-zA-Z][a-zA-Z0-9_-]*$",
+          "description": "应用唯一标识，一个账号下最好不要有重名的 name。只支持A-Z a-z 0-9 - 和_",
+          "maxLength": 32,
+          "minLength": 1
         },
         "plugins": {
           "additionalProperties": false,
+          "title": "插件配置",
+          "description": "描述您的应用依赖哪些 CloudBase Framework 插件，以便根据配置来构建和部署您的应用，应用可以使用多个插件，具体插件配置方式参考插件文档。",
+          "minProperties": 1,
+          "default": {
+            "client": {
+              "use": "",
+              "inputs": {}
+            }
+          },
           "patternProperties": {
-            "^[a-zA-Z0-9]+$": {
+            "^[a-zA-Z0-9\\-]+$": {
               "$ref": "#/definitions/pluginConfig"
             }
           }
         },
         "hooks": {
+          "$id": "HooksConfig",
           "type": "object",
-          "title": "生命周期钩子配置",
-          "description": "Framework 1.2.x 版本支持，CloudBase Framework 生命周期钩子",
+          "title": "生命周期",
+          "description": "Framework 1.2.x 版本支持，CloudBase Framework 部署前后的钩子配置，可以在这里自定义应用不同生命周期的执行动作",
           "examples": [
             {
               "preDeploy": {
@@ -79,6 +96,7 @@
           ],
           "properties": {
             "preDeploy": {
+              "$id": "PreDeployHooksConfig",
               "type": "object",
               "title": "preDeploy 钩子",
               "description": "在执行 framework deploy 之前执行的钩子",
@@ -99,14 +117,12 @@
               "additionalProperties": true
             },
             "postDeploy": {
+              "$id": "PostDeployHooksConfig",
               "type": "object",
               "title": "postDeploy 钩子",
               "description": "在执行 framework deploy 部署资源成功后执行的钩子",
               "default": {},
               "anyOf": [
-                {
-                  "$ref": "#/definitions/hooksExecCommand"
-                },
                 {
                   "$ref": "#/definitions/hooksCallFunction"
                 }
@@ -119,11 +135,15 @@
     }
   },
   "required": [
-    "envId"
+    "envId",
+    "framework"
   ],
   "definitions": {
     "pluginConfig": {
       "anyOf": [
+        {
+          "$ref": "#/definitions/genericPluginConfig"
+        },
         {
           "$ref": "#/definitions/IFrameworkPluginWebsiteInputsConfig"
         },
@@ -157,7 +177,39 @@
         {
           "$ref": "#/definitions/IFrameworkPluginAuthInputsConfig"
         }
-      ]
+      ],
+      "title": "单个插件配置信息",
+      "required": [
+        "use",
+        "inputs"
+      ],
+      "properties": {
+        "use": {
+          "type": "string",
+          "default": "",
+          "minLength": 1,
+          "description": "使用的插件 npm 包名，例如 @cloudbase/framework-plugin-website。支持指定插件版本，例如@cloudbase/framework-plugin-website@1.3.5"
+        },
+        "inputs": {
+          "type": "object",
+          "description": "插件入参配置，不同的插件，支持的入参不同，请查阅对应插件的 README 或者文档"
+        }
+      }
+    },
+    "genericPluginConfig": {
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "default": "",
+          "minLength": 1,
+          "description": "使用的插件 npm 包名，例如 @cloudbase/framework-plugin-website。支持指定插件版本，例如@cloudbase/framework-plugin-website@1.3.5"
+        },
+        "inputs": {
+          "type": "object",
+          "description": "插件入参配置，不同的插件，支持的入参不同，请查阅对应插件的 README 或者文档"
+        }
+      }
     },
     "hooksExecCommand": {
       "properties": {
@@ -260,10 +312,16 @@
                     "default": {},
                     "examples": [
                       {
-                        "foo": 1
+                        "foo": "1"
                       }
                     ],
-                    "additionalProperties": true
+                    "additionalProperties": false,
+                    "patternProperties": {
+                      "^.+$": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    }
                   }
                 },
                 "additionalProperties": true
@@ -453,6 +511,30 @@
           "default": true,
           "type": "boolean"
         },
+        "mode": {
+          "description": "副本模式\n\n1.4.0 版本以后支持\n\n支持 \"low-cost\" | \"high-availability\"\n\"low-cost\" 代表低成本模式，会有冷启动延时，锁定最小副本数为0，规格默认值为0.25C0.5G，副本最小个数不可修改，要修改需要先切换模式。\n\"high-availability\" 代表高可用模式，不存在冷启动，最小副本数不可以为0，规格默认值为1C1G，要修改最小副本数到0需要先切换模式。",
+          "default": "low-cost",
+          "enum": [
+            "high-availability",
+            "low-cost"
+          ],
+          "type": "string"
+        },
+        "customLogs": {
+          "description": "用户自定义采集日志路径\n\nString\t1-1024",
+          "maxLength": 1024,
+          "type": "string"
+        },
+        "initialDelaySeconds": {
+          "description": "延迟多长时间开始健康检查（单位s）0-1000",
+          "minimum": 0,
+          "maximum": 1000,
+          "type": "number"
+        },
+        "versionRemark": {
+          "description": "版本备注",
+          "type": "string"
+        },
         "flowRatio": {
           "description": "流量占比（0-100）",
           "minimum": 0,
@@ -461,18 +543,18 @@
           "type": "number"
         },
         "cpu": {
-          "description": "CPU 的大小，1-128, 单位：核，默认值 `1`",
-          "default": 1,
+          "description": "CPU 的大小，0.25-128, 单位：核，默认值 `0.25`",
+          "default": 0.25,
           "type": "number"
         },
         "mem": {
-          "description": "Mem 的大小，1-128, 单位：G，默认值 `1`",
-          "default": 1,
+          "description": "Mem 的大小，0.5-128, 单位：G，默认值 `0.5`",
+          "default": 0.5,
           "type": "number"
         },
         "minNum": {
-          "description": "最小副本数, 1-50，默认值 `1`",
-          "default": 1,
+          "description": "最小副本数, 1-50，默认值 `0`",
+          "default": 0,
           "type": "number"
         },
         "maxNum": {
@@ -535,6 +617,10 @@
         "codeDetail": {
           "description": "`uploadType` 填写为 `repository` 时需要填写`codeDetail`，类型是对象格式\n\n例如\n\n```json\n{\n   \"envId\": \"{{envId}}\",\n   \"framework\": {\n     \"name\": \"capp-example\",\n     \"plugins\": {\n       \"client\": {\n         \"use\": \"@cloudbase/framework-plugin-container\",\n         \"inputs\": {\n           \"serviceName\": \"deno\",\n           \"servicePath\": \"/deno\",\n           \"localPath\": \"./\",\n           \"uploadType\": \"repository\",\n           \"codeDetail\": {\n             \"name\": \"deno-docker\",\n             \"url\": \"https://github.com/TabSpace/deno-docker\"\n           }\n         }\n       }\n     }\n   }\n}\n```",
           "$ref": "#/definitions/IContainerCodeDetail"
+        },
+        "volumeMounts": {
+          "description": "挂载目录\n1.4.0 版本以后支持\nkey 为挂载路径，value为挂载的 CFS Addon 的 Name",
+          "$ref": "#/definitions/Record<string,string>"
         }
       },
       "required": [
@@ -636,7 +722,7 @@
             },
             "envVariables": {
               "description": "包含环境变量的键值对",
-              "$ref": "#/definitions/Record<string,string|number|boolean>"
+              "$ref": "#/definitions/Record<string,string>"
             }
           },
           "$schema": "http://json-schema.org/draft-07/schema#"
@@ -646,9 +732,6 @@
         "use",
         "inputs"
       ]
-    },
-    "Record<string,string|number|boolean>": {
-      "type": "object"
     },
     "IFrameworkPluginFunctionInputsConfig": {
       "additionalProperties": false,
@@ -707,7 +790,7 @@
         },
         "envVariables": {
           "description": "包含环境变量的键值对",
-          "$ref": "#/definitions/Record<string,string|number|boolean>"
+          "$ref": "#/definitions/Record<string,string>"
         },
         "runtime": {
           "description": "运行时环境配置，可选值： `Nodejs8.9, Nodejs10.15 Php7, Java8, Go1`",
@@ -757,8 +840,12 @@
         },
         "aclRule": {
           "description": "安全规则，配置前先阅读文档 https://docs.cloudbase.net/cloud-function/security-rules.html",
-          "default": "{ invoke: true }",
           "$ref": "#/definitions/Record<string,any>"
+        },
+        "codeSecret": {
+          "description": "代码保护密钥，传入此参数将保护代码，在控制台/IDE中无法看到代码明文\n格式为 36 位大小字母和数字",
+          "pattern": "^[a-zA-Z0-9]$",
+          "type": "string"
         }
       },
       "required": [
@@ -825,6 +912,30 @@
               "default": true,
               "type": "boolean"
             },
+            "mode": {
+              "description": "副本模式\n\n1.4.0 版本以后支持\n\n支持 \"low-cost\" | \"high-availability\"\n\"low-cost\" 代表低成本模式，会有冷启动延时，锁定最小副本数为0，规格默认值为0.25C0.5G，副本最小个数不可修改，要修改需要先切换模式。\n\"high-availability\" 代表高可用模式，不存在冷启动，最小副本数不可以为0，规格默认值为1C1G，要修改最小副本数到0需要先切换模式。",
+              "default": "low-cost",
+              "enum": [
+                "high-availability",
+                "low-cost"
+              ],
+              "type": "string"
+            },
+            "customLogs": {
+              "description": "用户自定义采集日志路径\n\nString\t1-1024",
+              "maxLength": 1024,
+              "type": "string"
+            },
+            "initialDelaySeconds": {
+              "description": "延迟多长时间开始健康检查（单位s）0-1000",
+              "minimum": 0,
+              "maximum": 1000,
+              "type": "number"
+            },
+            "versionRemark": {
+              "description": "版本备注",
+              "type": "string"
+            },
             "flowRatio": {
               "description": "流量占比（0-100）",
               "minimum": 0,
@@ -833,18 +944,18 @@
               "type": "number"
             },
             "cpu": {
-              "description": "CPU 的大小，1-128, 单位：核，默认值 `1`",
-              "default": 1,
+              "description": "CPU 的大小，0.25-128, 单位：核，默认值 `0.25`",
+              "default": 0.25,
               "type": "number"
             },
             "mem": {
-              "description": "Mem 的大小，1-128, 单位：G，默认值 `1`",
-              "default": 1,
+              "description": "Mem 的大小，0.5-128, 单位：G，默认值 `0.5`",
+              "default": 0.5,
               "type": "number"
             },
             "minNum": {
-              "description": "最小副本数, 1-50，默认值 `1`",
-              "default": 1,
+              "description": "最小副本数, 1-50，默认值 `0`",
+              "default": 0,
               "type": "number"
             },
             "maxNum": {
@@ -907,6 +1018,10 @@
             "codeDetail": {
               "description": "`uploadType` 填写为 `repository` 时需要填写`codeDetail`，类型是对象格式\n\n例如\n\n```json\n{\n   \"envId\": \"{{envId}}\",\n   \"framework\": {\n     \"name\": \"capp-example\",\n     \"plugins\": {\n       \"client\": {\n         \"use\": \"@cloudbase/framework-plugin-container\",\n         \"inputs\": {\n           \"serviceName\": \"deno\",\n           \"servicePath\": \"/deno\",\n           \"localPath\": \"./\",\n           \"uploadType\": \"repository\",\n           \"codeDetail\": {\n             \"name\": \"deno-docker\",\n             \"url\": \"https://github.com/TabSpace/deno-docker\"\n           }\n         }\n       }\n     }\n   }\n}\n```",
               "$ref": "#/definitions/IContainerCodeDetail"
+            },
+            "volumeMounts": {
+              "description": "挂载目录\n1.4.0 版本以后支持\nkey 为挂载路径，value为挂载的 CFS Addon 的 Name",
+              "$ref": "#/definitions/Record<string,string>"
             }
           },
           "required": [
@@ -936,13 +1051,13 @@
           "type": "object",
           "properties": {
             "serviceName": {
-              "description": "服务名，字符串格式，如 `dart-api`",
-              "default": "dart-api",
+              "description": "服务名，字符串格式，如 `dartapp`",
+              "default": "dartapp",
               "type": "string"
             },
             "servicePath": {
-              "description": "服务访问路径配置, 字符串格式, 如 `/dart-api`",
-              "default": "/dart-api",
+              "description": "服务访问路径配置, 字符串格式, 如 `/dartapp`",
+              "default": "/dartapp",
               "type": "string"
             },
             "localPath": {
@@ -963,6 +1078,11 @@
               "description": "是否对外网开放访问，默认值 `true`",
               "default": true,
               "type": "boolean"
+            },
+            "framework": {
+              "description": "Dart App 应用框架，如 `aqueduct`",
+              "default": "aqueduct",
+              "type": "string"
             }
           },
           "required": [
@@ -1227,6 +1347,9 @@
                 "Nodejs8.9"
               ],
               "type": "string"
+            },
+            "functionOptions": {
+              "description": "函数选项\n\n选填，可以支持自定义更多高级设置，例如 VPC 环境变量等\n\n例如\n\n```json\n{\n   \"use\": \"@cloudbase/framework-plugin-next\",\n   \"inputs\": {\n     \"path\": \"/next-ssr\",\n     \"name\": \"next-ssr\",\n     \"functionOptions\": {\n       \"timeout\": 5,\n       \"envVariables\": {\n         \"TEST_ENV\": 1\n       },\n       \"vpc\": {\n         \"vpcId\": \"xxx\",\n         \"subnetId\": \"xxx\"\n       }\n     }\n   }\n}\n```\n\n具体配置信息请参考 [@cloudbase/framework-plugin-function](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/packages/framework-plugin-function/README.md#functions) 配置"
             }
           },
           "$schema": "http://json-schema.org/draft-07/schema#"

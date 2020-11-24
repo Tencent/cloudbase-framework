@@ -1,8 +1,25 @@
-import path from "path";
-import fs from "fs";
-import cpy from "cpy";
-import { Builder } from "@cloudbase/framework-core";
-import { fetchStream, mkdirSync } from "@cloudbase/toolbox";
+/**
+ *
+ * Copyright 2020 Tencent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+import path from 'path';
+import fs from 'fs';
+import cpy from 'cpy';
+import { Builder } from '@cloudbase/framework-core';
+import { fetchStream, mkdirSync } from '@cloudbase/toolbox';
 
 interface StaticBuilderBuildOptions {
   /**
@@ -27,20 +44,20 @@ interface StaticBuilderOptions {
   copyRoot?: string;
 }
 
-const CONFIG_FILE_NAME = "cloudbaseenv.json";
+const CONFIG_FILE_NAME = 'cloudbaseenv.json';
 
 export class StaticBuilder extends Builder {
   private copyRoot: string;
   constructor(options: StaticBuilderOptions) {
     super({
-      type: "static",
+      type: 'static',
       ...options,
     });
     this.copyRoot = options.copyRoot || this.projectDir;
   }
   async build(includes: string[], options: StaticBuilderBuildOptions = {}) {
-    const contentDistPath = path.join(this.distDir, "content");
-    const configDistPath = path.join(this.distDir, "config");
+    const contentDistPath = path.join(this.distDir, 'content');
+    const configDistPath = path.join(this.distDir, 'config');
 
     // build content
     await cpy(includes, contentDistPath, {
@@ -54,20 +71,20 @@ export class StaticBuilder extends Builder {
       static: [
         {
           src: contentDistPath,
-          cloudPath: options.path || "/",
+          cloudPath: options.path || '/',
         },
       ],
       staticConfig: [
         {
           src: configDistPath,
-          cloudPath: "/",
+          cloudPath: '/',
         },
       ],
       routes: [
         {
-          path: options.path || "/",
-          targetType: "static",
-          target: options.path || "/",
+          path: options.path || '/',
+          targetType: 'static',
+          target: options.path || '/',
         },
       ],
     };

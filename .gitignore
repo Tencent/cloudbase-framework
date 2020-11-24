@@ -126,3 +126,6 @@ out
 
 # osx
 **/.DS_Store
+
+# license report
+license-report.csv

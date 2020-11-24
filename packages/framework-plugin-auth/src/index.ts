@@ -1,4 +1,21 @@
-import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
+/**
+ *
+ * Copyright 2020 Tencent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+import { Plugin, PluginServiceApi } from '@cloudbase/framework-core';
 
 /**
  * 导出接口用于生成 JSON Schema 来进行智能提示
@@ -11,11 +28,11 @@ export interface IAuthConfig {
   /**
    * 登录平台
    */
-  platform: "NONLOGIN" | "ANONYMOUS"
+  platform: 'NONLOGIN' | 'ANONYMOUS'
   /**
    * 开通状态
    */
-  status: "ENABLE" | "DISABLE"
+  status: 'ENABLE' | 'DISABLE'
   /**
    * 登录平台的 AppID，选填
    */
@@ -47,7 +64,7 @@ class AuthPlugin extends Plugin {
    * 初始化
    */
   async init() {
-    this.api.logger.debug("AuthPlugin: init", this.resolvedInputs);
+    this.api.logger.debug('AuthPlugin: init', this.resolvedInputs);
   }
 
   /**
@@ -74,7 +91,7 @@ class AuthPlugin extends Plugin {
    * 生成SAM文件
    */
   async compile() {
-    this.api.logger.debug("AuthPlugin: compile", this.resolvedInputs, this.buildOutput);
+    this.api.logger.debug('AuthPlugin: compile', this.resolvedInputs, this.buildOutput);
 
     return {
       Config: {
@@ -85,7 +102,7 @@ class AuthPlugin extends Plugin {
             PlatformId: platformId,
             PlatformSecret: platformSecret,
             Status: status
-          }
+          };
         })
       }
     };

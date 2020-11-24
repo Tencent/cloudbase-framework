@@ -1,12 +1,29 @@
-import PluginManager from "../plugin-manager";
-import CloudbaseManager from "@cloudbase/manager-node";
-import { Logger } from "../logger";
-import { ResourceProviders } from "../types";
-import { genClickableLink } from "../utils/link";
-import { Generator } from "../generator";
-import { CloudApi } from "../api";
-import { emoji } from "../utils/emoji";
-import { SamManager } from "../sam";
+/**
+ *
+ * Copyright 2020 Tencent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+import PluginManager from '../plugin-manager';
+import CloudbaseManager from '@cloudbase/manager-node';
+import { Logger } from '../logger';
+import { ResourceProviders } from '../types';
+import { genClickableLink } from '../utils/link';
+import { Generator } from '../generator';
+import { CloudApi } from '../api';
+import { emoji } from '../utils/emoji';
+import { SamManager } from '../sam';
 
 /**
  * 插件服务注入为插件提供的 API
@@ -53,21 +70,21 @@ export default class PluginServiceApi {
    * secretId
    */
   get secretId(): string {
-    return this.pluginManager.context.cloudbaseConfig.secretId || "";
+    return this.pluginManager.context.cloudbaseConfig.secretId || '';
   }
 
   /**
    * secretKey
    */
   get secretKey(): string {
-    return this.pluginManager.context.cloudbaseConfig.secretKey || "";
+    return this.pluginManager.context.cloudbaseConfig.secretKey || '';
   }
 
   /**
    * token
    */
   get token(): string {
-    return this.pluginManager.context.cloudbaseConfig.token || "";
+    return this.pluginManager.context.cloudbaseConfig.token || '';
   }
 
   /**
@@ -118,10 +135,14 @@ export default class PluginServiceApi {
   }
 
   /**
-   * 获取 samManager API
+   * 获取 cloudbase 配置
    */
+  get appConfig() {
+    return this.pluginManager.context.appConfig;
+  }
+
   /**
-   * 获取资源操作 API
+   * 获取 samManager API
    */
   get samManager(): SamManager {
     return this.pluginManager.context.samManager;

@@ -1,17 +1,34 @@
-import fs from "fs";
-import path from "path";
-import crypto from "crypto";
+/**
+ *
+ * Copyright 2020 Tencent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+import fs from 'fs';
+import path from 'path';
+import crypto from 'crypto';
 
-import merge from "lodash.merge";
-import JSYaml from "js-yaml";
-import ProgressBar from "progress";
-import { fetchStream } from "@cloudbase/cloud-api";
-import { getProxy } from "@cloudbase/toolbox";
+import merge from 'lodash.merge';
+import JSYaml from 'js-yaml';
+import ProgressBar from 'progress';
+import { fetchStream } from '@cloudbase/cloud-api';
+import { getProxy } from '@cloudbase/toolbox';
 
-import { DEFAULT_SAM } from "./default-sam";
-import { SamApi } from "./api";
-import getLogger from "../logger";
-import { ISAM, IExtensionLocalFile } from "./types";
+import { DEFAULT_SAM } from './default-sam';
+import { SamApi } from './api';
+import getLogger from '../logger';
+import { ISAM, IExtensionLocalFile } from './types';
 
 const logger = getLogger();
 
@@ -40,27 +57,37 @@ export class SamManager {
         prev = [...prev, ...(cur || [])];
         return prev;
       }, []);
+
     this.samObj = merge(DEFAULT_SAM, meta, ...samSections, {
       EntryPoint,
     });
-    this.samObj.Resources = Object.entries(this.samObj.Resources || {}).reduce(
-      (prev: Record<string, any>, cur) => {
-        const [name, resource] = cur;
-        prev[name] = resource;
-        return prev;
-      },
-      {}
+    this.samObj.Resources = JSON.parse(
+      JSON.stringify(
+        Object.entries(this.samObj.Resources || {}).reduce(
+          (prev: Record<string, any>, cur) => {
+            const [name, resource] = cur;
+            prev[name] = resource;
+            return prev;
+          },
+          {}
+        )
+      )
     );
-    const samYaml = JSYaml.safeDump(this.samObj);
-    fs.writeFileSync(path.join(this.projectPath, "TCBSAM.yaml"), samYaml);
+
+    // parse 和 stringify 是为了去掉undefined等 yaml 不支持的格式
+    const samYaml = JSYaml.safeDump(JSON.parse(JSON.stringify(this.samObj)));
+
+    fs.writeFileSync(path.join(this.projectPath, 'TCBSAM.yaml'), samYaml);
   }
 
   /**
    * 安装
    */
-  async install() {
+  async install(createProjectVersion?: (template: ISAM) => Promise<any>) {
     const template = this.readSam();
+    let isCloudBuild = !!process.env.CLOUDBASE_CIID;
     let extensionId: string;
+    let ciId: string | undefined = process.env.CLOUDBASE_CIID;
 
     // 没有资源需要部署的情况不走 SAM安装
     if (
@@ -70,29 +97,36 @@ export class SamManager {
       return this.clear();
     }
 
+    if (typeof createProjectVersion === 'function') {
+      ciId = await createProjectVersion(template);
+    }
+
     try {
       try {
-        logger.debug("sam:install", template);
+        logger.debug('sam:install', template);
         const res = await this.samApi.createAndInstall(
           JSON.stringify(template)
         );
         extensionId = res.ExtensionId;
       } catch (e) {
-        if (e.code === "ResourceInUse") {
+        if (e.code === 'ResourceInUse') {
           extensionId = e.original.Message;
         } else {
           throw e;
         }
       }
 
-      // 云端一键部署时不轮询查询结果
-      if (process.env.CLOUDBASE_CIID) {
+      // 回调扩展信息，和项目关联
+      if (ciId) {
         await this.samApi.reportCloudBaseCIResultCallback(
-          process.env.CLOUDBASE_CIID,
-          process.env.CLOUDBASE_TRACEID || "",
+          ciId,
+          process.env.CLOUDBASE_TRACEID || '',
           extensionId
         );
-      } else {
+      }
+
+      // 云端一键部署时不轮询查询结果
+      if (!isCloudBuild) {
         await this.checkStatus(extensionId);
       }
     } catch (e) {
@@ -111,9 +145,9 @@ export class SamManager {
    * @param extensionId
    */
   async checkStatus(extensionId: string) {
-    const bar = new ProgressBar("正在部署[:bar] :percent :elapsed s", {
-      complete: "░",
-      incomplete: " ",
+    const bar = new ProgressBar('正在部署[:bar] :percent :elapsed s', {
+      complete: '░',
+      incomplete: ' ',
       width: 40,
       total: 100,
     });
@@ -128,14 +162,14 @@ export class SamManager {
 
       const taskInfo = taskInfos[0];
 
-      logger.debug("ext taskInfo", taskInfo);
+      logger.debug('ext taskInfo', taskInfo);
 
       if (taskInfo) {
         const delta = (taskInfo.Percent || 0) - percent;
         percent = taskInfo.Percent || 0;
         bar.tick(delta);
 
-        if (taskInfo.Status === "running") {
+        if (taskInfo.Status === 'running') {
           return true;
         } else if (taskInfo.Detail) {
           throw new Error(
@@ -145,13 +179,13 @@ export class SamManager {
         }
       }
 
-      return taskInfos.filter((item: any) => ["running"].includes(item.Status))
+      return taskInfos.filter((item: any) => ['running'].includes(item.Status))
         .length;
     });
   }
 
   clear() {
-    fs.unlinkSync(path.join(this.projectPath, "TCBSAM.yaml"));
+    fs.unlinkSync(path.join(this.projectPath, 'TCBSAM.yaml'));
   }
 
   async waitUntil(fn: () => Promise<boolean>, interval?: 5000) {
@@ -212,13 +246,13 @@ export class SamManager {
     const headers: Record<string, string> = {};
 
     if (customKey) {
-      headers["x-cos-server-side-encryption-customer-algorithm"] = "AES256";
-      headers["x-cos-server-side-encryption-customer-key"] = Buffer.from(
+      headers['x-cos-server-side-encryption-customer-algorithm'] = 'AES256';
+      headers['x-cos-server-side-encryption-customer-key'] = Buffer.from(
         customKey
-      ).toString("base64");
+      ).toString('base64');
       headers[
-        "x-cos-server-side-encryption-customer-key-MD5"
-      ] = crypto.createHash("md5").update(customKey).digest("base64");
+        'x-cos-server-side-encryption-customer-key-MD5'
+      ] = crypto.createHash('md5').update(customKey).digest('base64');
     }
 
     const size = fs.statSync(file).size;
@@ -229,18 +263,18 @@ export class SamManager {
       throw new Error(`${file} 文件大小为 0，请检查`);
     }
 
-    headers["Content-Type"] = "application/zip";
+    headers['Content-Type'] = 'application/zip';
 
-    logger.debug("uploadFileViaUrlAndKey: headers", headers);
+    logger.debug('uploadFileViaUrlAndKey: headers', headers);
 
-    logger.debug("uploadFileViaUrlAndKey: file", file, "size", size);
+    logger.debug('uploadFileViaUrlAndKey: file', file, 'size', size);
 
     await fetchStream(
       url,
       {
         body: fs.createReadStream(file),
         headers,
-        method: "PUT",
+        method: 'PUT',
       },
       getProxy()
     );
@@ -251,8 +285,8 @@ export class SamManager {
    */
   readSam(): ISAM {
     const samFile = fs.readFileSync(
-      path.join(this.projectPath, "TCBSAM.yaml"),
-      "utf-8"
+      path.join(this.projectPath, 'TCBSAM.yaml'),
+      'utf-8'
     );
     return JSYaml.safeLoad(samFile) as ISAM;
   }

@@ -6,16 +6,16 @@ ARG tag=latest
 COPY ./package.json /root/cloudbase-framework/registry/package.json
 
 # 使用国内镜像源
-RUN npm config set registry https://registry.npm.taobao.org && \
+RUN npm config set registry https://registry.npmjs.org/ && \
     # 安装 CLI 及 PNPM
-    npm install -g @cloudbase/cli@$tag pnpm && \
+    npm install -g @cloudbase/cli@$tag && \
     echo $tag && \
     # 全局安装 Deno
     curl -fsSL https://deno.land/x/install/install.sh | sh && \
     echo 'export DENO_INSTALL="/root/.deno"\nexport PATH="$DENO_INSTALL/bin:$PATH"' >> ~/.profile && \
     # 全局安装插件
     cd /root/cloudbase-framework/registry/ && \
-    pnpm install && \
+    npm install && \
     . ~/.profile && \
     deno --version
 

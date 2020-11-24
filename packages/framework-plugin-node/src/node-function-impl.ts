@@ -1,10 +1,27 @@
-import path from "path";
+/**
+ *
+ * Copyright 2020 Tencent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+import path from 'path';
 
-import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
-import { plugin as FunctionPlugin } from "@cloudbase/framework-plugin-function";
-import { NodeBuilder } from "@cloudbase/node-builder";
+import { Plugin, PluginServiceApi } from '@cloudbase/framework-core';
+import { plugin as FunctionPlugin } from '@cloudbase/framework-plugin-function';
+import { NodeBuilder } from '@cloudbase/node-builder';
 
-import { IFrameworkPluginNodeInputs } from "./types";
+import { IFrameworkPluginNodeInputs } from './types';
 
 class NodeFunctionPlugin extends Plugin {
   protected resolvedInputs: Record<string, any>;
@@ -20,10 +37,10 @@ class NodeFunctionPlugin extends Plugin {
     super(name, api, inputs);
 
     const DEFAULT_INPUTS = {
-      runtime: "Nodejs10.15",
-      entry: "app.js",
-      path: "/nodeapp",
-      name: "node",
+      runtime: 'Nodejs10.15',
+      entry: 'app.js',
+      path: '/nodeapp',
+      name: 'node',
     };
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
@@ -31,7 +48,7 @@ class NodeFunctionPlugin extends Plugin {
     this.nodeBuilder = new NodeBuilder({
       projectPath: path.join(
         this.api.projectPath,
-        this.resolvedInputs.projectPath || ""
+        this.resolvedInputs.projectPath || ''
       ),
     });
   }
@@ -72,7 +89,7 @@ class NodeFunctionPlugin extends Plugin {
 
     const srcFunction = this.buildOutput.functions[0];
 
-    this.functionPlugin = new FunctionPlugin("function", this.api, {
+    this.functionPlugin = new FunctionPlugin('function', this.api, {
       functionRootPath: srcFunction.source,
       functions: [
         {

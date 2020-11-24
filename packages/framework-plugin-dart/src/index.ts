@@ -1,15 +1,32 @@
-import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
+/**
+ *
+ * Copyright 2020 Tencent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+import { Plugin, PluginServiceApi } from '@cloudbase/framework-core';
 import {
   plugin as ContainerPlugin,
   IFrameworkPluginContainerInputs,
-} from "@cloudbase/framework-plugin-container";
-import { DartBuilder } from "./builder";
+} from '@cloudbase/framework-plugin-container';
+import { DartBuilder } from './builder';
 
 const DEFAULT_INPUTS = {
-  servicePath: "/dartapp",
-  serviceName: "dartapp",
-  localPath: "./",
-  framework: "aqueduct"
+  servicePath: '/dartapp',
+  serviceName: 'dartapp',
+  localPath: './',
+  framework: 'aqueduct',
 };
 
 /**
@@ -50,7 +67,7 @@ export interface IFrameworkPluginDartInputs {
   isPublic?: boolean;
   /**
    * Dart App 应用框架，如 `aqueduct`
-   * 
+   *
    * @default aqueduct
    */
   framework?: string;
@@ -82,14 +99,14 @@ class DartPlugin extends Plugin {
    * 初始化
    */
   async init() {
-    this.api.logger.debug("DartPlugin: init", this.resolvedInputs);
+    this.api.logger.debug('DartPlugin: init', this.resolvedInputs);
   }
 
   /**
    * 编译
    */
   async compile() {
-    this.api.logger.debug("DartPlugin: compile", this.resolvedInputs);
+    this.api.logger.debug('DartPlugin: compile', this.resolvedInputs);
 
     return this.containerPlugin.compile();
   }
@@ -113,7 +130,7 @@ class DartPlugin extends Plugin {
    * 构建
    */
   async build() {
-    this.api.logger.debug("DartPlugin: build", this.resolvedInputs);
+    this.api.logger.debug('DartPlugin: build', this.resolvedInputs);
 
     // 构建 dart server 中间产物
     this.buildOutput = await this.dartBuilder.build(
@@ -127,13 +144,15 @@ class DartPlugin extends Plugin {
     const container = this.buildOutput.containers[0];
 
     this.containerPlugin = new ContainerPlugin(
-      "container",
+      'container',
       this.api,
       resolveInputs(
         { localAbsolutePath: container.source },
         this.resolvedInputs
       )
     );
+
+    await this.containerPlugin.init();
 
     // 构建 container 最终产物
     await this.containerPlugin.build();
@@ -144,7 +163,7 @@ class DartPlugin extends Plugin {
    */
   async deploy() {
     this.api.logger.debug(
-      "DartPlugin: deploy",
+      'DartPlugin: deploy',
       this.resolvedInputs,
       this.buildOutput
     );
@@ -153,7 +172,7 @@ class DartPlugin extends Plugin {
 
     await this.dartBuilder.clean();
 
-    this.api.logger.info(`${this.api.emoji("🚀")} Dart 应用部署成功`);
+    this.api.logger.info(`${this.api.emoji('🚀')} Dart 应用部署成功`);
   }
 }
 

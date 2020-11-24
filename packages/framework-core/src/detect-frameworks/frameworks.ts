@@ -1,339 +1,356 @@
+/**
+ *
+ * Copyright 2020 Tencent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 export default [
   {
-    name: "Vue.js",
-    key: "vue",
+    name: 'Vue.js',
+    key: 'vue',
     detect: [
       {
-        path: "package.json",
+        path: 'package.json',
         match:
           '"(dev)?(d|D)ependencies":\\s*{[^}]*"@vue\\/cli-service":\\s*".+?"[^}]*}',
       },
     ],
-    plugin: "@cloudbase/framework-plugin-website",
+    plugin: '@cloudbase/framework-plugin-website',
     config: {
       buildCommand: {
-        value: "npm run build",
-        desc: "🔨 构建脚本",
+        value: 'npm run build',
+        desc: '🔨 构建脚本',
       },
       outputPath: {
-        value: "dist",
-        desc: "📦 本地静态文件目录",
+        value: 'dist',
+        desc: '📦 本地静态文件目录',
       },
     },
   },
   {
-    name: "React.js",
-    key: "react",
+    name: 'React.js',
+    key: 'react',
     detect: [
       {
-        path: "package.json",
+        path: 'package.json',
         match:
           '"(dev)?(d|D)ependencies":\\s*{[^}]*"react-scripts":\\s*".+?"[^}]*}',
       },
     ],
-    plugin: "@cloudbase/framework-plugin-website",
+    plugin: '@cloudbase/framework-plugin-website',
     config: {
       buildCommand: {
-        value: "npm run build",
-        desc: "🔨 构建脚本",
+        value: 'npm run build',
+        desc: '🔨 构建脚本',
       },
       outputPath: {
-        value: "build",
-        desc: "📦 本地静态文件目录",
+        value: 'build',
+        desc: '📦 本地静态文件目录',
       },
     },
   },
   {
-    name: "Next.js",
-    key: "nextjs",
+    name: 'Next.js',
+    key: 'nextjs',
     detect: [
       {
-        path: "package.json",
+        path: 'package.json',
         match: '"(dev)?(d|D)ependencies":\\s*{[^}]*"next":\\s*".+?"[^}]*}',
       },
     ],
-    plugin: "@cloudbase/framework-plugin-website",
+    plugin: '@cloudbase/framework-plugin-website',
     config: {
       buildCommand: {
-        value: "npm run build",
-        desc: "🔨 构建脚本",
+        value: 'npm run build',
+        desc: '🔨 构建脚本',
       },
       outputPath: {
-        value: "build",
-        desc: "📦 本地静态文件目录",
+        value: 'build',
+        desc: '📦 本地静态文件目录',
       },
     },
   },
   {
-    name: "VuePress",
-    key: "vuepress",
+    name: 'VuePress',
+    key: 'vuepress',
     detect: [
       {
-        path: "package.json",
+        path: 'package.json',
         match: '"(dev)?(d|D)ependencies":\\s*{[^}]*"vuepress":\\s*".+?"[^}]*}',
       },
     ],
-    plugin: "@cloudbase/framework-plugin-website",
+    plugin: '@cloudbase/framework-plugin-website',
     config: {
       buildCommand: {
-        value: "npm run build",
-        desc: "🔨 构建脚本",
+        value: 'npm run build',
+        desc: '🔨 构建脚本',
       },
       outputPath: {
-        value: ".vuepress/dist",
-        desc: "📦 本地静态文件目录",
+        value: '.vuepress/dist',
+        desc: '📦 本地静态文件目录',
       },
     },
   },
   {
-    name: "Pagic",
-    key: "pagic",
+    name: 'Pagic',
+    key: 'pagic',
     detect: [
       {
-        path: "pagic.config.ts",
+        path: 'pagic.config.ts',
         exists: true,
       },
       {
-        path: "pagic.config.tsx",
+        path: 'pagic.config.tsx',
         exists: true,
       },
     ],
-    plugin: "@cloudbase/framework-plugin-website",
+    plugin: '@cloudbase/framework-plugin-website',
     config: {
       buildCommand: {
         value:
-          "deno run --unstable --allow-read --allow-write --allow-net https://deno.land/x/pagic/mod.ts build",
-        desc: "🔨 构建脚本",
+          'deno run --unstable --allow-read --allow-write --allow-net https://deno.land/x/pagic/mod.ts build',
+        desc: '🔨 构建脚本',
       },
       outputPath: {
-        value: "dist",
-        desc: "📦 本地静态文件目录",
+        value: 'dist',
+        desc: '📦 本地静态文件目录',
       },
     },
   },
   {
-    name: "Nuxt.js SPA",
-    key: "nuxtjs-spa",
+    name: 'Nuxt.js SPA',
+    key: 'nuxtjs-spa',
     detect: [
       {
-        path: "nuxt.config.js",
-        match: "spa",
+        path: 'nuxt.config.js',
+        match: 'spa',
       },
     ],
-    plugin: "@cloudbase/framework-plugin-website",
+    plugin: '@cloudbase/framework-plugin-website',
     config: {
       buildCommand: {
-        value: "npm run build",
-        desc: "🔨 构建脚本",
+        value: 'npm run build',
+        desc: '🔨 构建脚本',
       },
       outputPath: {
-        value: "dist",
-        desc: "📦 本地静态文件目录",
+        value: 'dist',
+        desc: '📦 本地静态文件目录',
       },
     },
   },
   {
-    name: "Nuxt.js SSR",
-    key: "nuxtjs-ssr",
+    name: 'Nuxt.js SSR',
+    key: 'nuxtjs-ssr',
     detect: [
       {
-        path: "package.json",
+        path: 'package.json',
         match: '"(dev)?(d|D)ependencies":\\s*{[^}]*"nuxt":\\s*".+?"[^}]*}',
       },
     ],
-    plugin: "@cloudbase/framework-plugin-nuxt",
+    plugin: '@cloudbase/framework-plugin-nuxt',
     config: {
       buildCommand: {
-        value: "npm run build",
-        desc: "🔨 构建脚本",
+        value: 'npm run build',
+        desc: '🔨 构建脚本',
       },
       path: {
-        value: "/",
-        desc: "🔌 云端访问路径",
+        value: '/',
+        desc: '🔌 云端访问路径',
       },
     },
   },
   {
-    name: "Koa",
-    key: "koa",
+    name: 'Koa',
+    key: 'koa',
     detect: [
       {
-        path: "package.json",
+        path: 'package.json',
         match: '"(dev)?(d|D)ependencies":\\s*{[^}]*"koa":\\s*".+?"[^}]*}',
       },
     ],
-    plugin: "@cloudbase/framework-plugin-node",
+    plugin: '@cloudbase/framework-plugin-node',
     config: {
       name: {
-        value: "`${data.baseName || 'koa-app'}`",
-        desc: "💡 服务名",
+        value: '`${data.baseName || \'koa-app\'}`',
+        desc: '💡 服务名',
       },
       path: {
-        value: "`/${data.baseName || 'koa-app'}`",
-        desc: "🔌 云端访问云接入路径",
+        value: '`/${data.baseName || \'koa-app\'}`',
+        desc: '🔌 云端访问云接入路径',
       },
       entry: {
-        value: "app.js",
-        desc: "🔌 Node 服务入口文件，需要导出 app 实例",
+        value: 'app.js',
+        desc: '🔌 Node 服务入口文件，需要导出 app 实例',
       },
     },
   },
   {
-    name: "静态网站",
-    key: "website",
+    name: '静态网站',
+    key: 'website',
     detect: [
       {
-        path: "index.html",
+        path: 'index.html',
         exists: true,
       },
     ],
-    plugin: "@cloudbase/framework-plugin-website",
+    plugin: '@cloudbase/framework-plugin-website',
     config: {
       outputPath: {
-        value: "./",
-        desc: "📦 本地静态文件目录",
+        value: './',
+        desc: '📦 本地静态文件目录',
       },
     },
   },
   {
-    name: "云函数",
-    key: "function",
+    name: '云函数',
+    key: 'function',
     detect: [
       {
-        path: "functions",
+        path: 'functions',
         exists: true,
       },
       {
-        path: "cloudfunctions",
+        path: 'cloudfunctions',
         exists: true,
       },
       {
-        path: "cloudbaserc.js",
-        match: "functions",
+        path: 'cloudbaserc.js',
+        match: 'functions',
       },
     ],
-    plugin: "@cloudbase/framework-plugin-function",
+    plugin: '@cloudbase/framework-plugin-function',
     config: {
       functionRootPath: {
-        value: "`${data.projectConfig.functionRoot || 'cloudfunctions'}`",
-        desc: "📁 云函数根目录",
+        value: '`${data.projectConfig.functionRoot || \'cloudfunctions\'}`',
+        desc: '📁 云函数根目录',
       },
     },
   },
   {
-    name: "云托管",
-    key: "container",
+    name: '云托管',
+    key: 'container',
     detect: [
       {
-        path: "Dockerfile",
+        path: 'Dockerfile',
         exists: true,
       },
     ],
-    plugin: "@cloudbase/framework-plugin-container",
+    plugin: '@cloudbase/framework-plugin-container',
     config: {
       serviceName: {
-        value: "`${data.baseName || 'capp'}`",
-        desc: "💡 服务名",
+        value: '`${data.baseName || \'capp\'}`',
+        desc: '💡 服务名',
       },
       servicePath: {
-        value: "`/${data.baseName || 'capp'}`",
-        desc: "🔌 云端访问云接入路径",
+        value: '`/${data.baseName || \'capp\'}`',
+        desc: '🔌 云端访问云接入路径',
       },
       containerPort: {
         value: 80,
-        desc: "🔌 端口号",
+        desc: '🔌 端口号',
       },
     },
   },
   {
-    name: "hexo",
-    key: "hexo",
+    name: 'hexo',
+    key: 'hexo',
     detect: [
       {
-        path: "package.json",
+        path: 'package.json',
         match: '"(dev)?(d|D)ependencies":\\s*{[^}]*"hexo":\\s*".+?"[^}]*}',
       },
     ],
-    plugin: "@cloudbase/framework-plugin-website",
+    plugin: '@cloudbase/framework-plugin-website',
     config: {
       buildCommand: {
-        value: "npx hexo generate",
-        desc: "🔨 构建脚本",
+        value: 'npx hexo generate',
+        desc: '🔨 构建脚本',
       },
       outputPath: {
-        value: "./public",
-        desc: "📦 本地静态文件目录",
+        value: './public',
+        desc: '📦 本地静态文件目录',
       },
     },
   },
   {
-    name: "gatsby",
-    key: "gatsby",
+    name: 'gatsby',
+    key: 'gatsby',
     detect: [
       {
-        path: "package.json",
+        path: 'package.json',
         match: '"(dev)?(d|D)ependencies":\\s*{[^}]*"gatsby":\\s*".+?"[^}]*}',
       },
     ],
-    plugin: "@cloudbase/framework-plugin-website",
+    plugin: '@cloudbase/framework-plugin-website',
     config: {
       buildCommand: {
-        value: "npx gatsby build",
-        desc: "🔨 构建脚本",
+        value: 'npx gatsby build',
+        desc: '🔨 构建脚本',
       },
       outputPath: {
-        value: "./public",
-        desc: "📦 本地静态文件目录",
+        value: './public',
+        desc: '📦 本地静态文件目录',
       },
     },
   },
   {
-    name: "小程序",
-    key: "mp",
+    name: '小程序',
+    key: 'mp',
     detect: [
       {
-        path: "project.config.json",
-        match: "miniprogramRoot",
+        path: 'project.config.json',
+        match: 'miniprogramRoot',
       },
       {
-        path: "project.config.json",
-        match: "appid",
+        path: 'project.config.json',
+        match: 'appid',
       },
     ],
-    plugin: "@cloudbase/framework-plugin-mp",
+    plugin: '@cloudbase/framework-plugin-mp',
     config: {
       appid: {
-        value: "",
-        desc: "💡 小程序应用的 appid",
+        value: '',
+        desc: '💡 小程序应用的 appid',
       },
       privateKeyPath: {
-        value: "./private.key",
-        desc: "📦 小程序应用的部署私钥的本地路径",
+        value: './private.key',
+        desc: '📦 小程序应用的部署私钥的本地路径',
       },
     },
   },
   {
-    name: "Aqueduct Dart",
-    key: "aqueduct-dart",
+    name: 'Aqueduct Dart',
+    key: 'aqueduct-dart',
     detect: [
       {
-        path: "./pubspec.yaml",
-        match: "aqueduct"
+        path: './pubspec.yaml',
+        match: 'aqueduct'
       }
     ],
-    plugin: "@cloudbase/framework-plugin-dart",
+    plugin: '@cloudbase/framework-plugin-dart',
     config: {
       serviceName: {
-        value: "dartapp",
-        desc: "💡 服务名",
+        value: 'dartapp',
+        desc: '💡 服务名',
       },
       servicePath: {
-        value: "/dartapp",
-        desc: "🔌 云端访问云接入路径",
+        value: '/dartapp',
+        desc: '🔌 云端访问云接入路径',
       },
       framework: {
-        value: "aqueduct",
-        desc: "🔧 Dart App 框架"
+        value: 'aqueduct',
+        desc: '🔧 Dart App 框架'
       }
     },
   },

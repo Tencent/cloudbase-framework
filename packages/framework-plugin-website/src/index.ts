@@ -1,21 +1,38 @@
-import path from "path";
-import fs from "fs";
-import os from "os";
-import { exec } from "child_process";
-import { promisify } from "util";
-import merge from "lodash.merge";
+/**
+ *
+ * Copyright 2020 Tencent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+import path from 'path';
+import fs from 'fs';
+import os from 'os';
+import { exec } from 'child_process';
+import { promisify } from 'util';
+import merge from 'lodash.merge';
 
-import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
-import { BuildResult } from "@cloudbase/framework-core/src/types";
-import { StaticBuilder } from "@cloudbase/static-builder";
-import { ZipBuilder } from "./zip-builder";
+import { Plugin, PluginServiceApi } from '@cloudbase/framework-core';
+import { BuildResult } from '@cloudbase/framework-core/src/types';
+import { StaticBuilder } from '@cloudbase/static-builder';
+import { ZipBuilder } from './zip-builder';
 
 const DEFAULT_INPUTS = {
-  outputPath: "dist",
-  cloudPath: "/",
-  ignore: [".git", ".github", "node_modules", "cloudbaserc.js"],
+  outputPath: 'dist',
+  cloudPath: '/',
+  ignore: ['.git', '.github', 'node_modules', 'cloudbaserc.js'],
   commands: {
-    install: "npm install --prefer-offline --no-audit --progress=false",
+    install: 'npm install --prefer-offline --no-audit --progress=false',
   },
 };
 
@@ -102,9 +119,9 @@ class WebsitePlugin extends Plugin {
    * 初始化
    */
   async init() {
-    this.api.logger.debug("WebsitePlugin: init", this.resolvedInputs);
+    this.api.logger.debug('WebsitePlugin: init', this.resolvedInputs);
     this.api.logger.info(
-      "Website 插件会自动开启静态网页托管能力，需要当前环境为 [按量计费] 模式"
+      'Website 插件会自动开启静态网页托管能力，需要当前环境为 [按量计费] 模式'
     );
     this.api.logger.info(
       `Website 插件会部署应用资源到当前静态托管的 ${this.resolvedInputs.cloudPath} 目录下`
@@ -117,30 +134,30 @@ class WebsitePlugin extends Plugin {
    */
   async compile() {
     const uploadResults = await this.upload();
-    this.api.logger.debug("website uploadResults", uploadResults);
+    this.api.logger.debug('website uploadResults', uploadResults);
     const [website, staticConfig] = uploadResults as any;
 
     return {
-      EnvType: "PostPay",
+      EnvType: 'PostPay',
       Resources: Object.assign(
         {},
         this.getStaticResourceSam(
-          "Website",
-          "为开发者提供静态网页托管的能力，包括HTML、CSS、JavaScript、字体等常见资源。",
+          'Website',
+          '为开发者提供静态网页托管的能力，包括HTML、CSS、JavaScript、字体等常见资源。',
           website.codeUri,
           website.cloudPath
         ),
         this.getStaticResourceSam(
-          "ConfigEnv",
-          "配置文件",
+          'ConfigEnv',
+          '配置文件',
           staticConfig.codeUri,
           staticConfig.cloudPath
         )
       ),
       EntryPoint: [
         {
-          Label: "网站入口",
-          EntryType: "StaitcStore",
+          Label: '网站入口',
+          EntryType: 'StaitcStore',
           HttpEntryPath: this.resolvedInputs.cloudPath,
         },
       ],
@@ -155,9 +172,11 @@ class WebsitePlugin extends Plugin {
   ) {
     return {
       [name]: {
-        Type: "CloudBase::StaticStore",
+        Type: 'CloudBase::StaticStore',
         Properties: {
-          Description: description,
+          Description:
+            description ||
+            '为开发者提供静态网页托管的能力，静态资源（HTML、CSS、JavaScript、字体等）的分发由对象存储 COS 和拥有多个边缘网点的 CDN 提供支持',
           CodeUri: codeUri,
           DeployPath: deployPath,
         },
@@ -184,14 +203,14 @@ class WebsitePlugin extends Plugin {
       )
     ).zipFiles;
 
-    this.api.logger.debug("website zipFiles", zipFiles);
+    this.api.logger.debug('website zipFiles', zipFiles);
 
     return Promise.all(
       deployContent.map(async (item, index) => {
         let zipFile = zipFiles[index];
         let codeUris = (await this.api.samManager.uploadFile([
           {
-            fileType: "STATIC",
+            fileType: 'STATIC',
             fileName: zipFile.entry,
             filePath: zipFile.source,
           },
@@ -219,7 +238,7 @@ class WebsitePlugin extends Plugin {
    */
   async build() {
     // cloudPath 会影响 publicPath 和 baseRoute 等配置，需要处理
-    this.api.logger.debug("WebsitePlugin: build", this.resolvedInputs);
+    this.api.logger.debug('WebsitePlugin: build', this.resolvedInputs);
     await this.installPackage();
 
     const {
@@ -236,7 +255,7 @@ class WebsitePlugin extends Plugin {
     }
 
     const includes = [
-      "**",
+      '**',
       ...this.resolvedInputs.ignore.map((ignore) => `!${ignore}`),
     ];
     this.buildOutput = await this.builder.build(includes, {
@@ -251,11 +270,11 @@ class WebsitePlugin extends Plugin {
    */
   async deploy() {
     this.api.logger.debug(
-      "WebsitePlugin: deploy",
+      'WebsitePlugin: deploy',
       this.resolvedInputs,
       this.buildOutput
     );
-    this.api.logger.info(`${this.api.emoji("🚀")} 网站部署成功`);
+    this.api.logger.info(`${this.api.emoji('🚀')} 网站部署成功`);
     await this.zipBuilder.clean();
     await this.builder.clean();
   }
@@ -276,10 +295,10 @@ class WebsitePlugin extends Plugin {
       const cmd = exec(injectEnvVariables(command, envVariables));
       cmd.stdout?.pipe(process.stdout);
       cmd.stderr?.pipe(process.stderr);
-      cmd.on("close", (code) => {
+      cmd.on('close', (code) => {
         resolve(code);
       });
-      cmd.on("exit", (code) => {
+      cmd.on('exit', (code) => {
         reject(code);
       });
     });
@@ -292,7 +311,7 @@ class WebsitePlugin extends Plugin {
     const { installCommand, commands } = this.resolvedInputs;
     const command = installCommand || commands?.install;
     try {
-      if (fs.statSync("package.json")) {
+      if (fs.statSync('package.json')) {
         this.api.logger.info(command);
         return promisify(exec)(command);
       }
@@ -303,18 +322,21 @@ class WebsitePlugin extends Plugin {
    * 确保开启了按量付费
    */
   async ensurePostPay() {
-    const res = await this.api.cloudApi.tcbService.request("DescribeEnvs");
-    let env = res.EnvList && res.EnvList[0];
+    const res = await this.api.cloudApi.tcbService.request('DescribeEnvs');
+    this.api.logger.debug('环境信息', res);
 
-    if (!env) {
-      throw new Error(`当前账号下不存在 ${this.api.envId} 环境`);
-    }
+    // @todo temp disable
+    // let env = res.EnvList && res.EnvList[0];
 
-    if (env.PayMode !== "postpaid") {
-      throw new Error(
-        "网站托管当前只能部署到按量付费的环境下，请先在控制台切换计费方式"
-      );
-    }
+    // if (!env) {
+    //   throw new Error(`当前账号下不存在 ${this.api.envId} 环境`);
+    // }
+
+    // if (env.PayMode !== 'postpaid') {
+    //   throw new Error(
+    //     '网站托管当前只能部署到按量付费的环境下，请先在控制台切换计费方式'
+    //   );
+    // }
   }
 
   /**
@@ -351,10 +373,10 @@ function resolveInputs(inputs: any) {
 }
 
 function injectEnvVariables(command: string, envVariables: any): string {
-  const keyword = os.platform() === "win32" ? "set" : "export";
+  const keyword = os.platform() === 'win32' ? 'set' : 'export';
   const envCommand = Object.keys(envVariables || {}).reduce((cmd, key) => {
     return cmd + `${keyword} ${key}=${envVariables[key]} && `;
-  }, "");
+  }, '');
 
   return `${envCommand} ${command}`;
 }

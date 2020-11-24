@@ -1,25 +1,55 @@
-import { Plugin, PluginServiceApi } from "@cloudbase/framework-core";
-import { ContainerApi } from "./container-api";
-import { ContainerBuilder } from "./builder";
-import path from "path";
+/**
+ *
+ * Copyright 2020 Tencent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+import { Plugin, PluginServiceApi } from '@cloudbase/framework-core';
+import { ContainerApi } from './container-api';
+import { ContainerBuilder } from './builder';
+import path from 'path';
 
 const DEFAULT_INPUTS = {
-  uploadType: "package",
-  description: "基于云开发 CloudBase Framework 部署的云托管",
+  uploadType: 'package',
+  description: '基于云开发 CloudBase Framework 部署的云托管',
   isPublic: true,
   flowRatio: 100,
-  cpu: 1,
-  mem: 1,
-  minNum: 1,
+  mode: 'low-cost',
+  cpu: 0.25,
+  mem: 0.5,
+  minNum: 0,
   maxNum: 10,
-  policyType: "cpu",
+  policyType: 'cpu',
   policyThreshold: 60,
   containerPort: 80,
-  dockerfilePath: "./Dockerfile",
-  buildDir: "./",
-  version: "1.0.0",
-  localPath: "./",
+  dockerfilePath: './Dockerfile',
+  buildDir: './',
+  version: '1.0.0',
+  localPath: './',
   envVariables: {},
+};
+const MODE_INPUTS = {
+  'low-cost': {
+    cpu: 0.25,
+    mem: 0.5,
+    minNum: 0,
+  },
+  'high-availability': {
+    cpu: 1,
+    mem: 1,
+    minNum: 1,
+  },
 };
 
 /**
@@ -31,7 +61,7 @@ export interface IFrameworkPluginContainerInputs {
    *
    * 支持`package|image|repository`3 种，分别代表本地代码包、镜像地址和 git 仓库地址。默认是`package`, 选择`image`时需要填写 `imageInfo`, 选择 `repository` 需要填写`codeDetail`
    */
-  uploadType?: "package" | "image" | "repository";
+  uploadType?: 'package' | 'image' | 'repository';
   /**
    * 服务名，字符串格式，如 `node-api`
    */
@@ -50,6 +80,37 @@ export interface IFrameworkPluginContainerInputs {
    */
   isPublic?: boolean;
   /**
+   * 副本模式
+   *
+   * 1.4.0 版本以后支持
+   *
+   * 支持 "low-cost" | "high-availability"
+   * "low-cost" 代表低成本模式，会有冷启动延时，锁定最小副本数为0，规格默认值为0.25C0.5G，副本最小个数不可修改，要修改需要先切换模式。
+   * "high-availability" 代表高可用模式，不存在冷启动，最小副本数不可以为0，规格默认值为1C1G，要修改最小副本数到0需要先切换模式。
+   *
+   * @default low-cost
+   */
+  mode?: 'low-cost' | 'high-availability';
+  /**
+   * 用户自定义采集日志路径
+   *
+   * String	1-1024
+   * @maxLength 1024
+   */
+  customLogs?: string;
+  /**
+   * 延迟多长时间开始健康检查（单位s）0-1000
+   *
+   * @minimum 0
+   * @maximum 1000
+   *
+   */
+  initialDelaySeconds?: number;
+  /**
+   * 版本备注
+   */
+  versionRemark?: string;
+  /**
    * 流量占比（0-100）
    * @minimum 0
    * @maximum 100
@@ -58,20 +119,20 @@ export interface IFrameworkPluginContainerInputs {
    */
   flowRatio?: number;
   /**
-   * CPU 的大小，1-128, 单位：核，默认值 `1`
-   * @default 1
+   * CPU 的大小，0.25-128, 单位：核，默认值 `0.25`
+   * @default 0.25
    */
   cpu?: number;
   /**
-   * Mem 的大小，1-128, 单位：G，默认值 `1`
+   * Mem 的大小，0.5-128, 单位：G，默认值 `0.5`
    *
-   * @default 1
+   * @default 0.5
    */
   mem?: number;
   /**
-   * 最小副本数, 1-50，默认值 `1`
+   * 最小副本数, 1-50，默认值 `0`
    *
-   * @default 1
+   * @default 0
    */
   minNum?: number;
   /**
@@ -84,7 +145,7 @@ export interface IFrameworkPluginContainerInputs {
   /**
    * 策略类型(cpu)，默认值 `cpu`
    */
-  policyType?: "cpu";
+  policyType?: 'cpu';
   /**
    * 策略阈值，1-100, 默认值 `60`
    *
@@ -165,6 +226,13 @@ export interface IFrameworkPluginContainerInputs {
    * ```
    */
   codeDetail?: IContainerCodeDetail;
+
+  /**
+   * 挂载目录
+   * 1.4.0 版本以后支持
+   * key 为挂载路径，value为挂载的 CFS Addon 的 Name
+   */
+  volumeMounts?: Record<string, string>;
 }
 
 interface IContainerImageInfo {
@@ -214,10 +282,11 @@ interface IContainerCodeDetail {
 type ResolvedInputs = typeof DEFAULT_INPUTS & IFrameworkPluginContainerInputs;
 
 class ContainerPlugin extends Plugin {
-  protected resolvedInputs: ResolvedInputs;
+  protected resolvedInputs!: ResolvedInputs;
   protected buildOutput: any;
   protected containerApi: ContainerApi;
   protected builder: ContainerBuilder;
+  protected outputs: Record<string, string>;
 
   constructor(
     public name: string,
@@ -226,28 +295,70 @@ class ContainerPlugin extends Plugin {
   ) {
     super(name, api, inputs);
 
-    this.resolvedInputs = resolveInputs(
-      this.inputs,
-      Object.assign(
-        {},
-        DEFAULT_INPUTS,
-        this.api.bumpVersion ? { version: String(Date.now()) } : {}
-      )
-    );
-
-    this.checkInputs();
-
     this.containerApi = new ContainerApi(this.api.cloudApi, this.api.logger);
     this.builder = new ContainerBuilder({
       projectPath: this.api.projectPath,
     });
+    this.outputs = {};
   }
 
   /**
    * 初始化
    */
   async init() {
-    this.api.logger.debug("ContainerPlugin: init", this.resolvedInputs);
+    this.api.logger.debug('ContainerPlugin: init', this.inputs);
+
+    let modeInputs = MODE_INPUTS[this.inputs.mode || 'low-cost'];
+
+    this.resolvedInputs = resolveInputs(
+      this.inputs,
+      Object.assign({}, DEFAULT_INPUTS, modeInputs)
+    );
+
+    const {
+      uploadType,
+      codeDetail,
+      imageInfo,
+      mode,
+      minNum,
+    } = this.resolvedInputs;
+    // 检查镜像参数
+    switch (uploadType) {
+      case 'repository':
+        if (!codeDetail || !codeDetail.url) {
+          throw new Error(
+            'uploadType 填写为 repository 时，应提供正确的 codeDetail 信息'
+          );
+        }
+        break;
+      case 'image':
+        if (!imageInfo || !imageInfo.imageUrl) {
+          throw new Error('uploadType 填写为 image 时，应提供 imageInfo 信息');
+        }
+        break;
+      default:
+        break;
+    }
+
+    // 检查副本模式
+    // "low-cost" 代表低成本模式，会有冷启动延时，锁定最小副本数为0，规格默认值为0.25C0.5G，副本最小个数不可修改，要修改需要先切换模式。
+    // "high-availability" 代表高可用模式，不存在冷启动，最小副本数不可以为0，规格默认值为1C1G，要修改最小副本数到0需要先切换模式。
+    switch (mode) {
+      case 'low-cost':
+        if (minNum !== 0) {
+          throw new Error(
+            '副本模式设置为 "low-cost" 时代表低成本模式，锁定最小副本数为0，规格默认值为0.25C0.5G，副本最小个数不可修改，存在冷启动延时，要修改需要先切换模式。'
+          );
+        }
+        break;
+      case 'high-availability':
+        if (minNum === 0) {
+          throw new Error(
+            '副本模式设置为 "high-availability" 代表高可用模式，不存在冷启动，最小副本数不可以为0，规格默认值为1C1G，要修改最小副本数到0需要先切换模式。'
+          );
+        }
+        break;
+    }
   }
 
   /**
@@ -269,10 +380,10 @@ class ContainerPlugin extends Plugin {
    * 构建
    */
   async build() {
-    this.api.logger.debug("ContainerPlugin: build", this.resolvedInputs);
+    this.api.logger.debug('ContainerPlugin: build', this.resolvedInputs);
 
-    if (this.resolvedInputs.uploadType === "package") {
-      const { serviceName, version } = this.resolvedInputs;
+    if (this.resolvedInputs.uploadType === 'package') {
+      const { serviceName } = this.resolvedInputs;
       const localPath =
         this.resolvedInputs.localAbsolutePath ||
         path.join(this.api.projectPath, this.resolvedInputs.localPath);
@@ -284,7 +395,10 @@ class ContainerPlugin extends Plugin {
 
       const distFileName = result.containers[0].source;
 
-      await this.containerApi.upload(serviceName, version, distFileName);
+      Object.assign(
+        this.outputs,
+        await this.containerApi.upload(serviceName, distFileName)
+      );
 
       this.builder.clean();
     }
@@ -294,15 +408,15 @@ class ContainerPlugin extends Plugin {
    * 生成SAM文件
    */
   async compile() {
-    this.api.logger.debug("ContainerPlugin: compile", this.resolvedInputs);
+    this.api.logger.debug('ContainerPlugin: compile', this.resolvedInputs);
     return {
       Resources: {
         [this.toConstantCase(this.resolvedInputs.serviceName)]: this.toSAM(),
       },
       EntryPoint: [
         {
-          Label: "服务入口",
-          EntryType: "HttpService",
+          Label: '服务入口',
+          EntryType: 'HttpService',
           HttpEntryPath: this.resolvedInputs.servicePath,
         },
       ],
@@ -314,11 +428,11 @@ class ContainerPlugin extends Plugin {
    */
   async deploy() {
     this.api.logger.debug(
-      "ContainerPlugin: deploy",
+      'ContainerPlugin: deploy',
       this.resolvedInputs,
       this.buildOutput
     );
-    this.api.logger.info(`${this.api.emoji("🚀")} 云托管应用部署成功,`);
+    this.api.logger.info(`${this.api.emoji('🚀')} 云托管应用部署成功,`);
   }
 
   toSAM() {
@@ -336,31 +450,34 @@ class ContainerPlugin extends Plugin {
       containerPort,
       dockerfilePath,
       buildDir,
-      version,
       servicePath,
       envVariables,
       uploadType,
       imageInfo,
       codeDetail,
+      volumeMounts,
+      versionRemark,
+      customLogs,
+      initialDelaySeconds,
     } = this.resolvedInputs;
 
     let otherProperties;
 
     switch (uploadType) {
-      case "package":
+      case 'package':
         otherProperties = {
-          PackageName: serviceName,
-          PackageVersion: version,
+          PackageName: this.outputs.PackageName,
+          PackageVersion: this.outputs.PackageVersion,
         };
         break;
-      case "image":
+      case 'image':
         otherProperties = {
           ImageInfo: {
             ImageUrl: imageInfo?.imageUrl,
           },
         };
         break;
-      case "repository":
+      case 'repository':
         otherProperties = {
           CodeDetail: {
             Name: {
@@ -374,12 +491,47 @@ class ContainerPlugin extends Plugin {
         break;
     }
 
+    let volumeMountsInfo;
+
+    if (volumeMounts && Object.keys(volumeMounts).length) {
+      volumeMountsInfo = Object.entries(volumeMounts).reduce(
+        (prev, cur) => {
+          const [path, addonName] = cur;
+          const VolumeMounts = prev.VolumeMounts as any[];
+          const Volumes = prev.Volumes as any[];
+
+          VolumeMounts.push({
+            MountPath: path,
+            Name: addonName,
+          });
+
+          if (
+            !Volumes.find((volume) => {
+              return volume.Name === addonName;
+            })
+          ) {
+            Volumes.push({
+              Name: addonName,
+              Type: 'nfs',
+              Path: '/',
+              Server: `\${Outputs.${addonName}.Properties.InstanceIp}`,
+            });
+          }
+          return prev;
+        },
+        {
+          Volumes: [],
+          VolumeMounts: [],
+        }
+      );
+    }
+
     return {
-      Type: "CloudBase::CloudBaseRun",
+      Type: 'CloudBase::CloudBaseRun',
       Properties: Object.assign(
         {
           ServerName: serviceName,
-          Description: description,
+          Description: description || '新一代云原生应用引擎（App Engine 2.0）',
           isPublic: isPublic,
           UploadType: uploadType,
           FlowRatio: flowRatio,
@@ -392,8 +544,11 @@ class ContainerPlugin extends Plugin {
           ContainerPort: containerPort,
           DockerfilePath: dockerfilePath,
           BuildDir: buildDir,
-          Path: servicePath,
+          HttpPath: servicePath,
           EnvParams: JSON.stringify(envVariables),
+          VersionRemark: versionRemark,
+          CustomLogs: customLogs,
+          InitialDelaySeconds: initialDelaySeconds,
         },
         otherProperties,
         this.api.bumpVersion && {
@@ -401,17 +556,17 @@ class ContainerPlugin extends Plugin {
         },
         this.api.versionRemark && {
           VersionRemark: this.api.versionRemark,
-        }
+        },
+        volumeMountsInfo
       ),
     };
   }
 
   toConstantCase(name: string) {
-    let result = "";
+    let result = '';
     let lastIsDivide = true;
-    for (let i = 0; i < name.length; i++) {
-      let letter = name[i];
-      if (letter === "-" || letter === "_") {
+    for (let letter of name) {
+      if (letter === '-' || letter === '_') {
         lastIsDivide = true;
       } else if (lastIsDivide) {
         result += letter.toUpperCase();
@@ -425,24 +580,8 @@ class ContainerPlugin extends Plugin {
     return result;
   }
 
-  checkInputs() {
-    const { uploadType, codeDetail, imageInfo } = this.resolvedInputs;
-    switch (uploadType) {
-      case "repository":
-        if (!codeDetail || !codeDetail.url) {
-          throw new Error(
-            "uploadType 填写为 repository 时，应提供正确的 codeDetail 信息"
-          );
-        }
-        break;
-      case "image":
-        if (!imageInfo || !imageInfo.imageUrl) {
-          throw new Error("uploadType 填写为 image 时，应提供 imageInfo 信息");
-        }
-        break;
-      default:
-        break;
-    }
+  async getLatestVersionDetail() {
+    return this.containerApi.getServerVersions(this.inputs.serviceName);
   }
 }
 

@@ -1,3 +1,20 @@
+/**
+ *
+ * Copyright 2020 Tencent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 require = require('esm')(module);
 const path = require('path');
 const Koa = require('koa');
@@ -5,7 +22,7 @@ const next = require('next');
 const serverless = require('serverless-http');
 
 async function main(...args) {
-  let event = args[0];
+  const event = args[0];
   // 针对部署在子路径的情况需要手动带上路径前缀
   event.path = path.join('/*path*/', event.path);
 
@@ -19,7 +36,7 @@ async function main(...args) {
     ctx.status = 200;
     ctx.respond = false;
     try {
-      if(ctx.path === '/*path*//') {
+      if (ctx.path === '/*path*//') {
         app.render(ctx.req, ctx.res, '/index', ctx.query);
       } else {
         handle(ctx.req, ctx.res);
@@ -49,7 +66,6 @@ async function main(...args) {
       'text/xml',
     ],
   })(...args);
-
 }
 
 exports.main = main;
