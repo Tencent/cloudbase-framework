@@ -2,7 +2,7 @@
 
 # Tencent CloudBase Framework Deno Plugin
 
-[![Github License](https://img.shields.io/github/license/TencentCloudBase/cloudbase-framework)](LICENSE)
+[![Github License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-function)](https://www.npmjs.com/package/@cloudbase/framework-plugin-function)
 [![issue](https://img.shields.io/github/issues/TencentCloudBase/cloudbase-framework)](https://github.com/TencentCloudBase/cloudbase-framework/issues)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/TencentCloudBase/cloudbase-framework/pulls)
@@ -122,7 +122,7 @@ scripts:
   dev:
     cmd: deno run src/entry.ts
     env:
-      PORT: "3000"
+      PORT: '3000'
     allow:
       - net
       - env

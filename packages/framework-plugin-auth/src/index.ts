@@ -1,19 +1,9 @@
 /**
+ * Tencent is pleased to support the open source community by making CloudBaseFramework - 云原生一体化部署工具 available.
  *
- * Copyright 2020 Tencent
+ * Copyright (C) 2020 THL A29 Limited, a Tencent company.  All rights reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Please refer to license text included with this package for license details.
  */
 import { Plugin, PluginServiceApi } from '@cloudbase/framework-core';
 
@@ -21,26 +11,26 @@ import { Plugin, PluginServiceApi } from '@cloudbase/framework-core';
  * 导出接口用于生成 JSON Schema 来进行智能提示
  */
 export interface IFrameworkPluginAuthInputs {
-  configs: IAuthConfig[]
+  configs: IAuthConfig[];
 }
 
 export interface IAuthConfig {
   /**
    * 登录平台
    */
-  platform: 'NONLOGIN' | 'ANONYMOUS'
+  platform: 'NONLOGIN' | 'ANONYMOUS';
   /**
    * 开通状态
    */
-  status: 'ENABLE' | 'DISABLE'
+  status: 'ENABLE' | 'DISABLE';
   /**
    * 登录平台的 AppID，选填
    */
-  platformId: string
+  platformId: string;
   /**
    * 登录平台的 AppSecret，选填
    */
-  platformSecret: string
+  platformSecret: string;
 }
 
 class AuthPlugin extends Plugin {
@@ -54,9 +44,7 @@ class AuthPlugin extends Plugin {
   ) {
     super(name, api, inputs);
 
-    const DEFAULT_INPUTS = {
-      
-    };
+    const DEFAULT_INPUTS = {};
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
   }
 
@@ -91,7 +79,11 @@ class AuthPlugin extends Plugin {
    * 生成SAM文件
    */
   async compile() {
-    this.api.logger.debug('AuthPlugin: compile', this.resolvedInputs, this.buildOutput);
+    this.api.logger.debug(
+      'AuthPlugin: compile',
+      this.resolvedInputs,
+      this.buildOutput
+    );
 
     return {
       Config: {
@@ -101,10 +93,10 @@ class AuthPlugin extends Plugin {
             Platform: platform,
             PlatformId: platformId,
             PlatformSecret: platformSecret,
-            Status: status
+            Status: status,
           };
-        })
-      }
+        }),
+      },
     };
   }
 

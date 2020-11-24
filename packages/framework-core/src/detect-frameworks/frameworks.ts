@@ -1,19 +1,9 @@
 /**
+ * Tencent is pleased to support the open source community by making CloudBaseFramework - 云原生一体化部署工具 available.
  *
- * Copyright 2020 Tencent
+ * Copyright (C) 2020 THL A29 Limited, a Tencent company.  All rights reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Please refer to license text included with this package for license details.
  */
 export default [
   {
@@ -182,11 +172,11 @@ export default [
     plugin: '@cloudbase/framework-plugin-node',
     config: {
       name: {
-        value: '`${data.baseName || \'koa-app\'}`',
+        value: "`${data.baseName || 'koa-app'}`",
         desc: '💡 服务名',
       },
       path: {
-        value: '`/${data.baseName || \'koa-app\'}`',
+        value: "`/${data.baseName || 'koa-app'}`",
         desc: '🔌 云端访问云接入路径',
       },
       entry: {
@@ -232,7 +222,7 @@ export default [
     plugin: '@cloudbase/framework-plugin-function',
     config: {
       functionRootPath: {
-        value: '`${data.projectConfig.functionRoot || \'cloudfunctions\'}`',
+        value: "`${data.projectConfig.functionRoot || 'cloudfunctions'}`",
         desc: '📁 云函数根目录',
       },
     },
@@ -249,11 +239,11 @@ export default [
     plugin: '@cloudbase/framework-plugin-container',
     config: {
       serviceName: {
-        value: '`${data.baseName || \'capp\'}`',
+        value: "`${data.baseName || 'capp'}`",
         desc: '💡 服务名',
       },
       servicePath: {
-        value: '`/${data.baseName || \'capp\'}`',
+        value: "`/${data.baseName || 'capp'}`",
         desc: '🔌 云端访问云接入路径',
       },
       containerPort: {
@@ -335,8 +325,8 @@ export default [
     detect: [
       {
         path: './pubspec.yaml',
-        match: 'aqueduct'
-      }
+        match: 'aqueduct',
+      },
     ],
     plugin: '@cloudbase/framework-plugin-dart',
     config: {
@@ -350,8 +340,8 @@ export default [
       },
       framework: {
         value: 'aqueduct',
-        desc: '🔧 Dart App 框架'
-      }
+        desc: '🔧 Dart App 框架',
+      },
     },
   },
 ];

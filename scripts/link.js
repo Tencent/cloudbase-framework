@@ -1,19 +1,9 @@
 /**
+ * Tencent is pleased to support the open source community by making CloudBaseFramework - 云原生一体化部署工具 available.
  *
- * Copyright 2020 Tencent
+ * Copyright (C) 2020 THL A29 Limited, a Tencent company.  All rights reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Please refer to license text included with this package for license details.
  */
 
 const os = require('os');
@@ -41,7 +31,7 @@ async function linkCore() {
   await link(
     path.join(process.cwd(), 'packages/framework-core'),
     path.join(globalNpmPath, '@cloudbase/cli'),
-    '@cloudbase/framework-core',
+    '@cloudbase/framework-core'
   );
 }
 
@@ -55,15 +45,17 @@ function initRegistry() {
       packageJSON,
       JSON.stringify({
         name: 'cloudbase-framework-registry',
-      }),
+      })
     );
   }
 }
 
 async function linkPlugins() {
-  const files = await promisify(fs.readdir)(path.join(process.cwd(), 'packages'));
+  const files = await promisify(fs.readdir)(
+    path.join(process.cwd(), 'packages')
+  );
 
-  const plugins = files.filter(file => file.includes('plugin'));
+  const plugins = files.filter((file) => file.includes('plugin'));
   // 插件列表
   console.log(plugins);
 
@@ -73,7 +65,7 @@ async function linkPlugins() {
     await link(
       path.join(process.cwd(), 'packages', plugin),
       pluginRegistry,
-      `@cloudbase/${plugin}`,
+      `@cloudbase/${plugin}`
     );
   }
 }

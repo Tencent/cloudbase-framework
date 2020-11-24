@@ -2,7 +2,7 @@
 
 # Tencent CloudBase Framework Node Plugin
 
-[![Github License](https://img.shields.io/github/license/TencentCloudBase/cloudbase-framework)](LICENSE)
+[![Github License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-node)](https://www.npmjs.com/package/@cloudbase/framework-plugin-node)
 [![issue](https://img.shields.io/github/issues/TencentCloudBase/cloudbase-framework)](https://github.com/TencentCloudBase/cloudbase-framework/issues)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/TencentCloudBase/cloudbase-framework/pulls)
@@ -82,8 +82,8 @@ Node 服务入口文件，相对于`projectPath`,需要导出 app 或者 server 
 如 koa 服务的 `app.js`
 
 ```javascript
-const Koa = require("koa");
-const { router } = require("./routes/");
+const Koa = require('koa');
+const { router } = require('./routes/');
 
 const app = new Koa();
 
@@ -95,10 +95,10 @@ module.exports = app;
 nest 服务的 `app.js`
 
 ```js
-const express = require("express");
-const { NestFactory } = require("@nestjs/core");
-const { ExpressAdapter } = require("@nestjs/platform-express");
-const { AppModule } = require("./dist/app.module");
+const express = require('express');
+const { NestFactory } = require('@nestjs/core');
+const { ExpressAdapter } = require('@nestjs/platform-express');
+const { AppModule } = require('./dist/app.module');
 
 const expressApp = express();
 const adapter = new ExpressAdapter(expressApp);

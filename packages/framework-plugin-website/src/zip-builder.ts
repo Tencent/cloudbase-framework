@@ -1,19 +1,9 @@
 /**
+ * Tencent is pleased to support the open source community by making CloudBaseFramework - 云原生一体化部署工具 available.
  *
- * Copyright 2020 Tencent
+ * Copyright (C) 2020 THL A29 Limited, a Tencent company.  All rights reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Please refer to license text included with this package for license details.
  */
 import path from 'path';
 import archiver from 'archiver';
@@ -44,34 +34,38 @@ export class ZipBuilder extends Builder {
   }
 
   async build(options: ZipBuilderBuildOptions[]) {
-    const zipFiles = await Promise.all(options.map(async (option) => {
-      const localZipPath = path.join(this.distDir, option.zipFileName);
+    const zipFiles = await Promise.all(
+      options.map(async (option) => {
+        const localZipPath = path.join(this.distDir, option.zipFileName);
 
-      if (!fs.existsSync(this.distDir)) {
-        mkdirSync(this.distDir);
-      }
+        if (!fs.existsSync(this.distDir)) {
+          mkdirSync(this.distDir);
+        }
 
-      if (!fs.existsSync(option.localPath)) {
-        throw new Error(`目录或者文件 ${path.basename(option.localPath)} 不存在`);
-      }
+        if (!fs.existsSync(option.localPath)) {
+          throw new Error(
+            `目录或者文件 ${path.basename(option.localPath)} 不存在`
+          );
+        }
 
-      const fileStats = fs.statSync(option.localPath);
+        const fileStats = fs.statSync(option.localPath);
 
-      if (fileStats.isFile()) {
-        this.logger.debug('option.localPath', option.localPath, localZipPath);
-        await this.zipFile(option.localPath, localZipPath);
-      } else if (fileStats.isDirectory()) {
-        this.logger.debug('option.localPath', option.localPath, localZipPath);
-        await this.zipDir(option.localPath, localZipPath, option.ignore);
-      }
+        if (fileStats.isFile()) {
+          this.logger.debug('option.localPath', option.localPath, localZipPath);
+          await this.zipFile(option.localPath, localZipPath);
+        } else if (fileStats.isDirectory()) {
+          this.logger.debug('option.localPath', option.localPath, localZipPath);
+          await this.zipDir(option.localPath, localZipPath, option.ignore);
+        }
 
-      return {
-        name: option.name,
-        options: {},
-        source: localZipPath,
-        entry: option.zipFileName,
-      };
-    }));
+        return {
+          name: option.name,
+          options: {},
+          source: localZipPath,
+          entry: option.zipFileName,
+        };
+      })
+    );
 
     return {
       zipFiles,

@@ -1,19 +1,9 @@
 /**
+ * Tencent is pleased to support the open source community by making CloudBaseFramework - 云原生一体化部署工具 available.
  *
- * Copyright 2020 Tencent
+ * Copyright (C) 2020 THL A29 Limited, a Tencent company.  All rights reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Please refer to license text included with this package for license details.
  */
 const baseSchema = require('./schema/cloudbaserc-base-schema.json');
 const typesSchemasGenerator = require('./schema/types-schema-generator');
@@ -68,7 +58,9 @@ const supportPluginsConfig = [
 ];
 
 for (const plugin of supportPluginsConfig) {
-  const inputsSchema = typesSchemasGenerator.getSchemaForSymbol(plugin.inputsInterfaceName);
+  const inputsSchema = typesSchemasGenerator.getSchemaForSymbol(
+    plugin.inputsInterfaceName
+  );
   const { definitions } = inputsSchema;
 
   delete inputsSchema.definitions;
@@ -94,5 +86,5 @@ for (const plugin of supportPluginsConfig) {
 
 fs.writeFileSync(
   path.join(__dirname, '../dist/cloudbaserc-json-schema.json'),
-  JSON.stringify(baseSchema, null, 2),
+  JSON.stringify(baseSchema, null, 2)
 );

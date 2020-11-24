@@ -1,19 +1,9 @@
 /**
+ * Tencent is pleased to support the open source community by making CloudBaseFramework - 云原生一体化部署工具 available.
  *
- * Copyright 2020 Tencent
+ * Copyright (C) 2020 THL A29 Limited, a Tencent company.  All rights reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Please refer to license text included with this package for license details.
  */
 import { spawnPromise } from '../utils/spawn';
 
@@ -34,17 +24,20 @@ export function install(
   });
 }
 
-export function getPackageList(packages: Record<string, string>): Array<string> {
+export function getPackageList(
+  packages: Record<string, string>
+): Array<string> {
   if (Array.isArray(packages)) {
-    return packages.filter(pkg => typeof pkg === 'string');
+    return packages.filter((pkg) => typeof pkg === 'string');
   }
 
   const entries = Object.entries(packages);
 
   return entries
-    .filter(([name, version]) => (
-      (typeof name === 'string' && typeof version === 'string')
-        || typeof version === 'undefined'
-    ))
+    .filter(
+      ([name, version]) =>
+        (typeof name === 'string' && typeof version === 'string') ||
+        typeof version === 'undefined'
+    )
     .map(([name, version]) => (version ? `${name}@${version}` : name));
 }
