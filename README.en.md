@@ -158,7 +158,7 @@ Or run directly
 }
 ```
 
-For more detailed configuration parameter descriptions, you can view the configuration documentation, click [Go](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/config.md)
+For more detailed configuration parameter descriptions, you can view the configuration documentation, click [Go](https://docs.cloudbase.net/framework/config.html)
 
 ## Overall Structure
 

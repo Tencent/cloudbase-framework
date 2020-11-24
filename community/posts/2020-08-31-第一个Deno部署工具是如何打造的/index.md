@@ -1,6 +1,6 @@
 ---
 title: 第一个Deno部署工具是如何打造的？
-description: "近期试用了下 CloudBase Framework ，参与了一下 deno 插件的开发，没想到作为第一个 deno 部署工具被 justjavac 大神点赞了，开心~~ 撰文分享下开发感受。"
+description: '近期试用了下 CloudBase Framework ，参与了一下 deno 插件的开发，没想到作为第一个 deno 部署工具被 justjavac 大神点赞了，开心~~ 撰文分享下开发感受。'
 # github 用户名
 authorIds:
   - TabSpace
@@ -53,14 +53,14 @@ deno 生态有一个类似 node koa 的应用框架 [oak](https://github.com/oak
 参考其他插件写法，Plugin 是抽象类，需要自行实现抽象类的各个方法。其中在 build 方法中，需要构建中间产物，主要是编译过后的 Dockerfile 和需要包装到镜像的文件，然后通过 `framework-plugin-container` 提供 docker container 构建产物。
 
 ```js
-import { plugin as ContainerPlugin } from "@cloudbase/framework-plugin-container";
+import { plugin as ContainerPlugin } from '@cloudbase/framework-plugin-container';
 /*** code：other ***/
 class DenoPlugin extends Plugin {
   /*** code: 初始化处理 ***/
   async build() {
     // 构建 deno 中间产物
     this.buildOutput = await this.denoBuilder.build(
-      this.resolvedInputs.projectPath || ".",
+      this.resolvedInputs.projectPath || '.',
       {
         /*** code: 给 buider 提供选项 ***/
       }
@@ -69,7 +69,7 @@ class DenoPlugin extends Plugin {
     // 提供 containerPlugin 对象
     const container = this.buildOutput.containers[0];
     this.containerPlugin = new ContainerPlugin(
-      "container",
+      'container',
       this.api,
       resolveInputs(
         { localAbsolutePath: container.source },
@@ -101,7 +101,7 @@ class DenoPlugin extends Plugin {
 在 `src/builder.ts` 中，主要扩展 Builder 类，提供中间产物构建方法。其中 build 方法，参考其他插件，给出容器构建所需的固定返回即可。
 
 ```js
-import { Builder } from "@cloudbase/framework-core";
+import { Builder } from '@cloudbase/framework-core';
 /*** code: other ***/
 export class DenoBuilder extends Builder {
   /*** code: 初始化 ***/
@@ -109,7 +109,7 @@ export class DenoBuilder extends Builder {
     /*** code: 选项处理，路径处理 ***/
     // 生成中间产物需要调用的方法
     await Promise.all([
-      this.generator.generate(path.join(__dirname, "../assets"), appDir, spec),
+      this.generator.generate(path.join(__dirname, '../assets'), appDir, spec),
       fs.copy(path.join(projectDir, localDir), appDir),
     ]);
 
@@ -125,7 +125,7 @@ export class DenoBuilder extends Builder {
       routes: [
         {
           path: options.path,
-          targetType: "container",
+          targetType: 'container',
           target: containerName,
         },
       ],
@@ -140,7 +140,7 @@ export class DenoBuilder extends Builder {
 
 调试 CloudBase Framework deno 插件时，需参考 [cloudebase-framework 贡献指南](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/CONTRIBUTING.md) 提供的本地调试流程。
 
-本地需要部署的代码，需要提供一个 `cloudbaserc.json` 作为部署配置。如果是开发模板，需要配置属性 `"envId": "{{envId}}"`。`cloudbaserc.json` 参考 [CloudBase Framework 配置文档](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/config.md) 来配置属性。其中 inputs 属性将作为参数传递给插件。
+本地需要部署的代码，需要提供一个 `cloudbaserc.json` 作为部署配置。如果是开发模板，需要配置属性 `"envId": "{{envId}}"`。`cloudbaserc.json` 参考 [CloudBase Framework 配置文档](https://docs.cloudbase.net/framework/config.html) 来配置属性。其中 inputs 属性将作为参数传递给插件。
 
 以我个人模板调试为例，插件编写完毕后，需要在插件目录执行 `npm run build` 编译插件代码。然后在 cloudbase-framework 根目录执行 `npm run link` 实现插件的本地指向。最后在模板目录执行 `CLOUDBASE_FX_ENV=dev cloudbase framework deploy -e test-1gxe3u9377a09734` 来进行部署。
 
@@ -170,7 +170,7 @@ deno 提供了 `deno bundle` 命令，可以将代码打包为一个 js 文件�
 
 ```ts
 /* @see https://github.com/oakserver/oak/blob/main/application.ts */
-import { reset } from "https://deno.land/std@0.62.0/fmt/colors.ts";
+import { reset } from 'https://deno.land/std@0.62.0/fmt/colors.ts';
 ```
 
 ### 模板引擎
