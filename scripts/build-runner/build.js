@@ -14,7 +14,7 @@ const { writeFileSync } = require('fs');
 
 const coreVersion = require('../../lerna.json').version;
 const tag = process.env.BUILD_TAG || 'latest';
-const tagName = `binggg/cloudbase-framework-runner:${tag}`;
+const tagName = `tencentcloudbase/cloudbase-framework-runner:${tag}`;
 
 const promisifyGlob = promisify(glob);
 

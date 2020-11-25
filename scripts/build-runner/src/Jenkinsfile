@@ -1,7 +1,7 @@
 pipeline {
     agent {
       docker {
-        image 'binggg/cloudbase-framework-runner:beta'
+        image 'tencentcloudbase/cloudbase-framework-runner:latest'
         reuseNode true
       }
     }
