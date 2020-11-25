@@ -401,7 +401,7 @@ class MiniProgramsPlugin extends Plugin {
       appid,
       type: 'miniProgram',
       projectPath: path.resolve(projectPath, localPath),
-      privateKeyPath: path.resolve(projectPath, privateKeyPath),
+      privateKeyPath: path.resolve(projectPath, privateKeyPath || ''),
       ignores,
     });
   }
