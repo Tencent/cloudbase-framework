@@ -621,6 +621,10 @@
         "volumeMounts": {
           "description": "挂载目录\n1.4.0 版本以后支持\nkey 为挂载路径，value为挂载的 CFS Addon 的 Name",
           "$ref": "#/definitions/Record<string,string>"
+        },
+        "bumpVersion": {
+          "description": "是否自动创建新版本",
+          "type": "boolean"
         }
       },
       "required": [
@@ -846,6 +850,10 @@
           "description": "代码保护密钥，传入此参数将保护代码，在控制台/IDE中无法看到代码明文\n格式为 36 位大小字母和数字",
           "pattern": "^[a-zA-Z0-9]$",
           "type": "string"
+        },
+        "bumpVersion": {
+          "description": "是否自动创建新版本",
+          "type": "boolean"
         }
       },
       "required": [
@@ -1022,6 +1030,10 @@
             "volumeMounts": {
               "description": "挂载目录\n1.4.0 版本以后支持\nkey 为挂载路径，value为挂载的 CFS Addon 的 Name",
               "$ref": "#/definitions/Record<string,string>"
+            },
+            "bumpVersion": {
+              "description": "是否自动创建新版本",
+              "type": "boolean"
             }
           },
           "required": [
@@ -1383,6 +1395,10 @@
               "default": "./private.key",
               "type": "string"
             },
+            "privateKey": {
+              "description": "小程序应用的部署私钥（需要经过base64编码）",
+              "type": "string"
+            },
             "localPath": {
               "description": "小程序项目的本地相对路径",
               "default": "./",
@@ -1423,8 +1439,7 @@
           },
           "required": [
             "appid",
-            "localPath",
-            "privateKeyPath"
+            "localPath"
           ],
           "$schema": "http://json-schema.org/draft-07/schema#"
         }
