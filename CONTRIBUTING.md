@@ -7,7 +7,7 @@
 您可以选择如下的贡献方式：
 
 - [贡献一篇技术文章](./community/posts/README.md)
-- [贡献应用模板](./doc/app.md)
+- 贡献应用模板
 - 贡献代码，提交 Pull Request
 - 反馈 bug，提交 Issue
 - 在技术会议上发表技术演讲

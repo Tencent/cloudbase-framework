@@ -430,7 +430,7 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 您可以选择如下的贡献方式：
 
 - [贡献一篇技术文章](./community/posts/README.md)
-- [贡献应用模板](./doc/app.md)
+- 贡献应用模板
 - [提交一个应用案例](https://github.com/TencentCloudBase/cloudbase-framework/issues/91)
 - [贡献代码，提交 Pull Request](https://github.com/TencentCloudBase/cloudbase-framework/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)
 - [反馈 bug，提交 Issue](https://github.com/TencentCloudBase/cloudbase-framework/issues/new/choose)
