@@ -226,6 +226,10 @@ async function resolveRcConfig(
       logger.debug('远程存在同名项目', cloudProjectInfo.projectName);
       extraData = cloudProjectInfo.extraData;
       originProjectInfo = cloudProjectInfo.originProjectInfo;
+      // CI 环境直接创建项目
+    } else if (process.env.CI) {
+      logger.debug('CI环境，新建项目');
+      extraData = {};
       // 远程没有同名项目，从项目列表中选择或者新建项目
     } else {
       logger.info('远程不存在同名项目');
