@@ -19,6 +19,7 @@
     "license": "node scripts/license-checker.js",
     "build:image": "node scripts/build-runner/build.js",
     "build:image:beta": "BUILD_TAG=beta node scripts/build-runner/build.js",
+    "build:doc": "node scripts/build-doc && npm run build:markdown",
     "build:markdown": "node scripts/markdown-render.js"
   },
   "devDependencies": {
