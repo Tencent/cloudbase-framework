@@ -303,11 +303,30 @@ class ContainerPlugin extends Plugin {
   async init() {
     this.api.logger.debug('ContainerPlugin: init', this.inputs);
 
+    const latestVersionDetail = await this.getLatestVersionDetail();
+
+    let cloudInputs = latestVersionDetail
+      ? {
+          cpu: latestVersionDetail.Cpu,
+          mem: latestVersionDetail.Mem,
+          maxNum: latestVersionDetail.MaxNum,
+          minNum: latestVersionDetail.MinNum,
+        }
+      : {};
+
     let modeInputs = MODE_INPUTS[this.inputs.mode || 'low-cost'];
+
+    this.api.logger.debug(
+      'Container Plugin Inputs',
+      'cloud',
+      cloudInputs,
+      'mode',
+      modeInputs
+    );
 
     this.resolvedInputs = resolveInputs(
       this.inputs,
-      Object.assign({}, DEFAULT_INPUTS, modeInputs)
+      Object.assign({}, DEFAULT_INPUTS, modeInputs, cloudInputs)
     );
 
     const {
@@ -577,7 +596,28 @@ class ContainerPlugin extends Plugin {
   }
 
   async getLatestVersionDetail() {
-    return this.containerApi.getServerVersions(this.inputs.serviceName);
+    const serverInfo = await this.containerApi.getServerVersions(
+      this.inputs.serviceName
+    );
+    const versionsOrderByUpdatedTime = (serverInfo.VersionItems || []).sort(
+      (a: any, b: any) => {
+        if (a.UpdatedTime > b.UpdatedTime) {
+          return -1;
+        }
+        if (a.UpdatedTime < b.UpdatedTime) {
+          return 1;
+        }
+        return 0;
+      }
+    );
+
+    if (versionsOrderByUpdatedTime.length) {
+      let latestVersion = versionsOrderByUpdatedTime[0];
+      return this.containerApi.getVersionDetail(
+        this.inputs.serviceName,
+        latestVersion.VersionName
+      );
+    }
   }
 }
 

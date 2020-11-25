@@ -91,8 +91,7 @@ export class ContainerApi {
    * 查询指定服务下版本列表
    */
   getServerVersions(serverName: string) {
-    return this.cloudApi.tcbService.request('DescribeCloudBaseRunBuildServer', {
-      Business: 'framework',
+    return this.cloudApi.tcbService.request('DescribeCloudBaseRunServer', {
       ServerName: serverName,
       Offset: 0,
       Limit: 20,
