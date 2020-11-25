@@ -203,6 +203,8 @@ async function resolveRcConfig(
   let projectName = config?.framework?.name;
   let originProjectInfo;
 
+  logger.debug('process.env', process.env);
+
   // 如果是云端构建，从环境变量中读取
   if (process.env.CLOUDBASE_CIID) {
     logger.debug('云端构建场景');
