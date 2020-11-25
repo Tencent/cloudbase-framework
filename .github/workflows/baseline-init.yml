@@ -23,7 +23,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Install Deps
         run: |
-          sudo npm install -g @cloudbase/cli@beta lerna@3.20.2
+          sudo npm install -g @cloudbase/cli@latest lerna@3.20.2
           cd scripts && npm install && cd ..
 
       - name: Login
@@ -38,4 +38,4 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Init Template
         run: |
-          sudo CLOUDBASE_FX_ENV=dev envId=${{ secrets.ENV_ID }} node scripts/local-e2e.js
+          sudo CLOUDBASE_FX_ENV=dev CI=true envId=${{ secrets.ENV_ID }} node scripts/local-e2e.js
