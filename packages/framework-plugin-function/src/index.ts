@@ -110,6 +110,11 @@ export interface ICloudFunction {
    * @pattern ^[a-zA-Z0-9]$
    */
   codeSecret?: string;
+
+  /**
+   * 是否自动创建新版本
+   */
+  bumpVersion?: boolean;
 }
 
 export interface IFunctionVPC {
@@ -352,7 +357,7 @@ class FunctionPlugin extends Plugin {
           CodeSecret: !!functionConfig.codeSecret,
           Role: 'TCB_QcsRole',
         },
-        this.api.bumpVersion && {
+        (this.api.bumpVersion || functionConfig.bumpVersion) && {
           NewVersion: true,
         },
         this.api.versionRemark && {

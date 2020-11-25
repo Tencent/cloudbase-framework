@@ -240,15 +240,34 @@ imageUrl 格式为 [registry-url]/[namespace]/[image]:[tag]，支持腾讯云 cc
 
 ```json
 {
-  "use": "@cloudbase/framework-plugin-container",
-  "inputs": {
-    "serviceName": "deno",
-    "servicePath": "/deno",
-    "localPath": "./",
-    "uploadType": "repository",
-    "codeDetail": {
-      "name": "deno-docker",
-      "url": "https://github.com/TabSpace/deno-docker"
+  "version": "2.0",
+  "envId": "{{env.ENV_ID}}",
+  "framework": {
+    "name": "grafana",
+    "plugins": {
+      "client": {
+        "use": "@cloudbase/framework-plugin-container",
+        "inputs": {
+          "mode": "low-cost",
+          "serviceName": "grafana",
+          "servicePath": "/",
+          "localPath": "./",
+          "uploadType": "package",
+          "containerPort": 3000,
+          "envVariables": {},
+          "volumeMounts": {
+            "/var/lib/grafana": "grafana-cfs"
+          }
+        }
+      }
+    },
+    "requirement": {
+      "addons": [
+        {
+          "type": "CFS",
+          "name": "grafana-cfs"
+        }
+      ]
     }
   }
 }
@@ -265,6 +284,12 @@ imageUrl 格式为 [registry-url]/[namespace]/[image]:[tag]，支持腾讯云 cc
 可选，延迟多长时间开始健康检查
 
 单位 s，支持设置 0-1000
+
+### `bumpVersion`
+
+可选，是否自动创建新版本
+
+选择自动创建新版本，可以在控制台进行流量的灰度和控制，不选择的情况下会自动原位更新
 
 ### `versionRemark`
 

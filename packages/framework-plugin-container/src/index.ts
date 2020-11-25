@@ -223,6 +223,11 @@ export interface IFrameworkPluginContainerInputs {
    * key 为挂载路径，value为挂载的 CFS Addon 的 Name
    */
   volumeMounts?: Record<string, string>;
+
+  /**
+   * 是否自动创建新版本
+   */
+  bumpVersion?: boolean;
 }
 
 interface IContainerImageInfo {
@@ -449,6 +454,7 @@ class ContainerPlugin extends Plugin {
       versionRemark,
       customLogs,
       initialDelaySeconds,
+      bumpVersion,
     } = this.resolvedInputs;
 
     let otherProperties;
@@ -541,7 +547,7 @@ class ContainerPlugin extends Plugin {
           InitialDelaySeconds: initialDelaySeconds,
         },
         otherProperties,
-        this.api.bumpVersion && {
+        (this.api.bumpVersion || bumpVersion) && {
           NewVersion: true,
         },
         this.api.versionRemark && {
