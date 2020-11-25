@@ -205,7 +205,7 @@ export class CloudBaseFrameworkCore {
           let url;
           let base;
           switch (entry.EntryType) {
-            case 'StaitcStore':
+            case 'StaticStore':
               base = domains.static;
               break;
             case 'HttpService':
