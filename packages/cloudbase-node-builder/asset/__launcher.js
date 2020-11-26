@@ -21,5 +21,24 @@ module.exports.main = async (event, context) => {
     app = await entry.tcbGetApp();
   }
 
-  return serverless(app)(event, context);
+  return serverless(app, {
+    binary: [
+      'application/javascript',
+      'application/json',
+      'application/octet-stream',
+      'application/xml',
+      'font/eot',
+      'font/opentype',
+      'font/otf',
+      'image/*',
+      'video/*',
+      'audio/*',
+      'text/comma-separated-values',
+      'text/css',
+      'text/javascript',
+      'text/plain',
+      'text/text',
+      'text/xml',
+    ],
+  })(event, context);
 };
