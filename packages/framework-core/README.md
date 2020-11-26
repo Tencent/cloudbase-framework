@@ -14,13 +14,21 @@
 
 <p align="center">
   <a href="https://cloudbase.net" target="_blank">
-    官网
+    云开发官网
   </a>
   / 
-  <a href="https://docs.cloudbase.net/" target="_blank">
+  <a href="https://cloudbase.net/framework.html" target="_blank">
+    CloudBase Framework 官网
+  </a>
+  /
+  <a href="https://docs.cloudbase.net/framework/" target="_blank">
     文档
   </a>
   / 
+  <a href="https://cloudbase.net/marketplace.html" target="_blank">
+    应用中心
+  </a>
+  /
   <a href="https://cloudbase.net/community.html" target="_blank">
     社区
   </a>
