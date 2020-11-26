@@ -12,9 +12,8 @@ export const DEFAULT_SAM = {
   Description: 'CLoudBase Framework创建的应用',
   Category: 'CloudApp',
   Tags: [],
-  SourceUrl: 'https://github.com/TencentCloudBase/cloudbase-framework',
-  ReleaseNotesUrl:
-    'https://github.com/TencentCloudBase/cloudbase-framework/releases',
+  SourceUrl: 'https://github.com/Tencent/cloudbase-framework',
+  ReleaseNotesUrl: 'https://github.com/Tencent/cloudbase-framework/releases',
   IconUrl:
     'https://main.qcloudimg.com/raw/f87b49914efe502722f9aa128f5d8865/hello_world.svg',
   IntroUrl: 'https://cloud.tencent.com/document/product/876/44547',
@@ -27,13 +26,13 @@ export const DEFAULT_SAM = {
   Author: {
     AuthorName: 'Tencent CloudBase',
     Email: 'cloudbase@tencent.com',
-    Url: 'https://github.com/TencentCloudBase/cloudbase-framework',
+    Url: 'https://github.com/Tencent/cloudbase-framework',
   },
   Contributors: [
     {
       AuthorName: 'Tencent CloudBase',
       Email: 'cloudbase@tencent.com',
-      Url: 'https://github.com/TencentCloudBase/cloudbase-framework',
+      Url: 'https://github.com/Tencent/cloudbase-framework',
     },
   ],
 };

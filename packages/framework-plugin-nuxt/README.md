@@ -1,14 +1,14 @@
-<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-nuxt">![Tencent CloudBase Framework Nuxt SSR Plugin](https://main.qcloudimg.com/raw/6d48ab8bc29c38558cd258b28b14f94e.jpg)</a>
+<a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-nuxt">![Tencent CloudBase Framework Nuxt SSR Plugin](https://main.qcloudimg.com/raw/6d48ab8bc29c38558cd258b28b14f94e.jpg)</a>
 
 # Tencent CloudBase Framework Nuxt SSR Plugin
 
 [![Github License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-nuxt)](https://www.npmjs.com/package/@cloudbase/framework-plugin-nuxt)
-[![issue](https://img.shields.io/github/issues/TencentCloudBase/cloudbase-framework)](https://github.com/TencentCloudBase/cloudbase-framework/issues)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/TencentCloudBase/cloudbase-framework/pulls)
-[![star](https://img.shields.io/github/stars/TencentCloudBase/cloudbase-framework?style=social)](https://github.com/TencentCloudBase/cloudbase-framework)
+[![issue](https://img.shields.io/github/issues/Tencent/cloudbase-framework)](https://github.com/Tencent/cloudbase-framework/issues)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Tencent/cloudbase-framework/pulls)
+[![star](https://img.shields.io/github/stars/Tencent/cloudbase-framework?style=social)](https://github.com/Tencent/cloudbase-framework)
 
-**云开发 CloudBase Framework 框架「Nuxt SSR」插件**： 通过云开发 **[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework)** 框架将 Nuxt SSR 应用一键部署到云开发环境，提供自动弹性伸缩的高性能 Node SSR 应用服务。可以搭配其他插件如 Website 插件、函数插件实现云端一体开发。
+**云开发 CloudBase Framework 框架「Nuxt SSR」插件**： 通过云开发 **[CloudBase Framework](https://github.com/Tencent/cloudbase-framework)** 框架将 Nuxt SSR 应用一键部署到云开发环境，提供自动弹性伸缩的高性能 Node SSR 应用服务。可以搭配其他插件如 Website 插件、函数插件实现云端一体开发。
 
 ## 功能特性
 
@@ -96,7 +96,7 @@ Nuxt 配置文件所在目录，默认当前项目所在目录
 
 ## 更多插件
 
-请访问 [CloudBase Framework 插件列表](https://github.com/TencentCloudBase/cloudbase-framework#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84%E6%8F%92%E4%BB%B6%E5%88%97%E8%A1%A8) 搭配使用其他插件
+请访问 [CloudBase Framework 插件列表](https://github.com/Tencent/cloudbase-framework#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84%E6%8F%92%E4%BB%B6%E5%88%97%E8%A1%A8) 搭配使用其他插件
 
 ## 文档资料
 

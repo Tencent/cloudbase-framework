@@ -1,14 +1,14 @@
-<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-deno">![Tencent CloudBase Framework Deno Plugin](https://main.qcloudimg.com/raw/70429911e53a56366c39e11f5596e790.jpg)</a>
+<a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-deno">![Tencent CloudBase Framework Deno Plugin](https://main.qcloudimg.com/raw/70429911e53a56366c39e11f5596e790.jpg)</a>
 
 # Tencent CloudBase Framework Deno Plugin
 
 [![Github License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-function)](https://www.npmjs.com/package/@cloudbase/framework-plugin-function)
-[![issue](https://img.shields.io/github/issues/TencentCloudBase/cloudbase-framework)](https://github.com/TencentCloudBase/cloudbase-framework/issues)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/TencentCloudBase/cloudbase-framework/pulls)
-[![star](https://img.shields.io/github/stars/TencentCloudBase/cloudbase-framework?style=social)](https://github.com/TencentCloudBase/cloudbase-framework)
+[![issue](https://img.shields.io/github/issues/Tencent/cloudbase-framework)](https://github.com/Tencent/cloudbase-framework/issues)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Tencent/cloudbase-framework/pulls)
+[![star](https://img.shields.io/github/stars/Tencent/cloudbase-framework?style=social)](https://github.com/Tencent/cloudbase-framework)
 
-**云开发 CloudBase Framework 框架「Deno」插件**： 通过云开发 **[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework)** 框架将 Deno 应用一键部署到云开发环境，提供生产环境可用的自动弹性伸缩的高性能 Deno 应用服务。
+**云开发 CloudBase Framework 框架「Deno」插件**： 通过云开发 **[CloudBase Framework](https://github.com/Tencent/cloudbase-framework)** 框架将 Deno 应用一键部署到云开发环境，提供生产环境可用的自动弹性伸缩的高性能 Deno 应用服务。
 
 ## 功能特性
 
@@ -137,7 +137,7 @@ scripts:
 
 ## 更多插件
 
-请访问 [CloudBase Framework 插件列表](https://github.com/TencentCloudBase/cloudbase-framework#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84%E6%8F%92%E4%BB%B6%E5%88%97%E8%A1%A8) 搭配使用其他插件
+请访问 [CloudBase Framework 插件列表](https://github.com/Tencent/cloudbase-framework#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84%E6%8F%92%E4%BB%B6%E5%88%97%E8%A1%A8) 搭配使用其他插件
 
 ## 文档资料
 

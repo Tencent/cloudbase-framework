@@ -1,6 +1,6 @@
 ---
 title: 云开发推出「前后端一体化部署工具」CloudBase Framework
-description: "开发者福利～现在可以通过一体化的方式来开发和部署应用到云开发了，无须修改业务代码，将应用前后端一键托管部署在云开发平台，享受加速访问和弹性免运维"
+description: '开发者福利～现在可以通过一体化的方式来开发和部署应用到云开发了，无须修改业务代码，将应用前后端一键托管部署在云开发平台，享受加速访问和弹性免运维'
 # github 用户名
 authorIds:
   - binggg
@@ -41,13 +41,13 @@ tags:
 
 ![](https://main.qcloudimg.com/raw/bfbcf950e2b8f42b4c5ba31fa09361e4.png)
 
-[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework) 是云开发基于上述一体化的思想开发的**前后端一体化部署工具**，开发者无需改动业务代码，支持前后端一键托管部署在云开发平台，享受加速访问和弹性免运维的优势，具有以下特点：
+[CloudBase Framework](https://github.com/Tencent/cloudbase-framework) 是云开发基于上述一体化的思想开发的**前后端一体化部署工具**，开发者无需改动业务代码，支持前后端一键托管部署在云开发平台，享受加速访问和弹性免运维的优势，具有以下特点：
 
 **1. 云开发出品**
 
 由云开发推出，核心代码已在 Github 开源
 
-[https://github.com/TencentCloudBase/cloudbase-framework](https://github.com/TencentCloudBase/cloudbase-framework)
+[https://github.com/Tencent/cloudbase-framework](https://github.com/Tencent/cloudbase-framework)
 
 （欢迎给我们的项目点个 Star，支持我们做得更好～）
 
@@ -67,17 +67,17 @@ tags:
 
 ## 亮点 1: 一键部署
 
-[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework) 的第一个核心亮点是可以实现一键部署，常见的应用，不需要改动业务代码，即可“零配置”部署到云开发上。
+[CloudBase Framework](https://github.com/Tencent/cloudbase-framework) 的第一个核心亮点是可以实现一键部署，常见的应用，不需要改动业务代码，即可“零配置”部署到云开发上。
 
 ![](https://main.qcloudimg.com/raw/0168e6f661ed8c3072434c70e5594418.png)
 
-例如，图中所示的基于 Vue CLI 工具创建的项目，在执行 [CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework) 的部署命令时，会自动检测项目框架和语言，交互式确认并保存项目配置，实现应用的一键发布。一条命令实现了应用部署，自动配置 COS 对象存储和 DNS、域名等，自带 HTTPS 安全访问、CDN 访问加速等能力。
+例如，图中所示的基于 Vue CLI 工具创建的项目，在执行 [CloudBase Framework](https://github.com/Tencent/cloudbase-framework) 的部署命令时，会自动检测项目框架和语言，交互式确认并保存项目配置，实现应用的一键发布。一条命令实现了应用部署，自动配置 COS 对象存储和 DNS、域名等，自带 HTTPS 安全访问、CDN 访问加速等能力。
 
 ### 支持常见框架和语言
 
 ![](https://main.qcloudimg.com/raw/ba3478f95ded79dea875ff14cdb51b2e.png)
 
-[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework) 目前支持了 Vue、React 等前端框架，也支持 Nuxt 等 SSR 框架，基于 Node 开发的应用如 Express、Koa 等也可以一键托管。除此之外，借助底层 云托管的能力，也可以部署其他后端的应用（PHP、Java、Go 等），值得一提的是可以部署 Dart Server，可以配合 Flutter 实现 Dart 语言的云端一体化，这也是国内云厂商对 Dart 语言和生态的一大补充。
+[CloudBase Framework](https://github.com/Tencent/cloudbase-framework) 目前支持了 Vue、React 等前端框架，也支持 Nuxt 等 SSR 框架，基于 Node 开发的应用如 Express、Koa 等也可以一键托管。除此之外，借助底层 云托管的能力，也可以部署其他后端的应用（PHP、Java、Go 等），值得一提的是可以部署 Dart Server，可以配合 Flutter 实现 Dart 语言的云端一体化，这也是国内云厂商对 Dart 语言和生态的一大补充。
 
 ### 自动检测框架
 
@@ -107,13 +107,13 @@ tags:
 
 **项目一体化**
 
-使用 [CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework) 开发的项目前端、后端等都可以在同一个项目内开发和维护，这一点和小程序开发非常类似，可以在 IDE 内通过一体化的方式开发和发布。
+使用 [CloudBase Framework](https://github.com/Tencent/cloudbase-framework) 开发的项目前端、后端等都可以在同一个项目内开发和维护，这一点和小程序开发非常类似，可以在 IDE 内通过一体化的方式开发和发布。
 
 ![](https://main.qcloudimg.com/raw/3e2dab0401d5e95773a48b06fd133d57.png)
 
 ### 前后端一体化部署
 
-如上面的例子所示，一个具备前端代码、云函数和服务端代码的一体化应用，只需要调用 [CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework) 的一条命令，即可将完整应用部署在云端，统一管理和维护。
+如上面的例子所示，一个具备前端代码、云函数和服务端代码的一体化应用，只需要调用 [CloudBase Framework](https://github.com/Tencent/cloudbase-framework) 的一条命令，即可将完整应用部署在云端，统一管理和维护。
 
 ### 开箱即用的原生云能力
 
@@ -207,7 +207,7 @@ cloudbase framework deploy
 
 ## CloudBase Framework 降本增效
 
-[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework) 通过提供一体化的开发和部署功能，将应用轻松迁移到一体化的云开发平台上来。企业和个人开发者可以借助这套方案，提升业务效率，节省业务成本。
+[CloudBase Framework](https://github.com/Tencent/cloudbase-framework) 通过提供一体化的开发和部署功能，将应用轻松迁移到一体化的云开发平台上来。企业和个人开发者可以借助这套方案，提升业务效率，节省业务成本。
 
 ### 开发更快
 
@@ -243,13 +243,13 @@ cloudbase framework deploy
 
 ## 生态和插件
 
-[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework) 具有**开放性**的特点，通**过微内核、插件化**的方式来设计这套方案。内核层面解决插件化、构建生命周期等问题，针对具体的场景则通过插件的方式来实现。
+[CloudBase Framework](https://github.com/Tencent/cloudbase-framework) 具有**开放性**的特点，通**过微内核、插件化**的方式来设计这套方案。内核层面解决插件化、构建生命周期等问题，针对具体的场景则通过插件的方式来实现。
 
 例如，针对不同技术栈的网站的托管，设计了 website 插件来处理这一类问题，可以解决前端页面构建、静态资源的部署以及域名的处理。
 
 开发者也可以根据插件的规范来开发不同的插件发布到 NPM 上，使用时只需要指定其 npm 包名即可。
 
-目前 [CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework) 官方提供的插件有：
+目前 [CloudBase Framework](https://github.com/Tencent/cloudbase-framework) 官方提供的插件有：
 
 | 插件                                                                         | 最新版本                                                                                                                                                  | 插件介绍                                            |
 | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
@@ -263,7 +263,7 @@ cloudbase framework deploy
 
 ## 愿景
 
-[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework) 致力于打造一体化框架，目前已实现了一体化的部署工具，未来会引入一体化运行时库和一体化 CI/CD 工作流，帮助业务更快更简单地将业务部署在面向未来的云开发平台上，提高效率，节省成本。
+[CloudBase Framework](https://github.com/Tencent/cloudbase-framework) 致力于打造一体化框架，目前已实现了一体化的部署工具，未来会引入一体化运行时库和一体化 CI/CD 工作流，帮助业务更快更简单地将业务部署在面向未来的云开发平台上，提高效率，节省成本。
 
 1. **一体化思想**
 2. **一体化平台**
@@ -277,7 +277,7 @@ cloudbase framework deploy
 
 我们非常欢迎各位开发者为 CloudBase Framework 贡献一份力量，让这个项目能够更好地帮助开发者提升效率。
 
-Github 地址：[https://github.com/TencentCloudBase/cloudbase-framework](https://github.com/TencentCloudBase/cloudbase-framework)
+Github 地址：[https://github.com/Tencent/cloudbase-framework](https://github.com/Tencent/cloudbase-framework)
 
 ### 参与贡献
 

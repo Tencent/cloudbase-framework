@@ -1,6 +1,6 @@
 ---
 title: 如何用云开发快速搭建实时 TodoList 应用
-description: "本文基于 web 端实时更新的 todolist 案例，详细介绍了云开发数据库实时推送能力的使用。整个案例使用 CloudBase Framework 前后端一体化部署工具，一站式完成项目的创建、开发以及部署。"
+description: '本文基于 web 端实时更新的 todolist 案例，详细介绍了云开发数据库实时推送能力的使用。整个案例使用 CloudBase Framework 前后端一体化部署工具，一站式完成项目的创建、开发以及部署。'
 # github 用户名
 authorIds:
   - shryzhang
@@ -138,8 +138,8 @@ npm install tcb-js-sdk
 【step2】tcb/index.js
 
 ```javascript
-import tcb from "tcb-js-sdk";
-import $config from "../../cloudbaserc";
+import tcb from 'tcb-js-sdk';
+import $config from '../../cloudbaserc';
 
 // 初始化
 const app = tcb.init({
@@ -173,13 +173,13 @@ export default getDB;
 tcb/service.js
 
 ```javascript
-import $getDB from "./index";
+import $getDB from './index';
 
 // 正确数据
 const data = {
   code: 0,
   data: null,
-  msg: "success",
+  msg: 'success',
 };
 
 // 操作失败数据
@@ -203,7 +203,7 @@ function getErrorData(err) {
 // 数据库集合获取
 async function getCollection() {
   const db = await $getDB();
-  return db.collection("watch-todos");
+  return db.collection('watch-todos');
 }
 
 // 增加
@@ -215,7 +215,7 @@ async function addItem(params) {
     const res = await myCollection.add(params);
     // 如果插入出错
     if (!res.id) {
-      return getFailData("add fail");
+      return getFailData('add fail');
     }
   } catch (e) {
     return getErrorData(e);
@@ -231,7 +231,7 @@ async function deleteItem({ _id }) {
     const res = await myCollection.doc(_id).remove();
     // 如果没有成功删除
     if (res.deleted === 0) {
-      return getFailData("delete fail");
+      return getFailData('delete fail');
     }
   } catch (e) {
     return getErrorData(e);
@@ -254,7 +254,7 @@ async function updateItem(params) {
     });
     // 如果没有成功更新
     if (res.updated === 0) {
-      return getFailData("update fail");
+      return getFailData('update fail');
     }
   } catch (e) {
     return getErrorData(e);
@@ -464,4 +464,4 @@ npm run deploy
 <br>
 
 Github 开源地址
-https://github.com/TencentCloudBase/cloudbase-framework
+https://github.com/Tencent/cloudbase-framework

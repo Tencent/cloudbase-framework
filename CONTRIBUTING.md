@@ -12,7 +12,7 @@
 - 反馈 bug，提交 Issue
 - 在技术会议上发表技术演讲
 
-我们会将您加入[我们的贡献者名单](https://github.com/TencentCloudBase/cloudbase-framework#contributors-）
+我们会将您加入[我们的贡献者名单](https://github.com/Tencent/cloudbase-framework#contributors-）
 
 ## 整体架构
 

@@ -83,7 +83,7 @@ export interface IFrameworkPluginNextInputs {
    * }
    * ```
    *
-   * 具体配置信息请参考 [@cloudbase/framework-plugin-function](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/packages/framework-plugin-function/README.md#functions) 配置
+   * 具体配置信息请参考 [@cloudbase/framework-plugin-function](https://github.com/Tencent/cloudbase-framework/blob/master/packages/framework-plugin-function/README.md#functions) 配置
    */
   functionOptions?: any;
 }

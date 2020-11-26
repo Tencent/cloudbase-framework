@@ -18,7 +18,7 @@ tags:
 
 > 无需修改业务代码，就能将 Vue 应用前后端一键托管部署在云开发平台~
 
-Cloudbase Framework 是云开发官方出品的前后端一体化部署工具。目前已经 **[开源](https://github.com/TencentCloudBase/cloudbase-framework)** 。
+Cloudbase Framework 是云开发官方出品的前后端一体化部署工具。目前已经 **[开源](https://github.com/Tencent/cloudbase-framework)** 。
 
 关于 Cloudbase Framework 的介绍，bookerzhao（赵兵）发布过一篇 [《**云开发推出「前后端一体化部署工具」CloudBase Framework》**](https://zhuanlan.zhihu.com/p/159302477)。想必大家看完，一定都磨刀霍霍。今天就给大家带来一篇实战文章，如何用 Cloudbase Framework 部署一个 Vue 项目。
 
@@ -97,7 +97,7 @@ cloudbase framework deploy
 
 **这个命令会做以下几件事：**
 
-1）安装插件 [@cloudbase/framework-plugin-website](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-website)。在 cloudbaserc.json 里，你会发现执行这个命令后，新增了这个插件。
+1）安装插件 [@cloudbase/framework-plugin-website](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-website)。在 cloudbaserc.json 里，你会发现执行这个命令后，新增了这个插件。
 
 ![](https://main.qcloudimg.com/raw/92f36b98595d0fbcc35b59583f6d1fe7.png)
 
@@ -133,7 +133,7 @@ cloudbase init --template=vue
 
 ![``](https://main.qcloudimg.com/raw/0ef39afcb5dc86a880f3110e6dcab964.png)
 
-cloudebaserc.json 里，会默认安装两个插件。之前提到的 [@cloudbase/framework-plugin-website ](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-website) 和 云函数部署相关的 [@cloudbase/framework-plugin-function](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-function)
+cloudebaserc.json 里，会默认安装两个插件。之前提到的 [@cloudbase/framework-plugin-website ](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-website) 和 云函数部署相关的 [@cloudbase/framework-plugin-function](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-function)
 
 ![](https://main.qcloudimg.com/raw/a2acd68f20a7defeb9cc326df91fa273.png)
 
@@ -197,6 +197,6 @@ cloudbase framework deploy
 
 当然，也欢迎更多的小伙伴加入，共建社区生态。
 
-Github 开源地址：https://github.com/TencentCloudBase/cloudbase-framework
+Github 开源地址：https://github.com/Tencent/cloudbase-framework
 
 欢迎给我们点个 star，帮助我们做得更好。

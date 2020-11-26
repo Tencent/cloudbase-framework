@@ -3,7 +3,7 @@
   "version": "1.4.2",
   "description": "CloudBase Framework 云开发 CloudBase 全栈应用开发框架，开箱即用，方便开发和部署多端+全栈的 serverless 应用",
   "author": "Tencent CloudBase Team",
-  "homepage": "https://github.com/TencentCloudBase/cloudbase-framework#readme",
+  "homepage": "https://github.com/Tencent/cloudbase-framework#readme",
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TencentCloudBase/cloudbase-framework.git"
+    "url": "git+https://github.com/Tencent/cloudbase-framework.git"
   },
   "scripts": {
     "dev": "tsc -w",
@@ -27,7 +27,7 @@
     "test": "node framework-test-project/index"
   },
   "bugs": {
-    "url": "https://github.com/TencentCloudBase/cloudbase-framework/issues"
+    "url": "https://github.com/Tencent/cloudbase-framework/issues"
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.0",

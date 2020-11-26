@@ -36,7 +36,7 @@ const config = {
       return `
 ${renderTable(data, renderCell, maxWidth)}
 
-[持续征集优秀应用案例](https://github.com/TencentCloudBase/cloudbase-framework/issues/91)
+[持续征集优秀应用案例](https://github.com/Tencent/cloudbase-framework/issues/91)
 `;
     },
   },

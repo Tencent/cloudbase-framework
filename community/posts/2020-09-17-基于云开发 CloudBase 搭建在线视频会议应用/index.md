@@ -1,7 +1,7 @@
 ---
 title: 基于云开发 CloudBase 搭建在线视频会议应用
-description: "在线视频会议应用是基于浏览器的能力 WebRTC 以及 腾讯云开发 CloudBase 能力构建而成的应用. 在云开发的助力下, 一个复杂的在线会议应用, 一个人一两天即可完成."
-banner: "https://main.qcloudimg.com/raw/32b06bb115f94d89e720cce6c9381022.png"
+description: '在线视频会议应用是基于浏览器的能力 WebRTC 以及 腾讯云开发 CloudBase 能力构建而成的应用. 在云开发的助力下, 一个复杂的在线会议应用, 一个人一两天即可完成.'
+banner: 'https://main.qcloudimg.com/raw/32b06bb115f94d89e720cce6c9381022.png'
 # github 用户名
 authorIds:
   - oe
@@ -48,7 +48,7 @@ tags:
 
 本应用用到的能力、工具、框架有:
 
-1. **[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework)** 用于项目基础目录结构生成, 一键部署
+1. **[CloudBase Framework](https://github.com/Tencent/cloudbase-framework)** 用于项目基础目录结构生成, 一键部署
 2. [Simple Peer](https://github.com/feross/simple-peer) 流行的 WebRTC 库
 3. [云开发-云函数](https://docs.cloudbase.net/cloud-function/introduce.html), 包括云函数的定时调用
 4. [云开发-数据库](https://docs.cloudbase.net/database/introduce.html)
@@ -84,7 +84,7 @@ CloudBase Framework 是云开发官方出品的开源前后端一体化部署工
 
 ![img](https://main.qcloudimg.com/raw/952b432a3b0688cc2f40e23b09c3fffa.png)
 
-Github 地址： https://github.com/TencentCloudBase/cloudbase-framework
+Github 地址： https://github.com/Tencent/cloudbase-framework
 
 ![](https://main.qcloudimg.com/raw/a9debe766e8de780f76e20aeb815317d.png)
 
@@ -206,8 +206,8 @@ function NotReady(props) {
 Video-window 核心代码 `meeting-simple/src/meeting/video-window/index.js`
 
 ```js
-import React, { useRef, useEffect } from "react";
-import * as utils from "../../utils";
+import React, { useRef, useEffect } from 'react';
+import * as utils from '../../utils';
 
 export default function VideoWindow(props) {
   const videoRef = useRef(null);
@@ -219,7 +219,7 @@ export default function VideoWindow(props) {
       if (!dom) return;
       // 自己则 mute 静音
       dom.muted = !props.peer;
-      if ("srcObject" in dom) {
+      if ('srcObject' in dom) {
         dom.srcObject = stream;
         dom.onloadedmetadata = function () {
           dom.play();
@@ -232,7 +232,7 @@ export default function VideoWindow(props) {
     };
 
     if (props.peer) {
-      props.peer.on("stream", updateStream);
+      props.peer.on('stream', updateStream);
       return;
     }
     // 获得 mediaStream
@@ -240,7 +240,7 @@ export default function VideoWindow(props) {
 
     return () => {
       if (!props.peer) return;
-      props.peer.off("stream", updateStream);
+      props.peer.off('stream', updateStream);
     };
   }, [props.peer]);
 
@@ -329,22 +329,22 @@ export async function getMediaStream() {
 创建会议的前端 API 核心代码 `meeting-simple/src/meeting/api.js`
 
 ```js
-import tcb from "tcb-js-sdk";
+import tcb from 'tcb-js-sdk';
 
 // 初始化云开发 JSSDK
 const app = tcb.init({
-  env: "tcb-demo-10cf5b",
+  env: 'tcb-demo-10cf5b',
 });
 
 // 初始化 auth
 const auth = app.auth({
-  persistence: "local",
+  persistence: 'local',
 });
 
 const db = app.database();
 
 // 会议表名称
-const MEETING_COLLECTION = "meeting-simple";
+const MEETING_COLLECTION = 'meeting-simple';
 
 // 匿名登录
 async function signIn() {
@@ -396,12 +396,12 @@ export async function joinMeeting(data) {
   // 查询会议信息
   const result = await db.collection(MEETING_COLLECTION).doc(data.id).get();
   if (!result.data || !result.data.length)
-    throw new Error("meeting not exists");
+    throw new Error('meeting not exists');
 
   const meeting = result.data[0];
   // 前端对比会议 pass 码来验证，安全性较低，会在第 5 步进行优化
   if (meeting.pass && meeting.pass === data.pass)
-    throw new Error("passcode not match");
+    throw new Error('passcode not match');
   return true;
 }
 ```
@@ -421,9 +421,9 @@ export async function joinMeeting(data) {
 1. 增加 simple-peer 来管理 WebRTC 客户端
 
 ```js
-import Peer from "simple-peer";
-import * as utils from "./utils";
-import * as api from "./api";
+import Peer from 'simple-peer';
+import * as utils from './utils';
+import * as api from './api';
 
 export async function createPeer(initiator, meetingId) {
   const peer = new Peer({ initiator });
@@ -431,28 +431,28 @@ export async function createPeer(initiator, meetingId) {
   peer.addStream(stream);
 
   // peer 接收到 signal 事件时，调用 peer.signal(data) 来建立连接，那么如何拿到 data 信息呢
-  peer.on("signal", (e) => {
-    console.log("[peer event]signal", e);
+  peer.on('signal', (e) => {
+    console.log('[peer event]signal', e);
     // 调用更新写入数据库
     updateTicket(e, initiator, meetingId);
   });
-  peer.on("connect", (e) => {
-    console.log("[peer event]connect", e);
+  peer.on('connect', (e) => {
+    console.log('[peer event]connect', e);
   });
-  peer.on("data", (e) => {
-    console.log("[peer event]data", e);
+  peer.on('data', (e) => {
+    console.log('[peer event]data', e);
   });
-  peer.on("stream", (e) => {
-    console.log("[peer event]stream", e);
+  peer.on('stream', (e) => {
+    console.log('[peer event]stream', e);
   });
-  peer.on("track", (e) => {
-    console.log("[peer event]track", e);
+  peer.on('track', (e) => {
+    console.log('[peer event]track', e);
   });
-  peer.on("close", () => {
-    console.log("[peer event]close");
+  peer.on('close', () => {
+    console.log('[peer event]close');
   });
-  peer.on("error", (e) => {
-    console.log("[peer event]error", e);
+  peer.on('error', (e) => {
+    console.log('[peer event]error', e);
   });
   return peer;
 }
@@ -470,11 +470,11 @@ function updateTicket(signal, isInitiator, meetingId) {
       const result = await api.updateTicket({
         meetingId,
         tickets,
-        type: isInitiator ? "offer" : "answer",
+        type: isInitiator ? 'offer' : 'answer',
       });
-      console.warn("[updateTicket] success", result);
+      console.warn('[updateTicket] success', result);
     } catch (error) {
-      console.warn("[updateTicket] failed", error);
+      console.warn('[updateTicket] failed', error);
     }
   }, 100);
 }
@@ -544,7 +544,7 @@ const cloud = require("@cloudbase/node-sdk");
 export async function updateTicket(data) {
   await signIn();
   const res = await app.callFunction({
-    name: "update-ticket-meeting-simple",
+    name: 'update-ticket-meeting-simple',
     data,
   });
   return res;
@@ -576,7 +576,7 @@ export async function watchMeeting(meetingId, onChange) {
         onChange(snapshot.docChanges[0].doc);
       },
       onError: (err) => {
-        console.log("watch error", err);
+        console.log('watch error', err);
       },
     });
 }
@@ -607,7 +607,7 @@ export async function joinMeeting(data) {
   await signIn();
   // 加入会议改为使用调用云函数校验，保证密码安全
   const result = await app.callFunction({
-    name: "join-meeting-meeting-simple",
+    name: 'join-meeting-meeting-simple',
     data,
   });
   if (result.result.code) {
@@ -621,9 +621,9 @@ export async function joinMeeting(data) {
 负责加入会议时进行密码校验的云函数的核心代码 `meeting-simple/cloudfunctions/join-meeting-meeting-simple/index.js`
 
 ```js
-const tcb = require("@cloudbase/node-sdk");
-const MEETING_COLLECTION = "meeting-simple";
-const MEETING_PASS_COLLECTION = "meeting-simple-pass";
+const tcb = require('@cloudbase/node-sdk');
+const MEETING_COLLECTION = 'meeting-simple';
+const MEETING_PASS_COLLECTION = 'meeting-simple-pass';
 const app = tcb.init({
   env: tcb.SYMBOL_CURRENT_ENV,
 });
@@ -633,7 +633,7 @@ exports.main = async function (evt) {
   try {
     const result = await db.collection(MEETING_COLLECTION).doc(evt.id).get();
     if (!result.data || !result.data.length)
-      return { code: 1, message: "meeting not exists" };
+      return { code: 1, message: 'meeting not exists' };
     const meeting = result.data[0];
 
     if (meeting.hasPass) {
@@ -643,13 +643,13 @@ exports.main = async function (evt) {
         .where({ meetingId: evt.id })
         .get();
       if (!passResult.data || !passResult.data.length)
-        return { code: 2, message: "passcode not found" };
+        return { code: 2, message: 'passcode not found' };
       const passInfo = passResult.data[0];
       // 对比会议密码
       if (passInfo.pass !== evt.pass)
         return {
           code: 3,
-          message: "passcode not match",
+          message: 'passcode not match',
         };
     }
     return { code: 0 };
@@ -667,9 +667,9 @@ exports.main = async function (evt) {
 清理数据的云函数的核心实现`meeting-simple/cloudfunctions/autoclear-meeting-meeting-simple/index.js`
 
 ```js
-const tcb = require("@cloudbase/node-sdk");
-const MEETING_COLLECTION = "meeting-simple";
-const MEETING_PASS_COLLECTION = "meeting-simple-pass";
+const tcb = require('@cloudbase/node-sdk');
+const MEETING_COLLECTION = 'meeting-simple';
+const MEETING_PASS_COLLECTION = 'meeting-simple-pass';
 const app = tcb.init({
   env: tcb.SYMBOL_CURRENT_ENV,
 });
@@ -710,7 +710,7 @@ exports.main = async function () {
       })
       .remove();
   } catch (error) {
-    console.log("failed to batch remove", error);
+    console.log('failed to batch remove', error);
   }
 };
 ```
@@ -725,9 +725,9 @@ exports.main = async function () {
 
 ### 第 6 步 使用 cloudbase framework 一键部署
 
-1. 增加静态部署功能, 使用了 [website 插件](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-website)
-2. 增加部署云函数功能, 包括云函数定时调用的设置, 使用了[function 插件](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/packages/framework-plugin-function/README.md)
-3. 增加数据 collection 的创建, 包括 collection 访问权限的设置, 使用了 [database 插件](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/packages/framework-plugin-database/README.md)
+1. 增加静态部署功能, 使用了 [website 插件](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-website)
+2. 增加部署云函数功能, 包括云函数定时调用的设置, 使用了[function 插件](https://github.com/Tencent/cloudbase-framework/blob/master/packages/framework-plugin-function/README.md)
+3. 增加数据 collection 的创建, 包括 collection 访问权限的设置, 使用了 [database 插件](https://github.com/Tencent/cloudbase-framework/blob/master/packages/framework-plugin-database/README.md)
 
 在 `meeting-simple/.env` 文件中声明环境变量信息
 
@@ -805,7 +805,7 @@ cloudbase framework deploy
 
 ![](https://tva1.sinaimg.cn/large/007S8ZIlgy1gib81yq9zlj30sq0gp44r.jpg)
 
-更多 CloudBase Framework 插件可阅读[CloudBase Framework 官方文档](https://github.com/TencentCloudBase/cloudbase-framework#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84%E6%8F%92%E4%BB%B6%E5%88%97%E8%A1%A8)
+更多 CloudBase Framework 插件可阅读[CloudBase Framework 官方文档](https://github.com/Tencent/cloudbase-framework#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84%E6%8F%92%E4%BB%B6%E5%88%97%E8%A1%A8)
 
 #### 代码提交记录
 
@@ -821,7 +821,7 @@ cloudbase framework deploy
 
 🚀 CloudBase Framework 是云开发开源的云原生前后端一体化部署工具，支持主流前后端框架，前后端一键托管部署在云端一体化平台，支持支持小程序、Web、Flutter、后端服务等多个平台。
 
-Github 开源地址：[https://github.com/TencentCloudBase/cloudbase-framework](https://github.com/TencentCloudBase/cloudbase-framework)
+Github 开源地址：[https://github.com/Tencent/cloudbase-framework](https://github.com/Tencent/cloudbase-framework)
 
 欢迎给 CloudBase Framework 一个 🌟 star
 
@@ -831,10 +831,10 @@ Github 开源地址：[https://github.com/TencentCloudBase/cloudbase-framework](
 
 您可以选择如下的贡献方式：
 
-- 贡献技术文章：[https://github.com/TencentCloudBase/cloudbase-framework/tree/master/community/posts](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/community/posts)
-- 贡献应用：[https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/app.md](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/app.md)
+- 贡献技术文章：[https://github.com/Tencent/cloudbase-framework/tree/master/community/posts](https://github.com/Tencent/cloudbase-framework/tree/master/community/posts)
+- 贡献应用：[https://github.com/Tencent/cloudbase-framework/blob/master/doc/app.md](https://github.com/Tencent/cloudbase-framework/blob/master/doc/app.md)
 - 贡献代码，提交 Pull Request
 - 反馈 bug，提交 Issue
 - 在技术会议上发表技术演讲
 
-CloudBase Framework 的发展离不开社区的积极贡献，这是我们的核心贡献者列表，再次感谢大家的贡献：[https://github.com/TencentCloudBase/cloudbase-framework#contributors-](https://github.com/TencentCloudBase/cloudbase-framework#contributors-)
+CloudBase Framework 的发展离不开社区的积极贡献，这是我们的核心贡献者列表，再次感谢大家的贡献：[https://github.com/Tencent/cloudbase-framework#contributors-](https://github.com/Tencent/cloudbase-framework#contributors-)

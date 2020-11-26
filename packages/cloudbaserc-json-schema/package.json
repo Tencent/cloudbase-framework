@@ -9,7 +9,7 @@
     "json-schema"
   ],
   "author": "Booker Zhao <bookerzhao@tencent.com>",
-  "homepage": "https://github.com/TencentCloudBase/cloudbase-framework",
+  "homepage": "https://github.com/Tencent/cloudbase-framework",
   "license": "Apache-2.0",
   "directories": {
     "lib": "dist",
@@ -23,14 +23,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TencentCloudBase/cloudbase-framework.git"
+    "url": "git+https://github.com/Tencent/cloudbase-framework.git"
   },
   "scripts": {
     "prepublishOnly": "node src/index",
     "dev": "watch -f \"src/**/*\" -r 'npm run prepublishOnly'"
   },
   "bugs": {
-    "url": "https://github.com/TencentCloudBase/cloudbase-framework/issues"
+    "url": "https://github.com/Tencent/cloudbase-framework/issues"
   },
   "dependencies": {
     "@cloudbase/framework-plugin-auth": "^1.4.2",

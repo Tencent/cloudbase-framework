@@ -102,7 +102,7 @@ export class CloudBaseFrameworkCore {
     logger.info(`Version ${chalk.green(`v${packageInfo.version}`)}`);
     logger.info(
       `Github: ${genClickableLink(
-        'https://github.com/TencentCloudBase/cloudbase-framework'
+        'https://github.com/Tencent/cloudbase-framework'
       )}
 `
     );

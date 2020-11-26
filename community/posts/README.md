@@ -8,11 +8,9 @@
 
 ## 社区贡献文章列表
 
-[https://github.com/TencentCloudBase/cloudbase-framework/tree/master/community/posts](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/community/posts)
+[https://github.com/Tencent/cloudbase-framework/tree/master/community/posts](https://github.com/Tencent/cloudbase-framework/tree/master/community/posts)
 
 ## 步骤
-
-
 
 1. Fork 这个 Git 仓库（在 master 分支修改）
 2. 在仓库中为您的文章添加一个新文件夹 `/community/posts/YYYY-MM-DD-Desc`，例如 `/community/posts/2020-08-12-如何用云开发快速搭建实时 TodoList 应用`
@@ -21,8 +19,8 @@
 ```markdown
 ---
 title: 如何用云开发快速搭建实时 TodoList 应用
-description: "本文基于 web 端实时更新的 todolist 案例，详细介绍了云开发数据库实时推送能力的使用。整个案例使用 CloudBase Framework 前后端一体化部署工具，一站式完成项目的创建、开发以及部署。"
-banner: "./banner.jpg"
+description: '本文基于 web 端实时更新的 todolist 案例，详细介绍了云开发数据库实时推送能力的使用。整个案例使用 CloudBase Framework 前后端一体化部署工具，一站式完成项目的创建、开发以及部署。'
+banner: './banner.jpg'
 # github 用户名
 authorIds:
   - shryzhang
@@ -46,9 +44,9 @@ tags:
 
 🚀 CloudBase Framework 是云开发开源的云原生前后端一体化部署工具，支持主流前后端框架，前后端一键托管部署在云端一体化平台，支持支持小程序、Web、Flutter、后端服务等多个平台。
 
-Github 开源地址：[https://github.com/TencentCloudBase/cloudbase-framework](https://github.com/TencentCloudBase/cloudbase-framework)
+Github 开源地址：[https://github.com/Tencent/cloudbase-framework](https://github.com/Tencent/cloudbase-framework)
 
-欢迎给 CloudBase Framework 一个 🌟 star 
+欢迎给 CloudBase Framework 一个 🌟 star
 
 ## CloudBase Framework 核心贡献者计划
 
@@ -56,19 +54,19 @@ Github 开源地址：[https://github.com/TencentCloudBase/cloudbase-framework](
 
 您可以选择如下的贡献方式：
 
-- 贡献技术文章：[https://github.com/TencentCloudBase/cloudbase-framework/tree/master/community/posts](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/community/posts)
-- 贡献应用：[https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/app.md](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/doc/app.md)
+- 贡献技术文章：[https://github.com/Tencent/cloudbase-framework/tree/master/community/posts](https://github.com/Tencent/cloudbase-framework/tree/master/community/posts)
+- 贡献应用：[https://github.com/Tencent/cloudbase-framework/blob/master/doc/app.md](https://github.com/Tencent/cloudbase-framework/blob/master/doc/app.md)
 - 贡献代码，提交 Pull Request
 - 反馈 bug，提交 Issue
 - 在技术会议上发表技术演讲
 
-CloudBase Framework 的发展离不开社区的积极贡献，这是我们的核心贡献者列表，再次感谢大家的贡献：[https://github.com/TencentCloudBase/cloudbase-framework#contributors-](https://github.com/TencentCloudBase/cloudbase-framework#contributors-)
+CloudBase Framework 的发展离不开社区的积极贡献，这是我们的核心贡献者列表，再次感谢大家的贡献：[https://github.com/Tencent/cloudbase-framework#contributors-](https://github.com/Tencent/cloudbase-framework#contributors-)
 ```
 
 4. 如果文章有 banner 图片，在项目目录下创建一个 `banner.jpg`
 
 5. 提交 Pull Request（合并到 master 分支）
 
-6. 在通过 Pull Request 之后，我们会将您的帖子添加到我们的社区文章列表，并将您加入[我们的贡献者名单](https://github.com/TencentCloudBase/cloudbase-framework#contributors-)
+6. 在通过 Pull Request 之后，我们会将您的帖子添加到我们的社区文章列表，并将您加入[我们的贡献者名单](https://github.com/Tencent/cloudbase-framework#contributors-)
 
 7. 贡献成功 🎉

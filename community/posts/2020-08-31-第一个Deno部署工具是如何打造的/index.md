@@ -24,19 +24,19 @@ tags:
 
 相关产出：
 
-- cloudbase-framework deno 插件 [framework-plugin-deno](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-deno)
+- cloudbase-framework deno 插件 [framework-plugin-deno](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-deno)
 - [简易在线示例](https://test-1gxe3u9377a09734.service.tcloudbase.com/deno-app/)
 - 简易在线示例代码 [deno 模板](https://github.com/TencentCloudBase/cloudbase-templates/tree/master/deno)
 
 开始着手 deno 插件开发时，CloudBase Framework 插件开发的文档暂缺，不过好在其他插件代码清晰易懂，可以参考其他插件进行开发。
 
-考虑到 deno 运行状态，应该就是需要打通容器部署环节，于是根据 CloudBase Framework 作者建议，参考了 [framework-plugin-node](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-node) 和 [framework-plugin-dart](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-dart) 两款插件的代码来进行开发。
+考虑到 deno 运行状态，应该就是需要打通容器部署环节，于是根据 CloudBase Framework 作者建议，参考了 [framework-plugin-node](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-node) 和 [framework-plugin-dart](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-dart) 两款插件的代码来进行开发。
 
 整个 CloudBase Framework deno 插件开发，主要需要编写代码的文件就 3 个:
 
-- [assets/Dockerfile](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/packages/framework-plugin-deno/assets/Dockerfile)
-- [src/index.ts](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/packages/framework-plugin-deno/src/index.ts)
-- [src/builder.ts](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/packages/framework-plugin-deno/src/builder.ts)
+- [assets/Dockerfile](https://github.com/Tencent/cloudbase-framework/blob/master/packages/framework-plugin-deno/assets/Dockerfile)
+- [src/index.ts](https://github.com/Tencent/cloudbase-framework/blob/master/packages/framework-plugin-deno/src/index.ts)
+- [src/builder.ts](https://github.com/Tencent/cloudbase-framework/blob/master/packages/framework-plugin-deno/src/builder.ts)
 
 ## 调研基本示例
 
@@ -138,7 +138,7 @@ export class DenoBuilder extends Builder {
 
 ## 本地部署调试
 
-调试 CloudBase Framework deno 插件时，需参考 [cloudebase-framework 贡献指南](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/CONTRIBUTING.md) 提供的本地调试流程。
+调试 CloudBase Framework deno 插件时，需参考 [cloudebase-framework 贡献指南](https://github.com/Tencent/cloudbase-framework/blob/master/CONTRIBUTING.md) 提供的本地调试流程。
 
 本地需要部署的代码，需要提供一个 `cloudbaserc.json` 作为部署配置。如果是开发模板，需要配置属性 `"envId": "{{envId}}"`。`cloudbaserc.json` 参考 [CloudBase Framework 配置文档](https://docs.cloudbase.net/framework/config.html) 来配置属性。其中 inputs 属性将作为参数传递给插件。
 

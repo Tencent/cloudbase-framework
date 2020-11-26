@@ -1,14 +1,14 @@
-<a href="https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-node">![Tencent CloudBase Framework Node Plugin](https://main.qcloudimg.com/raw/80526dcba2f27ed2619ac43b9b623d5a.jpg)</a>
+<a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-node">![Tencent CloudBase Framework Node Plugin](https://main.qcloudimg.com/raw/80526dcba2f27ed2619ac43b9b623d5a.jpg)</a>
 
 # Tencent CloudBase Framework Node Plugin
 
 [![Github License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-node)](https://www.npmjs.com/package/@cloudbase/framework-plugin-node)
-[![issue](https://img.shields.io/github/issues/TencentCloudBase/cloudbase-framework)](https://github.com/TencentCloudBase/cloudbase-framework/issues)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/TencentCloudBase/cloudbase-framework/pulls)
-[![star](https://img.shields.io/github/stars/TencentCloudBase/cloudbase-framework?style=social)](https://github.com/TencentCloudBase/cloudbase-framework)
+[![issue](https://img.shields.io/github/issues/Tencent/cloudbase-framework)](https://github.com/Tencent/cloudbase-framework/issues)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Tencent/cloudbase-framework/pulls)
+[![star](https://img.shields.io/github/stars/Tencent/cloudbase-framework?style=social)](https://github.com/Tencent/cloudbase-framework)
 
-**云开发 CloudBase Framework 框架「Node.js App」插件**： 通过云开发 **[CloudBase Framework](https://github.com/TencentCloudBase/cloudbase-framework)** 框架将 Node 应用一键部署云开发环境，提供自动弹性伸缩的高性能 Node 应用服务，支持底层部署为函数或者 云托管，可以搭配其他插件如 Website 插件、函数插件实现云端一体开发。
+**云开发 CloudBase Framework 框架「Node.js App」插件**： 通过云开发 **[CloudBase Framework](https://github.com/Tencent/cloudbase-framework)** 框架将 Node 应用一键部署云开发环境，提供自动弹性伸缩的高性能 Node 应用服务，支持底层部署为函数或者 云托管，可以搭配其他插件如 Website 插件、函数插件实现云端一体开发。
 
 ## 功能特性
 
@@ -154,7 +154,7 @@ exports.tcbGetApp = async () => {
 }
 ```
 
-具体配置信息请参考 [@cloudbase/framework-plugin-container](https://github.com/TencentCloudBase/cloudbase-framework/tree/master/packages/framework-plugin-container#cpu) 配置
+具体配置信息请参考 [@cloudbase/framework-plugin-container](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-container#cpu) 配置
 
 ### `functionOptions`
 
@@ -184,7 +184,7 @@ exports.tcbGetApp = async () => {
 }
 ```
 
-具体配置信息请参考 [@cloudbase/framework-plugin-function](https://github.com/TencentCloudBase/cloudbase-framework/blob/master/packages/framework-plugin-function/README.md#functions) 配置
+具体配置信息请参考 [@cloudbase/framework-plugin-function](https://github.com/Tencent/cloudbase-framework/blob/master/packages/framework-plugin-function/README.md#functions) 配置
 
 ### `wrapExpress`
 
@@ -222,7 +222,7 @@ exports.tcbGetApp = async () => {
 
 ## 更多插件
 
-请访问 [CloudBase Framework 插件列表](https://github.com/TencentCloudBase/cloudbase-framework#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84%E6%8F%92%E4%BB%B6%E5%88%97%E8%A1%A8) 搭配使用其他插件
+请访问 [CloudBase Framework 插件列表](https://github.com/Tencent/cloudbase-framework#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84%E6%8F%92%E4%BB%B6%E5%88%97%E8%A1%A8) 搭配使用其他插件
 
 ## 文档资料
 
