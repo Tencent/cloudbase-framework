@@ -228,7 +228,7 @@ export default [
     },
   },
   {
-    name: '云托管',
+    name: '云托管容器应用',
     key: 'container',
     detect: [
       {

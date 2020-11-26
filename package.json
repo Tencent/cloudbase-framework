@@ -5,7 +5,7 @@
     "dev:all": "npm run bootstrap && npm run link && npm run dev",
     "bootstrap": "lerna bootstrap --no-ci",
     "dev": "lerna run dev --stream --parallel",
-    "prebuild": "rm -rf **/*.tsbuildinfo",
+    "prebuild": "rm -rf **/tsconfig.tsbuildinfo",
     "build": "lerna run build",
     "prepublishOnly": "npm run build && lerna run prepublishOnly",
     "publish": "lerna publish",
