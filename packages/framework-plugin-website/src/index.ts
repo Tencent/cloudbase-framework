@@ -94,10 +94,7 @@ class WebsitePlugin extends Plugin {
     this.resolvedInputs = resolveInputs(this.inputs);
     this.builder = new StaticBuilder({
       projectPath: this.api.projectPath,
-      copyRoot: path.resolve(
-        this.api.projectPath,
-        this.resolvedInputs.outputPath
-      ),
+      copyRoot: path.join(this.api.projectPath, this.resolvedInputs.outputPath),
     });
     this.zipBuilder = new ZipBuilder({
       projectPath: this.api.projectPath,
