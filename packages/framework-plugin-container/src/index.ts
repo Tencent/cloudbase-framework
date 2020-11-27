@@ -596,20 +596,24 @@ class ContainerPlugin extends Plugin {
   }
 
   async getLatestVersionDetail() {
-    const serverInfo = await this.containerApi.getServerVersions(
-      this.inputs.serviceName
-    );
-    const versionsOrderByUpdatedTime = (serverInfo.VersionItems || []).sort(
-      (a: any, b: any) => {
-        if (a.UpdatedTime > b.UpdatedTime) {
-          return -1;
+    let versionsOrderByUpdatedTime = [];
+    // 防止出现云托管未开通的情况
+    try {
+      const serverInfo = await this.containerApi.getServerVersions(
+        this.inputs.serviceName
+      );
+      versionsOrderByUpdatedTime = (serverInfo.VersionItems || []).sort(
+        (a: any, b: any) => {
+          if (a.UpdatedTime > b.UpdatedTime) {
+            return -1;
+          }
+          if (a.UpdatedTime < b.UpdatedTime) {
+            return 1;
+          }
+          return 0;
         }
-        if (a.UpdatedTime < b.UpdatedTime) {
-          return 1;
-        }
-        return 0;
-      }
-    );
+      );
+    } catch (e) {}
 
     if (versionsOrderByUpdatedTime.length) {
       let latestVersion = versionsOrderByUpdatedTime[0];
