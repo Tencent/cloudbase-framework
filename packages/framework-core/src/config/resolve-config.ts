@@ -15,6 +15,7 @@ import path from 'path';
 import { ConfigParser } from '@cloudbase/toolbox';
 import { describeCloudBaseProjectLatestVersionList } from '../api/app';
 import getLogger from '../logger';
+import { genClickableLink } from '../utils/link';
 
 chalk.level = 1;
 
@@ -239,6 +240,14 @@ async function resolveRcConfig(
       // 没有选择项目，新建项目
       if (!selectedProject) {
         logger.debug('新建项目');
+        if (config.framework?.requirement?.addons?.length) {
+          throw new Error(
+            `本地 CLI 暂不支持创建 cloudbaserc.json 中包含 Addon 配置的项目，请通过云端一键部署来创建项目
+  参考文档地址： ${genClickableLink(
+    'https://docs.cloudbase.net/framework/deploy-button.html'
+  )}`
+          );
+        }
         extraData = {};
         // 选择了项目，使用云端项目信息，配置使用本地，项目名更换为云端项目
       } else {

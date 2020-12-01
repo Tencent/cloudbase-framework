@@ -36,6 +36,7 @@ export interface Config {
     region?: string;
   };
   addons?: AddonConfig[];
+  requirement?: Record<string, any>;
 }
 
 export interface AddonConfig {
