@@ -54,9 +54,9 @@ ${renderTable(data, renderCell, maxWidth)}
         `<td style="vertical-align: top;">
               <a target="_blank" style="min-height:100px; display:block;" href="${
                 item.link + '/tree/master/' + item.workdir
-              }"><img width="80px;" src="${
+              }"><img width="80px;" src="https:${
           item.icon ||
-          'https://main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png'
+          '//main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png'
         }">
               <br />
               <b>${
