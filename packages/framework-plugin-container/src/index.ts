@@ -15,7 +15,6 @@ const DEFAULT_INPUTS = {
   description: '基于云开发 CloudBase Framework 部署的云托管',
   isPublic: true,
   flowRatio: 100,
-  mode: 'low-cost',
   cpu: 0.25,
   mem: 0.5,
   minNum: 0,
@@ -77,8 +76,6 @@ export interface IFrameworkPluginContainerInputs {
    * 支持 "low-cost" | "high-availability"
    * "low-cost" 代表低成本模式，会有冷启动延时，锁定最小副本数为0，规格默认值为0.25C0.5G，副本最小个数不可修改，要修改需要先切换模式。
    * "high-availability" 代表高可用模式，不存在冷启动，最小副本数不可以为0，规格默认值为1C1G，要修改最小副本数到0需要先切换模式。
-   *
-   * @default low-cost
    */
   mode?: 'low-cost' | 'high-availability';
   /**
@@ -314,7 +311,7 @@ class ContainerPlugin extends Plugin {
         }
       : {};
 
-    let modeInputs = MODE_INPUTS[this.inputs.mode || 'low-cost'];
+    let modeInputs = this.inputs.mode ? MODE_INPUTS[this.inputs.mode] : {};
 
     this.api.logger.debug(
       'Container Plugin Inputs',
@@ -326,7 +323,7 @@ class ContainerPlugin extends Plugin {
 
     this.resolvedInputs = resolveInputs(
       this.inputs,
-      Object.assign({}, DEFAULT_INPUTS, modeInputs, cloudInputs)
+      Object.assign({}, DEFAULT_INPUTS, cloudInputs, modeInputs)
     );
 
     const {
