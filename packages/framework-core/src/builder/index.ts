@@ -31,9 +31,9 @@ export abstract class Builder {
     this.generator = new Generator();
   }
 
-  abstract async build(...args: any): Promise<BuildResult>;
-
   async clean() {
     return fs.remove(this.distDir);
   }
+
+  abstract async build(...args: any): Promise<BuildResult>;
 }

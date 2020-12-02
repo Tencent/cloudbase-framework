@@ -6,11 +6,11 @@
  * Please refer to license text included with this package for license details.
  */
 import path from 'path';
-import fs from 'fs-extra';
+import fse from 'fs-extra';
 import archiver from 'archiver';
 import { Builder } from '@cloudbase/framework-core';
 
-const launcher = fs.readFileSync(
+const launcher = fse.readFileSync(
   path.resolve(__dirname, '../asset/__launcher.js'),
   'utf-8'
 );
@@ -50,37 +50,43 @@ export class NuxtBuilder extends Builder {
 
   async build(entry: string, options: NuxtBuilderBuildOptions) {
     const { distDir } = this;
-    const nuxtDistPath = path.resolve(entry, '.nuxt');
+    const nuxtDistPath = path.join(entry, '.nuxt');
+    const nuxtStaticPath = path.join(entry, 'static');
 
     const serviceName = options.name;
     const serviceDir = path.join(distDir, serviceName);
 
-    if (!(await fs.pathExists(nuxtDistPath))) {
+    if (!(await fse.pathExists(nuxtDistPath))) {
       throw new Error('没有找到 .nuxt 目录，请先执行构建');
     }
 
-    fs.ensureDirSync(serviceDir);
+    fse.ensureDirSync(serviceDir);
 
     // 移动 .nuxt
-    await fs.copy(nuxtDistPath, path.resolve(serviceDir, '.nuxt'));
+    await fse.copy(nuxtDistPath, path.join(serviceDir, '.nuxt'));
 
     // package.json
     const packageJson = await this.generatePackageJson();
-    await fs.writeFile(path.resolve(serviceDir, 'package.json'), packageJson);
+    await fse.writeFile(path.join(serviceDir, 'package.json'), packageJson);
 
     // nuxt.config.js，需要babel转为es5
-    await fs.copy(
-      path.resolve(entry, 'nuxt.config.js'),
-      path.resolve(serviceDir, 'nuxt.config.js')
+    await fse.copy(
+      path.join(entry, 'nuxt.config.js'),
+      path.join(serviceDir, 'nuxt.config.js')
     );
 
     // launcher
-    await fs.writeFile(
-      path.resolve(serviceDir, 'index.js'),
+    await fse.writeFile(
+      path.join(serviceDir, 'index.js'),
       launcher.replace('/*path*/', options.path)
     );
 
-    // TODO: static files
+    // static files
+    try {
+      await fse.copy(nuxtStaticPath, path.join(serviceDir, 'static'));
+    } catch (e) {
+      this.logger.debug('Nuxt Builder: copy static:', e);
+    }
 
     return {
       functions: [
@@ -104,10 +110,10 @@ export class NuxtBuilder extends Builder {
   async resolveOriginalPackageJson() {
     const { projectDir } = this;
     const packageJsonPath = path.resolve(projectDir, 'package.json');
-    if (!(await fs.pathExists(packageJsonPath))) {
+    if (!(await fse.pathExists(packageJsonPath))) {
       throw new Error('未找到Nuxt项目的package.json');
     }
-    return JSON.parse(await fs.readFile(packageJsonPath, 'utf-8'));
+    return JSON.parse(await fse.readFile(packageJsonPath, 'utf-8'));
   }
 
   async generatePackageJson() {
@@ -125,7 +131,7 @@ export class NuxtBuilder extends Builder {
   async zipDir(src: string, dest: string) {
     return new Promise((resolve, reject) => {
       // create a file to stream archive data to.
-      var output = fs.createWriteStream(dest);
+      var output = fse.createWriteStream(dest);
       var archive = archiver('zip', {
         zlib: { level: 9 }, // Sets the compression level.
       });

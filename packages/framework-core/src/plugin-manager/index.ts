@@ -50,7 +50,6 @@ export default class PluginManager {
   plugins: PluginData[];
   pluginRegistry: string;
   pluginInstallPromise: Promise<boolean>;
-  pluginInstallState = false;
 
   constructor(context: Context) {
     this.context = context;
@@ -289,7 +288,10 @@ export default class PluginManager {
   }
 
   private async installPlugins() {
-    if (this.pluginInstallState || process.env.CLOUDBASE_FX_ENV === 'dev') {
+    if (process.env.CLOUDBASE_FX_ENV === 'dev') {
+      this.context.logger.info(
+        'CLOUDBASE_FX_ENV=dev时，进入本地开发模式，插件使用本地link版本'
+      );
       return true;
     } else {
       const packageInfo = this.plugins.reduce((prev, curr) => {
