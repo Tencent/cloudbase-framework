@@ -140,6 +140,7 @@
   ],
   "definitions": {
     "pluginConfig": {
+      "$id": "#/definitions/pluginConfig",
       "anyOf": [
         {
           "$ref": "#/definitions/genericPluginConfig"
@@ -197,6 +198,7 @@
       }
     },
     "genericPluginConfig": {
+      "$id": "#/definitions/genericPluginConfig",
       "type": "object",
       "properties": {
         "use": {
@@ -212,6 +214,7 @@
       }
     },
     "hooksExecCommand": {
+      "$id": "#/definitions/hooksExecCommand",
       "properties": {
         "type": {
           "type": "string",
@@ -248,6 +251,7 @@
       }
     },
     "hooksCallFunction": {
+      "$id": "#/definitions/hooksCallFunction",
       "properties": {
         "type": {
           "type": "string",
@@ -332,6 +336,7 @@
       }
     },
     "IFrameworkPluginWebsiteInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginWebsiteInputsConfig",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -399,6 +404,7 @@
       "type": "object"
     },
     "IFrameworkPluginNodeInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginNodeInputsConfig",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -513,7 +519,6 @@
         },
         "mode": {
           "description": "副本模式\n\n1.4.0 版本以后支持\n\n支持 \"low-cost\" | \"high-availability\"\n\"low-cost\" 代表低成本模式，会有冷启动延时，锁定最小副本数为0，规格默认值为0.25C0.5G，副本最小个数不可修改，要修改需要先切换模式。\n\"high-availability\" 代表高可用模式，不存在冷启动，最小副本数不可以为0，规格默认值为1C1G，要修改最小副本数到0需要先切换模式。",
-          "default": "low-cost",
           "enum": [
             "high-availability",
             "low-cost"
@@ -661,6 +666,7 @@
       ]
     },
     "IFrameworkPluginNuxtInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginNuxtInputsConfig",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -738,6 +744,7 @@
       ]
     },
     "IFrameworkPluginFunctionInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginFunctionInputsConfig",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -881,6 +888,7 @@
       "type": "object"
     },
     "IFrameworkPluginContainerInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginContainerInputsConfig",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -922,7 +930,6 @@
             },
             "mode": {
               "description": "副本模式\n\n1.4.0 版本以后支持\n\n支持 \"low-cost\" | \"high-availability\"\n\"low-cost\" 代表低成本模式，会有冷启动延时，锁定最小副本数为0，规格默认值为0.25C0.5G，副本最小个数不可修改，要修改需要先切换模式。\n\"high-availability\" 代表高可用模式，不存在冷启动，最小副本数不可以为0，规格默认值为1C1G，要修改最小副本数到0需要先切换模式。",
-              "default": "low-cost",
               "enum": [
                 "high-availability",
                 "low-cost"
@@ -1049,6 +1056,7 @@
       ]
     },
     "IFrameworkPluginDartInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginDartInputsConfig",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -1110,6 +1118,7 @@
       ]
     },
     "IFrameworkPluginDatabaseInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginDatabaseInputsConfig",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -1255,6 +1264,7 @@
       ]
     },
     "IFrameworkPluginDenoInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginDenoInputsConfig",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -1318,6 +1328,7 @@
       ]
     },
     "IFrameworkPluginNextInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginNextInputsConfig",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -1373,6 +1384,7 @@
       ]
     },
     "IFrameworkPluginMiniProgramInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginMiniProgramInputsConfig",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -1521,6 +1533,7 @@
       }
     },
     "IFrameworkPluginAuthInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginAuthInputsConfig",
       "additionalProperties": false,
       "type": "object",
       "properties": {

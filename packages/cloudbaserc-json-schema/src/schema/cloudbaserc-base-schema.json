@@ -124,6 +124,7 @@
   "required": ["envId", "framework"],
   "definitions": {
     "pluginConfig": {
+      "$id": "#/definitions/pluginConfig",
       "anyOf": [
         {
           "$ref": "#/definitions/genericPluginConfig"
@@ -145,6 +146,7 @@
       }
     },
     "genericPluginConfig": {
+      "$id": "#/definitions/genericPluginConfig",
       "type": "object",
       "properties": {
         "use": {
@@ -160,6 +162,7 @@
       }
     },
     "hooksExecCommand": {
+      "$id": "#/definitions/hooksExecCommand",
       "properties": {
         "type": {
           "type": "string",
@@ -188,6 +191,7 @@
       }
     },
     "hooksCallFunction": {
+      "$id": "#/definitions/hooksCallFunction",
       "properties": {
         "type": {
           "type": "string",
