@@ -9,6 +9,8 @@
 const spawnPromise = require('./spawn');
 const path = require('path');
 const { readFileSync } = require('fs');
+const https = require('https');
+const { promisify } = require('util');
 
 const markdownFiles = [
   'README.md',
@@ -42,44 +44,42 @@ ${renderTable(data, renderCell, maxWidth)}
   },
   apps: {
     async get() {
-      const data = JSON.parse(
-        readFileSync(path.join(__dirname, '../community/apps/index.json'))
-      )
-        .filter((item) => {
-          return item.tags.includes('8e5be7055f97c12402609c0f7cd02362');
-        })
-        .slice(0, 14);
+      const res = await fetch(
+        'https://qcloud-tcb-console.service.tcloudbase.com/api/v1.0/tcb-app-template?limit=40'
+      );
+
+      const data = res.data.slice(0, 14);
 
       const renderCell = (item) =>
         `<td style="vertical-align: top;">
-        <a target="_blank" style="min-height:100px; display:block;" href="${
-          item.link + '/tree/master/' + item.workdir
-        }"><img width="80px;" src="${
-          getBucketUrl(item.icon) ||
+              <a target="_blank" style="min-height:100px; display:block;" href="${
+                item.link + '/tree/master/' + item.workdir
+              }"><img width="80px;" src="${
+          item.icon ||
           'https://main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png'
         }">
-        <br />
-        <b>${
-          item.title
-        } <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
-        <p style="min-height: 60px;">${item.introduction || ''} ${
+              <br />
+              <b>${
+                item.title
+              } <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
+              <p style="min-height: 60px;">${item.introduction || ''} ${
           item.resource ? '，使用' + item.resource + '云资源' : ''
         }</p>
-        <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=${
-          item.link
-        }&workDir=${
+              <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=${
+                item.link
+              }&workDir=${
           item.workdir
-        }" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>         <a target="_blank" href="${
-          item.link + '/tree/master/' + item.workdir
-        }">
-        </a>
-        </td>`;
+        }" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>
+              <a target="_blank" href="${
+                item.link + '/tree/master/' + item.workdir
+              }">
+              </a>
+              </td>`;
       const maxWidth = 2;
-      return `
-${renderTable(data, renderCell, maxWidth)}
+      return `${renderTable(data, renderCell, maxWidth)}
 
 点击进入[应用中心](https://cloudbase.net/marketplace.html)查看更多应用
-`;
+      `;
     },
   },
   // 渲染插件
@@ -156,4 +156,27 @@ function getBucketUrl(url) {
   const re = /cloud:\/\/.*?\.(.*?)\/(.*)/;
   const result = re.exec(url);
   return `https://${result[1]}.tcb.qcloud.la/${result[2]}`;
+}
+
+async function fetch(url) {
+  return new Promise((resolve, reject) => {
+    https
+      .get(url, (res) => {
+        let body = '';
+
+        res.on('data', (chunk) => {
+          body += chunk;
+        });
+
+        res.on('end', () => {
+          try {
+            const json = JSON.parse(body);
+            resolve(json);
+          } catch (error) {
+            reject(error);
+          }
+        });
+      })
+      .on('error', reject);
+  });
 }
