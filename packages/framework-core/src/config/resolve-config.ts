@@ -98,7 +98,7 @@ export default async function resolveConfig(
     });
   }
 
-  if (projectName !== originFrameworkConfig.name) {
+  if (projectName !== originFrameworkConfig?.name) {
     finalFrameworkConfig = Object.assign(
       {},
       originFrameworkConfig,
