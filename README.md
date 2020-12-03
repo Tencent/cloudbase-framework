@@ -364,6 +364,9 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
   <tr><td align="center"><a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-extension-cms"><img width="100px;" src="https://main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png"><br /><sub><b>CloudBase CMS</b></sub></a><br/><a target="_blank" href="https://cms-demo-1252710547.tcloudbaseapp.com/#/login">🌐</a></td><td align="center"><a target="_blank" href="https://github.com/hi-our/hi-face"><img width="100px;" src="https://image-hosting.xiaoxili.com/img/img/20200920/eca5f4fa2f7f5512fe236d5dfd05f1c0-b879e7.jpg"><br /><sub><b>Hi头像</b></sub></a><br/><a target="_blank" href="https://face.xiaoxili.com">🌐</a></td><td align="center"><a target="_blank" href="https://github.com/TCloudBase/WEB-TodoList-framework"><img width="100px;" src="https://main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png"><br /><sub><b>CloudBase TodoList</b></sub></a><br/><a target="_blank" href="https://acc.cloudbase.vip/todo">🌐</a></td><td align="center"><a target="_blank" href="https://github.com/1377283509/CampusShooting"><img width="100px;" src="https://gitee.com/cc_li/images/raw/master/2020/11/04/221549.jpeg"><br /><sub><b>校拍</b></sub></a><br/><a target="_blank" href="">🌐</a></td><td align="center"><a target="_blank" href="https://github.com/xcatliu/pagic"><img width="100px;" src="https://pagic.org/assets/pagic_logo.png"><br /><sub><b>Pagic</b></sub></a><br/><a target="_blank" href="">🌐</a></td>
 </tr>
 
+  <tr><td align="center"><a target="_blank" href="https://www.hzecool.com/"><img width="100px;" src="https://main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png"><br /><sub><b>衣科官网</b></sub></a><br/><a target="_blank" href="https://www.hzecool.com/">🌐</a></td>
+</tr>
+
 </table>
 
 [持续征集优秀应用案例](https://github.com/Tencent/cloudbase-framework/issues/91)
