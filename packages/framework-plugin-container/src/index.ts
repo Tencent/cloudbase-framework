@@ -299,6 +299,7 @@ class ContainerPlugin extends Plugin {
    */
   async init() {
     this.api.logger.debug('ContainerPlugin: init', this.inputs);
+    await Promise.all([this.ensurePostPay()]);
 
     const latestVersionDetail = await this.getLatestVersionDetail();
 
@@ -444,6 +445,26 @@ class ContainerPlugin extends Plugin {
       this.buildOutput
     );
     this.api.logger.info(`${this.api.emoji('🚀')} 云托管应用部署成功,`);
+  }
+
+  /**
+   * 确保开启了按量付费
+   */
+  async ensurePostPay() {
+    const res = await this.api.cloudApi.tcbService.request('DescribeEnvs');
+    this.api.logger.debug('环境信息', res);
+
+    let env = res?.EnvList?.[0];
+
+    if (!env) {
+      throw new Error(`当前账号下不存在 ${this.api.envId} 环境`);
+    }
+
+    if (env.PayMode !== 'postpaid') {
+      throw new Error(
+        '云托管当前只能部署到按量付费的环境下，请先在控制台切换计费方式'
+      );
+    }
   }
 
   toSAM() {

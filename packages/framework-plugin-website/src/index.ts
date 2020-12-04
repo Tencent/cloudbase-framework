@@ -312,18 +312,17 @@ class WebsitePlugin extends Plugin {
     const res = await this.api.cloudApi.tcbService.request('DescribeEnvs');
     this.api.logger.debug('环境信息', res);
 
-    // @todo temp disable
-    // let env = res.EnvList && res.EnvList[0];
+    let env = res?.EnvList?.[0];
 
-    // if (!env) {
-    //   throw new Error(`当前账号下不存在 ${this.api.envId} 环境`);
-    // }
+    if (!env) {
+      throw new Error(`当前账号下不存在 ${this.api.envId} 环境`);
+    }
 
-    // if (env.PayMode !== 'postpaid') {
-    //   throw new Error(
-    //     '网站托管当前只能部署到按量付费的环境下，请先在控制台切换计费方式'
-    //   );
-    // }
+    if (env.PayMode !== 'postpaid') {
+      throw new Error(
+        '网站托管当前只能部署到按量付费的环境下，请先在控制台切换计费方式'
+      );
+    }
   }
 
   /**
