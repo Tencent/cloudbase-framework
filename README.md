@@ -395,9 +395,7 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-27-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-28-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -438,12 +436,12 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://xcatliu.com/"><img src="https://avatars0.githubusercontent.com/u/5453359?v=4" width="100px;" alt=""/><br /><sub><b>xcatliu</b></sub></a><br /><a href="#example-xcatliu" title="Examples">💡</a></td>
     <td align="center"><a href="https://github.com/seymoe"><img src="https://avatars3.githubusercontent.com/u/25032899?v=4" width="100px;" alt=""/><br /><sub><b>唐羲</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/issues?q=author%3Aseymoe" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/marschenbiqi"><img src="https://avatars3.githubusercontent.com/u/44521251?v=4" width="100px;" alt=""/><br /><sub><b>Life</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/issues?q=author%3Amarschenbiqi" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="http://imnerd.org"><img src="https://avatars2.githubusercontent.com/u/424491?v=4" width="100px;" alt=""/><br /><sub><b>Austin Lee</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=lizheming" title="Code">💻</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
