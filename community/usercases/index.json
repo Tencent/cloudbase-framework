@@ -64,5 +64,11 @@
     "link": "https://www.hzecool.com/",
     "repo": "",
     "logo": ""
+  },
+  {
+    "name": "Twikoo 评论",
+    "link": "https://twikoo.js.org/",
+    "repo": "https://github.com/imaegoo/twikoo",
+    "logo": "https://696d-imaegoo-16fe3d-1252243992.tcb.qcloud.la/logo/twikoo.png"
   }
 ]
