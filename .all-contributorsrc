@@ -273,6 +273,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "imaegoo",
+      "name": "iMaeGoo",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/20182252?v=4",
+      "profile": "https://www.imaegoo.com/",
+      "contributions": [
+        "example"
+      ]
     }
   ],
   "contributorsPerLine": 7,
