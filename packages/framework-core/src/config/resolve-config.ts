@@ -16,6 +16,7 @@ import { ConfigParser } from '@cloudbase/toolbox';
 import { describeCloudBaseProjectLatestVersionList } from '../api/app';
 import getLogger from '../logger';
 import { genClickableLink } from '../utils/link';
+import { validate } from './validate';
 
 chalk.level = 1;
 
@@ -45,6 +46,14 @@ export default async function resolveConfig(
     projectName,
     originProjectInfo,
   } = await resolveRcConfig(projectPath, config, envId);
+
+  const validateRes = validate(rcConfig);
+
+  if (!validateRes.result) {
+    logger.error(validateRes.errorText);
+    throw new Error('cloudbaserc.json 文件校验失败');
+  }
+
   // 针对 cloudbaserc.js 等脚本文件，会创建一份单独的 json 配置文件
   const independentFrameworkConfig = await readFrameworkConfig(projectPath);
 

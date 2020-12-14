@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "id": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json",
+  "$id": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json",
   "title": "CloudBase CLI Configuration",
   "type": "object",
   "properties": {
@@ -63,7 +63,7 @@
           }
         },
         "hooks": {
-          "$id": "HooksConfig",
+          "$id": "#HooksConfig",
           "type": "object",
           "title": "生命周期",
           "description": "Framework 1.2.x 版本支持，CloudBase Framework 部署前后的钩子配置，可以在这里自定义应用不同生命周期的执行动作",
@@ -96,7 +96,7 @@
           ],
           "properties": {
             "preDeploy": {
-              "$id": "PreDeployHooksConfig",
+              "$id": "#PreDeployHooksConfig",
               "type": "object",
               "title": "preDeploy 钩子",
               "description": "在执行 framework deploy 之前执行的钩子",
@@ -113,11 +113,15 @@
                 "type",
                 "commands"
               ],
-              "$ref": "#/definitions/hooksExecCommand",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/hooksExecCommand"
+                }
+              ],
               "additionalProperties": true
             },
             "postDeploy": {
-              "$id": "PostDeployHooksConfig",
+              "$id": "#PostDeployHooksConfig",
               "type": "object",
               "title": "postDeploy 钩子",
               "description": "在执行 framework deploy 部署资源成功后执行的钩子",
