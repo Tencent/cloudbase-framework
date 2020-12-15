@@ -6,8 +6,9 @@
  * Please refer to license text included with this package for license details.
  */
 import Ajv from 'ajv';
-import localize from 'ajv-i18n';
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const localize = require('ajv-i18n');
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const schema = require('../../../cloudbaserc-json-schema/dist/cloudbaserc-json-schema');
 const ajv = new Ajv({ allErrors: false });

@@ -29,8 +29,8 @@ import { SamManager } from './sam';
 import { genAddonSam } from './sam/addon';
 import Hooks from './hooks';
 import { fetchDomains } from './api/domain';
-import { ISAM } from './sam/types';
 import { createAndDeployCloudBaseProject } from './api/app';
+import LifeCycleManager from './lifecycle';
 
 export { default as Plugin } from './plugin';
 export { default as PluginServiceApi } from './plugin-service-api';
@@ -41,6 +41,9 @@ export * from './types';
 
 const packageInfo = require('../package');
 const SUPPORT_COMMANDS = ['deploy', 'compile', 'run'];
+let globalErrorHandler = async (e: Error) => {
+  console.log(e.message);
+};
 
 interface CommandParams {
   runCommandKey?: string;
@@ -61,16 +64,24 @@ export async function run(
   module?: string,
   params?: CommandParams
 ) {
-  const frameworkCore = new CloudBaseFrameworkCore(cloudBaseFrameworkConfig);
+  process.on('SIGINT', function () {
+    console.log('Got SIGINT. Ignoring.');
+  });
+  try {
+    const frameworkCore = new CloudBaseFrameworkCore(cloudBaseFrameworkConfig);
 
-  if (!SUPPORT_COMMANDS.includes(command)) {
-    throw new Error(`CloudBase Framework: not support command '${command}'`);
+    if (!SUPPORT_COMMANDS.includes(command)) {
+      throw new Error(`CloudBase Framework: not support command '${command}'`);
+    }
+    await frameworkCore.init();
+    await frameworkCore[command](module, params);
+
+    const logger = getLogger();
+    logger.info('✨ done');
+  } catch (e) {
+    await globalErrorHandler(e);
+    process.exit(1);
   }
-  await frameworkCore.init();
-  await frameworkCore[command](module, params);
-
-  const logger = getLogger();
-  logger.info('✨ done');
 }
 
 /**
@@ -82,6 +93,9 @@ export class CloudBaseFrameworkCore {
   appConfig!: Config;
   hooks!: Hooks;
   projectInfo!: Record<string, any> | undefined;
+  ciId!: string;
+  context!: Context;
+  lifeCycleManager!: LifeCycleManager;
 
   constructor(public frameworkConfig: CloudBaseFrameworkConfig) {}
 
@@ -96,6 +110,7 @@ export class CloudBaseFrameworkCore {
       versionRemark,
     } = this.frameworkConfig;
 
+    // 初始化 logger
     const logger = getLogger(logLevel);
 
     await showBanner();
@@ -140,6 +155,9 @@ export class CloudBaseFrameworkCore {
     this.samManager = new SamManager({
       projectPath,
     });
+    this.appConfig = appConfig;
+    this.ciId = await this.createProjectVersion();
+
     const context = new Context({
       appConfig,
       projectConfig: config,
@@ -150,10 +168,14 @@ export class CloudBaseFrameworkCore {
       samManager: this.samManager,
       bumpVersion: !!bumpVersion,
       versionRemark: versionRemark || '',
+      ciId: this.ciId,
     });
-
+    this.context = context;
+    this.lifeCycleManager = new LifeCycleManager(context);
+    globalErrorHandler = async (e: Error) => {
+      return this.lifeCycleManager.reportBuildResult(1, e.message);
+    };
     this.pluginManager = new PluginManager(context);
-    this.appConfig = appConfig;
     this.hooks = new Hooks(appConfig.hooks || {}, projectPath);
   }
 
@@ -192,7 +214,10 @@ export class CloudBaseFrameworkCore {
     logger.debug('deploy', module, params);
     await this.hooks.callHook('preDeploy');
     await this._compile(module);
-    await this.samManager.install(this.createProjectVersion.bind(this));
+    await this.samManager.install(this.ciId, async (extensionId) => {
+      this.context.extensionId = extensionId;
+      return this.lifeCycleManager.reportBuildResult(0);
+    });
     await this.pluginManager.deploy(module);
     await this.hooks.callHook('postDeploy');
 
@@ -257,7 +282,7 @@ ${entryLogInfo}`);
     );
   }
 
-  async createProjectVersion(template: ISAM) {
+  async createProjectVersion() {
     let isCloudBuild = !!process.env.CLOUDBASE_CIID;
 
     // 云端部署直接返回
@@ -265,10 +290,8 @@ ${entryLogInfo}`);
       return process.env.CLOUDBASE_CIID;
       // 本地部署也创建项目版本
     } else {
-      const { Name, Globals } = template;
-
       const Parameters = this.transpileEnvironments(
-        Globals?.Environment?.Variables
+        this.projectInfo?.environment
       );
 
       const Source = this.projectInfo?.Source || {
@@ -283,10 +306,10 @@ ${entryLogInfo}`);
 
       // 旧的字段保持 JSON 格式，新字段使用字符串格式
       const data = await createAndDeployCloudBaseProject({
-        Name,
+        Name: this.appConfig.name || '',
         Parameters,
         Source,
-        RcJson: JSON.stringify(this.appConfig),
+        RcJson: JSON.stringify(this.frameworkConfig.config),
         AddonConfig: JSON.stringify(this.appConfig.addons),
         NetworkConfig: JSON.stringify(this.appConfig.network),
       });

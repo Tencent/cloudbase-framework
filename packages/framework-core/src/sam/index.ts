@@ -73,11 +73,13 @@ export class SamManager {
   /**
    * 安装
    */
-  async install(createProjectVersion?: (template: ISAM) => Promise<any>) {
+  async install(
+    ciId: string,
+    createSamSuccessCallback?: (extensionId: string) => void
+  ) {
     const template = this.readSam();
     let isCloudBuild = !!process.env.CLOUDBASE_CIID;
     let extensionId: string;
-    let ciId: string | undefined = process.env.CLOUDBASE_CIID;
 
     // 没有资源需要部署的情况不走 SAM安装
     if (
@@ -87,10 +89,6 @@ export class SamManager {
       return this.clear();
     }
 
-    if (typeof createProjectVersion === 'function') {
-      ciId = await createProjectVersion(template);
-    }
-
     try {
       try {
         logger.debug('sam:install', template);
@@ -98,9 +96,17 @@ export class SamManager {
           JSON.stringify(template)
         );
         extensionId = res.ExtensionId;
+
+        if (typeof createSamSuccessCallback === 'function') {
+          await createSamSuccessCallback(extensionId);
+        }
       } catch (e) {
         if (e.code === 'ResourceInUse') {
           extensionId = e.original.Message;
+
+          if (typeof createSamSuccessCallback === 'function') {
+            await createSamSuccessCallback(extensionId);
+          }
         } else {
           throw e;
         }

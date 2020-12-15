@@ -105,7 +105,9 @@ export default class PluginServiceApi {
     return new Generator();
   }
 
-  /** 云API */
+  /**
+   * 云API
+   */
   get cloudApi() {
     return CloudApi;
   }
@@ -136,5 +138,12 @@ export default class PluginServiceApi {
    */
   get samManager(): SamManager {
     return this.pluginManager.context.samManager;
+  }
+
+  /**
+   * 获取构建的CIId
+   */
+  get ciId(): string {
+    return this.pluginManager.context.ciId;
   }
 }

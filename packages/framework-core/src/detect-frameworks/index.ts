@@ -12,12 +12,11 @@ import path, { resolve } from 'path';
 import getLogger from '../logger';
 import { ICloudBaseConfig } from '../types';
 
-const logger = getLogger();
-
 export async function detect(
   projectRootPath: string,
   projectConfig: ICloudBaseConfig | undefined
 ) {
+  const logger = getLogger();
   const frameworks: any = [];
 
   const finalFrameworksInfo = renderFrameworkConfig(frameworksInfo, {

@@ -25,6 +25,7 @@ interface ContextOption {
   samManager: SamManager;
   bumpVersion: boolean;
   versionRemark: string;
+  ciId: string;
 }
 
 export default class Context {
@@ -39,6 +40,8 @@ export default class Context {
   samManager: SamManager;
   bumpVersion: boolean;
   versionRemark: string;
+  ciId: string;
+  extensionId?: string;
 
   constructor({
     appConfig,
@@ -50,6 +53,7 @@ export default class Context {
     samManager,
     bumpVersion,
     versionRemark,
+    ciId,
   }: ContextOption) {
     this.appConfig = appConfig;
     this.projectPath = projectPath;
@@ -62,5 +66,6 @@ export default class Context {
     this.samManager = samManager;
     this.bumpVersion = bumpVersion;
     this.versionRemark = versionRemark;
+    this.ciId = ciId;
   }
 }
