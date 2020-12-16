@@ -238,60 +238,28 @@ async function resolveRcConfig(
       logger.debug('远程存在同名项目', cloudProjectInfo.projectName);
       extraData = cloudProjectInfo.extraData;
       originProjectInfo = cloudProjectInfo.originProjectInfo;
-      // CI 环境直接创建项目
-    } else if (process.env.CI) {
-      logger.debug('CI环境，新建项目');
-      extraData = {};
-      // 远程没有同名项目，从项目列表中选择或者新建项目
+      // 远程没有同名项目，新建项目
     } else {
-      logger.info('远程不存在同名项目');
-      let selectedProject = await selectProjects();
-      // 没有选择项目，新建项目
-      if (!selectedProject) {
-        logger.debug('新建项目');
-        if (config.framework?.requirement?.addons?.length) {
-          throw new Error(
-            `本地 CLI 暂不支持创建 cloudbaserc.json 中包含 Addon 配置的项目，请通过云端一键部署来创建项目
+      logger.debug('远程不存在同名项目，新建项目');
+      if (config.framework?.requirement?.addons?.length) {
+        throw new Error(
+          `本地 CLI 暂不支持创建 cloudbaserc.json 中包含 Addon 配置的项目，请通过云端一键部署来创建项目
   参考文档地址： ${genClickableLink(
     'https://docs.cloudbase.net/framework/deploy-button.html'
   )}`
-          );
-        }
-        extraData = {};
-        // 选择了项目，使用云端项目信息，配置使用本地，项目名更换为云端项目
-      } else {
-        logger.debug('选择项目', selectedProject.projectName);
-        let projectData = selectedProject;
-        extraData = projectData.extraData;
-        projectName = projectData.projectName;
-        originProjectInfo = projectData.originProjectInfo;
+        );
       }
+      extraData = {};
     }
     // 如果本地构建，且没有配置文件
   } else {
     logger.debug('本地构建，本地不存在配置文件', config);
-    let selectedProject = await selectProjects();
     // 没有选择项目，新建项目, 配置使用模板
-    if (!selectedProject) {
-      projectName = await collectAppName(projectPath);
-      extraData = {};
-      rcConfig = Object.assign({}, DEFAULT_CONFIG, {
-        envId,
-      });
-      // 选择了项目，使用云端项目信息，配置使用云端配置，项目名更换为云端项目名
-    } else {
-      let projectData = selectedProject;
-
-      extraData = projectData.extraData;
-      projectName = projectData.projectName;
-      rcConfig = Object.assign({}, DEFAULT_CONFIG, projectData.rcConfig, {
-        envId,
-        framework: {
-          name: projectName,
-        },
-      });
-      originProjectInfo = projectData.originProjectInfo;
-    }
+    projectName = await collectAppName(projectPath);
+    extraData = {};
+    rcConfig = Object.assign({}, DEFAULT_CONFIG, {
+      envId,
+    });
   }
 
   logger.debug(
@@ -319,7 +287,7 @@ async function collectAppName(projectPath: string): Promise<string> {
   let nameAnswer = await inquirer.prompt({
     type: 'input',
     name: 'name',
-    message: '请输入应用唯一标识(支持 A-Z a-z 0-9 及 -, 同一账号下不能相同)',
+    message: '请输入应用唯一标识(支持 A-Z a-z 0-9 及 -, 同一环境下不能相同)',
     default: name,
   });
   let pattern = /^[a-z][A-Za-z0-9-]*$/;
@@ -341,32 +309,6 @@ function jsonParse(str: string | undefined) {
     throw new Error(`JSON 格式错误: ${str}`);
   }
   return json;
-}
-
-async function selectProjects() {
-  const allProjectList = (
-    await describeCloudBaseProjectLatestVersionList({})
-  ).ProjectList.map(getProjectDataFromProjectInfo);
-
-  let selectAnswer = await inquirer.prompt({
-    type: 'list',
-    name: 'app',
-    message: '请选择对应云上的应用名称，或者创建新的应用',
-    choices: [
-      ...allProjectList.map((item: any, index: number) => {
-        return {
-          value: String(index),
-          name: `应用: ${item.projectName}`,
-        };
-      }),
-      {
-        value: null,
-        name: '创建新的应用',
-      },
-    ],
-  });
-
-  return allProjectList[(selectAnswer as any).app];
 }
 
 function getCIProjectInfo() {

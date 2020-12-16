@@ -16,8 +16,10 @@ export default class LifeCycleManager {
   constructor(public context: Context) {}
 
   /**
-   * 上报信息
+   * 上报构建日志和状态
+   *
    * @param status
+   * @param failReason
    */
   async reportBuildResult(status: number, failReason?: string) {
     const buildLog = await this.getBuildLog();
@@ -32,7 +34,7 @@ export default class LifeCycleManager {
   }
 
   /**
-   * 查询构建日志
+   * 查询本地构建日志
    */
   async getBuildLog() {
     const logFilePath = getLogFilePath();
