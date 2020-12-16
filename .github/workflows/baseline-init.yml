@@ -29,7 +29,10 @@ jobs:
           cd scripts && npm install && cd ..
 
       - name: Login
-        run: cloudbase login --apiKeyId  ${{ secrets.SECRET_ID }} --apiKey ${{ secrets.SECRET_KEY }}
+        run: |
+          echo $PATH
+          node -v
+          cloudbase login --apiKeyId  ${{ secrets.SECRET_ID }} --apiKey ${{ secrets.SECRET_KEY }}
 
       # Runs a set of commands using the runners shell
       - name: Build
