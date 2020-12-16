@@ -215,15 +215,16 @@ async function resolveRcConfig(
 
   logger.debug('process.env', process.env);
 
-  // 如果是云端构建，从环境变量中读取
+  // 如果是云端构建，addon 等信息环境变量中读取，配置优先读取本地，再读取环境变量中的信息
   if (process.env.CLOUDBASE_CIID) {
     logger.debug('云端构建场景');
     const cloudRcJSON = jsonParse(process.env.TCB_RC_JSON);
 
     extraData = getCIProjectInfo();
-    rcConfig = cloudRcJSON
-      ? ((await ConfigParser.parseRawConfig(cloudRcJSON)) as ICloudBaseConfig)
-      : rcConfig;
+    rcConfig =
+      rcConfig ||
+      (cloudRcJSON &&
+        ((await ConfigParser.parseRawConfig(cloudRcJSON)) as ICloudBaseConfig));
     // 如果是本地构建，且本地存在配置文件
   } else if (config?.framework) {
     logger.debug('本地构建，本地存在配置文件', config);
