@@ -47,4 +47,5 @@ jobs:
       - name: Init Template
         run: |
           echo $PATH
-          sudo CLOUDBASE_FX_ENV=dev CI=true envId=${{ secrets.ENV_ID }} node scripts/local-e2e.js
+          node -v
+          CLOUDBASE_FX_ENV=dev CI=true envId=${{ secrets.ENV_ID }} node scripts/local-e2e.js
