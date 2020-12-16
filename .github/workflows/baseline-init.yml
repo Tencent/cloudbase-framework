@@ -1,6 +1,9 @@
 # This is a basic workflow to help you get started with Actions
 
 name: Baseline-Init
+defaults:
+  run:
+    shell: bash -ieo pipefail {0}
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -23,7 +26,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: Install Deps
         run: |
-          export PATH=/root/.nvm/versions/node/v14.15.2/bin:$PATH
           echo $PATH
           sudo npm install -g @cloudbase/cli@latest lerna@3.20.2
           cd scripts && npm install && cd ..
