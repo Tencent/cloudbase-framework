@@ -7,6 +7,8 @@
  */
 import merge from 'lodash.merge';
 
+type cpuSpec = 1 | 2 | 4 | 8 | 16;
+
 const ADDONS: Record<string, any> = {
   CFS: {
     translate(addonConfig: Record<string, any>) {
@@ -49,7 +51,30 @@ const ADDONS: Record<string, any> = {
         8: 10000,
         16: 20000,
       };
-      const cpu: 1 | 2 | 4 | 8 | 16 = plan?.Cpu;
+      let spec;
+
+      if (!plan) {
+        spec = {};
+      } else if (plan.DbMode === 'serverless') {
+        const { DbMode, MaxCpu, MinCpu, AutoPause, AutoPauseDelay } = plan;
+
+        spec = {
+          DbMode,
+          MaxCpu,
+          MinCpu,
+          AutoPause,
+          AutoPauseDelay,
+          StorageLimit: STORAGE_LIMIT_MAP[Math.ceil(MaxCpu) as cpuSpec], //最大存储容量
+        };
+      } else {
+        const { Cpu, Memory } = plan;
+
+        spec = {
+          Cpu,
+          MemorySize: Memory,
+          StorageLimit: STORAGE_LIMIT_MAP[Cpu as cpuSpec], //最大存储容量
+        };
+      }
 
       return {
         Inputs: {
@@ -67,11 +92,11 @@ const ADDONS: Record<string, any> = {
               DbType: 'MYSQL',
               DbVersion: '5.7',
               PayMode: 0, // 0:后付费 1: 预付费
-              ...(plan ? { Cpu: plan?.Cpu, MemorySize: plan?.Memory } : {}),
+              // 规格信息
+              ...spec,
               UseInstanceId: true,
               Port: 3306,
               Password: `\${Inputs.${passwordKey}}`, // 支持引用Inputs内容，且支持拼接字符串
-              StorageLimit: STORAGE_LIMIT_MAP[cpu], //最大存储容量
               InstanceCount: 1, //计算实例数 1-4
               InstanceId: instanceId,
             },
