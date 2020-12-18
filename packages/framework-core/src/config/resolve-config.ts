@@ -17,6 +17,7 @@ import { describeCloudBaseProjectLatestVersionList } from '../api/app';
 import getLogger from '../logger';
 import { genClickableLink } from '../utils/link';
 import { validate } from './validate';
+import { ERRORS, CloudBaseFrameworkError } from '../error';
 
 chalk.level = 1;
 
@@ -50,8 +51,10 @@ export default async function resolveConfig(
   const validateRes = validate(rcConfig);
 
   if (!validateRes.result) {
-    logger.error(validateRes.errorText);
-    throw new Error('cloudbaserc.json 文件校验失败');
+    throw new CloudBaseFrameworkError(
+      `cloudbaserc.json 文件校验失败 ${validateRes.errorText}`,
+      ERRORS.CONFIG_VALIDATE_ERROR
+    );
   }
 
   // 针对 cloudbaserc.js 等脚本文件，会创建一份单独的 json 配置文件

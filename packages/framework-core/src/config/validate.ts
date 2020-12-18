@@ -23,9 +23,7 @@ export function validate(data: any) {
   const errors = validateUseAjv.errors;
   const errorText = result
     ? ''
-    : `cloudbaserc.json 校验失败
-
-具体错误信息如下:
+    : `具体错误信息如下:
 
 ${errors?.map((e) => `  ❌ cloudbaserc${e.dataPath} ${e.message}`).join('\n')}
 

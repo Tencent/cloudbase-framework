@@ -31,6 +31,7 @@ import Hooks from './hooks';
 import { fetchDomains } from './api/domain';
 import { createAndDeployCloudBaseProject } from './api/app';
 import LifeCycleManager from './lifecycle';
+import { ERRORS, CloudBaseFrameworkError } from './error';
 
 export { default as Plugin } from './plugin';
 export { default as PluginServiceApi } from './plugin-service-api';
@@ -48,6 +49,8 @@ let globalErrorHandler = async (e: Error) => {
 interface CommandParams {
   runCommandKey?: string;
 }
+
+let isReported = false;
 
 /**
  *
@@ -144,6 +147,7 @@ export class CloudBaseFrameworkCore {
       config,
       cloudbaseConfig.envId
     );
+    logger.info(`AppName ${chalk.green(appConfig.name)}`);
 
     this.projectInfo = originProjectInfo;
 
@@ -173,7 +177,20 @@ export class CloudBaseFrameworkCore {
     this.context = context;
     this.lifeCycleManager = new LifeCycleManager(context);
     globalErrorHandler = async (e: Error) => {
-      return this.lifeCycleManager.reportBuildResult(1, e.message);
+      logger.error(e.message);
+      if (
+        e instanceof CloudBaseFrameworkError &&
+        e.code == ERRORS.DEPLOY_ERROR
+      ) {
+        // 部署失败不上报构建失败
+        return;
+      } else if (isReported) {
+        // 避免多次上报
+        return;
+      } else {
+        isReported = true;
+        return this.lifeCycleManager.reportBuildResult(1, e.message);
+      }
     };
     this.pluginManager = new PluginManager(context);
     this.hooks = new Hooks(appConfig.hooks || {}, projectPath);

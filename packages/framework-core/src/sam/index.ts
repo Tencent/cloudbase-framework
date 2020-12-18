@@ -19,6 +19,7 @@ import { DEFAULT_SAM } from './default-sam';
 import { SamApi } from './api';
 import getLogger from '../logger';
 import { ISAM, IExtensionLocalFile } from './types';
+import { CloudBaseFrameworkError, ERRORS } from '../error';
 
 const logger = getLogger();
 
@@ -168,9 +169,10 @@ export class SamManager {
         if (taskInfo.Status === 'running') {
           return true;
         } else if (taskInfo.Detail) {
-          throw new Error(
+          throw new CloudBaseFrameworkError(
             `
-部署失败，错误信息：${taskInfo.Detail}， 请求RequestId：${statusRes.RequestId}`
+部署失败，错误信息：${taskInfo.Detail}， 请求RequestId：${statusRes.RequestId}`,
+            ERRORS.DEPLOY_ERROR
           );
         }
       }
