@@ -115,6 +115,11 @@ export interface ICloudFunction {
    * 是否自动创建新版本
    */
   bumpVersion?: boolean;
+
+  /**
+   * 函数触发器配置
+   */
+  triggers?: ICloudFunctionTrigger[];
 }
 
 export interface IFunctionVPC {
@@ -366,6 +371,19 @@ class FunctionPlugin extends Plugin {
         functionConfig.aclRule && {
           AclTag: 'CUSTOM' as AclTag,
           AclRule: this.genAclRule(functionConfig),
+        },
+        functionConfig.triggers?.length && {
+          Events: functionConfig.triggers.reduce((prev, cur) => {
+            (prev as Record<string, any>)[cur.name] = {
+              Type: 'Timer',
+              Properties: {
+                CronExpression: cur.config,
+                Message: cur.name,
+                Enable: true,
+              },
+            };
+            return prev;
+          }, {}),
         }
       ),
     });
