@@ -865,6 +865,13 @@
         "bumpVersion": {
           "description": "是否自动创建新版本",
           "type": "boolean"
+        },
+        "triggers": {
+          "description": "函数触发器配置",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ICloudFunctionTrigger"
+          }
         }
       },
       "required": [
@@ -890,6 +897,25 @@
     },
     "Record<string,any>": {
       "type": "object"
+    },
+    "ICloudFunctionTrigger": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "config",
+        "name",
+        "type"
+      ]
     },
     "IFrameworkPluginContainerInputsConfig": {
       "$id": "#/definitions/IFrameworkPluginContainerInputsConfig",
