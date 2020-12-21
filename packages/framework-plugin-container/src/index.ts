@@ -305,11 +305,11 @@ class ContainerPlugin extends Plugin {
 
     let cloudInputs = latestVersionDetail
       ? {
-          cpu: latestVersionDetail.Cpu,
-          mem: latestVersionDetail.Mem,
-          maxNum: latestVersionDetail.MaxNum,
-          minNum: latestVersionDetail.MinNum,
-        }
+        cpu: latestVersionDetail.Cpu,
+        mem: latestVersionDetail.Mem,
+        maxNum: latestVersionDetail.MaxNum,
+        minNum: latestVersionDetail.MinNum,
+      }
       : {};
 
     let modeInputs = this.inputs.mode ? MODE_INPUTS[this.inputs.mode] : {};

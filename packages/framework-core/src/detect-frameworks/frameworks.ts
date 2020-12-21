@@ -172,11 +172,11 @@ export default [
     plugin: '@cloudbase/framework-plugin-node',
     config: {
       name: {
-        value: "`${data.baseName || 'koa-app'}`",
+        value: '`${data.baseName || \'koa-app\'}`',
         desc: '💡 服务名',
       },
       path: {
-        value: "`/${data.baseName || 'koa-app'}`",
+        value: '`/${data.baseName || \'koa-app\'}`',
         desc: '🔌 云端访问云接入路径',
       },
       entry: {
@@ -222,7 +222,7 @@ export default [
     plugin: '@cloudbase/framework-plugin-function',
     config: {
       functionRootPath: {
-        value: "`${data.projectConfig.functionRoot || 'cloudfunctions'}`",
+        value: '`${data.projectConfig.functionRoot || \'cloudfunctions\'}`',
         desc: '📁 云函数根目录',
       },
     },
@@ -239,11 +239,11 @@ export default [
     plugin: '@cloudbase/framework-plugin-container',
     config: {
       serviceName: {
-        value: "`${data.baseName || 'capp'}`",
+        value: '`${data.baseName || \'capp\'}`',
         desc: '💡 服务名',
       },
       servicePath: {
-        value: "`/${data.baseName || 'capp'}`",
+        value: '`/${data.baseName || \'capp\'}`',
         desc: '🔌 云端访问云接入路径',
       },
       containerPort: {

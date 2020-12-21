@@ -28,11 +28,9 @@ async function main() {
   const templates = await getTemplates();
   console.log(templates);
 
-  await Promise.all(
-    templates
-      .filter((template) => !['taro-starter', 'deno'].includes(template.path))
-      .map(installTemplate)
-  );
+  await Promise.all(templates
+    .filter(template => !['taro-starter', 'deno'].includes(template.path))
+    .map(installTemplate));
 }
 
 async function forkTemplate() {
@@ -44,7 +42,7 @@ async function forkTemplate() {
     'git clone https://github.com/TencentCloudBase/cloudbase-templates/',
     {
       cwd,
-    }
+    },
   );
 }
 
@@ -53,7 +51,7 @@ async function login() {
     `cloudbase login --apiKeyId  ${process.env.SecretId} --apiKey ${process.env.SecretKey}`,
     {
       cwd,
-    }
+    },
   );
 }
 
@@ -80,6 +78,6 @@ async function installTemplate(template) {
     `cloudbase framework deploy -e ${process.env.envId} --verbose`,
     {
       cwd: path.join(cwd, 'cloudbase-templates', template.path),
-    }
+    },
   );
 }

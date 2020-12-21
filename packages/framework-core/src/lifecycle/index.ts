@@ -23,7 +23,6 @@ export default class LifeCycleManager {
    */
   async reportBuildResult(status: number, failReason?: string) {
     const buildLog = await this.getBuildLog();
-
     return reportCloudBaseCIResultCallback({
       ciId: this.context.ciId,
       extensionId: this.context.extensionId,

@@ -31,7 +31,7 @@ async function linkCore() {
   await link(
     path.join(process.cwd(), 'packages/framework-core'),
     path.join(globalNpmPath, '@cloudbase/cli'),
-    '@cloudbase/framework-core'
+    '@cloudbase/framework-core',
   );
 }
 
@@ -45,17 +45,15 @@ function initRegistry() {
       packageJSON,
       JSON.stringify({
         name: 'cloudbase-framework-registry',
-      })
+      }),
     );
   }
 }
 
 async function linkPlugins() {
-  const files = await promisify(fs.readdir)(
-    path.join(process.cwd(), 'packages')
-  );
+  const files = await promisify(fs.readdir)(path.join(process.cwd(), 'packages'));
 
-  const plugins = files.filter((file) => file.includes('plugin'));
+  const plugins = files.filter(file => file.includes('plugin'));
   // 插件列表
   console.log(plugins);
 
@@ -65,7 +63,7 @@ async function linkPlugins() {
     await link(
       path.join(process.cwd(), 'packages', plugin),
       pluginRegistry,
-      `@cloudbase/${plugin}`
+      `@cloudbase/${plugin}`,
     );
   }
 }

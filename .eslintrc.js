@@ -20,6 +20,10 @@ module.exports = {
       extends: ['@tencent/eslint-config-tencent/ts'],
       rules: {
         'header/header': [2, 'resources/license-header.js'],
+        'spaced-comment': 2,
+        'template-curly-spacing': 2,
+        'nonblock-statement-body-position': 2,
+        semi: 2,
       },
     },
   ],

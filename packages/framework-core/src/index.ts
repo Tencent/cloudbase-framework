@@ -289,10 +289,10 @@ ${entryLogInfo}`);
         // repo 信息
         ...(this.appConfig.repo
           ? {
-              SourceUrl: this.appConfig.repo.url,
-              SourceDir: this.appConfig.repo.workDir || '.',
-              SourceBranch: this.appConfig.repo.branch,
-            }
+            SourceUrl: this.appConfig.repo.url,
+            SourceDir: this.appConfig.repo.workDir || '.',
+            SourceBranch: this.appConfig.repo.branch,
+          }
           : {}),
       },
       this.appConfig.addons?.length ? genAddonSam(this.appConfig.addons) : {}

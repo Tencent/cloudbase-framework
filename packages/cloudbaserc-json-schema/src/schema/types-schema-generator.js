@@ -25,7 +25,7 @@ const basePath = '.';
 const program = TJS.getProgramFromFiles(
   [resolve(__dirname, '../types/index.ts')],
   compilerOptions,
-  basePath
+  basePath,
 );
 
 module.exports = TJS.buildGenerator(program, settings);

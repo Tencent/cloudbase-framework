@@ -17,23 +17,23 @@ async function spawnPromise(command, options) {
           shell: true,
           stdio: 'inherit',
         },
-        options
-      )
+        options,
+      ),
     );
 
     let stdout = '';
-    cm.stdout &&
-      cm.stdout.on('data', (data) => {
+    cm.stdout
+      && cm.stdout.on('data', (data) => {
         stdout += data;
       });
     let stderr = '';
-    cm.stderr &&
-      cm.stdout.on('data', (data) => {
+    cm.stderr
+      && cm.stdout.on('data', (data) => {
         stderr += data;
       });
 
     cm.on('error', reject);
-    cm.on('close', (code) => (code === 0 ? resolve(stdout) : reject(stderr)));
+    cm.on('close', code => (code === 0 ? resolve(stdout) : reject(stderr)));
   });
 }
 

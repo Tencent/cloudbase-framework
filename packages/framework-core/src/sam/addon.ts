@@ -64,7 +64,7 @@ const ADDONS: Record<string, any> = {
           MinCpu,
           AutoPause,
           AutoPauseDelay,
-          StorageLimit: STORAGE_LIMIT_MAP[Math.ceil(MaxCpu) as cpuSpec], //最大存储容量
+          StorageLimit: STORAGE_LIMIT_MAP[Math.ceil(MaxCpu) as cpuSpec], // 最大存储容量
         };
       } else {
         const { Cpu, Memory } = plan;
@@ -72,7 +72,7 @@ const ADDONS: Record<string, any> = {
         spec = {
           Cpu,
           MemorySize: Memory,
-          StorageLimit: STORAGE_LIMIT_MAP[Cpu as cpuSpec], //最大存储容量
+          StorageLimit: STORAGE_LIMIT_MAP[Cpu as cpuSpec], // 最大存储容量
         };
       }
 
@@ -97,7 +97,7 @@ const ADDONS: Record<string, any> = {
               UseInstanceId: true,
               Port: 3306,
               Password: `\${Inputs.${passwordKey}}`, // 支持引用Inputs内容，且支持拼接字符串
-              InstanceCount: 1, //计算实例数 1-4
+              InstanceCount: 1, // 计算实例数 1-4
               InstanceId: instanceId,
             },
           },

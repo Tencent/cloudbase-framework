@@ -5,8 +5,6 @@
  *
  * Please refer to license text included with this package for license details.
  */
-import { IFrameworkPluginContainerInputs } from '@cloudbase/framework-plugin-container';
-
 /**
  * 导出接口用于生成 JSON Schema 来进行智能提示
  */
