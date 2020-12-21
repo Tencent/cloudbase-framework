@@ -176,6 +176,18 @@ export class CloudBaseFrameworkCore {
     });
     this.context = context;
     this.lifeCycleManager = new LifeCycleManager(context);
+
+    async function processSignalHandle(signal: string) {
+      await globalErrorHandler(new Error(`用户取消构建 ${signal}`));
+      process.exit(1);
+    }
+
+    process.on('SIGTERM', processSignalHandle);
+    // ctrl+c
+    process.on('SIGINT', processSignalHandle);
+    // console window
+    process.on('SIGHUP', processSignalHandle);
+
     globalErrorHandler = async (e: Error) => {
       logger.error(e.message);
       if (
@@ -289,10 +301,10 @@ ${entryLogInfo}`);
         // repo 信息
         ...(this.appConfig.repo
           ? {
-            SourceUrl: this.appConfig.repo.url,
-            SourceDir: this.appConfig.repo.workDir || '.',
-            SourceBranch: this.appConfig.repo.branch,
-          }
+              SourceUrl: this.appConfig.repo.url,
+              SourceDir: this.appConfig.repo.workDir || '.',
+              SourceBranch: this.appConfig.repo.branch,
+            }
           : {}),
       },
       this.appConfig.addons?.length ? genAddonSam(this.appConfig.addons) : {}
