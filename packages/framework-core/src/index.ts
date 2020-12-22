@@ -192,6 +192,7 @@ export class CloudBaseFrameworkCore {
       const message = `${code ? `[${code}] ` : ''} ${e.message}`;
       const failType =
         (code as string) in USER_ERRORS_MAP ? 'UserError' : 'SystemError';
+
       logger.error(message);
       if (
         e instanceof CloudBaseFrameworkError &&
