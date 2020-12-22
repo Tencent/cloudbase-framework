@@ -1203,7 +1203,7 @@
             "$ref": "#/definitions/ICreateIndex"
           }
         },
-        "DropIndexes": {
+        "dropIndexes": {
           "description": "删除的索引",
           "type": "array",
           "items": {
