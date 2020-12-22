@@ -56,10 +56,10 @@ const ADDONS: Record<string, any> = {
       if (!plan) {
         spec = {};
       } else if (plan.DbMode === 'serverless') {
-        const { DbMode, MaxCpu, MinCpu, AutoPause, AutoPauseDelay } = plan;
+        const { MaxCpu, MinCpu, AutoPause, AutoPauseDelay } = plan;
 
         spec = {
-          DbMode,
+          DbMode: 'SERVERLESS',
           MaxCpu,
           MinCpu,
           AutoPause,
