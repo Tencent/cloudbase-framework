@@ -14,6 +14,18 @@ export const ERRORS = {
    * cloudbaserc.json 文件校验失败
    */
   CONFIG_VALIDATE_ERROR: 'CONFIG_VALIDATE_ERROR',
+  /**
+   * 取消任务
+   */
+  CANCEL_JOB: 'CANCEL_JOB',
+};
+
+/**
+ * 用户级错误码
+ */
+export const USER_ERRORS_MAP = {
+  CANCEL_JOB: 1,
+  CONFIG_VALIDATE_ERROR: 1,
 };
 
 export class CloudBaseFrameworkError extends Error {

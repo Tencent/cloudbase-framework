@@ -67,10 +67,12 @@ export function reportCloudBaseCIResultCallback({
   failReason,
   status,
   buildLog,
+  failType,
 }: {
   ciId: string;
   extensionId?: string;
   failReason?: string;
+  failType?: string;
   status: number;
   buildLog: string;
 }) {
@@ -81,5 +83,6 @@ export function reportCloudBaseCIResultCallback({
     FailReason: failReason,
     Status: status,
     BuildLog: buildLog,
+    FailType: failType,
   });
 }

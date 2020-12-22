@@ -31,7 +31,7 @@ import Hooks from './hooks';
 import { fetchDomains } from './api/domain';
 import { createAndDeployCloudBaseProject } from './api/app';
 import LifeCycleManager from './lifecycle';
-import { ERRORS, CloudBaseFrameworkError } from './error';
+import { ERRORS, CloudBaseFrameworkError, USER_ERRORS_MAP } from './error';
 
 export { default as Plugin } from './plugin';
 export { default as PluginServiceApi } from './plugin-service-api';
@@ -67,9 +67,6 @@ export async function run(
   module?: string,
   params?: CommandParams
 ) {
-  process.on('SIGINT', function () {
-    console.log('Got SIGINT. Ignoring.');
-  });
   try {
     const frameworkCore = new CloudBaseFrameworkCore(cloudBaseFrameworkConfig);
 
@@ -178,7 +175,9 @@ export class CloudBaseFrameworkCore {
     this.lifeCycleManager = new LifeCycleManager(context);
 
     async function processSignalHandle(signal: string) {
-      await globalErrorHandler(new Error(`用户取消构建 ${signal}`));
+      await globalErrorHandler(
+        new CloudBaseFrameworkError(`用户取消构建 ${signal}`, ERRORS.CANCEL_JOB)
+      );
       process.exit(1);
     }
 
@@ -189,7 +188,11 @@ export class CloudBaseFrameworkCore {
     process.on('SIGHUP', processSignalHandle);
 
     globalErrorHandler = async (e: Error) => {
-      logger.error(e.message);
+      const code = e instanceof CloudBaseFrameworkError && e.code;
+      const message = `${code ? `[${code}] ` : ''} ${e.message}`;
+      const failType =
+        (code as string) in USER_ERRORS_MAP ? 'UserError' : 'SystemError';
+      logger.error(message);
       if (
         e instanceof CloudBaseFrameworkError &&
         e.code == ERRORS.DEPLOY_ERROR
@@ -201,7 +204,7 @@ export class CloudBaseFrameworkCore {
         return;
       } else {
         isReported = true;
-        return this.lifeCycleManager.reportBuildResult(1, e.message);
+        return this.lifeCycleManager.reportBuildResult(1, message, failType);
       }
     };
     this.pluginManager = new PluginManager(context);

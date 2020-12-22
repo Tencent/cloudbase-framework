@@ -21,7 +21,11 @@ export default class LifeCycleManager {
    * @param status
    * @param failReason
    */
-  async reportBuildResult(status: number, failReason?: string) {
+  async reportBuildResult(
+    status: number,
+    failReason?: string,
+    failType?: string
+  ) {
     const buildLog = await this.getBuildLog();
     return reportCloudBaseCIResultCallback({
       ciId: this.context.ciId,
@@ -29,6 +33,7 @@ export default class LifeCycleManager {
       status,
       failReason,
       buildLog,
+      failType,
     });
   }
 
