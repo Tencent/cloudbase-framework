@@ -60,6 +60,8 @@ const ADDONS: Record<string, any> = {
 
         spec = {
           DbMode: 'SERVERLESS',
+          CPU: 1,
+          MemorySize: 1024,
           MaxCpu,
           MinCpu,
           AutoPause,

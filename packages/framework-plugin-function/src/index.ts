@@ -347,9 +347,10 @@ class FunctionPlugin extends Plugin {
           },
           VpcConfig: {
             VpcId:
-              functionConfig.vpc?.vpcId || networkConfig?.uniqVpcId
+              functionConfig.vpc?.vpcId ||
+              (networkConfig?.uniqVpcId
                 ? '${Outputs.Network.Properties.InstanceId}'
-                : undefined,
+                : undefined),
             SubnetId: functionConfig.vpc?.subnetId,
           },
           HttpPath: this.resolvedInputs.servicePaths[functionConfig.name],

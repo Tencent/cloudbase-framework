@@ -153,6 +153,8 @@ export class CloudBaseFrameworkCore {
       return;
     }
 
+    logger.debug('appConfig', appConfig);
+
     this.samManager = new SamManager({
       projectPath,
     });

@@ -2,7 +2,7 @@
   "packages": [
     "packages/*"
   ],
-  "version": "1.4.10",
+  "version": "1.4.11",
   "publishConfig": {
     "access": "public"
   },

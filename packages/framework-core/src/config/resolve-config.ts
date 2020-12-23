@@ -5,6 +5,8 @@
  *
  * Please refer to license text included with this package for license details.
  */
+import merge from 'lodash.merge';
+
 import { ICloudBaseConfig } from '../types';
 import { isObject } from '../utils/type-check';
 import { detect } from '../detect-frameworks';
@@ -151,7 +153,8 @@ export default async function resolveConfig(
   }
 
   return {
-    appConfig: { ...finalFrameworkConfig, ...extraData },
+    // 合并配置
+    appConfig: merge({}, finalFrameworkConfig, extraData),
     originProjectInfo,
   };
 }
