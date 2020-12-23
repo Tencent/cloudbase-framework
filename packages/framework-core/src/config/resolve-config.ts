@@ -58,6 +58,7 @@ export default async function resolveConfig(
       ERRORS.CONFIG_VALIDATE_ERROR
     );
   }
+  logger.info('Validate config file success.');
 
   // 针对 cloudbaserc.js 等脚本文件，会创建一份单独的 json 配置文件
   const independentFrameworkConfig = await readFrameworkConfig(projectPath);
