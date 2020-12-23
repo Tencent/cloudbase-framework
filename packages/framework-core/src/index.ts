@@ -73,7 +73,8 @@ export async function run(
     if (!SUPPORT_COMMANDS.includes(command)) {
       throw new Error(`CloudBase Framework: not support command '${command}'`);
     }
-    await frameworkCore.init();
+    const isDeploy = command === 'deploy';
+    await frameworkCore.init(isDeploy);
     await frameworkCore[command](module, params);
 
     const logger = getLogger();
@@ -96,10 +97,12 @@ export class CloudBaseFrameworkCore {
   ciId!: string;
   context!: Context;
   lifeCycleManager!: LifeCycleManager;
+  isDeploy!: boolean;
 
   constructor(public frameworkConfig: CloudBaseFrameworkConfig) {}
 
-  async init() {
+  async init(isDeploy: boolean) {
+    this.isDeploy = isDeploy;
     const {
       projectPath,
       cloudbaseConfig,
@@ -159,7 +162,8 @@ export class CloudBaseFrameworkCore {
       projectPath,
     });
     this.appConfig = appConfig;
-    this.ciId = await this.createProjectVersion();
+
+    this.ciId = this.isDeploy ? await this.createProjectVersion() : undefined;
 
     const context = new Context({
       appConfig,
@@ -196,7 +200,10 @@ export class CloudBaseFrameworkCore {
         (code as string) in USER_ERRORS_MAP ? 'UserError' : 'SystemError';
 
       logger.error(message);
-      if (
+      if (!this.isDeploy) {
+        // 非部署情况不上报
+        return;
+      } else if (
         e instanceof CloudBaseFrameworkError &&
         e.code == ERRORS.DEPLOY_ERROR
       ) {
