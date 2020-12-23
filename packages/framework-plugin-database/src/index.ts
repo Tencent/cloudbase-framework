@@ -167,7 +167,13 @@ class DatabasePlugin extends Plugin {
         let replacement: Record<string, any> = Array.isArray(value) ? [] : {};
         for (var k in value) {
           if (Object.hasOwnProperty.call(value, k)) {
-            replacement[pascalCase(k)] = value[k];
+            let v = value[k];
+
+            if (k === 'aclRule') {
+              v = JSON.stringify(v);
+            }
+
+            replacement[pascalCase(k)] = v;
           }
         }
         return replacement;
