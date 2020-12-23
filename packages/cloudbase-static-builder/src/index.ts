@@ -9,7 +9,7 @@ import path from 'path';
 import fs from 'fs';
 import cpy from 'cpy';
 import { Builder } from '@cloudbase/framework-core';
-import { fetchStream, mkdirSync } from '@cloudbase/toolbox';
+import { fetchStream, mkdirSync, getProxy } from '@cloudbase/toolbox';
 
 interface StaticBuilderBuildOptions {
   /**
@@ -88,7 +88,7 @@ export class StaticBuilder extends Builder {
     let originConfig;
     if (options.domain && options.config) {
       const url = `https://${options.domain}/${CONFIG_FILE_NAME}`;
-      const streamRes = await fetchStream(url);
+      const streamRes = await fetchStream(url, undefined, getProxy());
       if (streamRes?.status == 200) {
         originConfig = await streamRes.json().catch(() => {
           return {};

@@ -6,6 +6,7 @@
  * Please refer to license text included with this package for license details.
  */
 import { CloudApi } from '@cloudbase/framework-core';
+import { getProxy } from '@cloudbase/toolbox';
 import fs from 'fs';
 
 export interface IApiOptions {
@@ -63,7 +64,7 @@ export class ContainerApi {
     const response = await this.cloudApi.fetchStream(
       UploadUrl,
       data,
-      process.env.http_proxy
+      getProxy()
     );
 
     if (response.status !== 200) {

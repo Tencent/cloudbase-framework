@@ -6,6 +6,7 @@
  * Please refer to license text included with this package for license details.
  */
 import { CloudApiService, fetchStream, fetch } from '@cloudbase/cloud-api';
+import { getProxy } from '@cloudbase/toolbox';
 
 export interface ICloudApiOptions {
   secretId: string;
@@ -24,6 +25,7 @@ export class CloudApi {
   public static fetch = fetch;
 
   static init({ secretId, secretKey, token, envId }: ICloudApiOptions) {
+    const proxy = getProxy();
     CloudApi.envId = envId;
     CloudApi.tcbService = new CloudApiService({
       service: 'tcb',
@@ -33,7 +35,7 @@ export class CloudApi {
         token,
       },
       baseParams: { EnvId: envId },
-      ...(process.env.http_proxy ? { proxy: process.env.http_proxy } : {}),
+      ...(proxy ? { proxy } : {}),
     });
     CloudApi.tcbUinService = new CloudApiService({
       service: 'tcb',
@@ -42,7 +44,7 @@ export class CloudApi {
         secretKey,
         token,
       },
-      ...(process.env.http_proxy ? { proxy: process.env.http_proxy } : {}),
+      ...(proxy ? { proxy } : {}),
     });
   }
 
