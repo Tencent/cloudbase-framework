@@ -32,7 +32,7 @@ export default class LifeCycleManager {
       extensionId: this.context.extensionId,
       status,
       failReason,
-      buildLog,
+      buildLog: buildLog.slice(0, 60 * 1000),
       failType,
     });
   }
