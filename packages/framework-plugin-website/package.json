@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/framework-plugin-website",
-  "version": "1.4.11-beta.31+691e883",
+  "version": "1.4.11-beta.34+efd72a5",
   "description": "云开发 Tencent CloudBase Framework Website Plugin 插件",
   "author": "Tencent CloudBase Team",
   "homepage": "https://github.com/Tencent/cloudbase-framework#readme",
@@ -29,9 +29,9 @@
     "url": "https://github.com/Tencent/cloudbase-framework/issues"
   },
   "dependencies": {
-    "@cloudbase/framework-core": "^1.4.11-beta.31+691e883",
-    "@cloudbase/static-builder": "^1.4.11-beta.31+691e883",
-    "@cloudbase/static-deployer": "^1.4.11-beta.31+691e883",
+    "@cloudbase/framework-core": "^1.4.11-beta.34+efd72a5",
+    "@cloudbase/static-builder": "^1.4.11-beta.34+efd72a5",
+    "@cloudbase/static-deployer": "^1.4.11-beta.34+efd72a5",
     "@cloudbase/toolbox": "^0.4.19",
     "@types/archiver": "^3.1.1",
     "@types/lodash.merge": "^4.6.6",
@@ -42,5 +42,5 @@
   "devDependencies": {
     "typescript": "^3.9.2"
   },
-  "gitHead": "691e88310dbbb1ea6d00d776d4a2a1cf9059d89e"
+  "gitHead": "efd72a5fd3cdfcba9deb6843ef85767feae8ad9e"
 }
