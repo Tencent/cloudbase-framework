@@ -1,0 +1,1634 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json",
+  "title": "CloudBase CLI Configuration",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "default": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json"
+    },
+    "additionalProperties": false,
+    "version": {
+      "type": "string",
+      "description": "version 表示当前配置文件的版本，目前支持的版本号有：\"2.0\"。当 version 字段不存在时，默认当前配置文件为 \"1.0\" 版本。",
+      "enum": [
+        "1.0",
+        "2.0"
+      ],
+      "default": "2.0"
+    },
+    "envId": {
+      "type": "string",
+      "description": "envId 代表环境 ID，是环境的唯一标识。"
+    },
+    "functionRoot": {
+      "type": "string",
+      "description": "云函数函数代码存放的文件夹路径，相对于根目录的路径"
+    },
+    "functions": {
+      "type": "array",
+      "description": "函数配置项组成的数组"
+    },
+    "framework": {
+      "type": "object",
+      "description": "CloudBase Framework 配置项",
+      "required": [
+        "name",
+        "plugins"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-zA-Z][a-zA-Z0-9_-]*$",
+          "description": "应用唯一标识，一个账号下最好不要有重名的 name。只支持A-Z a-z 0-9 - 和_",
+          "maxLength": 32,
+          "minLength": 1
+        },
+        "plugins": {
+          "additionalProperties": false,
+          "title": "插件配置",
+          "description": "描述您的应用依赖哪些 CloudBase Framework 插件，以便根据配置来构建和部署您的应用，应用可以使用多个插件，具体插件配置方式参考插件文档。",
+          "minProperties": 1,
+          "default": {
+            "client": {
+              "use": "",
+              "inputs": {}
+            }
+          },
+          "patternProperties": {
+            "^[a-zA-Z0-9\\-]+$": {
+              "$ref": "#/definitions/pluginConfig"
+            }
+          }
+        },
+        "hooks": {
+          "$id": "#HooksConfig",
+          "type": "object",
+          "title": "生命周期",
+          "description": "Framework 1.2.x 版本支持，CloudBase Framework 部署前后的钩子配置，可以在这里自定义应用不同生命周期的执行动作",
+          "examples": [
+            {
+              "preDeploy": {
+                "type": "execCommand",
+                "commands": [
+                  "echo 1"
+                ]
+              },
+              "postDeploy": {
+                "type": "callFunction",
+                "functions": [
+                  {
+                    "functionName": "function1",
+                    "params": {
+                      "foo": 1
+                    }
+                  },
+                  {
+                    "functionName": "function2",
+                    "params": {
+                      "bar": 2
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "properties": {
+            "preDeploy": {
+              "$id": "#PreDeployHooksConfig",
+              "type": "object",
+              "title": "preDeploy 钩子",
+              "description": "在执行 framework deploy 之前执行的钩子",
+              "default": {},
+              "examples": [
+                {
+                  "type": "execCommand",
+                  "commands": [
+                    "echo 1"
+                  ]
+                }
+              ],
+              "required": [
+                "type",
+                "commands"
+              ],
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/hooksExecCommand"
+                }
+              ],
+              "additionalProperties": true
+            },
+            "postDeploy": {
+              "$id": "#PostDeployHooksConfig",
+              "type": "object",
+              "title": "postDeploy 钩子",
+              "description": "在执行 framework deploy 部署资源成功后执行的钩子",
+              "default": {},
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/hooksCallFunction"
+                }
+              ],
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "envId",
+    "framework"
+  ],
+  "definitions": {
+    "pluginConfig": {
+      "$id": "#/definitions/pluginConfig",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/genericPluginConfig"
+        },
+        {
+          "$ref": "#/definitions/IFrameworkPluginWebsiteInputsConfig"
+        },
+        {
+          "$ref": "#/definitions/IFrameworkPluginNodeInputsConfig"
+        },
+        {
+          "$ref": "#/definitions/IFrameworkPluginNuxtInputsConfig"
+        },
+        {
+          "$ref": "#/definitions/IFrameworkPluginFunctionInputsConfig"
+        },
+        {
+          "$ref": "#/definitions/IFrameworkPluginContainerInputsConfig"
+        },
+        {
+          "$ref": "#/definitions/IFrameworkPluginDartInputsConfig"
+        },
+        {
+          "$ref": "#/definitions/IFrameworkPluginDatabaseInputsConfig"
+        },
+        {
+          "$ref": "#/definitions/IFrameworkPluginDenoInputsConfig"
+        },
+        {
+          "$ref": "#/definitions/IFrameworkPluginNextInputsConfig"
+        },
+        {
+          "$ref": "#/definitions/IFrameworkPluginMiniProgramInputsConfig"
+        },
+        {
+          "$ref": "#/definitions/IFrameworkPluginAuthInputsConfig"
+        }
+      ],
+      "title": "单个插件配置信息",
+      "required": [
+        "use",
+        "inputs"
+      ],
+      "properties": {
+        "use": {
+          "type": "string",
+          "default": "",
+          "minLength": 1,
+          "description": "使用的插件 npm 包名，例如 @cloudbase/framework-plugin-website。支持指定插件版本，例如@cloudbase/framework-plugin-website@1.3.5"
+        },
+        "inputs": {
+          "type": "object",
+          "description": "插件入参配置，不同的插件，支持的入参不同，请查阅对应插件的 README 或者文档"
+        }
+      }
+    },
+    "genericPluginConfig": {
+      "$id": "#/definitions/genericPluginConfig",
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "default": "",
+          "minLength": 1,
+          "description": "使用的插件 npm 包名，例如 @cloudbase/framework-plugin-website。支持指定插件版本，例如@cloudbase/framework-plugin-website@1.3.5"
+        },
+        "inputs": {
+          "type": "object",
+          "description": "插件入参配置，不同的插件，支持的入参不同，请查阅对应插件的 README 或者文档"
+        }
+      }
+    },
+    "hooksExecCommand": {
+      "$id": "#/definitions/hooksExecCommand",
+      "properties": {
+        "type": {
+          "type": "string",
+          "title": "类型",
+          "description": "钩子的类型",
+          "default": "execCommand",
+          "examples": [
+            "execCommand"
+          ]
+        },
+        "commands": {
+          "type": "array",
+          "description": "要执行的命令行命令",
+          "default": [],
+          "examples": [
+            [
+              "echo 1"
+            ]
+          ],
+          "additionalItems": true,
+          "items": {
+            "anyOf": [
+              {
+                "type": "string",
+                "title": "命令行命令",
+                "default": "",
+                "examples": [
+                  "echo 1"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    "hooksCallFunction": {
+      "$id": "#/definitions/hooksCallFunction",
+      "properties": {
+        "type": {
+          "type": "string",
+          "title": "类型",
+          "description": "钩子的类型",
+          "default": "callFunction",
+          "examples": [
+            "callFunction"
+          ]
+        },
+        "functions": {
+          "type": "array",
+          "title": "要调用的函数及参数",
+          "default": [],
+          "examples": [
+            [
+              {
+                "functionName": "function1",
+                "params": {
+                  "foo": 1
+                }
+              },
+              {
+                "functionName": "function2",
+                "params": {
+                  "bar": 2
+                }
+              }
+            ]
+          ],
+          "additionalItems": true,
+          "items": {
+            "anyOf": [
+              {
+                "type": "object",
+                "description": "函数名及参数配置",
+                "default": {},
+                "examples": [
+                  {
+                    "functionName": "function1",
+                    "params": {
+                      "foo": 1
+                    }
+                  }
+                ],
+                "required": [
+                  "functionName"
+                ],
+                "properties": {
+                  "functionName": {
+                    "type": "string",
+                    "title": "云函数的名称",
+                    "default": "",
+                    "examples": [
+                      "function1"
+                    ]
+                  },
+                  "params": {
+                    "type": "object",
+                    "title": "调用函数时的参数",
+                    "description": "JSON类型",
+                    "default": {},
+                    "examples": [
+                      {
+                        "foo": "1"
+                      }
+                    ],
+                    "additionalProperties": false,
+                    "patternProperties": {
+                      "^.+$": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    }
+                  }
+                },
+                "additionalProperties": true
+              }
+            ]
+          }
+        }
+      }
+    },
+    "IFrameworkPluginWebsiteInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginWebsiteInputsConfig",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "enum": [
+            "@cloudbase/framework-plugin-website"
+          ]
+        },
+        "inputs": {
+          "description": "导出接口用于生成 JSON Schema 来进行智能提示",
+          "type": "object",
+          "properties": {
+            "installCommand": {
+              "description": "安装命令，如`npm install`，没有可不传",
+              "default": "npm install --prefer-offline --no-audit --progress=false",
+              "type": "string"
+            },
+            "buildCommand": {
+              "description": "构建命令，如`npm run build`，没有可不传",
+              "type": "string"
+            },
+            "outputPath": {
+              "description": "网站静态文件的路径",
+              "default": "dist",
+              "type": "string"
+            },
+            "cloudPath": {
+              "description": "静态资源部署到云开发环境的路径，默认为根目录。",
+              "default": "/",
+              "type": "string"
+            },
+            "ignore": {
+              "description": "静态资源部署时忽略的文件路径，支持通配符",
+              "default": [
+                ".git",
+                ".github",
+                "node_modules",
+                "cloudbaserc.js"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "envVariables": {
+              "description": "环境变量键值对，会被注入到静态网站根目录下的 `/cloudbaseenv.json`",
+              "$ref": "#/definitions/Record<string,string>"
+            },
+            "commands": {
+              "description": "自定义命令",
+              "default": "{ build: \"npm run build\" }",
+              "$ref": "#/definitions/Record<string,string>"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      "required": [
+        "use",
+        "inputs"
+      ]
+    },
+    "Record<string,string>": {
+      "type": "object"
+    },
+    "IFrameworkPluginNodeInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginNodeInputsConfig",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "enum": [
+            "@cloudbase/framework-plugin-node"
+          ]
+        },
+        "inputs": {
+          "description": "导出接口用于生成 JSON Schema 来进行智能提示",
+          "type": "object",
+          "properties": {
+            "runtime": {
+              "description": "Node 运行时版本",
+              "default": "Nodejs10.15",
+              "enum": [
+                "Nodejs10.15",
+                "Nodejs8.9"
+              ],
+              "type": "string"
+            },
+            "entry": {
+              "description": "Node 服务入口文件，相对于`projectPath`,需要导出 app 或者 server 的实例，同时也支持导出异步获取 app 的 `tcbGetApp` 方法，方法的返回值为 app 或者 server 的实例。\n\n如 koa 服务的 `app.js`\n\n```javascript\nconst Koa = require(\"koa\");\nconst { router } = require(\"./routes/\");\n\nconst app = new Koa();\n\napp.use(router.routes());\n\nmodule.exports = app;\n```\n\nnest 服务的 `app.js`\n\n```js\nconst express = require(\"express\");\nconst { NestFactory } = require(\"@nestjs/core\");\nconst { ExpressAdapter } = require(\"@nestjs/platform-express\");\nconst { AppModule } = require(\"./dist/app.module\");\n\nconst expressApp = express();\nconst adapter = new ExpressAdapter(expressApp);\n\nexports.tcbGetApp = async () => {\n   const app = await NestFactory.create(AppModule, adapter);\n   await app.init();\n   return expressApp;\n};\n```",
+              "default": "app.js",
+              "type": "string"
+            },
+            "path": {
+              "description": "访问子路径",
+              "default": "/node-app",
+              "type": "string"
+            },
+            "name": {
+              "description": "服务名，会生成同名云函数或者云托管",
+              "default": "node-app",
+              "type": "string"
+            },
+            "projectPath": {
+              "description": "指定 Node 服务所在目录，相对于当前项目根目录",
+              "default": ".",
+              "type": "string"
+            },
+            "buildCommand": {
+              "description": "指定构建命令，比如`npm run build`",
+              "type": "string"
+            },
+            "platform": {
+              "description": "底层使用平台，支持 `container`（ 云托管） 和 `function` （云函数）",
+              "default": "function",
+              "enum": [
+                "container",
+                "function"
+              ],
+              "type": "string"
+            },
+            "containerOptions": {
+              "description": "云托管自定义选项\n\n选填，当 `platform` 选择 `container` 时，可以支持自定义更多高级设置，例如 CPU 内存等\n例如\n\n```json\n{\n   \"use\": \"@cloudbase/framework-plugin-node\",\n   \"inputs\": {\n     \"entry\": \"app.js\",\n     \"path\": \"/nodeapp\",\n     \"name\": \"nodeapp\",\n     \"platform\": \"container\",\n     \"containerOptions\": {\n       \"cpu\": 2,\n       \"mem\": 2\n     }\n   }\n}\n```\n\n具体配置信息请参考 [@cloudbase/framework-plugin-container](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-container#cpu) 配置",
+              "$ref": "#/definitions/IFrameworkPluginContainerInputs"
+            },
+            "functionOptions": {
+              "description": "函数选项\n\n选填，当 `platform` 选择 `function` 时，可以支持自定义更多高级设置，例如 VPC 环境变量等\n\n例如\n\n```json\n{\n   \"use\": \"@cloudbase/framework-plugin-node\",\n   \"inputs\": {\n     \"entry\": \"app.js\",\n     \"path\": \"/nodeapp\",\n     \"name\": \"nodeapp\",\n     \"platform\": \"function\",\n     \"functionOptions\": {\n       \"timeout\": 5,\n       \"envVariables\": {\n         \"TEST_ENV\": 1\n       },\n       \"vpc\": {\n         \"vpcId\": \"xxx\",\n         \"subnetId\": \"xxx\"\n       }\n     }\n   }\n}\n```\n\n具体配置信息请参考 [@cloudbase/framework-plugin-function](https://github.com/Tencent/cloudbase-framework/blob/master/packages/framework-plugin-function/README.md#functions) 配置"
+            },
+            "wrapExpress": {
+              "description": "当 `platform` 选择 `function` 时，可以支持自动为函数包上一层 express\n\n例如\n\n```json\n{\n   \"envId\": \"fx\",\n   \"framework\": {\n     \"plugins\": {\n       \"server\": {\n         \"use\": \"@cloudbase/framework-plugin-node\",\n         \"inputs\": {\n           \"entry\": \"./api/index.js\",\n           \"path\": \"/api\",\n           \"name\": \"github-stats-api\",\n           \"wrapExpress\": true\n         }\n       },\n       \"pin\": {\n         \"use\": \"@cloudbase/framework-plugin-node\",\n         \"inputs\": {\n           \"entry\": \"./api/pin.js\",\n           \"path\": \"/api/pin\",\n           \"name\": \"github-stats-pin\",\n           \"wrapExpress\": true\n         }\n       }\n     }\n   }\n}\n```",
+              "type": "boolean"
+            },
+            "installDeps": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "name",
+            "path"
+          ],
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      "required": [
+        "use",
+        "inputs"
+      ]
+    },
+    "IFrameworkPluginContainerInputs": {
+      "description": "导出接口用于生成 JSON Schema 来进行智能提示",
+      "type": "object",
+      "properties": {
+        "uploadType": {
+          "description": "容器镜像代码来源类别\n\n支持`package|image|repository`3 种，分别代表本地代码包、镜像地址和 git 仓库地址。默认是`package`, 选择`image`时需要填写 `imageInfo`, 选择 `repository` 需要填写`codeDetail`",
+          "enum": [
+            "image",
+            "package",
+            "repository"
+          ],
+          "type": "string"
+        },
+        "serviceName": {
+          "description": "服务名，字符串格式，如 `node-api`",
+          "type": "string"
+        },
+        "servicePath": {
+          "description": "服务路径配置, 字符串格式, 如 `/node-api`",
+          "type": "string"
+        },
+        "description": {
+          "description": "服务描述",
+          "type": "string"
+        },
+        "isPublic": {
+          "description": "是否对外网开放访问",
+          "default": true,
+          "type": "boolean"
+        },
+        "mode": {
+          "description": "副本模式\n\n1.4.0 版本以后支持\n\n支持 \"low-cost\" | \"high-availability\"\n\"low-cost\" 代表低成本模式，会有冷启动延时，锁定最小副本数为0，规格默认值为0.25C0.5G，副本最小个数不可修改，要修改需要先切换模式。\n\"high-availability\" 代表高可用模式，不存在冷启动，最小副本数不可以为0，规格默认值为1C1G，要修改最小副本数到0需要先切换模式。",
+          "enum": [
+            "high-availability",
+            "low-cost"
+          ],
+          "type": "string"
+        },
+        "customLogs": {
+          "description": "用户自定义采集日志路径\n\nString\t1-1024",
+          "maxLength": 1024,
+          "type": "string"
+        },
+        "initialDelaySeconds": {
+          "description": "延迟多长时间开始健康检查（单位s）0-1000",
+          "minimum": 0,
+          "maximum": 1000,
+          "type": "number"
+        },
+        "versionRemark": {
+          "description": "版本备注",
+          "type": "string"
+        },
+        "flowRatio": {
+          "description": "流量占比（0-100）",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 100,
+          "type": "number"
+        },
+        "cpu": {
+          "description": "CPU 的大小，0.25-128, 单位：核，默认值 `0.25`",
+          "default": 0.25,
+          "type": "number"
+        },
+        "mem": {
+          "description": "Mem 的大小，0.5-128, 单位：G，默认值 `0.5`",
+          "default": 0.5,
+          "type": "number"
+        },
+        "minNum": {
+          "description": "最小副本数, 1-50，默认值 `0`",
+          "default": 0,
+          "type": "number"
+        },
+        "maxNum": {
+          "description": "最大副本数, 1-50，默认值 `10`",
+          "maximum": 50,
+          "default": 10,
+          "type": "number"
+        },
+        "policyType": {
+          "description": "策略类型(cpu)，默认值 `cpu`",
+          "enum": [
+            "cpu"
+          ],
+          "type": "string"
+        },
+        "policyThreshold": {
+          "description": "策略阈值，1-100, 默认值 `60`",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 60,
+          "type": "number"
+        },
+        "containerPort": {
+          "description": "服务端口，默认值 `80`",
+          "default": 80,
+          "type": "number"
+        },
+        "dockerfilePath": {
+          "description": "Dockerfile 的路径，默认值 `./Dockerfile`",
+          "default": "./Dockerfile",
+          "type": "string"
+        },
+        "buildDir": {
+          "description": "构建目录，默认值 `./`",
+          "default": "./",
+          "type": "string"
+        },
+        "version": {
+          "description": "服务版本名",
+          "default": "1.0.0",
+          "type": "string"
+        },
+        "localPath": {
+          "description": "本地代码文件夹相对于项目根目录的路径",
+          "default": "./",
+          "type": "string"
+        },
+        "localAbsolutePath": {
+          "description": "本地代码文件夹的绝对路径",
+          "type": "string"
+        },
+        "envVariables": {
+          "description": "环境变量键值对，会被注入到云托管的运行时环境变量中",
+          "$ref": "#/definitions/Record<string,string>"
+        },
+        "imageInfo": {
+          "description": "`uploadType` 填写为 `image`时需要填写 `imageInfo`，类型是对象格式",
+          "$ref": "#/definitions/IContainerImageInfo"
+        },
+        "codeDetail": {
+          "description": "`uploadType` 填写为 `repository` 时需要填写`codeDetail`，类型是对象格式\n\n例如\n\n```json\n{\n   \"envId\": \"{{envId}}\",\n   \"framework\": {\n     \"name\": \"capp-example\",\n     \"plugins\": {\n       \"client\": {\n         \"use\": \"@cloudbase/framework-plugin-container\",\n         \"inputs\": {\n           \"serviceName\": \"deno\",\n           \"servicePath\": \"/deno\",\n           \"localPath\": \"./\",\n           \"uploadType\": \"repository\",\n           \"codeDetail\": {\n             \"name\": \"deno-docker\",\n             \"url\": \"https://github.com/TabSpace/deno-docker\"\n           }\n         }\n       }\n     }\n   }\n}\n```",
+          "$ref": "#/definitions/IContainerCodeDetail"
+        },
+        "volumeMounts": {
+          "description": "挂载目录\n1.4.0 版本以后支持\nkey 为挂载路径，value为挂载的 CFS Addon 的 Name",
+          "$ref": "#/definitions/Record<string,string>"
+        },
+        "bumpVersion": {
+          "description": "是否自动创建新版本",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "serviceName",
+        "servicePath"
+      ]
+    },
+    "IContainerImageInfo": {
+      "type": "object",
+      "properties": {
+        "imageUrl": {
+          "description": "镜像拉取地址\n\nimageUrl 格式为 [registry-url]/[namespace]/[image]:[tag]，支持腾讯云 ccr.ccs.tencentyun.com 上的镜像地址，也支持 dockerhub 公开的镜像，如 `nginx:latest`\n例如\n\n```json\n{\n   \"envId\": \"{{envId}}\",\n   \"framework\": {\n     \"name\": \"capp-example\",\n     \"plugins\": {\n       \"client\": {\n         \"use\": \"@cloudbase/framework-plugin-container\",\n         \"inputs\": {\n           \"serviceName\": \"node-api\",\n           \"servicePath\": \"/node-api\",\n           \"localPath\": \"./\",\n           \"uploadType\": \"image\",\n           \"imageInfo\": {\n             \"imageUrl\": \"ccr.ccs.tencentyun.com/tcb-100010952056-rjdt/webpage_node-api:node-api-001-1597238358\"\n           }\n         }\n       }\n     }\n   }\n}\n```",
+          "type": "string"
+        }
+      },
+      "required": [
+        "imageUrl"
+      ]
+    },
+    "IContainerCodeDetail": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Repo的名字",
+          "type": "string"
+        },
+        "url": {
+          "description": "Repo 的url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "url"
+      ]
+    },
+    "IFrameworkPluginNuxtInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginNuxtInputsConfig",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "enum": [
+            "@cloudbase/framework-plugin-nuxt"
+          ]
+        },
+        "inputs": {
+          "description": "导出接口用于生成 JSON Schema 来进行智能提示",
+          "type": "object",
+          "properties": {
+            "entry": {
+              "description": "Nuxt 配置文件所在目录，默认当前项目所在目录",
+              "default": "./",
+              "type": "string"
+            },
+            "path": {
+              "description": "访问子路径，如 `/nuxt-ssr`",
+              "default": "/nuxt-ssr",
+              "type": "string"
+            },
+            "name": {
+              "description": "服务名，如`nuxt-ssr`",
+              "default": "nuxt-ssr",
+              "type": "string"
+            },
+            "installCommand": {
+              "description": "安装命令，如`npm install`，没有可不传",
+              "default": "npm install",
+              "type": "string"
+            },
+            "buildCommand": {
+              "description": "构建命令，如`npm run build`，没有可不传",
+              "default": "npm run build",
+              "type": "string"
+            },
+            "runtime": {
+              "description": "函数运行时版本",
+              "default": "Nodejs10.15",
+              "enum": [
+                "Nodejs10.15",
+                "Nodejs8.9"
+              ],
+              "type": "string"
+            },
+            "memory": {
+              "description": "函数运行时内存配置",
+              "default": 128,
+              "enum": [
+                1024,
+                128,
+                2048,
+                256,
+                512
+              ],
+              "type": "number"
+            },
+            "timeout": {
+              "description": "函数超时时间（1 - 60S）",
+              "type": "number"
+            },
+            "envVariables": {
+              "description": "包含环境变量的键值对",
+              "$ref": "#/definitions/Record<string,string>"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      "required": [
+        "use",
+        "inputs"
+      ]
+    },
+    "IFrameworkPluginFunctionInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginFunctionInputsConfig",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "enum": [
+            "@cloudbase/framework-plugin-function"
+          ]
+        },
+        "inputs": {
+          "description": "导出接口用于生成 JSON Schema 来进行智能提示",
+          "type": "object",
+          "properties": {
+            "functionRootPath": {
+              "description": "函数根目录",
+              "default": "functions",
+              "type": "string"
+            },
+            "functions": {
+              "description": "函数配置数组",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ICloudFunction"
+              }
+            },
+            "servicePaths": {
+              "description": "服务路径配置\n\n如\n\n```json\n{\n   \"hello-world\": \"/helloworld\"\n}\n```",
+              "$ref": "#/definitions/Record<string,string>"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      "required": [
+        "use",
+        "inputs"
+      ]
+    },
+    "ICloudFunction": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "云函数名称，即为函数部署后的名称",
+          "type": "string"
+        },
+        "handler": {
+          "description": "函数处理方法名称，名称格式支持“文件名称.函数名称”形式",
+          "default": "index.main",
+          "type": "string"
+        },
+        "timeout": {
+          "description": "函数超时时间（1 - 60S）",
+          "type": "number"
+        },
+        "envVariables": {
+          "description": "包含环境变量的键值对",
+          "$ref": "#/definitions/Record<string,string>"
+        },
+        "runtime": {
+          "description": "运行时环境配置，可选值： `Nodejs8.9, Nodejs10.15 Php7, Java8, Go1`",
+          "default": "Nodejs10.15",
+          "enum": [
+            "Go1",
+            "Java8",
+            "Nodejs10.15",
+            "Nodejs8.9",
+            "Php7"
+          ],
+          "type": "string"
+        },
+        "memory": {
+          "description": "函数运行时内存配置",
+          "default": 128,
+          "enum": [
+            1024,
+            128,
+            2048,
+            256,
+            512
+          ],
+          "type": "number"
+        },
+        "vpc": {
+          "description": "VPC",
+          "$ref": "#/definitions/IFunctionVPC"
+        },
+        "installDependency": {
+          "description": "是否云端安装依赖，目前仅支持 Node.js",
+          "type": "boolean"
+        },
+        "isWaitInstall": {
+          "type": "boolean"
+        },
+        "functionDistPath": {
+          "description": "函数产物路径，相对于函数根目录 functionRootPath，例如 Go 语言可指定二进制文件路径，Java 可以指定 jar 包文件地址",
+          "type": "string"
+        },
+        "ignore": {
+          "description": "忽略的文件",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "aclRule": {
+          "description": "安全规则，配置前先阅读文档 https://docs.cloudbase.net/cloud-function/security-rules.html",
+          "$ref": "#/definitions/Record<string,any>"
+        },
+        "codeSecret": {
+          "description": "代码保护密钥，传入此参数将保护代码，在控制台/IDE中无法看到代码明文\n格式为 36 位大小字母和数字",
+          "pattern": "^[a-zA-Z0-9]$",
+          "type": "string"
+        },
+        "bumpVersion": {
+          "description": "是否自动创建新版本",
+          "type": "boolean"
+        },
+        "triggers": {
+          "description": "函数触发器配置",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ICloudFunctionTrigger"
+          }
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "IFunctionVPC": {
+      "type": "object",
+      "properties": {
+        "vpcId": {
+          "description": "vpc 的id",
+          "type": "string"
+        },
+        "subnetId": {
+          "description": "子网id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subnetId",
+        "vpcId"
+      ]
+    },
+    "Record<string,any>": {
+      "type": "object"
+    },
+    "ICloudFunctionTrigger": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "config",
+        "name",
+        "type"
+      ]
+    },
+    "IFrameworkPluginContainerInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginContainerInputsConfig",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "enum": [
+            "@cloudbase/framework-plugin-container"
+          ]
+        },
+        "inputs": {
+          "description": "导出接口用于生成 JSON Schema 来进行智能提示",
+          "type": "object",
+          "properties": {
+            "uploadType": {
+              "description": "容器镜像代码来源类别\n\n支持`package|image|repository`3 种，分别代表本地代码包、镜像地址和 git 仓库地址。默认是`package`, 选择`image`时需要填写 `imageInfo`, 选择 `repository` 需要填写`codeDetail`",
+              "enum": [
+                "image",
+                "package",
+                "repository"
+              ],
+              "type": "string"
+            },
+            "serviceName": {
+              "description": "服务名，字符串格式，如 `node-api`",
+              "type": "string"
+            },
+            "servicePath": {
+              "description": "服务路径配置, 字符串格式, 如 `/node-api`",
+              "type": "string"
+            },
+            "description": {
+              "description": "服务描述",
+              "type": "string"
+            },
+            "isPublic": {
+              "description": "是否对外网开放访问",
+              "default": true,
+              "type": "boolean"
+            },
+            "mode": {
+              "description": "副本模式\n\n1.4.0 版本以后支持\n\n支持 \"low-cost\" | \"high-availability\"\n\"low-cost\" 代表低成本模式，会有冷启动延时，锁定最小副本数为0，规格默认值为0.25C0.5G，副本最小个数不可修改，要修改需要先切换模式。\n\"high-availability\" 代表高可用模式，不存在冷启动，最小副本数不可以为0，规格默认值为1C1G，要修改最小副本数到0需要先切换模式。",
+              "enum": [
+                "high-availability",
+                "low-cost"
+              ],
+              "type": "string"
+            },
+            "customLogs": {
+              "description": "用户自定义采集日志路径\n\nString\t1-1024",
+              "maxLength": 1024,
+              "type": "string"
+            },
+            "initialDelaySeconds": {
+              "description": "延迟多长时间开始健康检查（单位s）0-1000",
+              "minimum": 0,
+              "maximum": 1000,
+              "type": "number"
+            },
+            "versionRemark": {
+              "description": "版本备注",
+              "type": "string"
+            },
+            "flowRatio": {
+              "description": "流量占比（0-100）",
+              "minimum": 0,
+              "maximum": 100,
+              "default": 100,
+              "type": "number"
+            },
+            "cpu": {
+              "description": "CPU 的大小，0.25-128, 单位：核，默认值 `0.25`",
+              "default": 0.25,
+              "type": "number"
+            },
+            "mem": {
+              "description": "Mem 的大小，0.5-128, 单位：G，默认值 `0.5`",
+              "default": 0.5,
+              "type": "number"
+            },
+            "minNum": {
+              "description": "最小副本数, 1-50，默认值 `0`",
+              "default": 0,
+              "type": "number"
+            },
+            "maxNum": {
+              "description": "最大副本数, 1-50，默认值 `10`",
+              "maximum": 50,
+              "default": 10,
+              "type": "number"
+            },
+            "policyType": {
+              "description": "策略类型(cpu)，默认值 `cpu`",
+              "enum": [
+                "cpu"
+              ],
+              "type": "string"
+            },
+            "policyThreshold": {
+              "description": "策略阈值，1-100, 默认值 `60`",
+              "minimum": 0,
+              "maximum": 100,
+              "default": 60,
+              "type": "number"
+            },
+            "containerPort": {
+              "description": "服务端口，默认值 `80`",
+              "default": 80,
+              "type": "number"
+            },
+            "dockerfilePath": {
+              "description": "Dockerfile 的路径，默认值 `./Dockerfile`",
+              "default": "./Dockerfile",
+              "type": "string"
+            },
+            "buildDir": {
+              "description": "构建目录，默认值 `./`",
+              "default": "./",
+              "type": "string"
+            },
+            "version": {
+              "description": "服务版本名",
+              "default": "1.0.0",
+              "type": "string"
+            },
+            "localPath": {
+              "description": "本地代码文件夹相对于项目根目录的路径",
+              "default": "./",
+              "type": "string"
+            },
+            "localAbsolutePath": {
+              "description": "本地代码文件夹的绝对路径",
+              "type": "string"
+            },
+            "envVariables": {
+              "description": "环境变量键值对，会被注入到云托管的运行时环境变量中",
+              "$ref": "#/definitions/Record<string,string>"
+            },
+            "imageInfo": {
+              "description": "`uploadType` 填写为 `image`时需要填写 `imageInfo`，类型是对象格式",
+              "$ref": "#/definitions/IContainerImageInfo"
+            },
+            "codeDetail": {
+              "description": "`uploadType` 填写为 `repository` 时需要填写`codeDetail`，类型是对象格式\n\n例如\n\n```json\n{\n   \"envId\": \"{{envId}}\",\n   \"framework\": {\n     \"name\": \"capp-example\",\n     \"plugins\": {\n       \"client\": {\n         \"use\": \"@cloudbase/framework-plugin-container\",\n         \"inputs\": {\n           \"serviceName\": \"deno\",\n           \"servicePath\": \"/deno\",\n           \"localPath\": \"./\",\n           \"uploadType\": \"repository\",\n           \"codeDetail\": {\n             \"name\": \"deno-docker\",\n             \"url\": \"https://github.com/TabSpace/deno-docker\"\n           }\n         }\n       }\n     }\n   }\n}\n```",
+              "$ref": "#/definitions/IContainerCodeDetail"
+            },
+            "volumeMounts": {
+              "description": "挂载目录\n1.4.0 版本以后支持\nkey 为挂载路径，value为挂载的 CFS Addon 的 Name",
+              "$ref": "#/definitions/Record<string,string>"
+            },
+            "bumpVersion": {
+              "description": "是否自动创建新版本",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "serviceName",
+            "servicePath"
+          ],
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      "required": [
+        "use",
+        "inputs"
+      ]
+    },
+    "IFrameworkPluginDartInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginDartInputsConfig",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "enum": [
+            "@cloudbase/framework-plugin-dart"
+          ]
+        },
+        "inputs": {
+          "description": "导出接口用于生成 JSON Schema 来进行智能提示",
+          "type": "object",
+          "properties": {
+            "serviceName": {
+              "description": "服务名，字符串格式，如 `dartapp`",
+              "default": "dartapp",
+              "type": "string"
+            },
+            "servicePath": {
+              "description": "服务访问路径配置, 字符串格式, 如 `/dartapp`",
+              "default": "/dartapp",
+              "type": "string"
+            },
+            "localPath": {
+              "description": "本地代码文件夹相对于项目根目录的路径，默认值 `./`",
+              "default": "./",
+              "type": "string"
+            },
+            "localAbsolutePath": {
+              "description": "本地代码文件夹的绝对路径",
+              "type": "string"
+            },
+            "version": {
+              "description": "版本名，默认值 `1.0.0`",
+              "default": "1.0.0",
+              "type": "string"
+            },
+            "isPublic": {
+              "description": "是否对外网开放访问，默认值 `true`",
+              "default": true,
+              "type": "boolean"
+            },
+            "framework": {
+              "description": "Dart App 应用框架，如 `aqueduct`",
+              "default": "aqueduct",
+              "type": "string"
+            }
+          },
+          "required": [
+            "serviceName",
+            "servicePath"
+          ],
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      "required": [
+        "use",
+        "inputs"
+      ]
+    },
+    "IFrameworkPluginDatabaseInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginDatabaseInputsConfig",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "enum": [
+            "@cloudbase/framework-plugin-database"
+          ]
+        },
+        "inputs": {
+          "description": "导出接口用于生成 JSON Schema 来进行智能提示",
+          "type": "object",
+          "properties": {
+            "collections": {
+              "description": "数据库集合信息，数组类型",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ICollectionInputs"
+              }
+            }
+          },
+          "required": [
+            "collections"
+          ],
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      "required": [
+        "use",
+        "inputs"
+      ]
+    },
+    "ICollectionInputs": {
+      "type": "object",
+      "properties": {
+        "collectionName": {
+          "description": "集合名称",
+          "maxLength": 64,
+          "minLength": 1,
+          "type": "string"
+        },
+        "description": {
+          "description": "描述信息",
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "createIndexes": {
+          "description": "创建的索引",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ICreateIndex"
+          }
+        },
+        "dropIndexes": {
+          "description": "删除的索引",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IDropIndex"
+          }
+        },
+        "aclTag": {
+          "description": "权限标签。包含以下取值： READONLY：所有用户可读，仅创建者和管理员可写 PRIVATE：仅创建者及管理员可读写 ADMINWRITE：所有用户可读，仅管理员可写 ADMINONLY：仅管理员可读写 CUSTOM：自定义安全规则",
+          "enum": [
+            "ADMINONLY",
+            "ADMINWRITE",
+            "CUSTOM",
+            "PRIVATE",
+            "READONLY"
+          ],
+          "type": "string"
+        },
+        "aclRule": {
+          "description": "aclTag 为 CUSTOM 时，安全规则内容",
+          "type": "string"
+        }
+      },
+      "required": [
+        "collectionName"
+      ]
+    },
+    "ICreateIndex": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "索引名称",
+          "maxLength": 64,
+          "minLength": 1,
+          "type": "string"
+        },
+        "unique": {
+          "description": "是否唯一索引",
+          "type": "boolean"
+        },
+        "keys": {
+          "description": "描述信息",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IIndexKey"
+          }
+        }
+      },
+      "required": [
+        "keys",
+        "name",
+        "unique"
+      ]
+    },
+    "IIndexKey": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "字段",
+          "maxLength": 64,
+          "minLength": 1,
+          "type": "string"
+        },
+        "direction": {
+          "description": "字段排序，可枚举值：-1（降序）、1（升序）、2dsphere（地理位置）",
+          "enum": [
+            "-1",
+            "1",
+            "2dsphere"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "direction",
+        "name"
+      ]
+    },
+    "IDropIndex": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "索引名称",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "IFrameworkPluginDenoInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginDenoInputsConfig",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "enum": [
+            "@cloudbase/framework-plugin-deno"
+          ]
+        },
+        "inputs": {
+          "description": "导出接口用于生成 JSON Schema 来进行智能提示",
+          "type": "object",
+          "properties": {
+            "dockerImage": {
+              "description": "Dockerfile 源镜像",
+              "default": "'debian:buster-slim'",
+              "type": "string"
+            },
+            "runtime": {
+              "description": "Deno 运行时版本 如 'v1.3.0'",
+              "default": "'latest'",
+              "type": "string"
+            },
+            "denonVersion": {
+              "description": "Denon 版本，如 '@2.4.0'",
+              "default": "'latest'",
+              "type": "string"
+            },
+            "entry": {
+              "description": "入口文件\n\n配置入口文件为 `entry.ts` 后，docker 编译时，会执行 `deno install entry.ts`。\n\n但不推荐如此管理项目，推荐使用 denon 配置文件，并在部署前进行本地编译。",
+              "default": "''",
+              "type": "string"
+            },
+            "autoBuild": {
+              "description": "是否云端自动构建",
+              "default": true,
+              "type": "boolean"
+            },
+            "servicePath": {
+              "description": "服务路径配置",
+              "default": "'/deno-app'",
+              "type": "string"
+            },
+            "serviceName": {
+              "description": "服务名",
+              "default": "'deno-app'",
+              "type": "string"
+            },
+            "projectPath": {
+              "description": "本地代码文件夹相对于项目根目录的路径",
+              "default": "'./'",
+              "type": "string"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      "required": [
+        "use",
+        "inputs"
+      ]
+    },
+    "IFrameworkPluginNextInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginNextInputsConfig",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "enum": [
+            "@cloudbase/framework-plugin-next"
+          ]
+        },
+        "inputs": {
+          "description": "导出接口用于生成 JSON Schema 来进行智能提示",
+          "type": "object",
+          "properties": {
+            "entry": {
+              "description": "Next 配置文件所在目录，默认当前项目所在目录",
+              "default": "./",
+              "type": "string"
+            },
+            "path": {
+              "description": "访问子路径，如 `/next-ssr`",
+              "default": "/next-ssr",
+              "type": "string"
+            },
+            "name": {
+              "description": "服务名，如`next-ssr`",
+              "default": "next-ssr",
+              "type": "string"
+            },
+            "buildCommand": {
+              "description": "构建命令，如`npm run build`，没有可不传",
+              "default": "npm run build",
+              "type": "string"
+            },
+            "runtime": {
+              "description": "函数运行时版本",
+              "default": "\"Nodejs10.15",
+              "enum": [
+                "Nodejs10.15",
+                "Nodejs8.9"
+              ],
+              "type": "string"
+            },
+            "functionOptions": {
+              "description": "函数选项\n\n选填，可以支持自定义更多高级设置，例如 VPC 环境变量等\n\n例如\n\n```json\n{\n   \"use\": \"@cloudbase/framework-plugin-next\",\n   \"inputs\": {\n     \"path\": \"/next-ssr\",\n     \"name\": \"next-ssr\",\n     \"functionOptions\": {\n       \"timeout\": 5,\n       \"envVariables\": {\n         \"TEST_ENV\": 1\n       },\n       \"vpc\": {\n         \"vpcId\": \"xxx\",\n         \"subnetId\": \"xxx\"\n       }\n     }\n   }\n}\n```\n\n具体配置信息请参考 [@cloudbase/framework-plugin-function](https://github.com/Tencent/cloudbase-framework/blob/master/packages/framework-plugin-function/README.md#functions) 配置"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      "required": [
+        "use",
+        "inputs"
+      ]
+    },
+    "IFrameworkPluginMiniProgramInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginMiniProgramInputsConfig",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "enum": [
+            "@cloudbase/framework-plugin-mp"
+          ]
+        },
+        "inputs": {
+          "description": "导出接口用于生成 JSON Schema 来进行智能提示",
+          "type": "object",
+          "properties": {
+            "appid": {
+              "description": "小程序应用的 appid",
+              "type": "string"
+            },
+            "privateKeyPath": {
+              "description": "小程序应用的部署私钥的本地相对路径",
+              "default": "./private.key",
+              "type": "string"
+            },
+            "privateKey": {
+              "description": "小程序应用的部署私钥（需要经过base64编码）",
+              "type": "string"
+            },
+            "localPath": {
+              "description": "小程序项目的本地相对路径",
+              "default": "./",
+              "type": "string"
+            },
+            "ignores": {
+              "description": "小程序应用部署时忽略的文件路径，支持通配符",
+              "default": [
+                "node_modules/**/*"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "deployMode": {
+              "description": "小程序应用的部署模式",
+              "default": "preview",
+              "enum": [
+                "preview",
+                "upload"
+              ],
+              "type": "string"
+            },
+            "previewOptions": {
+              "description": "预览代码的选项",
+              "$ref": "#/definitions/IMiniProgramPreviewOptions"
+            },
+            "uploadOptions": {
+              "description": "上传代码的选项",
+              "$ref": "#/definitions/IMiniProgramUploadOptions"
+            },
+            "commands": {
+              "description": "自定义命令",
+              "default": "{ build: \"cd ./miniprogram && npm install\" }",
+              "$ref": "#/definitions/Record<string,string>"
+            }
+          },
+          "required": [
+            "appid",
+            "localPath"
+          ],
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      "required": [
+        "use",
+        "inputs"
+      ]
+    },
+    "IMiniProgramPreviewOptions": {
+      "type": "object",
+      "properties": {
+        "desc": {
+          "description": "小程序的版本描述",
+          "default": "CloudBase Framework 一键预览",
+          "type": "string"
+        },
+        "setting": {
+          "description": "小程序应用的编译设置",
+          "$ref": "#/definitions/IMiniProgramBuildSetting"
+        },
+        "qrcodeOutputPath": {
+          "description": "生成的预览二维码保存在本地的路径",
+          "type": "string"
+        },
+        "pagePath": {
+          "description": "小程序应用的预览页面地址",
+          "default": "pages/index/index",
+          "type": "string"
+        },
+        "searchQuery": {
+          "description": "小程序应用的预览页面参数",
+          "default": "",
+          "type": "string"
+        },
+        "scene": {
+          "description": "小程序应用的预览页面场景值",
+          "default": 1011,
+          "type": "number"
+        }
+      }
+    },
+    "IMiniProgramBuildSetting": {
+      "type": "object",
+      "properties": {
+        "es6": {
+          "description": "编译设置 - es6 转 es5",
+          "default": true,
+          "type": "boolean"
+        },
+        "minify": {
+          "description": "编译设置 - 压缩代码",
+          "default": true,
+          "type": "boolean"
+        },
+        "codeProtect": {
+          "description": "编译设置 - 开启代码保护",
+          "default": true,
+          "type": "boolean"
+        }
+      }
+    },
+    "IMiniProgramUploadOptions": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "description": "小程序应用上传的版本号",
+          "type": "string"
+        },
+        "desc": {
+          "description": "小程序应用的版本描述",
+          "default": "CloudBase Framework 一键上传",
+          "type": "string"
+        },
+        "setting": {
+          "description": "小程序应用的编译设置",
+          "$ref": "#/definitions/IMiniProgramBuildSetting"
+        }
+      }
+    },
+    "IFrameworkPluginAuthInputsConfig": {
+      "$id": "#/definitions/IFrameworkPluginAuthInputsConfig",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "enum": [
+            "@cloudbase/framework-plugin-auth"
+          ]
+        },
+        "inputs": {
+          "description": "导出接口用于生成 JSON Schema 来进行智能提示",
+          "type": "object",
+          "properties": {
+            "configs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IAuthConfig"
+              }
+            }
+          },
+          "required": [
+            "configs"
+          ],
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      "required": [
+        "use",
+        "inputs"
+      ]
+    },
+    "IAuthConfig": {
+      "type": "object",
+      "properties": {
+        "platform": {
+          "description": "登录平台",
+          "enum": [
+            "ANONYMOUS",
+            "NONLOGIN"
+          ],
+          "type": "string"
+        },
+        "status": {
+          "description": "开通状态",
+          "enum": [
+            "DISABLE",
+            "ENABLE"
+          ],
+          "type": "string"
+        },
+        "platformId": {
+          "description": "登录平台的 AppID，选填",
+          "type": "string"
+        },
+        "platformSecret": {
+          "description": "登录平台的 AppSecret，选填",
+          "type": "string"
+        }
+      },
+      "required": [
+        "platform",
+        "platformId",
+        "platformSecret",
+        "status"
+      ]
+    }
+  }
+}
