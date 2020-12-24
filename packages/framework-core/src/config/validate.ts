@@ -10,7 +10,7 @@ import Ajv from 'ajv';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const localize = require('ajv-i18n');
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const schema = require('../../../cloudbaserc-json-schema/dist/cloudbaserc-json-schema');
+const schema = require('./cloudbaserc-json-schema');
 const ajv = new Ajv({ allErrors: false });
 
 const validateUseAjv = ajv.compile(schema);
