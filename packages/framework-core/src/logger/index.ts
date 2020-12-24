@@ -21,7 +21,7 @@ chalk.level = 1;
 export { Logger } from 'winston';
 
 let logger: winston.Logger;
-const logFilePath = path.join(LOG_PATH, `${Date.now()}.log`);
+const logFilePath = path.join(LOG_PATH, `${new Date()}.log`);
 
 export default function getLogger(level?: string) {
   if (!logger) {
@@ -55,8 +55,9 @@ export default function getLogger(level?: string) {
           format: format.printf((info) => {
             const splat = info[Symbol.for('splat') as any];
             return (
-              `CloudBase Framework::${info.level} ${info.message}` +
-              (splat ? ` ${splat.map(inspect).join(' ')} ` : '')
+              `${new Date()} CloudBase Framework::${info.level} ${
+                info.message
+              }` + (splat ? ` ${splat.map(inspect).join(' ')} ` : '')
             );
           }),
         }),
