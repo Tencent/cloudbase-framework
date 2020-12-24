@@ -14,7 +14,9 @@ const { writeFileSync } = require('fs');
 
 const coreVersion = require('../../lerna.json').version;
 const tag = process.env.BUILD_TAG || 'latest';
-const tagName = `tencentcloudbase/cloudbase-framework-runner:${tag}`;
+const imageName = 'tencentcloudbase/cloudbase-framework-runner';
+const tagNameWithVersion = `${imageName}:${coreVersion}`;
+const tagName = `${imageName}:${tag}`;
 
 const promisifyGlob = promisify(glob);
 
@@ -34,16 +36,21 @@ const promisifyGlob = promisify(glob);
 
   writeFileSync(
     path.join(__dirname, './src/package.json'),
-    JSON.stringify(packages, null, 4),
+    JSON.stringify(packages, null, 4)
   );
 
   await spawnPromise(
-    `docker build --build-arg tag=${tag} --no-cache -t ${tagName} .`,
+    `docker build --build-arg tag=${tag} --no-cache -t ${tagNameWithVersion} .`,
     {
       cwd: path.join(__dirname, './src'),
-    },
+    }
   );
 
+  await spawnPromise(`docker tag ${tagNameWithVersion} ${tagName}`, {
+    cwd: path.join(__dirname, './src'),
+  });
+
   // 推送镜像
+  await spawnPromise(`docker push ${tagNameWithVersion}`, {});
   await spawnPromise(`docker push ${tagName}`, {});
 })();
