@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/node-builder",
-  "version": "1.4.11-beta.34+efd72a5",
+  "version": "1.4.11-beta.37+1b931f3",
   "description": "云开发 CloudBase Node 应用构建工具",
   "main": "lib/index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@cloudbase/framework-core": "^1.4.11-beta.34+efd72a5",
+    "@cloudbase/framework-core": "^1.4.11-beta.37+1b931f3",
     "archiver": "^4.0.1",
     "express": "^4.17.1",
     "fs-extra": "^8.1.0",
@@ -28,5 +28,5 @@
     "@types/node": "^13.13.5",
     "typescript": "^3.8.3"
   },
-  "gitHead": "efd72a5fd3cdfcba9deb6843ef85767feae8ad9e"
+  "gitHead": "1b931f351110c801e9aa99cd18e1f08b5839fdea"
 }
