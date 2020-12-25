@@ -282,6 +282,15 @@
       "contributions": [
         "example"
       ]
+    },
+    {
+      "login": "Handsomedoggy",
+      "name": "Doggy",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/33211616?v=4",
+      "profile": "https://github.com/Handsomedoggy",
+      "contributions": [
+        "example"
+      ]
     }
   ],
   "contributorsPerLine": 7,
