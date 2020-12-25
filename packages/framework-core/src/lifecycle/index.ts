@@ -26,7 +26,14 @@ export default class LifeCycleManager {
     failReason?: string,
     failType?: string
   ) {
-    const buildLog = await this.getBuildLog();
+    let buildLog = '';
+
+    try {
+      buildLog = await this.getBuildLog();
+    } catch (e) {
+      console.warn(e);
+    }
+
     return reportCloudBaseCIResultCallback({
       ciId: this.context.ciId,
       extensionId: this.context.extensionId,
