@@ -50,16 +50,6 @@ export default async function resolveConfig(
     originProjectInfo,
   } = await resolveRcConfig(projectPath, config, envId);
 
-  const validateRes = validate(rcConfig);
-
-  if (!validateRes.result) {
-    throw new CloudBaseFrameworkError(
-      `cloudbaserc.json 文件校验失败 ${validateRes.errorText}`,
-      ERRORS.CONFIG_VALIDATE_ERROR
-    );
-  }
-  logger.info('Validate config file success.');
-
   // 针对 cloudbaserc.js 等脚本文件，会创建一份单独的 json 配置文件
   const independentFrameworkConfig = await readFrameworkConfig(projectPath);
 
@@ -152,6 +142,20 @@ export default async function resolveConfig(
   if (!Object.keys(finalFrameworkConfig.plugins || {}).length) {
     process.exit();
   }
+
+  const validateRes = validate(
+    Object.assign({}, rcConfig, {
+      framework: finalFrameworkConfig,
+    })
+  );
+
+  if (!validateRes.result) {
+    throw new CloudBaseFrameworkError(
+      `cloudbaserc.json 文件校验失败 ${validateRes.errorText}`,
+      ERRORS.CONFIG_VALIDATE_ERROR
+    );
+  }
+  logger.info('Validate config file success.');
 
   return {
     // 合并配置
