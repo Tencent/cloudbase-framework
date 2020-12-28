@@ -30,9 +30,7 @@ export default class LifeCycleManager {
 
     try {
       buildLog = await this.getBuildLog();
-    } catch (e) {
-      console.warn(e);
-    }
+    } catch (e) {}
 
     return reportCloudBaseCIResultCallback({
       ciId: this.context.ciId,
