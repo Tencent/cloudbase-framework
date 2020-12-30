@@ -19,6 +19,11 @@
       "type": "string",
       "description": "envId 代表环境 ID，是环境的唯一标识。"
     },
+    "region": {
+      "type": "string",
+      "description": "环境所在地域",
+      "default": "ap-shanghai"
+    },
     "functionRoot": {
       "type": "string",
       "description": "云函数函数代码存放的文件夹路径，相对于根目录的路径"
@@ -125,7 +130,7 @@
       }
     }
   },
-  "required": ["envId", "framework"],
+  "required": ["framework"],
   "definitions": {
     "pluginConfig": {
       "$id": "#/definitions/pluginConfig",

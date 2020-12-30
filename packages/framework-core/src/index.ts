@@ -135,7 +135,8 @@ export class CloudBaseFrameworkCore {
     ) {
       throw new Error('CloudBase Framework: config info missing');
     }
-    CloudApi.init({
+
+    await CloudApi.init({
       secretId: cloudbaseConfig.secretId,
       secretKey: cloudbaseConfig.secretKey,
       token: cloudbaseConfig.token || '',
