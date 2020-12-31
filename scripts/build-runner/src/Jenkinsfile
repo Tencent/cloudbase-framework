@@ -1,12 +1,15 @@
 pipeline {
     agent {
       docker {
-        image 'tencentcloudbase/cloudbase-framework-runner:1.5.2'
+        image 'ccr.ccs.tencentyun.com/cloudbaseframework/cloudbase-framework-runner:1.5.2'
         reuseNode true
         args '-v /root/.cloudbase-pnpm-cache:/root/.pnpm-store \
         -v /root/.cloudbase-yarn-cache:/usr/local/share/.cache/yarn/v6 \
         -v /root/.cloudbase-npm-cache:/root/.npm \
-        -v /root/.cloudbase-weapps-build-cache:/root/.weapps-build'
+        -v /root/.weapps-build/app/mp/node_modules \
+        -v /root/.weapps-build/app/mp/yarn.lock \
+        -v /root/.weapps-build/app/h5/node_modules \
+        -v /root/.weapps-build/app/h5/yarn.lock'
       }
     }
     stages  {
@@ -35,15 +38,12 @@ pipeline {
                 sh '''
                 # 设置腾讯云镜像源
                 npm config set registry http://mirrors.cloud.tencent.com/npm/
-                npm config list
 
                 # yarn 优先使用缓存
                 yarn config set install.prefer-offline true
-                yarn config list
 
                 # pnpm 全局缓存目录设置
                 pnpm config set store-dir /root/.pnpm-store
-                pnpm config list
 
                 # npm 默认优先使用缓存
                 npm config set prefer-offline true
@@ -56,7 +56,7 @@ pipeline {
                 ls /root/.npm
                 ls /root/.pnpm-store
                 ls /root/.weapps-build
-                ls /usr/local/share/.cache/yarn/v6
+                ls /usr/local/share/.cache/yarn/v6  | wc -l
                 '''
             }
         }
@@ -68,12 +68,6 @@ pipeline {
                 ls -al
                 pwd
                 CI=true cloudbase framework deploy -e "$ENV_ID" --verbose
-                # 查看缓存
-                ls /root/.weapps-materials
-                ls /root/.npm
-                ls /root/.pnpm-store
-                ls /root/.weapps-build
-                ls /usr/local/share/.cache/yarn/v6
                 '''
             }
         }
