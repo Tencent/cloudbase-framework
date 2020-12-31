@@ -55,6 +55,8 @@ pipeline {
                 ls /root/.pnpm-store
                 ls /root/.weapps-build
                 ls /usr/local/share/.cache/yarn/v6  | wc -l
+                ls /root/.weapps-build/app/h5/node_modules  | wc -l
+                ls /root/.weapps-build/app/mp/node_modules  | wc -l
                 '''
             }
         }
