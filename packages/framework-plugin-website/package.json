@@ -32,7 +32,7 @@
     "@cloudbase/framework-core": "^1.5.3",
     "@cloudbase/static-builder": "^1.5.3",
     "@cloudbase/static-deployer": "^1.5.3",
-    "@cloudbase/toolbox": "^0.4.19",
+    "@cloudbase/toolbox": "^0.6.0",
     "@types/archiver": "^3.1.1",
     "@types/lodash.merge": "^4.6.6",
     "@types/node-fetch": "^2.5.7",

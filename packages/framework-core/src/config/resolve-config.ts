@@ -56,7 +56,7 @@ export default async function resolveConfig(
   let originFrameworkConfig = independentFrameworkConfig || rcConfig?.framework;
   let finalFrameworkConfig = originFrameworkConfig;
 
-  if (!originFrameworkConfig?.plugins) {
+  if (!Object.keys(originFrameworkConfig?.plugins || {}).length) {
     logger.debug('检测项目框架');
     const detectedFrameworks = await detect(projectPath, rcConfig);
     let plugins: any = {};
@@ -269,8 +269,12 @@ async function resolveRcConfig(
     // 没有选择项目，新建项目, 配置使用模板
     projectName = await collectAppName(projectPath);
     extraData = {};
-    rcConfig = Object.assign({}, DEFAULT_CONFIG, {
+    rcConfig = Object.assign({}, DEFAULT_CONFIG, config, {
       envId,
+      framework: {
+        name: projectName,
+        plugins: {},
+      },
     });
   }
 
@@ -302,7 +306,7 @@ async function collectAppName(projectPath: string): Promise<string> {
     message: '请输入应用唯一标识(支持 A-Z a-z 0-9 及 -, 同一环境下不能相同)',
     default: name,
   });
-  let pattern = /^[a-z][A-Za-z0-9-]*$/;
+  let pattern = /^[A-Za-z0-9-]*$/;
   if (!pattern.exec(nameAnswer.name) || nameAnswer.name.length > 16) {
     logger.info(
       '请输入正确的应用名称，支持 A-Z a-z 0-9 及 -, 只能用字母开头，最长 16 位'

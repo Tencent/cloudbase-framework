@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@cloudbase/framework-core": "^1.5.3",
-    "@cloudbase/toolbox": "^0.4.11",
+    "@cloudbase/toolbox": "^0.6.0",
     "@types/node-fetch": "^2.5.7",
     "cpy": "^8.1.0"
   },

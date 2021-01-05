@@ -347,12 +347,18 @@ ${entryLogInfo}`);
       // 兼容类型错误
       delete Source.Headers;
 
+      console.log(this.frameworkConfig.config);
+
       // 旧的字段保持 JSON 格式，新字段使用字符串格式
       const data = await createAndDeployCloudBaseProject({
         Name: this.appConfig.name || '',
         Parameters,
         Source,
-        RcJson: JSON.stringify(this.frameworkConfig.config),
+        RcJson: JSON.stringify(
+          Object.assign({}, this.frameworkConfig.config, {
+            framework: this.appConfig,
+          })
+        ),
         AddonConfig: JSON.stringify(this.appConfig.addons),
         NetworkConfig: JSON.stringify(this.appConfig.network),
       });
