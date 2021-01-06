@@ -19,7 +19,8 @@ export async function spawnPromise(
       Object.assign(
         {
           shell: true,
-          stdio: 'inherit',
+          // stderr 使用 process.stderr 用于收集错误
+          stdio: ['inherit', 'inherit', 'pipe'],
         },
         options
       )
@@ -32,7 +33,10 @@ export async function spawnPromise(
     cm.stderr?.on('data', (data) => {
       stderr += data;
     });
+
     cm.on('error', reject);
-    cm.on('close', (code) => (code === 0 ? resolve(stdout) : reject(stderr)));
+    cm.on('close', (code) => {
+      code === 0 ? resolve(stdout) : reject(new Error(stderr || String(code)));
+    });
   });
 }

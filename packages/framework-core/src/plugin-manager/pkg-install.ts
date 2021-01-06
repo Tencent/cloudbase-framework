@@ -20,7 +20,6 @@ export function install(
   // 支持node8
   return spawnPromise('npm', [...args, ...packageList, ...npmOptions], {
     cwd: options?.cwd || process.cwd(),
-    stdio: undefined,
   });
 }
 
