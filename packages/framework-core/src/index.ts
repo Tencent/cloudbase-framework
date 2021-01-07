@@ -24,7 +24,7 @@ import { CloudApi } from './api';
 import resolveConfig from './config/resolve-config';
 import Context from './context';
 import { CloudBaseFrameworkConfig, Config } from './types';
-import getLogger from './logger';
+import getLogger, { getLogFilePath } from './logger';
 import { SamManager } from './sam';
 import { genAddonSam } from './sam/addon';
 import Hooks from './hooks';
@@ -201,6 +201,7 @@ export class CloudBaseFrameworkCore {
         (code as string) in USER_ERRORS_MAP ? 'UserError' : 'SystemError';
 
       logger.error(message);
+      logger.info('部署日志:', getLogFilePath());
       if (!this.isDeploy) {
         // 非部署情况不上报
         return;
