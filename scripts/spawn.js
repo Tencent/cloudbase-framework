@@ -29,7 +29,7 @@ async function spawnPromise(command, options) {
       });
     let stderr = '';
     cm.stderr
-      && cm.stdout.on('data', (data) => {
+      && cm.stderr.on('data', (data) => {
         stderr += data;
       });
 
