@@ -15,7 +15,8 @@ async function spawnPromise(command, options) {
       Object.assign(
         {
           shell: true,
-          stdio: 'inherit',
+           // stderr 使用 process.stderr 用于收集错误
+          stdio: ['inherit', 'inherit', 'pipe'],
         },
         options,
       ),
