@@ -38,6 +38,9 @@
   </a>
 </p>
 
+<details>
+<summary>更多特性和优势</summary>
+
 ![](https://main.qcloudimg.com/raw/2e1f83c30bdea819b3a7d0c098353c9b.png)
 
 ![](https://main.qcloudimg.com/raw/ac39db57bcadce1a47d490935bd46c79.png)
@@ -45,6 +48,8 @@
 ![](https://main.qcloudimg.com/raw/18f05eadb428fb281a8ff78ae79087fe.png)
 
 ![](https://main.qcloudimg.com/raw/c821f21c3ff43d26db39cadf85957e94.png)
+
+</details>
 
 ## Table of Contents
 
@@ -79,13 +84,19 @@ cloudbase init
 cloudbase framework deploy
 ```
 
-**一键部署一个 Vue CLI 创建的 项目**
+<details>
+ <summary>一键部署一个 Vue CLI 创建的 项目</summary>
 
 ![](https://6678-fx-1259727701.tcb.qcloud.la/ezgif-4-ee79409c8665.gif)
+
+</details>
 
 ## <a name="examples"></a>项目示例
 
 下面的快速开始部分可以帮助您更快地体验 CloudBase Framework 的能力，以便尽快开始将自己的项目部署起来。
+
+<details>
+ <summary>查看项目示例</summary>
 
 每一个例子都提供了一个 **部署按钮**，可以点击之后在云端一键部署，将应用安装在您的腾讯云开发环境中。同时我们也提供了对应的源代码，可以查看源代码，Clone 或者下载项目到本地进行修改，在本地通过 CloudBase CLI 进行一键部署。
 
@@ -228,12 +239,17 @@ cloudbase framework deploy
 </table>
 
 点击进入[应用中心](https://cloudbase.net/marketplace.html)查看更多应用
-      
+
 <!-- END mdmod -->
+
+</details>
 
 ## <a name="plugins"></a>插件
 
 云开发 CloudBase Framework 支持插件机制，提供了多种应用框架和云资源的插件，只需要很少的配置甚至 0 配置就可以现有应用和云开发 CloudBase Framework 框架进行集成。
+
+<details>
+ <summary>查看插件说明</summary
 
 插件可以处理应用中的一些独立单元的构建、部署、开发、调试等流程。例如 website 插件可以处理静态网站等单元，node 插件可以处理 koa 、express 等 node 应用。插件可以组合使用。
 
@@ -283,26 +299,32 @@ cloudbase
 
 <!-- START mdmod {replace: plugins} -->
 
-| 插件链接 | 插件 | 最新版本 | 插件介绍 |
-| -------- | ---- | -------- | -------- |
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-website"><img width="200" src="https://main.qcloudimg.com/raw/abbc0f23ee92e8f4665ab316b6126d33.jpg"></a>  | [@cloudbase/framework-plugin-website](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-website) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-website)](https://www.npmjs.com/package/@cloudbase/framework-plugin-website) | 一键部署网站应用|
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-node"><img width="200" src="https://main.qcloudimg.com/raw/80526dcba2f27ed2619ac43b9b623d5a.jpg"></a>  | [@cloudbase/framework-plugin-node](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-node) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-node)](https://www.npmjs.com/package/@cloudbase/framework-plugin-node) | 一键部署 Node 应用（支持底层部署为函数或者 云托管）|
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-nuxt"><img width="200" src="https://main.qcloudimg.com/raw/6d48ab8bc29c38558cd258b28b14f94e.jpg"></a>  | [@cloudbase/framework-plugin-nuxt](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-nuxt) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-nuxt)](https://www.npmjs.com/package/@cloudbase/framework-plugin-nuxt) | 一键部署 Nuxt SSR 应用|
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-function"><img width="200" src="https://main.qcloudimg.com/raw/2cd529a816464f59684515f73b0a5622.jpg"></a>  | [@cloudbase/framework-plugin-function](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-function) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-function)](https://www.npmjs.com/package/@cloudbase/framework-plugin-function) | 一键部署函数资源|
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-container"><img width="200" src="https://main.qcloudimg.com/raw/7e5e467a45bdfb5f5f4cc2eb27ea71bb.jpg"></a>  | [@cloudbase/framework-plugin-container](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-container) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-container)](https://www.npmjs.com/package/@cloudbase/framework-plugin-container) | 一键部署云托管容器服务|
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-dart"><img width="200" src="https://main.qcloudimg.com/raw/fabde81e6232f0eccf4914721ee2a55c.jpg"></a>  | [@cloudbase/framework-plugin-dart](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-dart) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-dart)](https://www.npmjs.com/package/@cloudbase/framework-plugin-dart) | 一键部署 Dart 应用|
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-database"><img width="200" src="https://main.qcloudimg.com/raw/41a9bd0e62c638ab40cb8b8cba26696b.jpg"></a>  | [@cloudbase/framework-plugin-database](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-database) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-database)](https://www.npmjs.com/package/@cloudbase/framework-plugin-database) | 一键声明式部署云开发 NoSQL 云数据库|
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-deno"><img width="200" src="https://main.qcloudimg.com/raw/70429911e53a56366c39e11f5596e790.jpg"></a>  | [@cloudbase/framework-plugin-deno](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-deno) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-deno)](https://www.npmjs.com/package/@cloudbase/framework-plugin-deno) | 一键部署 Deno 应用|
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-next"><img width="200" src="https://main.qcloudimg.com/raw/484de9a30676fb6ede6078622eea0274.png"></a>  | [@cloudbase/framework-plugin-next](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-next) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-next)](https://www.npmjs.com/package/@cloudbase/framework-plugin-next) | 一键部署 Next SSR 应用|
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-mp"><img width="200" src="https://main.qcloudimg.com/raw/3de9cef4b6ac7c72f9519f13d063fc13.jpg"></a>  | [@cloudbase/framework-plugin-mp](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-mp) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-mp)](https://www.npmjs.com/package/@cloudbase/framework-plugin-mp) | 一键部署微信小程序应用|
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-auth"><img width="200" src="https://main.qcloudimg.com/raw/8f7534f7f3a3f3a8df2cf861040f6a8c.jpg"></a>  | [@cloudbase/framework-plugin-auth](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-auth) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-auth)](https://www.npmjs.com/package/@cloudbase/framework-plugin-auth) | 一键设置登录配置|
+| 插件链接                                                                                                                                                                                                 | 插件                                                                                                                                    | 最新版本                                                                                                                                                  | 插件介绍                                            |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-website"><img width="200" src="https://main.qcloudimg.com/raw/abbc0f23ee92e8f4665ab316b6126d33.jpg"></a>   | [@cloudbase/framework-plugin-website](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-website)     | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-website)](https://www.npmjs.com/package/@cloudbase/framework-plugin-website)     | 一键部署网站应用                                    |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-node"><img width="200" src="https://main.qcloudimg.com/raw/80526dcba2f27ed2619ac43b9b623d5a.jpg"></a>      | [@cloudbase/framework-plugin-node](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-node)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-node)](https://www.npmjs.com/package/@cloudbase/framework-plugin-node)           | 一键部署 Node 应用（支持底层部署为函数或者 云托管） |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-nuxt"><img width="200" src="https://main.qcloudimg.com/raw/6d48ab8bc29c38558cd258b28b14f94e.jpg"></a>      | [@cloudbase/framework-plugin-nuxt](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-nuxt)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-nuxt)](https://www.npmjs.com/package/@cloudbase/framework-plugin-nuxt)           | 一键部署 Nuxt SSR 应用                              |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-function"><img width="200" src="https://main.qcloudimg.com/raw/2cd529a816464f59684515f73b0a5622.jpg"></a>  | [@cloudbase/framework-plugin-function](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-function)   | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-function)](https://www.npmjs.com/package/@cloudbase/framework-plugin-function)   | 一键部署函数资源                                    |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-container"><img width="200" src="https://main.qcloudimg.com/raw/7e5e467a45bdfb5f5f4cc2eb27ea71bb.jpg"></a> | [@cloudbase/framework-plugin-container](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-container) | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-container)](https://www.npmjs.com/package/@cloudbase/framework-plugin-container) | 一键部署云托管容器服务                              |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-dart"><img width="200" src="https://main.qcloudimg.com/raw/fabde81e6232f0eccf4914721ee2a55c.jpg"></a>      | [@cloudbase/framework-plugin-dart](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-dart)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-dart)](https://www.npmjs.com/package/@cloudbase/framework-plugin-dart)           | 一键部署 Dart 应用                                  |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-database"><img width="200" src="https://main.qcloudimg.com/raw/41a9bd0e62c638ab40cb8b8cba26696b.jpg"></a>  | [@cloudbase/framework-plugin-database](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-database)   | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-database)](https://www.npmjs.com/package/@cloudbase/framework-plugin-database)   | 一键声明式部署云开发 NoSQL 云数据库                 |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-deno"><img width="200" src="https://main.qcloudimg.com/raw/70429911e53a56366c39e11f5596e790.jpg"></a>      | [@cloudbase/framework-plugin-deno](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-deno)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-deno)](https://www.npmjs.com/package/@cloudbase/framework-plugin-deno)           | 一键部署 Deno 应用                                  |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-next"><img width="200" src="https://main.qcloudimg.com/raw/484de9a30676fb6ede6078622eea0274.png"></a>      | [@cloudbase/framework-plugin-next](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-next)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-next)](https://www.npmjs.com/package/@cloudbase/framework-plugin-next)           | 一键部署 Next SSR 应用                              |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-mp"><img width="200" src="https://main.qcloudimg.com/raw/3de9cef4b6ac7c72f9519f13d063fc13.jpg"></a>        | [@cloudbase/framework-plugin-mp](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-mp)               | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-mp)](https://www.npmjs.com/package/@cloudbase/framework-plugin-mp)               | 一键部署微信小程序应用                              |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-auth"><img width="200" src="https://main.qcloudimg.com/raw/8f7534f7f3a3f3a8df2cf861040f6a8c.jpg"></a>      | [@cloudbase/framework-plugin-auth](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-auth)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-auth)](https://www.npmjs.com/package/@cloudbase/framework-plugin-auth)           | 一键设置登录配置                                    |
+
 <!-- 新增/删除/修改插件信息，请修改 community/plugins/index.json，然后执行 npm run build:markdown-->
 
 <!-- END mdmod -->
 
+</details>
+
 ## <a name="conf"></a> 配置示例
 
 例如一个 Vue 的全栈项目，包含网站前端和云函数
+
+<details>
+ <summary>查看 Vue 全栈项目的配置示例</summary>
 
 可以在在项目下手动创建一个 `cloudbaserc.json`，填写如下配置文件，调用 `cloudbase framework deploy` 进行部署
 
@@ -310,7 +332,7 @@ cloudbase
 
 ```json
 {
-  "envId": "{{envId}}",
+  "envId": "{{env}}",
   "framework": {
     "plugins": {
       "client": {
@@ -341,6 +363,8 @@ cloudbase
   }
 }
 ```
+
+</details>
 
 更多配置详细参数说明，可以查看配置说明文档，点击[查看配置文档](https://docs.cloudbase.net/framework/config.html)
 
@@ -375,12 +399,19 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 
 ## <a name="community"></a> 在线交流群
 
+如果在使用、安装过程中有任何问题，或者建议，欢迎加群讨论、反馈问题，或加云开发小助手微信： Tcloudedu1，发送 CBF 入群。
+
 <table>
   <tr>
+    <td>
+    云开发小助手微信
+    <br>
+    <img src="https://main.qcloudimg.com/raw/d2092f06d0c25cbbdde1f699f9b4b3b1.png" width="100px;" alt=""/>
+    </td>
    <td>
       微信群
       <br>
-      <img src="https://main.qcloudimg.com/raw/730411c9377192efbe27d0093f5d8a89.png" width="100px;" alt=""/>
+      <img src="https://main.qcloudimg.com/raw/fa63b5efa17e60c93d91dcec18e9e4d9.png" width="100px;" alt=""/>
     </td>
     <td>
       QQ 群
@@ -395,7 +426,9 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-30-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -446,6 +479,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
