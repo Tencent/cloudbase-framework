@@ -80,6 +80,8 @@ cloudbase framework deploy
 
 选填，小程序应用的部署私钥内容，需要经过 base64 编码
 
+可以使用 [小程序部署密钥转换小工具](https://framework-1258016615.tcloudbaseapp.com/mp-key-tool/) 来转换为 Base64
+
 ### `privateKeyPath`
 
 选填，小程序应用的部署私钥的本地相对路径，默认值 "./private.key"
