@@ -139,13 +139,24 @@ interface IMiniProgramBuildSetting {
   codeProtect?: boolean;
 }
 
+interface IMiniProgramBuildOutput {
+  /**
+   * 预览版二维码链接
+   */
+  link?: string;
+  /**
+   * 体验版小程序版本号
+   */
+  version?: string;
+}
+
 const SUPPORT_DEPLOY_MODE = ['upload', 'preview'];
 const MP_CONFIG_FILENAME = 'project.config.json';
 const NOT_NPM_ERROR = '__NO_NODE_MODULES__ NPM packages not found';
 
 class MiniProgramsPlugin extends Plugin {
   protected resolvedInputs: IFrameworkPluginMiniProgramInputs;
-  protected buildOutput: any;
+  protected buildOutput: IMiniProgramBuildOutput;
 
   constructor(
     public name: string,
@@ -160,6 +171,7 @@ class MiniProgramsPlugin extends Plugin {
       ignores: ['node_modules/**/*'],
     };
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
+    this.buildOutput = {};
   }
 
   /**
@@ -167,10 +179,9 @@ class MiniProgramsPlugin extends Plugin {
    */
   async init() {
     this.api.logger.debug('MiniProgramPlugin: init', this.resolvedInputs);
-    this.initCI();
   }
 
-  initCI() {
+  _initCI() {
     const { projectPath } = this.api;
     const {
       appid,
@@ -241,7 +252,7 @@ class MiniProgramsPlugin extends Plugin {
     this.api.logger.debug('MiniProgramPlugin: build', this.resolvedInputs);
 
     const { build: buildCommand, install: installCommand } =
-      this.resolvedInputs.commands || {};
+      this.resolvedInputs?.commands || {};
 
     /**
      * 安装依赖
@@ -259,16 +270,44 @@ class MiniProgramsPlugin extends Plugin {
       await promisify(exec)(buildCommand);
     }
 
-    /**
-     * 编译小程序NPM
-     */
-    await this.ciPackNpm();
+    return;
   }
 
   /**
    * 生成SAM文件
    */
   async compile() {
+    /**
+     * todo: 小程序部署应该迁移到SAM平台
+     */
+
+    /**
+     * 初始化CI
+     */
+    this._initCI();
+
+    /**
+     * 编译小程序NPM
+     */
+    await this._ciPackNpm();
+
+    /**
+     * 部署小程序
+     */
+    switch (this.resolvedInputs?.deployMode) {
+      case 'upload': {
+        this.buildOutput = await this._ciUpload();
+        break;
+      }
+      case 'preview': {
+        this.buildOutput = await this._ciPreview();
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+
     return {};
   }
 
@@ -282,60 +321,62 @@ class MiniProgramsPlugin extends Plugin {
       this.buildOutput
     );
 
-    const { deployMode } = this.resolvedInputs;
-    switch (deployMode) {
-      case 'upload': {
-        await this.ciUpload();
-        return;
-      }
-      case 'preview': {
-        await this.ciPreview();
-        return;
-      }
-      default: {
-        return;
-      }
+    const { link, version } = this.buildOutput || {};
+
+    if (link) {
+      this.api.logger.info(
+        `${this.api.emoji(
+          '🚀'
+        )} 小程序（预览版）部署成功，预览二维码地址：${link}`
+      );
+    } else if (version) {
+      this.api.logger.info(
+        `${this.api.emoji(
+          '🚀'
+        )} 小程序（体验版v${version}）上传成功，请在小程序管理后台将其设置为体验版本`
+      );
+    } else {
+      throw new Error(`invalid buildOutput: ${this.buildOutput}`);
     }
   }
 
   /**
    * 小程序-上传
    */
-  async ciUpload() {
+  async _ciUpload(): Promise<IMiniProgramBuildOutput> {
     // 需要暂时关掉 stdout, 避免 miniprogram-ci 的内容打印到控制台
-    pauseConsoleOutput();
+    !process.env.CLOUDBASE_CIID && pauseConsoleOutput();
     const {
       version = '1.0.0',
       desc = 'CloudBase Framework 一键上传',
       setting,
     } = this.resolvedInputs.uploadOptions || {};
     const result = await CI.upload({
-      project: this.ciProject,
+      project: this._ciProject,
       version,
       desc,
       setting,
     }).catch((err) => {
       return err;
     });
-    resumeConsoleOutput();
+    // this.api.runtime.isLocal() && this.api.console.resume();
+    !process.env.CLOUDBASE_CIID && resumeConsoleOutput();
 
     if (result?.subPackageInfo) {
-      this.api.logger.info(
-        `${this.api.emoji('🚀')} 小程序（体验版v${
-          this.resolvedInputs.uploadOptions?.version
-        }）上传成功，请在小程序管理后台将其设置为体验版本`
-      );
+      return {
+        version,
+      };
     } else {
-      throw new Error(`小程序（预览版）部署失败 ${result}`);
+      throw new Error(`小程序（体验版）部署失败 ${result}`);
     }
   }
 
   /**
    * 小程序-预览
    */
-  async ciPreview() {
+  async _ciPreview(): Promise<IMiniProgramBuildOutput> {
     // 需要暂时关掉 stdout, 避免 miniprogram-ci 的内容打印到控制台
-    pauseConsoleOutput();
+    !process.env.CLOUDBASE_CIID && pauseConsoleOutput();
     const {
       desc = 'CloudBase Framework 一键预览',
       setting,
@@ -345,7 +386,7 @@ class MiniProgramsPlugin extends Plugin {
       scene = 1011,
     } = this.resolvedInputs.previewOptions || {};
     const result = await CI.preview({
-      project: this.ciProject,
+      project: this._ciProject,
       version: '0.0.1',
       desc,
       setting,
@@ -357,7 +398,7 @@ class MiniProgramsPlugin extends Plugin {
     }).catch((err) => {
       return err;
     });
-    resumeConsoleOutput();
+    !process.env.CLOUDBASE_CIID && resumeConsoleOutput();
 
     if (result?.subPackageInfo) {
       const link = this.api.genClickableLink(
@@ -366,34 +407,35 @@ class MiniProgramsPlugin extends Plugin {
           host: path.resolve(this.api.projectPath, qrcodeOutputPath),
         })
       );
-      this.api.logger.info(
-        `${this.api.emoji(
-          '🚀'
-        )} 小程序（预览版）部署成功，预览二维码地址：${link}`
-      );
+      return {
+        link,
+      };
     } else {
       throw new Error(`小程序（预览版）部署失败 ${result}`);
     }
   }
 
-  async ciPackNpm() {
+  /**
+   * 小程序-编译NPM
+   */
+  async _ciPackNpm() {
     // 需要暂时关掉 stdout, 避免 miniprogram-ci 的内容打印到控制台
-    pauseConsoleOutput();
-    const result = await CI.packNpm(this.ciProject, {
+    !process.env.CLOUDBASE_CIID && pauseConsoleOutput();
+    const result = await CI.packNpm(this._ciProject, {
       reporter: (infos) => {
         console.log(infos);
       },
     }).catch((err) => {
       return err;
     });
-    resumeConsoleOutput();
+    !process.env.CLOUDBASE_CIID && resumeConsoleOutput();
 
     if (result instanceof Error && !result.message.startsWith(NOT_NPM_ERROR)) {
       throw new Error(`小程序 NPM 构建失败 ${result}`);
     }
   }
 
-  get ciProject() {
+  get _ciProject() {
     const { projectPath } = this.api;
     const { appid, localPath, privateKeyPath, ignores } = this.resolvedInputs;
 
@@ -413,19 +455,28 @@ function resolveInputs(inputs: any, defaultInputs: any) {
 
 const originalStdoutWrite = process.stdout.write.bind(process.stdout);
 const originalStderrWrite = process.stderr.write.bind(process.stderr);
+let previousStdoutWrite = process.stdout.write.bind(process.stdout);
+let previousStderrWrite = process.stderr.write.bind(process.stderr);
 // 暂停控制台输出
 function pauseConsoleOutput() {
+  previousStdoutWrite = process.stdout.write.bind(process.stdout);
   process.stdout.write = () => {
     return true;
   };
+  previousStderrWrite = process.stderr.write.bind(process.stderr);
   process.stderr.write = () => {
     return true;
   };
 }
 // 恢复控制台输出
-function resumeConsoleOutput() {
-  process.stdout.write = originalStdoutWrite;
-  process.stderr.write = originalStderrWrite;
+function resumeConsoleOutput(original = false) {
+  if (original) {
+    process.stdout.write = originalStdoutWrite;
+    process.stderr.write = originalStderrWrite;
+  } else {
+    process.stdout.write = previousStdoutWrite;
+    process.stderr.write = previousStderrWrite;
+  }
 }
 
 export const plugin = MiniProgramsPlugin;
