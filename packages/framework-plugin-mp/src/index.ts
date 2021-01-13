@@ -170,7 +170,6 @@ class MiniProgramsPlugin extends Plugin {
       deployMode: 'preview',
       ignores: ['node_modules/**/*'],
       commands: {
-        install: 'npm install --prefer-offline --no-audit --progress=false',
       }
     };
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
@@ -253,6 +252,15 @@ class MiniProgramsPlugin extends Plugin {
    */
   async build() {
     this.api.logger.debug('MiniProgramPlugin: build', this.resolvedInputs);
+    const { projectPath } = this.api;
+    const {
+      localPath,
+    } = this.resolvedInputs;
+
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const projectConfig = require(path.join(projectPath, localPath, MP_CONFIG_FILENAME));
+
+    const miniprogramRoot = projectConfig.miniprogramRoot || 'miniprogram'
 
     const { build: buildCommand, install: installCommand } =
       this.resolvedInputs?.commands || {};
@@ -260,13 +268,20 @@ class MiniProgramsPlugin extends Plugin {
     /**
      * 安装依赖
      */
-    try {
-      if (fs.statSync('package.json') && installCommand) {
-        this.api.logger.info(installCommand);
-        return promisify(exec)(installCommand);
-      }
-    } catch (e) {}
+    if (installCommand) {
+      this.api.logger.info(installCommand);
+      await promisify(exec)(installCommand);
+    } else {
+      try {
+        if (fs.statSync(path.join(projectPath, localPath, miniprogramRoot, 'package.json'))) {
+          this.api.logger.info('use default npm install commands');
+          await promisify(exec)('npm install --prefer-offline --no-audit --progress=false', {
+            cwd: path.join(path.join(projectPath, localPath, miniprogramRoot))
+          });
+        }
+      } catch (e) {}
 
+    }
     /**
      * 构建
      */

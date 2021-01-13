@@ -77,13 +77,20 @@ cloudbase framework deploy
 
 ### 配置参数说明
 
-### `installCommand`
+### commands 
+
+选填，对象格式
+
+自定义命令，声明应用安装/构建的自定义命令，会在当前项目目录下进行执行
+
+
+#### `commands.install`
 
 安装命令，如`npm install`，没有可不传
 
 默认值 `npm install --prefer-offline --no-audit --progress=false`
 
-### `buildCommand`
+#### `commands.build`
 
 构建命令，如`npm run build`，没有可不传
 

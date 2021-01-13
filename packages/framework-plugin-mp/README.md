@@ -84,6 +84,24 @@ cloudbase framework deploy
 
 选填，小程序应用的部署私钥的本地相对路径，默认值 "./private.key"
 
+
+### commands 
+
+选填，对象格式
+
+自定义命令，声明应用安装/构建的自定义命令，会在当前项目目录下进行执行
+
+
+#### `commands.install`
+
+安装命令，如`npm install`，没有可不传
+
+默认会在小程序目录执行 `npm install --prefer-offline --no-audit --progress=false`
+
+#### `commands.build`
+
+构建命令，如`npm run build`，没有可不传
+
 ### `localPath`
 
 选填，小程序项目 `project.config.json` 所在的本地路径，默认值 `./`

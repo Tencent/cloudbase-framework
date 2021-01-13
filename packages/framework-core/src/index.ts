@@ -43,7 +43,7 @@ export * from './types';
 const packageInfo = require('../package');
 const SUPPORT_COMMANDS = ['deploy', 'compile', 'run'];
 let globalErrorHandler = async (e: Error) => {
-  console.log(e.message);
+  console.error(e.message);
 };
 
 interface CommandParams {
