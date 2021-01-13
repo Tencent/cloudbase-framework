@@ -169,6 +169,9 @@ class MiniProgramsPlugin extends Plugin {
       localPath: './',
       deployMode: 'preview',
       ignores: ['node_modules/**/*'],
+      commands: {
+        install: 'npm install --prefer-offline --no-audit --progress=false',
+      }
     };
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
     this.buildOutput = {};
@@ -257,10 +260,12 @@ class MiniProgramsPlugin extends Plugin {
     /**
      * 安装依赖
      */
-    if (installCommand) {
-      this.api.logger.info(installCommand);
-      await promisify(exec)(installCommand);
-    }
+    try {
+      if (fs.statSync('package.json') && installCommand) {
+        this.api.logger.info(installCommand);
+        return promisify(exec)(installCommand);
+      }
+    } catch (e) {}
 
     /**
      * 构建

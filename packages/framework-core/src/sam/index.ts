@@ -192,7 +192,7 @@ export class SamManager {
         try {
           const result = await fn();
           if (result) {
-            resolve();
+            resolve(result);
             clearInterval(timer);
           }
         } catch (e) {
