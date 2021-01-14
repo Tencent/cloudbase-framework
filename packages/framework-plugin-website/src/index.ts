@@ -92,6 +92,7 @@ class WebsitePlugin extends Plugin {
     super(name, api, inputs);
 
     this.resolvedInputs = resolveInputs(this.inputs);
+
     this.builder = new StaticBuilder({
       projectPath: this.api.projectPath,
       copyRoot: path.join(this.api.projectPath, this.resolvedInputs.outputPath),
@@ -226,6 +227,15 @@ class WebsitePlugin extends Plugin {
   async build() {
     // cloudPath 会影响 publicPath 和 baseRoute 等配置，需要处理
     this.api.logger.debug('WebsitePlugin: build', this.resolvedInputs);
+
+    this.resolvedInputs.envVariables = Object.assign(
+      {
+        TCB_SERVICE_DOMAIN: await this.fetchServiceDomain(),
+        TCB_ENV_ID: this.api.envId,
+      },
+      this.resolvedInputs.envVariables
+    );
+
     await this.installPackage();
 
     const {
@@ -351,6 +361,17 @@ class WebsitePlugin extends Plugin {
     this.website = website;
 
     return website;
+  }
+
+  async fetchServiceDomain() {
+    const serviceInfo = await this.api.cloudApi.tcbUinService.request(
+      'DescribeCloudBaseGWService',
+      {
+        ServiceId: this.api.envId,
+        EnableRegion: true,
+      }
+    );
+    return serviceInfo.DefaultDomain;
   }
 }
 

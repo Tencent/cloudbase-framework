@@ -35,6 +35,7 @@ interface StaticBuilderOptions {
 }
 
 const CONFIG_FILE_NAME = 'cloudbaseenv.json';
+const CONFIG_SCRIPT_FILE_NAME = '_init_tcb-env.js';
 
 export class StaticBuilder extends Builder {
   private copyRoot: string;
@@ -111,6 +112,10 @@ export class StaticBuilder extends Builder {
     fs.writeFileSync(
       path.join(configDistPath, CONFIG_FILE_NAME),
       JSON.stringify(resolvedConfig)
+    );
+    fs.writeFileSync(
+      path.join(configDistPath, CONFIG_SCRIPT_FILE_NAME),
+      `window._tcbEnv = ${JSON.stringify(resolvedConfig)};`
     );
   }
 }
