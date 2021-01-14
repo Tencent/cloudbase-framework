@@ -11,6 +11,7 @@ import chalk from 'chalk';
 import path from 'path';
 import os from 'os';
 import { mkdirSync } from '@cloudbase/toolbox';
+import { formatDateTime } from '../utils/format';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const gradient = require('gradient-string');
@@ -21,7 +22,8 @@ chalk.level = 1;
 export { Logger } from 'winston';
 
 let logger: winston.Logger;
-const logFilePath = path.join(LOG_PATH, `${new Date()}.log`);
+
+const logFilePath = path.join(LOG_PATH, `${formatDateTime(new Date())}.log`);
 
 export default function getLogger(level?: string) {
   if (!logger) {
