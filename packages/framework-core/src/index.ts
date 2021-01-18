@@ -188,7 +188,7 @@ export class CloudBaseFrameworkCore {
 
     globalErrorHandler = async (e: Error) => {
       const code = e instanceof CloudBaseFrameworkError && e.code;
-      const message = `${code ? `[${code}] ` : ''} ${e.message}`;
+      const message = `${code ? `[${code}] ` : ''} ${e.message || e}`;
       const failType =
         (code as string) in USER_ERRORS_MAP ? 'UserError' : 'SystemError';
 
