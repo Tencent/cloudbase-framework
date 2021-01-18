@@ -36,6 +36,7 @@
   "dependencies": {
     "@cloudbase/toolbox": "^0.6.0",
     "del": "^5.1.0",
+    "eslint-config-tencent": "^1.0.0",
     "mdmod": "^0.4.0",
     "rimraf": "^3.0.2"
   },

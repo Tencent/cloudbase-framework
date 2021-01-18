@@ -36,7 +36,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@cloudbase/cloud-api": "^0.1.6",
+    "@cloudbase/cloud-api": "^0.3.3",
     "@cloudbase/manager-node": "^3.3.1",
     "@cloudbase/toolbox": "^0.6.0",
     "@types/ejs": "^3.0.4",

@@ -11,7 +11,7 @@ RUN apk add --update curl bash git openssh && \
     # 删除 apk 缓存
     rm -rf /var/cache/apk/* && \
     # 设置npm镜像源
-    npm config set registry http://mirrors.cloud.tencent.com/npm/ && \
+    npm config set registry http://mirrors.tencent.com/npm/ && \
     # 安装 CLI 及 PNPM
     npm install -g @cloudbase/cli@$tag pnpm && \
     echo $tag && \

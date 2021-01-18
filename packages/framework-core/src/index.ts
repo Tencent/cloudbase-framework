@@ -127,19 +127,11 @@ export class CloudBaseFrameworkCore {
 
     logger.info(`EnvId ${chalk.green(cloudbaseConfig.envId)}`);
 
-    if (
-      !projectPath ||
-      !cloudbaseConfig ||
-      !cloudbaseConfig.secretId ||
-      !cloudbaseConfig.secretKey
-    ) {
+    if (!projectPath || !cloudbaseConfig) {
       throw new Error('CloudBase Framework: config info missing');
     }
 
     await CloudApi.init({
-      secretId: cloudbaseConfig.secretId,
-      secretKey: cloudbaseConfig.secretKey,
-      token: cloudbaseConfig.token || '',
       envId: cloudbaseConfig.envId,
     });
 
