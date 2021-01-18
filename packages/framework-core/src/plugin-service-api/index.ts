@@ -6,6 +6,7 @@
  * Please refer to license text included with this package for license details.
  */
 import PluginManager from '../plugin-manager';
+import { checkAndGetCredential as getCredential } from '@cloudbase/toolbox';
 import CloudbaseManager from '@cloudbase/manager-node';
 import { Logger } from '../logger';
 import { ResourceProviders } from '../types';
@@ -57,7 +58,15 @@ export default class PluginServiceApi {
   }
 
   /**
+   * 获取当前账号 API 密钥信息
+   */
+  get getCredential(): typeof getCredential {
+    return getCredential;
+  }
+
+  /**
    * secretId
+   * @deprecated
    */
   get secretId(): string {
     return this.pluginManager.context.cloudbaseConfig.secretId || '';
@@ -65,6 +74,7 @@ export default class PluginServiceApi {
 
   /**
    * secretKey
+   * @deprecated
    */
   get secretKey(): string {
     return this.pluginManager.context.cloudbaseConfig.secretKey || '';
@@ -72,6 +82,7 @@ export default class PluginServiceApi {
 
   /**
    * token
+   * @deprecated
    */
   get token(): string {
     return this.pluginManager.context.cloudbaseConfig.token || '';
