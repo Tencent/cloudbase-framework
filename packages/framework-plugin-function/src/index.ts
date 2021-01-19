@@ -28,7 +28,7 @@ export interface IFrameworkPluginFunctionInputs {
    * 单个函数的配置会在该默认配置的基础上进行 merge
    * @default {}
    */
-  functionDefaultConfig: ICloudFunction;
+  functionDefaultConfig?: ICloudFunction;
 
   /**
    * 函数配置数组
