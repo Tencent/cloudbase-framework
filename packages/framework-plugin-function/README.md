@@ -62,13 +62,20 @@ cloudbase framework deploy
         "use": "@cloudbase/framework-plugin-function",
         "inputs": {
           "functionRootPath": "./cloudfunctions",
+          "functionDefaultConfig": {
+              "timeout": 5,
+              "envVariables": {
+                "FOO": "bar"
+              },
+              "runtime": "Nodejs10.15",
+              "memory": 128
+          },
           "functions": [
             {
               "name": "helloworld",
-              "timeout": 5,
-              "envVariables": {},
-              "runtime": "Nodejs10.15",
-              "memory": 128
+              "envVariables": {
+                "ABC": "xyz"
+              }
             }
           ],
           "servicePaths": {
@@ -87,9 +94,16 @@ cloudbase framework deploy
 
 函数根目录
 
+### `functionDefaultConfig`
+
+云函数默认配置, 配置格式和单个函数配置格式相同
+
+CloudBaseFramework 1.6.1 以后支持, 单个函数的配置会在该默认配置的基础上进行 merge
+
 ### `functions`
 
 函数配置数组，每个函数的配置格式要求如下：
+
 
 |       字段        | 是否必填 |                                         类型                                          | 描述                                                                                                                          |
 | :---------------: | :------: | :-----------------------------------------------------------------------------------: | ----------------------------------------------------------------------------------------------------------------------------- |

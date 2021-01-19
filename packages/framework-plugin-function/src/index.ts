@@ -10,6 +10,8 @@ import archiver from 'archiver';
 import fs from 'fs';
 import { Plugin, PluginServiceApi, Builder } from '@cloudbase/framework-core';
 import { mkdirSync } from '@cloudbase/toolbox';
+import merge from 'lodash.merge';
+
 /**
  * 导出接口用于生成 JSON Schema 来进行智能提示
  */
@@ -19,6 +21,15 @@ export interface IFrameworkPluginFunctionInputs {
    * @default functions
    */
   functionRootPath?: string;
+
+  /**
+   * 云函数默认配置
+   * CloudBaseFramework 1.6.1 以后支持
+   * 单个函数的配置会在该默认配置的基础上进行 merge
+   * @default {}
+   */
+  functionDefaultConfig: ICloudFunction;
+
   /**
    * 函数配置数组
    */
@@ -162,19 +173,21 @@ class FunctionPlugin extends Plugin {
       functionRootPath: config?.functionRoot || 'cloudfunctions',
       functions: config?.functions,
       servicePaths: {},
+      functionDefaultConfig: config?.functionDefaultConfig
     };
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
 
     this.resolvedInputs.functions = this.resolvedInputs.functions.map(
       (func: any) => {
-        return Object.assign(
+        return merge(
           {},
           {
             runtime: 'Nodejs10.15',
             installDependency: true,
             handler: 'index.main',
           },
+          this.resolvedInputs.functionDefaultConfig,
           func
         );
       }

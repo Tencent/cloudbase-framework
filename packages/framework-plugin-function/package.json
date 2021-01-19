@@ -33,7 +33,8 @@
     "@cloudbase/framework-core": "^1.6.0",
     "@cloudbase/toolbox": "^0.6.0",
     "@types/node-fetch": "^2.5.7",
-    "archiver": "^4.0.2"
+    "archiver": "^4.0.2",
+    "lodash.merge": "^4.6.2"
   },
   "devDependencies": {
     "@types/archiver": "^3.1.0",
