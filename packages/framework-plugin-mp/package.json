@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/framework-plugin-mp",
-  "version": "1.6.7",
+  "version": "1.6.8",
   "description": "云开发 Tencent CloudBase Framework MiniProgram Plugin 插件，可以一键部署项目下的微信小程序应用。",
   "author": "Tencent CloudBase Team",
   "homepage": "https://github.com/Tencent/cloudbase-framework#readme",
@@ -30,7 +30,7 @@
     "url": "https://github.com/Tencent/cloudbase-framework/issues"
   },
   "dependencies": {
-    "@cloudbase/framework-core": "^1.6.7",
+    "@cloudbase/framework-core": "^1.6.8",
     "miniprogram-ci": "^1.0.76"
   },
   "devDependencies": {
