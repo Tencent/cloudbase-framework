@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/framework-plugin-container",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "云开发 Tencent CloudBase Framework Container Plugin 插件，将项目下的后端应用一键部署云开发云托管环境，提供自动弹性伸缩的高性能容器服务。",
   "author": "Tencent CloudBase Team",
   "homepage": "https://github.com/Tencent/cloudbase-framework#readme",
@@ -30,7 +30,7 @@
     "url": "https://github.com/Tencent/cloudbase-framework/issues"
   },
   "dependencies": {
-    "@cloudbase/framework-core": "^1.6.2",
+    "@cloudbase/framework-core": "^1.6.3",
     "@cloudbase/toolbox": "^0.6.0",
     "archiver": "^4.0.1",
     "fs-extra": "^8.1.0"
