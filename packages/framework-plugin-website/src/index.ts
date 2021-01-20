@@ -247,8 +247,10 @@ class WebsitePlugin extends Plugin {
 
     const command = buildCommand || commands?.build;
     if (command) {
-      this.api.logger.info(command);
-      await promisify(exec)(injectEnvVariables(command, envVariables));
+      this.api.logger.info('running', command);
+      await this.api.spawnPromise(command, [], {
+        env: Object.assign({}, process.env, envVariables)
+      });
     }
 
     const includes = [
@@ -287,17 +289,10 @@ class WebsitePlugin extends Plugin {
 
     if (!command) return;
 
-    this.api.logger.info(command);
-    await new Promise((resolve, reject) => {
-      const cmd = exec(injectEnvVariables(command, envVariables));
-      cmd.stdout?.pipe(process.stdout);
-      cmd.stderr?.pipe(process.stderr);
-      cmd.on('close', (code) => {
-        resolve(code);
-      });
-      cmd.on('exit', (code) => {
-        reject(code);
-      });
+    this.api.logger.info('running', command);
+
+    return this.api.spawnPromise(command, [], {
+      env: Object.assign({}, process.env, envVariables)
     });
   }
 
@@ -305,12 +300,14 @@ class WebsitePlugin extends Plugin {
    * 安装依赖
    */
   async installPackage() {
-    const { installCommand, commands } = this.resolvedInputs;
+    const { installCommand, commands, envVariables } = this.resolvedInputs;
     const command = installCommand || commands?.install;
     try {
       if (fs.statSync('package.json')) {
-        this.api.logger.info(command);
-        return promisify(exec)(command);
+        this.api.logger.info('running', command);
+        return this.api.spawnPromise(command, [], {
+          env: Object.assign({}, process.env, envVariables)
+        });
       }
     } catch (e) {}
   }

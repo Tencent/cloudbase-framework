@@ -15,6 +15,7 @@ import { Generator } from '../generator';
 import { CloudApi } from '../api';
 import { emoji } from '../utils/emoji';
 import { SamManager } from '../sam';
+import { spawnPromise } from '../utils/spawn'
 
 /**
  * 插件服务注入为插件提供的 API
@@ -156,5 +157,12 @@ export default class PluginServiceApi {
    */
   get ciId(): string {
     return this.pluginManager.context.ciId;
+  }
+
+  /**
+   * 调用子进程
+   */
+  get spawnPromise() {
+    return spawnPromise
   }
 }
