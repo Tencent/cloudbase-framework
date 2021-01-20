@@ -15,7 +15,7 @@ export function install(
 
   const args = ['install'];
 
-  const npmOptions = ['--prefer-offline', '--no-audit', '--progress=false'];
+  const npmOptions = ['--no-audit', '--progress=false'];
 
   // 支持node8
   return spawnPromise('npm', [...args, ...packageList, ...npmOptions], {
