@@ -24,7 +24,6 @@ module.exports.main = async (event, context) => {
   return serverless(app, {
     binary: [
       'application/javascript',
-      'application/json',
       'application/octet-stream',
       'application/xml',
       'font/eot',
