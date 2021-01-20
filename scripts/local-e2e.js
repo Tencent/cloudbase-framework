@@ -28,9 +28,9 @@ async function main() {
   const templates = await getTemplates();
   console.log(templates);
 
-  await Promise.all(templates
-    .filter(template => !['taro-starter', 'deno'].includes(template.path))
-    .map(installTemplate));
+ for (template of templates.filter(template => !['taro-starter', 'deno'].includes(template.path))) {
+  await installTemplate(template)
+ };
 }
 
 async function forkTemplate() {
