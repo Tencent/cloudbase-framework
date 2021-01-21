@@ -300,6 +300,15 @@
       "contributions": [
         "example"
       ]
+    },
+    {
+      "login": "pandagis",
+      "name": "pandagis",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/5012180?v=4",
+      "profile": "https://github.com/pandagis",
+      "contributions": [
+        "example"
+      ]
     }
   ],
   "contributorsPerLine": 7,
