@@ -39,6 +39,7 @@ export async function createAndDeployCloudBaseProject({
   Source,
   AddonConfig,
   NetworkConfig,
+  Tags,
 }: {
   Name: string;
   Parameters: Record<string, string>[];
@@ -46,6 +47,7 @@ export async function createAndDeployCloudBaseProject({
   Source: Record<string, any>;
   AddonConfig: string;
   NetworkConfig: string;
+  Tags: string[];
 }) {
   return CloudApi.tcbService.request('CreateAndDeployCloudBaseProject', {
     Name,
@@ -54,6 +56,7 @@ export async function createAndDeployCloudBaseProject({
     Source,
     AddonConfig,
     NetworkConfig,
+    Tags,
     Type: 'framework-oneclick-local',
   });
 }

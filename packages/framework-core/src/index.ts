@@ -350,6 +350,7 @@ ${entryLogInfo}`);
             framework: this.appConfig,
           })
         ),
+        Tags: this.appConfig.tags || [],
         AddonConfig: JSON.stringify(this.appConfig.addons),
         NetworkConfig: JSON.stringify(this.appConfig.network),
       });
