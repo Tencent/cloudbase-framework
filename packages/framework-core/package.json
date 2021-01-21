@@ -55,9 +55,11 @@
     "figlet": "^1.4.0",
     "fs-extra": "^8.1.0",
     "gradient-string": "^1.2.0",
+    "https-proxy-agent": "^5.0.0",
     "inquirer": "^7.1.0",
     "js-yaml": "^3.14.0",
     "lodash.merge": "^4.6.2",
+    "package-json": "^6.5.0",
     "progress": "^2.0.3",
     "terminal-link": "^2.1.1",
     "winston": "^3.2.1"

@@ -224,11 +224,10 @@ async function resolveRcConfig(
   let projectName = config?.framework?.name;
   let originProjectInfo;
 
-  logger.debug('process.env', process.env);
-
   // 如果是云端构建，addon 等信息环境变量中读取，配置优先读取本地，再读取环境变量中的信息
   if (process.env.CLOUDBASE_CIID) {
     logger.debug('云端构建场景');
+    logger.debug('process.env', process.env);
     const cloudRcJSON = jsonParse(process.env.TCB_RC_JSON);
 
     extraData = getCIProjectInfo();

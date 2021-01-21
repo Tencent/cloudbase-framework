@@ -8,8 +8,6 @@
 import path from 'path';
 import fs from 'fs';
 import os from 'os';
-import { exec } from 'child_process';
-import { promisify } from 'util';
 import merge from 'lodash.merge';
 
 import { Plugin, PluginServiceApi } from '@cloudbase/framework-core';
@@ -249,7 +247,7 @@ class WebsitePlugin extends Plugin {
     if (command) {
       this.api.logger.info('running', command);
       await this.api.spawnPromise(command, [], {
-        env: Object.assign({}, process.env, envVariables)
+        env: Object.assign({}, process.env, envVariables),
       });
     }
 
@@ -292,7 +290,7 @@ class WebsitePlugin extends Plugin {
     this.api.logger.info('running', command);
 
     return this.api.spawnPromise(command, [], {
-      env: Object.assign({}, process.env, envVariables)
+      env: Object.assign({}, process.env, envVariables),
     });
   }
 
@@ -306,7 +304,7 @@ class WebsitePlugin extends Plugin {
       if (fs.statSync('package.json')) {
         this.api.logger.info('running', command);
         return this.api.spawnPromise(command, [], {
-          env: Object.assign({}, process.env, envVariables)
+          env: Object.assign({}, process.env, envVariables),
         });
       }
     } catch (e) {}
@@ -317,7 +315,6 @@ class WebsitePlugin extends Plugin {
    */
   async ensurePostPay() {
     const res = await this.api.cloudApi.tcbService.request('DescribeEnvs');
-    this.api.logger.debug('环境信息', res);
 
     let env = res?.EnvList?.[0];
 

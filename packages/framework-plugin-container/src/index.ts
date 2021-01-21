@@ -305,11 +305,11 @@ class ContainerPlugin extends Plugin {
 
     let cloudInputs = latestVersionDetail
       ? {
-        cpu: latestVersionDetail.Cpu,
-        mem: latestVersionDetail.Mem,
-        maxNum: latestVersionDetail.MaxNum,
-        minNum: latestVersionDetail.MinNum,
-      }
+          cpu: latestVersionDetail.Cpu,
+          mem: latestVersionDetail.Mem,
+          maxNum: latestVersionDetail.MaxNum,
+          minNum: latestVersionDetail.MinNum,
+        }
       : {};
 
     let modeInputs = this.inputs.mode ? MODE_INPUTS[this.inputs.mode] : {};
@@ -452,7 +452,6 @@ class ContainerPlugin extends Plugin {
    */
   async ensurePostPay() {
     const res = await this.api.cloudApi.tcbService.request('DescribeEnvs');
-    this.api.logger.debug('环境信息', res);
 
     let env = res?.EnvList?.[0];
 

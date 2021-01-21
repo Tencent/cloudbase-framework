@@ -8,10 +8,11 @@
 
 const { spawn } = require('child_process');
 
-async function spawnPromise(command, options) {
+async function spawnPromise(command, options, args) {
   return new Promise((resolve, reject) => {
     const cm = spawn(
       command,
+      args,
       Object.assign(
         {
           shell: true,
