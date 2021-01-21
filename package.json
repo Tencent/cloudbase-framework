@@ -8,7 +8,7 @@
     "prebuild": "rimraf '**/tsconfig.tsbuildinfo'",
     "build": "lerna run build",
     "prepublishOnly": "npm run build && lerna run prepublishOnly",
-    "publish": "lerna publish",
+    "publish": "lerna publish --registry https://registry.npmjs.org/",
     "publish:beta": "lerna publish --canary --preid beta --pre-dist-tag beta",
     "test": "lerna run test",
     "lint": "npx eslint . --fix",
