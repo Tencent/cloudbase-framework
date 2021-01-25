@@ -99,7 +99,11 @@ export class NodeBuilder extends Builder {
       });
       output.on('close', resolve);
       archive.on('error', reject);
-      archive.directory(src, false);
+      archive.glob('**/*', {
+        cwd: src,
+        dot: true,
+        follow: true,
+      });
       archive.pipe(output);
       archive.finalize();
     });
