@@ -24,6 +24,15 @@ const DEFAULT_INPUTS = {
   },
 };
 
+enum PAYMODE {
+  POSTPAID = 'postpaid',
+  PREPAYMENT = 'prepayment',
+}
+
+enum ENV_CHANNEL {
+  LOWCODE = 'low_code',
+}
+
 /**
  * 导出接口用于生成 JSON Schema 来进行智能提示
  */
@@ -79,6 +88,10 @@ class WebsitePlugin extends Plugin {
   protected zipBuilder: ZipBuilder;
   protected resolvedInputs: ResolvedInputs;
   protected buildOutput: BuildResult;
+  protected env?: {
+    PayMode: PAYMODE;
+    EnvChanel: string;
+  };
   // 静态托管信息
   protected website: any;
 
@@ -124,7 +137,7 @@ class WebsitePlugin extends Plugin {
     const [website, staticConfig] = uploadResults as any;
 
     return {
-      EnvType: 'PostPay',
+      EnvType: this.env?.PayMode === PAYMODE.PREPAYMENT ? 'PrePay' : 'PostPay',
       Resources: Object.assign(
         {},
         this.getStaticResourceSam(
@@ -322,11 +335,15 @@ class WebsitePlugin extends Plugin {
       throw new Error(`当前账号下不存在 ${this.api.envId} 环境`);
     }
 
-    if (env.PayMode !== 'postpaid') {
+    if (
+      env.PayMode !== PAYMODE.POSTPAID &&
+      env.EnvChanel !== ENV_CHANNEL.LOWCODE
+    ) {
       throw new Error(
         '网站托管当前只能部署到按量付费的环境下，请先在控制台切换计费方式'
       );
     }
+    this.env = env;
   }
 
   /**

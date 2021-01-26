@@ -34,18 +34,6 @@ pipeline {
         stage("登录") {
             steps {
                 sh '''
-                # 设置腾讯云镜像源
-                npm config set registry http://mirrors.cloud.tencent.com/npm/
-
-                # yarn 优先使用缓存
-                yarn config set install.prefer-offline true
-
-                # pnpm 全局缓存目录设置
-                pnpm config set store-dir /root/.pnpm-store
-
-                # npm 默认优先使用缓存
-                npm config set prefer-offline true
-
                 # 使用临时密钥登录
                 cloudbase login --apiKeyId "$API_SECRET_ID"  --apiKey "$API_SECRET_KEY" --token "$API_TOKEN"
 
@@ -64,9 +52,6 @@ pipeline {
             steps {
                 sh '''
                 cd /root/cloudbase-workspace
-                cd "$PROJ_DIR"
-                ls -al
-                pwd
                 CI=true cloudbase framework deploy -e "$ENV_ID" --verbose
                 '''
             }

@@ -9,6 +9,7 @@
     "build": "lerna run build",
     "prepublishOnly": "npm run build && lerna run prepublishOnly",
     "publish": "lerna publish --registry https://registry.npmjs.org/",
+    "postpublish": "node scripts/sync-mirrors.js",
     "publish:beta": "lerna publish --canary --preid beta --pre-dist-tag beta",
     "test": "lerna run test",
     "lint": "npx eslint . --fix",
@@ -37,6 +38,7 @@
     "@cloudbase/toolbox": "^0.6.0",
     "del": "^5.1.0",
     "eslint-config-tencent": "^1.0.0",
+    "got": "^11.8.1",
     "mdmod": "^0.4.0",
     "rimraf": "^3.0.2"
   },
