@@ -74,7 +74,10 @@ export default function getLogger(level?: string) {
               format: format.printf((info) => {
                 const splat = info[Symbol.for('splat') as any];
                 return (
-                  `${new Date()} CloudBase Framework::${info.level} ${
+                  `${new Date()} ${(
+                    (new Date().valueOf() - startTime.valueOf()) /
+                    1000
+                  ).toFixed(1)} CloudBase Framework::${info.level} ${
                     info.message
                   }` + (splat ? ` ${splat.map(inspect).join(' ')} ` : '')
                 );
