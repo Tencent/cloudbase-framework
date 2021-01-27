@@ -90,7 +90,7 @@ class WebsitePlugin extends Plugin {
   protected buildOutput: BuildResult;
   protected env?: {
     PayMode: PAYMODE;
-    EnvChanel: string;
+    EnvChannel: string;
   };
   // 静态托管信息
   protected website: any;
@@ -337,7 +337,7 @@ class WebsitePlugin extends Plugin {
 
     if (
       env.PayMode !== PAYMODE.POSTPAID &&
-      env.EnvChanel !== ENV_CHANNEL.LOWCODE
+      env.EnvChannel !== ENV_CHANNEL.LOWCODE
     ) {
       throw new Error(
         '网站托管当前只能部署到按量付费的环境下，请先在控制台切换计费方式'

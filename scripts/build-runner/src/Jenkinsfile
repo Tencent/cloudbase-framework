@@ -1,7 +1,7 @@
 pipeline {
     agent {
       docker {
-        image 'ccr.ccs.tencentyun.com/cloudbaseframework/cloudbase-framework-runner:1.5.2'
+        image 'ccr.ccs.tencentyun.com/cloudbaseframework/cloudbase-framework-runner:1.6.13'
         reuseNode true
         args '-v /root/.cloudbase-pnpm-cache:/root/.pnpm-store \
         -v /root/.cloudbase-yarn-cache:/usr/local/share/.cache/yarn/v6 \
