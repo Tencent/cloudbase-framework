@@ -456,9 +456,7 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 ### 演讲
 
 - [云原生一体化部署工具 CloudBase Framework 开源探索](https://ke.sifou.com/course/1650000037526331/section/1500000038144935)
-
 - [如何更快打造云原生应用：CloudBase Framework 云原生一体化实践](https://developers.weixin.qq.com/community/business/doc/00086ceed60ca0ac9c5b655245b00d)
-
 - [TLC 大会讲师专访：聊聊云开发 CloudBase 的设计与实践](https://developers.weixin.qq.com/community/develop/article/doc/0000e8e38dce783548da99ad851c13)
 
 ### 新闻
