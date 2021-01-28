@@ -17,27 +17,27 @@
 <tr>
   <td>
     <a href="https://cloudbase.net/framework.html" target="_blank" title="CloudBase Framework 官网">
-      <img src="https://main.qcloudimg.com/raw/88e60798bc268017674990cc72f3a4b2.png">
+      <img width="70%" src="https://main.qcloudimg.com/raw/88e60798bc268017674990cc72f3a4b2.png">
     </a>
   </td>
   <td>
     <a href="https://docs.cloudbase.net/framework/" target="_blank">
-      <img src="https://main.qcloudimg.com/raw/f5f651ff0d1c5e782a366d951b9ceadf.png">
+      <img width="70%" src="https://main.qcloudimg.com/raw/f5f651ff0d1c5e782a366d951b9ceadf.png">
     </a>
   </td>
   <td>
   <a href="https://cloudbase.net/marketplace.html" target="_blank">
-    <img src="https://main.qcloudimg.com/raw/1b363736b3d66e905d11b9036361574e.png">
+    <img width="70%" src="https://main.qcloudimg.com/raw/1b363736b3d66e905d11b9036361574e.png">
   </a>
   </td>
   <td>
    <a href="https://docs.cloudbase.net/framework/plugins/#guan-fang-cha-jian-lie-biao" target="_blank">
-    <img src="https://main.qcloudimg.com/raw/ad334b6cf439366bceb80498ec8f0b98.png">
+    <img width="70%" src="https://main.qcloudimg.com/raw/ad334b6cf439366bceb80498ec8f0b98.png">
   </a>
   </td>
   <td>
   <a href="https://cloudbase.net/community.html" target="_blank">
-    <img src="https://main.qcloudimg.com/raw/8dbe9b04c68b807ea524e1a5c187e852.png">
+    <img width="70%" src="https://main.qcloudimg.com/raw/8dbe9b04c68b807ea524e1a5c187e852.png">
   </a>
   </td>
 </tr>
