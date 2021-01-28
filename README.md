@@ -431,9 +431,9 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 
 ## CloudBase Framework 资讯
 
-## 技术文章
+### 技术文章
 
-- [实战丨借助云开发Framework快速部署Kodexplorer](https://cloudbase.net/community/share/articles/1526e12a6006ce400018eefa7882b506.html)
+- [实战丨借助云开发 Framework 快速部署 Kodexplorer](https://cloudbase.net/community/share/articles/1526e12a6006ce400018eefa7882b506.html)
 
 - [腾讯 CloudBase ，开启一键部署](https://immmmm.com/tx-cloudbase-framework/)
 
@@ -445,11 +445,11 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 
 - [如何更快打造云原生应用：CloudBase Framework 云原生一体化实践](https://www.infoq.cn/article/peocxuhjdwuxlxi7lv65)
 
-- [CloudBase FrameWork如何进行云托管部署](https://cloudbase.net/community/share/articles/2424fa985fed8fef00ef767c590f0555.html)
+- [CloudBase FrameWork 如何进行云托管部署](https://cloudbase.net/community/share/articles/2424fa985fed8fef00ef767c590f0555.html)
 
--  [云开发外卖优惠券小程序之 CLI一键部署](https://developers.weixin.qq.com/community/develop/article/doc/000e622832cac0b8716beab485b813)
-  
-- [小程序·云开发地表最强CI利器来了](https://cloudbase.net/community/share/articles/0bcbdde05fb4a21200006eba31db31f9.html)
+- [云开发外卖优惠券小程序之 CLI 一键部署](https://developers.weixin.qq.com/community/develop/article/doc/000e622832cac0b8716beab485b813)
+
+- [小程序·云开发地表最强 CI 利器来了](https://cloudbase.net/community/share/articles/0bcbdde05fb4a21200006eba31db31f9.html)
 
 - [基于云开发 CloudBase 搭建在线视频会议应用](https://cloudbase.net/community/share/articles/2fd465895fb335f500d9c03b76f48779.html)
 
@@ -465,22 +465,21 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 
 - [云开发推出「前后端一体化部署工具」CloudBase Framework](https://cloudbase.net/community/share/articles/b4f7b7d25fab5c330068ed523f8db5a8.html)
 
-
 [欢迎提交技术文章](https://github.com/Tencent/cloudbase-framework/blob/master/community/posts/README.md)
 
-## 演讲
+### 演讲
 
-- [云原生一体化部署工具CloudBase Framework 开源探索](https://ke.sifou.com/course/1650000037526331/section/1500000038144935)
+- [云原生一体化部署工具 CloudBase Framework 开源探索](https://ke.sifou.com/course/1650000037526331/section/1500000038144935)
 
 - [如何更快打造云原生应用：CloudBase Framework 云原生一体化实践](https://developers.weixin.qq.com/community/business/doc/00086ceed60ca0ac9c5b655245b00d)
 
-- [TLC大会讲师专访：聊聊云开发CloudBase的设计与实践](https://developers.weixin.qq.com/community/develop/article/doc/0000e8e38dce783548da99ad851c13)
+- [TLC 大会讲师专访：聊聊云开发 CloudBase 的设计与实践](https://developers.weixin.qq.com/community/develop/article/doc/0000e8e38dce783548da99ad851c13)
 
-## 新闻
+### 新闻
 
 - [3 分钟上线一款应用，我是怎么做到的？](https://mp.weixin.qq.com/s/tAuNIw3f0LcbfuQkb4k1OA)
 
-- [向100万云开发者“秀肌肉”的机会来了](https://developers.weixin.qq.com/community/develop/article/doc/0006c83221820087dc8b61e9551013)
+- [向 100 万云开发者“秀肌肉”的机会来了](https://developers.weixin.qq.com/community/develop/article/doc/0006c83221820087dc8b61e9551013)
 
 - [国内首发，这款 Serverless 云原生一体化部署工具正式开源！](https://cloudbase.net/community/share/articles/85ff8afa5fea952d00e079bf24a3c724.html)
 
@@ -490,12 +489,11 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 
 - [这个小小小小小变化，你发现了没？](https://developers.weixin.qq.com/community/develop/article/doc/00088c6a06c090085d4b9ed825ac13)
 
--  [【年度回顾】2020，云开发的20个重大更新](https://developers.weixin.qq.com/community/develop/article/doc/000e0421af02683b269bf97c45b013)
+- [【年度回顾】2020，云开发的 20 个重大更新](https://developers.weixin.qq.com/community/develop/article/doc/000e0421af02683b269bf97c45b013)
 
-- [凤凰网：腾讯开源Serverless 云原生一体化部署工具](https://tech.ifeng.com/c/82QmuBnxirE)
+- [凤凰网：腾讯开源 Serverless 云原生一体化部署工具](https://tech.ifeng.com/c/82QmuBnxirE)
 - [腾讯科技：国内首发！腾讯云原生一体化部署工具宣布开源](https://view.inews.qq.com/a/TEC2020122301795000?openid=o04IBAFpKGglC-M8UhvMWNvZB4_k&key=28f30db0e9a68db6ac09f9e5fce6ac6868c7187049e86728ffa35a2a75911d8f06a028a5f8f754a29f2dc0534b77144149aa036379ec6a9785ddca97ef3848bcaf95f9dfa75f60f8ed3400c54894cadc01ac4afbfbe7b6b1577b563a9404aabe8d18f4cc414ac3cc928647dc68df0473fd46af19718ce1b9bcd3b9780763b5a8&version=17001231&devicetype=iOS13.6&wuid=oDdoCtyGunJUMhaC1PHnwN-4hKMc&cv=0x17001231&dt=1&lang=zh_CN&pass_ticket=z12QsUmu%2B5Drw15tMbDawvYIXV3ECgdzZndS8uq476IPO0jnE7AgDW86CYbAFvoI&sharer=o04IBAFpKGglC-M8UhvMWNvZB4_k&uid=&shareto=)
-- [腾讯开源：【开源公告】云原生一体化部署工具CloudBaseFramework开源啦](https://mp.weixin.qq.com/s/Axt33-Olz1dKjb5XuxAe2w)
-
+- [腾讯开源：【开源公告】云原生一体化部署工具 CloudBaseFramework 开源啦](https://mp.weixin.qq.com/s/Axt33-Olz1dKjb5XuxAe2w)
 
 ## <a name="contributor"></a> Contributors ✨
 
