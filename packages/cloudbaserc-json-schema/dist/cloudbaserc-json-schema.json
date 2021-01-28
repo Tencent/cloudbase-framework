@@ -881,6 +881,22 @@
           "items": {
             "$ref": "#/definitions/ICloudFunctionTrigger"
           }
+        },
+        "publicNet": {
+          "description": "是否可以在云函数访问公网，默认情况开启，配置云函数VPC后，默认公网访问会关闭\n取值['ENABLE','DISABLE']",
+          "enum": [
+            "DISABLE",
+            "ENABLE"
+          ],
+          "type": "string"
+        },
+        "eip": {
+          "description": "是否开启 eip 固定外网 ip 能力，免费环境不可用\n取值['ENABLE','DISABLE']",
+          "enum": [
+            "DISABLE",
+            "ENABLE"
+          ],
+          "type": "string"
         }
       },
       "required": [
