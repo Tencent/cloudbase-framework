@@ -131,6 +131,17 @@ export interface ICloudFunction {
    * 函数触发器配置
    */
   triggers?: ICloudFunctionTrigger[];
+
+  /**
+   * 是否可以在云函数访问公网，默认情况开启，配置云函数VPC后，默认公网访问会关闭
+   * 取值['ENABLE','DISABLE']
+   */
+  publicNet?: 'ENABLE' | 'DISABLE';
+  /**
+   * 是否开启 eip 固定外网 ip 能力，免费环境不可用
+   * 取值['ENABLE','DISABLE']
+   */
+  eip?: 'ENABLE' | 'DISABLE';
 }
 
 export interface IFunctionVPC {
@@ -173,7 +184,7 @@ class FunctionPlugin extends Plugin {
       functionRootPath: config?.functionRoot || 'cloudfunctions',
       functions: config?.functions,
       servicePaths: {},
-      functionDefaultConfig: config?.functionDefaultConfig
+      functionDefaultConfig: config?.functionDefaultConfig,
     };
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
@@ -375,6 +386,8 @@ class FunctionPlugin extends Plugin {
           CodeUri: this.outputs[functionConfig.name]?.codeUri,
           CodeSecret: !!functionConfig.codeSecret,
           Role: 'TCB_QcsRole',
+          PublicNetStatus: functionConfig.publicNet,
+          EipStatus: functionConfig.eip,
         },
         (this.api.bumpVersion || functionConfig.bumpVersion) && {
           NewVersion: true,

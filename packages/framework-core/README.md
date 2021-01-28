@@ -4,6 +4,7 @@
 </p>
   
 <h1 align="center">云开发 CloudBase Framework</h1>
+
 <p align="center">
 🚀 CloudBase Framework 是云开发官方出品的前后端一体化部署工具 🔥
 </p>
@@ -12,31 +13,35 @@
 <b>无需改动代码，前后端一键托管部署，基于Serverless架构，加速访问，弹性免运维。</b>
 </p>
 
-<p align="center">
-  <a href="https://cloudbase.net" target="_blank">
-    云开发官网
-  </a>
-  / 
-  <a href="https://cloudbase.net/framework.html" target="_blank">
-    CloudBase Framework 官网
-  </a>
-  /
-  <a href="https://docs.cloudbase.net/framework/" target="_blank">
-    文档
-  </a>
-  / 
+<table>
+<tr>
+  <td>
+    <a href="https://cloudbase.net/framework.html" target="_blank" title="CloudBase Framework 官网">
+      <img src="https://main.qcloudimg.com/raw/88e60798bc268017674990cc72f3a4b2.png">
+    </a>
+  </td>
+  <td>
+    <a href="https://docs.cloudbase.net/framework/" target="_blank">
+      <img src="https://main.qcloudimg.com/raw/f5f651ff0d1c5e782a366d951b9ceadf.png">
+    </a>
+  </td>
+  <td>
   <a href="https://cloudbase.net/marketplace.html" target="_blank">
-    应用中心
+    <img src="https://main.qcloudimg.com/raw/1b363736b3d66e905d11b9036361574e.png">
   </a>
-  /
+  </td>
+  <td>
+   <a href="https://docs.cloudbase.net/framework/plugins/#guan-fang-cha-jian-lie-biao" target="_blank">
+    <img src="https://main.qcloudimg.com/raw/ad334b6cf439366bceb80498ec8f0b98.png">
+  </a>
+  </td>
+  <td>
   <a href="https://cloudbase.net/community.html" target="_blank">
-    社区
+    <img src="https://main.qcloudimg.com/raw/8dbe9b04c68b807ea524e1a5c187e852.png">
   </a>
-  /
-  <a href="https://support.qq.com/products/148793" target="_blank">
-    问答
-  </a>
-</p>
+  </td>
+</tr>
+</table>
 
 <details>
 <summary>更多特性和优势</summary>
@@ -239,7 +244,7 @@ cloudbase framework deploy
 </table>
 
 点击进入[应用中心](https://cloudbase.net/marketplace.html)查看更多应用
-      
+
 <!-- END mdmod -->
 
 </details>
@@ -299,19 +304,20 @@ cloudbase
 
 <!-- START mdmod {replace: plugins} -->
 
-| 插件链接 | 插件 | 最新版本 | 插件介绍 |
-| -------- | ---- | -------- | -------- |
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-website"><img width="200" src="https://main.qcloudimg.com/raw/abbc0f23ee92e8f4665ab316b6126d33.jpg"></a>  | [@cloudbase/framework-plugin-website](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-website) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-website)](https://www.npmjs.com/package/@cloudbase/framework-plugin-website) | 一键部署网站应用|
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-node"><img width="200" src="https://main.qcloudimg.com/raw/80526dcba2f27ed2619ac43b9b623d5a.jpg"></a>  | [@cloudbase/framework-plugin-node](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-node) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-node)](https://www.npmjs.com/package/@cloudbase/framework-plugin-node) | 一键部署 Node 应用（支持底层部署为函数或者 云托管）|
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-nuxt"><img width="200" src="https://main.qcloudimg.com/raw/6d48ab8bc29c38558cd258b28b14f94e.jpg"></a>  | [@cloudbase/framework-plugin-nuxt](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-nuxt) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-nuxt)](https://www.npmjs.com/package/@cloudbase/framework-plugin-nuxt) | 一键部署 Nuxt SSR 应用|
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-function"><img width="200" src="https://main.qcloudimg.com/raw/2cd529a816464f59684515f73b0a5622.jpg"></a>  | [@cloudbase/framework-plugin-function](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-function) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-function)](https://www.npmjs.com/package/@cloudbase/framework-plugin-function) | 一键部署函数资源|
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-container"><img width="200" src="https://main.qcloudimg.com/raw/7e5e467a45bdfb5f5f4cc2eb27ea71bb.jpg"></a>  | [@cloudbase/framework-plugin-container](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-container) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-container)](https://www.npmjs.com/package/@cloudbase/framework-plugin-container) | 一键部署云托管容器服务|
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-dart"><img width="200" src="https://main.qcloudimg.com/raw/fabde81e6232f0eccf4914721ee2a55c.jpg"></a>  | [@cloudbase/framework-plugin-dart](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-dart) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-dart)](https://www.npmjs.com/package/@cloudbase/framework-plugin-dart) | 一键部署 Dart 应用|
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-database"><img width="200" src="https://main.qcloudimg.com/raw/41a9bd0e62c638ab40cb8b8cba26696b.jpg"></a>  | [@cloudbase/framework-plugin-database](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-database) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-database)](https://www.npmjs.com/package/@cloudbase/framework-plugin-database) | 一键声明式部署云开发 NoSQL 云数据库|
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-deno"><img width="200" src="https://main.qcloudimg.com/raw/70429911e53a56366c39e11f5596e790.jpg"></a>  | [@cloudbase/framework-plugin-deno](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-deno) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-deno)](https://www.npmjs.com/package/@cloudbase/framework-plugin-deno) | 一键部署 Deno 应用|
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-next"><img width="200" src="https://main.qcloudimg.com/raw/484de9a30676fb6ede6078622eea0274.png"></a>  | [@cloudbase/framework-plugin-next](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-next) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-next)](https://www.npmjs.com/package/@cloudbase/framework-plugin-next) | 一键部署 Next SSR 应用|
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-mp"><img width="200" src="https://main.qcloudimg.com/raw/3de9cef4b6ac7c72f9519f13d063fc13.jpg"></a>  | [@cloudbase/framework-plugin-mp](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-mp) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-mp)](https://www.npmjs.com/package/@cloudbase/framework-plugin-mp) | 一键部署微信小程序应用|
-| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-auth"><img width="200" src="https://main.qcloudimg.com/raw/8f7534f7f3a3f3a8df2cf861040f6a8c.jpg"></a>  | [@cloudbase/framework-plugin-auth](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-auth) |[![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-auth)](https://www.npmjs.com/package/@cloudbase/framework-plugin-auth) | 一键设置登录配置|
+| 插件链接                                                                                                                                                                                                 | 插件                                                                                                                                    | 最新版本                                                                                                                                                  | 插件介绍                                            |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-website"><img width="200" src="https://main.qcloudimg.com/raw/abbc0f23ee92e8f4665ab316b6126d33.jpg"></a>   | [@cloudbase/framework-plugin-website](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-website)     | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-website)](https://www.npmjs.com/package/@cloudbase/framework-plugin-website)     | 一键部署网站应用                                    |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-node"><img width="200" src="https://main.qcloudimg.com/raw/80526dcba2f27ed2619ac43b9b623d5a.jpg"></a>      | [@cloudbase/framework-plugin-node](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-node)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-node)](https://www.npmjs.com/package/@cloudbase/framework-plugin-node)           | 一键部署 Node 应用（支持底层部署为函数或者 云托管） |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-nuxt"><img width="200" src="https://main.qcloudimg.com/raw/6d48ab8bc29c38558cd258b28b14f94e.jpg"></a>      | [@cloudbase/framework-plugin-nuxt](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-nuxt)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-nuxt)](https://www.npmjs.com/package/@cloudbase/framework-plugin-nuxt)           | 一键部署 Nuxt SSR 应用                              |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-function"><img width="200" src="https://main.qcloudimg.com/raw/2cd529a816464f59684515f73b0a5622.jpg"></a>  | [@cloudbase/framework-plugin-function](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-function)   | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-function)](https://www.npmjs.com/package/@cloudbase/framework-plugin-function)   | 一键部署函数资源                                    |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-container"><img width="200" src="https://main.qcloudimg.com/raw/7e5e467a45bdfb5f5f4cc2eb27ea71bb.jpg"></a> | [@cloudbase/framework-plugin-container](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-container) | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-container)](https://www.npmjs.com/package/@cloudbase/framework-plugin-container) | 一键部署云托管容器服务                              |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-dart"><img width="200" src="https://main.qcloudimg.com/raw/fabde81e6232f0eccf4914721ee2a55c.jpg"></a>      | [@cloudbase/framework-plugin-dart](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-dart)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-dart)](https://www.npmjs.com/package/@cloudbase/framework-plugin-dart)           | 一键部署 Dart 应用                                  |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-database"><img width="200" src="https://main.qcloudimg.com/raw/41a9bd0e62c638ab40cb8b8cba26696b.jpg"></a>  | [@cloudbase/framework-plugin-database](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-database)   | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-database)](https://www.npmjs.com/package/@cloudbase/framework-plugin-database)   | 一键声明式部署云开发 NoSQL 云数据库                 |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-deno"><img width="200" src="https://main.qcloudimg.com/raw/70429911e53a56366c39e11f5596e790.jpg"></a>      | [@cloudbase/framework-plugin-deno](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-deno)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-deno)](https://www.npmjs.com/package/@cloudbase/framework-plugin-deno)           | 一键部署 Deno 应用                                  |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-next"><img width="200" src="https://main.qcloudimg.com/raw/484de9a30676fb6ede6078622eea0274.png"></a>      | [@cloudbase/framework-plugin-next](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-next)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-next)](https://www.npmjs.com/package/@cloudbase/framework-plugin-next)           | 一键部署 Next SSR 应用                              |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-mp"><img width="200" src="https://main.qcloudimg.com/raw/3de9cef4b6ac7c72f9519f13d063fc13.jpg"></a>        | [@cloudbase/framework-plugin-mp](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-mp)               | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-mp)](https://www.npmjs.com/package/@cloudbase/framework-plugin-mp)               | 一键部署微信小程序应用                              |
+| <a href="https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-auth"><img width="200" src="https://main.qcloudimg.com/raw/8f7534f7f3a3f3a8df2cf861040f6a8c.jpg"></a>      | [@cloudbase/framework-plugin-auth](https://github.com/Tencent/cloudbase-framework/tree/master/packages/framework-plugin-auth)           | [![Npm version](https://img.shields.io/npm/v/@cloudbase/framework-plugin-auth)](https://www.npmjs.com/package/@cloudbase/framework-plugin-auth)           | 一键设置登录配置                                    |
+
 <!-- 新增/删除/修改插件信息，请修改 community/plugins/index.json，然后执行 npm run build:markdown-->
 
 <!-- END mdmod -->
@@ -413,7 +419,7 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
    <td>
       微信群
       <br>
-      <img src="https://main.qcloudimg.com/raw/fa63b5efa17e60c93d91dcec18e9e4d9.png" width="100px;" alt=""/>
+      <img src="https://main.qcloudimg.com/raw/f62645ae07fec77638db3711791f00e1.png" width="100px;" alt=""/>
     </td>
     <td>
       QQ 群
@@ -429,7 +435,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-30-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-32-orange.svg?style=flat-square)](#contributors-)
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
@@ -438,48 +444,50 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="http://bookerzhao.com"><img src="https://avatars2.githubusercontent.com/u/7686861?v=4" width="100px;" alt=""/><br /><sub><b>Booker Zhao</b></sub></a><br /><a href="#infra-binggg" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/Tencent/cloudbase-framework/commits?author=binggg" title="Tests">⚠️</a> <a href="https://github.com/Tencent/cloudbase-framework/commits?author=binggg" title="Code">💻</a> <a href="#plugin-binggg" title="Plugin/utility libraries">🔌</a></td>
-    <td align="center"><a href="https://twitter.com/_WeijiaWang_"><img src="https://avatars0.githubusercontent.com/u/10933333?v=4" width="100px;" alt=""/><br /><sub><b>Weijia Wang</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=starkwang" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/chhpt"><img src="https://avatars2.githubusercontent.com/u/19288423?v=4" width="100px;" alt=""/><br /><sub><b>hengechang</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=chhpt" title="Code">💻</a> <a href="#infra-chhpt" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
-    <td align="center"><a href="https://github.com/lt5c"><img src="https://avatars0.githubusercontent.com/u/9676050?v=4" width="100px;" alt=""/><br /><sub><b>Zijie Zhou</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=lt5c" title="Code">💻</a> <a href="#plugin-lt5c" title="Plugin/utility libraries">🔌</a> <a href="#talk-lt5c" title="Talks">📢</a></td>
-    <td align="center"><a href="http://www.qinmudi.cn/"><img src="https://avatars1.githubusercontent.com/u/2224413?v=4" width="100px;" alt=""/><br /><sub><b>erikqin</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=qinmudi" title="Code">💻</a> <a href="#maintenance-qinmudi" title="Maintenance">🚧</a> <a href="#example-qinmudi" title="Examples">💡</a></td>
-    <td align="center"><a href="https://www.xiaoxili.com/"><img src="https://avatars3.githubusercontent.com/u/6348297?v=4" width="100px;" alt=""/><br /><sub><b>Hanqin</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/issues?q=author%3Ashenghanqin" title="Bug reports">🐛</a> <a href="#example-shenghanqin" title="Examples">💡</a></td>
-    <td align="center"><a href="https://github.com/zemzheng"><img src="https://avatars3.githubusercontent.com/u/650956?v=4" width="100px;" alt=""/><br /><sub><b>Zem</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=zemzheng" title="Code">💻</a></td>
+    <td align="center"><a href="http://bookerzhao.com"><img src="https://avatars2.githubusercontent.com/u/7686861?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Booker Zhao</b></sub></a><br /><a href="#infra-binggg" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/Tencent/cloudbase-framework/commits?author=binggg" title="Tests">⚠️</a> <a href="https://github.com/Tencent/cloudbase-framework/commits?author=binggg" title="Code">💻</a> <a href="#plugin-binggg" title="Plugin/utility libraries">🔌</a></td>
+    <td align="center"><a href="https://twitter.com/_WeijiaWang_"><img src="https://avatars0.githubusercontent.com/u/10933333?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Weijia Wang</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=starkwang" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/chhpt"><img src="https://avatars2.githubusercontent.com/u/19288423?v=4?s=100" width="100px;" alt=""/><br /><sub><b>hengechang</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=chhpt" title="Code">💻</a> <a href="#infra-chhpt" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+    <td align="center"><a href="https://github.com/lt5c"><img src="https://avatars0.githubusercontent.com/u/9676050?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Zijie Zhou</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=lt5c" title="Code">💻</a> <a href="#plugin-lt5c" title="Plugin/utility libraries">🔌</a> <a href="#talk-lt5c" title="Talks">📢</a></td>
+    <td align="center"><a href="http://www.qinmudi.cn/"><img src="https://avatars1.githubusercontent.com/u/2224413?v=4?s=100" width="100px;" alt=""/><br /><sub><b>erikqin</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=qinmudi" title="Code">💻</a> <a href="#maintenance-qinmudi" title="Maintenance">🚧</a> <a href="#example-qinmudi" title="Examples">💡</a></td>
+    <td align="center"><a href="https://www.xiaoxili.com/"><img src="https://avatars3.githubusercontent.com/u/6348297?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Hanqin</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/issues?q=author%3Ashenghanqin" title="Bug reports">🐛</a> <a href="#example-shenghanqin" title="Examples">💡</a></td>
+    <td align="center"><a href="https://github.com/zemzheng"><img src="https://avatars3.githubusercontent.com/u/650956?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Zem</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=zemzheng" title="Code">💻</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/magentaqin"><img src="https://avatars0.githubusercontent.com/u/30370223?v=4" width="100px;" alt=""/><br /><sub><b>magenta</b></sub></a><br /><a href="#blog-magentaqin" title="Blogposts">📝</a> <a href="https://github.com/Tencent/cloudbase-framework/commits?author=magentaqin" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/SmartCodeDavid"><img src="https://avatars0.githubusercontent.com/u/30002112?v=4" width="100px;" alt=""/><br /><sub><b>TIANXIANG LAN</b></sub></a><br /><a href="#content-SmartCodeDavid" title="Content">🖋</a></td>
-    <td align="center"><a href="https://github.com/fanyegong"><img src="https://avatars0.githubusercontent.com/u/12660343?v=4" width="100px;" alt=""/><br /><sub><b>liyuanfeng</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=fanyegong" title="Code">💻</a></td>
-    <td align="center"><a href="https://www.ixiqin.com/"><img src="https://avatars1.githubusercontent.com/u/13283837?v=4" width="100px;" alt=""/><br /><sub><b>白宦成</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=bestony" title="Code">💻</a></td>
-    <td align="center"><a href="https://yiliang.site"><img src="https://avatars0.githubusercontent.com/u/11473889?v=4" width="100px;" alt=""/><br /><sub><b>易良</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=yiliang114" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/shryzhang"><img src="https://avatars1.githubusercontent.com/u/18062954?v=4" width="100px;" alt=""/><br /><sub><b>Sherry Zhang</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=shryzhang" title="Code">💻</a> <a href="#blog-shryzhang" title="Blogposts">📝</a></td>
-    <td align="center"><a href="https://github.com/Realybig"><img src="https://avatars3.githubusercontent.com/u/10878451?v=4" width="100px;" alt=""/><br /><sub><b>RealyBig</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=Realybig" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/magentaqin"><img src="https://avatars0.githubusercontent.com/u/30370223?v=4?s=100" width="100px;" alt=""/><br /><sub><b>magenta</b></sub></a><br /><a href="#blog-magentaqin" title="Blogposts">📝</a> <a href="https://github.com/Tencent/cloudbase-framework/commits?author=magentaqin" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/SmartCodeDavid"><img src="https://avatars0.githubusercontent.com/u/30002112?v=4?s=100" width="100px;" alt=""/><br /><sub><b>TIANXIANG LAN</b></sub></a><br /><a href="#content-SmartCodeDavid" title="Content">🖋</a></td>
+    <td align="center"><a href="https://github.com/fanyegong"><img src="https://avatars0.githubusercontent.com/u/12660343?v=4?s=100" width="100px;" alt=""/><br /><sub><b>liyuanfeng</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=fanyegong" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.ixiqin.com/"><img src="https://avatars1.githubusercontent.com/u/13283837?v=4?s=100" width="100px;" alt=""/><br /><sub><b>白宦成</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=bestony" title="Code">💻</a></td>
+    <td align="center"><a href="https://yiliang.site"><img src="https://avatars0.githubusercontent.com/u/11473889?v=4?s=100" width="100px;" alt=""/><br /><sub><b>易良</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=yiliang114" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/shryzhang"><img src="https://avatars1.githubusercontent.com/u/18062954?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sherry Zhang</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=shryzhang" title="Code">💻</a> <a href="#blog-shryzhang" title="Blogposts">📝</a></td>
+    <td align="center"><a href="https://github.com/Realybig"><img src="https://avatars3.githubusercontent.com/u/10878451?v=4?s=100" width="100px;" alt=""/><br /><sub><b>RealyBig</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=Realybig" title="Code">💻</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="http://evecalm.com"><img src="https://avatars2.githubusercontent.com/u/1655294?v=4" width="100px;" alt=""/><br /><sub><b>Saiya</b></sub></a><br /><a href="#talk-oe" title="Talks">📢</a> <a href="https://github.com/Tencent/cloudbase-framework/issues?q=author%3Aoe" title="Bug reports">🐛</a> <a href="#blog-oe" title="Blogposts">📝</a></td>
-    <td align="center"><a href="https://github.com/mirageql"><img src="https://avatars1.githubusercontent.com/u/69442876?v=4" width="100px;" alt=""/><br /><sub><b>mirageql</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=mirageql" title="Code">💻</a> <a href="#blog-mirageql" title="Blogposts">📝</a> <a href="#example-mirageql" title="Examples">💡</a></td>
-    <td align="center"><a href="https://github.com/TabSpace"><img src="https://avatars0.githubusercontent.com/u/550449?v=4" width="100px;" alt=""/><br /><sub><b>Tab Liang</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=TabSpace" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/juukee"><img src="https://avatars0.githubusercontent.com/u/28680837?v=4" width="100px;" alt=""/><br /><sub><b>juukee</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/issues?q=author%3Ajuukee" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="https://blog.heyliubo.top"><img src="https://avatars1.githubusercontent.com/u/41336612?v=4" width="100px;" alt=""/><br /><sub><b>Albert Liu</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=liulinboyi" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/SearchFan"><img src="https://avatars1.githubusercontent.com/u/42856891?v=4" width="100px;" alt=""/><br /><sub><b>SearchFan</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/issues?q=author%3ASearchFan" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="http://a.dnuise.cn"><img src="https://avatars2.githubusercontent.com/u/48037743?v=4" width="100px;" alt=""/><br /><sub><b>Zira</b></sub></a><br /><a href="#example-wasfzxt" title="Examples">💡</a> <a href="#blog-wasfzxt" title="Blogposts">📝</a></td>
+    <td align="center"><a href="http://evecalm.com"><img src="https://avatars2.githubusercontent.com/u/1655294?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Saiya</b></sub></a><br /><a href="#talk-oe" title="Talks">📢</a> <a href="https://github.com/Tencent/cloudbase-framework/issues?q=author%3Aoe" title="Bug reports">🐛</a> <a href="#blog-oe" title="Blogposts">📝</a></td>
+    <td align="center"><a href="https://github.com/mirageql"><img src="https://avatars1.githubusercontent.com/u/69442876?v=4?s=100" width="100px;" alt=""/><br /><sub><b>mirageql</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=mirageql" title="Code">💻</a> <a href="#blog-mirageql" title="Blogposts">📝</a> <a href="#example-mirageql" title="Examples">💡</a></td>
+    <td align="center"><a href="https://github.com/TabSpace"><img src="https://avatars0.githubusercontent.com/u/550449?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tab Liang</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=TabSpace" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/juukee"><img src="https://avatars0.githubusercontent.com/u/28680837?v=4?s=100" width="100px;" alt=""/><br /><sub><b>juukee</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/issues?q=author%3Ajuukee" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://blog.heyliubo.top"><img src="https://avatars1.githubusercontent.com/u/41336612?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Albert Liu</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=liulinboyi" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/SearchFan"><img src="https://avatars1.githubusercontent.com/u/42856891?v=4?s=100" width="100px;" alt=""/><br /><sub><b>SearchFan</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/issues?q=author%3ASearchFan" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="http://a.dnuise.cn"><img src="https://avatars2.githubusercontent.com/u/48037743?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Zira</b></sub></a><br /><a href="#example-wasfzxt" title="Examples">💡</a> <a href="#blog-wasfzxt" title="Blogposts">📝</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://www.mscoder.cn/"><img src="https://avatars3.githubusercontent.com/u/80653?v=4" width="100px;" alt=""/><br /><sub><b>代码抄写狮</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/issues?q=author%3ADaZiYuan" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="https://github.com/1377283509"><img src="https://avatars0.githubusercontent.com/u/44151817?v=4" width="100px;" alt=""/><br /><sub><b>lichaochao</b></sub></a><br /><a href="#example-1377283509" title="Examples">💡</a></td>
-    <td align="center"><a href="https://github.com/MrZhaoCn"><img src="https://avatars1.githubusercontent.com/u/18179784?v=4" width="100px;" alt=""/><br /><sub><b>MrZhaoCn</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=MrZhaoCn" title="Code">💻</a> <a href="#example-MrZhaoCn" title="Examples">💡</a></td>
-    <td align="center"><a href="http://xcatliu.com/"><img src="https://avatars0.githubusercontent.com/u/5453359?v=4" width="100px;" alt=""/><br /><sub><b>xcatliu</b></sub></a><br /><a href="#example-xcatliu" title="Examples">💡</a></td>
-    <td align="center"><a href="https://github.com/seymoe"><img src="https://avatars3.githubusercontent.com/u/25032899?v=4" width="100px;" alt=""/><br /><sub><b>唐羲</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/issues?q=author%3Aseymoe" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="https://github.com/marschenbiqi"><img src="https://avatars3.githubusercontent.com/u/44521251?v=4" width="100px;" alt=""/><br /><sub><b>Life</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/issues?q=author%3Amarschenbiqi" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="http://imnerd.org"><img src="https://avatars2.githubusercontent.com/u/424491?v=4" width="100px;" alt=""/><br /><sub><b>Austin Lee</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=lizheming" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.mscoder.cn/"><img src="https://avatars3.githubusercontent.com/u/80653?v=4?s=100" width="100px;" alt=""/><br /><sub><b>代码抄写狮</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/issues?q=author%3ADaZiYuan" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/1377283509"><img src="https://avatars0.githubusercontent.com/u/44151817?v=4?s=100" width="100px;" alt=""/><br /><sub><b>lichaochao</b></sub></a><br /><a href="#example-1377283509" title="Examples">💡</a></td>
+    <td align="center"><a href="https://github.com/MrZhaoCn"><img src="https://avatars1.githubusercontent.com/u/18179784?v=4?s=100" width="100px;" alt=""/><br /><sub><b>MrZhaoCn</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=MrZhaoCn" title="Code">💻</a> <a href="#example-MrZhaoCn" title="Examples">💡</a></td>
+    <td align="center"><a href="http://xcatliu.com/"><img src="https://avatars0.githubusercontent.com/u/5453359?v=4?s=100" width="100px;" alt=""/><br /><sub><b>xcatliu</b></sub></a><br /><a href="#example-xcatliu" title="Examples">💡</a></td>
+    <td align="center"><a href="https://github.com/seymoe"><img src="https://avatars3.githubusercontent.com/u/25032899?v=4?s=100" width="100px;" alt=""/><br /><sub><b>唐羲</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/issues?q=author%3Aseymoe" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/marschenbiqi"><img src="https://avatars3.githubusercontent.com/u/44521251?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Life</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/issues?q=author%3Amarschenbiqi" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="http://imnerd.org"><img src="https://avatars2.githubusercontent.com/u/424491?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Austin Lee</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=lizheming" title="Code">💻</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://www.imaegoo.com/"><img src="https://avatars2.githubusercontent.com/u/20182252?v=4" width="100px;" alt=""/><br /><sub><b>iMaeGoo</b></sub></a><br /><a href="#example-imaegoo" title="Examples">💡</a></td>
-    <td align="center"><a href="https://github.com/Handsomedoggy"><img src="https://avatars2.githubusercontent.com/u/33211616?v=4" width="100px;" alt=""/><br /><sub><b>Doggy</b></sub></a><br /><a href="#example-Handsomedoggy" title="Examples">💡</a></td>
+    <td align="center"><a href="https://www.imaegoo.com/"><img src="https://avatars2.githubusercontent.com/u/20182252?v=4?s=100" width="100px;" alt=""/><br /><sub><b>iMaeGoo</b></sub></a><br /><a href="#example-imaegoo" title="Examples">💡</a></td>
+    <td align="center"><a href="https://github.com/Handsomedoggy"><img src="https://avatars2.githubusercontent.com/u/33211616?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Doggy</b></sub></a><br /><a href="#example-Handsomedoggy" title="Examples">💡</a></td>
+    <td align="center"><a href="https://github.com/nasawz"><img src="https://avatars2.githubusercontent.com/u/372910?v=4?s=100" width="100px;" alt=""/><br /><sub><b>nasa.wang</b></sub></a><br /><a href="#example-nasawz" title="Examples">💡</a></td>
+    <td align="center"><a href="https://github.com/pandagis"><img src="https://avatars2.githubusercontent.com/u/5012180?v=4?s=100" width="100px;" alt=""/><br /><sub><b>pandagis</b></sub></a><br /><a href="#example-pandagis" title="Examples">💡</a></td>
   </tr>
 </table>
 
-<!-- markdownlint-enable -->
+<!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
@@ -493,7 +501,7 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 您可以选择如下的贡献方式：
 
 - [贡献一篇技术文章](./community/posts/README.md)
-- 贡献应用模板
+- [贡献应用模板](https://docs.cloudbase.net/framework/guide/app.html)
 - [提交一个应用案例](https://github.com/Tencent/cloudbase-framework/issues/91)
 - [贡献代码，提交 Pull Request](https://github.com/Tencent/cloudbase-framework/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)
 - [反馈 bug，提交 Issue](https://github.com/Tencent/cloudbase-framework/issues/new/choose)
