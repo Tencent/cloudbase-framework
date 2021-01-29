@@ -47,6 +47,12 @@ export interface IFrameworkPluginFunctionInputs {
    * ```
    */
   servicePaths?: Record<string, string>;
+  /**
+   * 1.6.16 版本以后支持
+   * 如果指定，则只发布列表中的函数
+   * 字符串格式，格式如 'fn1,fn2'
+   */
+  publishIncludeList?: string;
 }
 
 export interface IFunctionTriggerOptions {
@@ -189,8 +195,24 @@ class FunctionPlugin extends Plugin {
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
 
-    this.resolvedInputs.functions = this.resolvedInputs.functions.map(
-      (func: any) => {
+    let publishIncludeList: string[];
+    if (this.resolvedInputs.publishIncludeList) {
+      this.api.logger.debug(
+        'publishIncludeList',
+        this.resolvedInputs.publishIncludeList
+      );
+      publishIncludeList = this.resolvedInputs.publishIncludeList.split(',');
+    }
+
+    this.resolvedInputs.functions = this.resolvedInputs.functions
+      .filter((func) => {
+        if (publishIncludeList) {
+          return publishIncludeList.includes(func.name);
+        } else {
+          return true;
+        }
+      })
+      .map((func: any) => {
         return merge(
           {},
           {
@@ -201,8 +223,7 @@ class FunctionPlugin extends Plugin {
           this.resolvedInputs.functionDefaultConfig,
           func
         );
-      }
-    );
+      });
 
     this.functions = this.resolvedInputs.functions;
     this.functionRootPath = path.isAbsolute(

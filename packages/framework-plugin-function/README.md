@@ -62,6 +62,7 @@ cloudbase framework deploy
         "use": "@cloudbase/framework-plugin-function",
         "inputs": {
           "functionRootPath": "./cloudfunctions",
+          "publishIncludeList": "{{env.publishIncludeList}}",
           "functionDefaultConfig": {
             "timeout": 5,
             "envVariables": {
@@ -155,6 +156,12 @@ CloudBaseFramework 1.6.1 以后支持, 单个函数的配置会在该默认配�
 可选，是否自动创建新版本
 
 选择自动创建新版本，可以在控制台进行流量的灰度和控制，不选择的情况下会自动原位更新
+
+### `publishIncludeList`
+
+1.6.16 版本以后支持,如果指定，则只发布列表中的函数
+
+字符串格式，格式如 'fn1,fn2'
 
 ## 更多插件
 
