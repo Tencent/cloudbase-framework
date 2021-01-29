@@ -6,6 +6,7 @@ ARG tag=latest
 COPY ./package.json /root/cloudbase-framework/registry/package.json
 COPY ./.npmrc /root/cloudbase-framework/registry/.npmrc
 COPY ./lowcode/h5/ /root/.weapps-build/app/h5/
+COPY ./lowcode/mp/ /root/.weapps-build/app/mp/
 
 # 安装 curl
 RUN apk add --update curl bash git openssh && \
@@ -24,21 +25,22 @@ RUN apk add --update curl bash git openssh && \
     npm install && \
     # 更新 shell profile
     . ~/.profile && \
-    # 低代码：更新 react 组件库
+    # 低代码：内置官方 react 组件库
     mkdir -p /root/.weapps-materials/gsd-h5-react@0.0.61 && \
     cd /root/.weapps-materials/ && \
     curl https://user-source-1303824488.cos.ap-shanghai.myqcloud.com/materials/gsd-h5-react@0.0.61/source.zip -o gsd-h5-react@0.0.61.zip && \
     unzip gsd-h5-react@0.0.61.zip -d gsd-h5-react@0.0.61 && \
     cd gsd-h5-react@0.0.61 && yarn && \
-    # 低代码：更新 mp 组件库
+    # 低代码：内置官方 mp 组件库
     mkdir -p /root/.weapps-materials/gsd-h5-react-mp@0.0.61 && \
     cd /root/.weapps-materials/ && \
     curl https://user-source-1303824488.cos.ap-shanghai.myqcloud.com/materials/gsd-h5-react@0.0.61/source-mp.zip -o gsd-h5-react-mp@0.0.61.zip && \
     unzip gsd-h5-react-mp@0.0.61.zip -d gsd-h5-react-mp@0.0.61 && \
     rm -rf /root/.weapps-materials/*.zip && \
     ls -al /root/.weapps-materials && \
-    # 低代码：内置依赖
-    cd /root/.weapps-build/app/h5/ && yarn && rm package.json .npmrc
+    # 低代码：内置官方框架依赖
+    cd /root/.weapps-build/app/h5/ && yarn && rm package.json .npmrc && \
+    cd /root/.weapps-build/app/mp/ && yarn && rm package.json
 
 COPY index.js /usr/opts/
 
