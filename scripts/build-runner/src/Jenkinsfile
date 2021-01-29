@@ -1,7 +1,7 @@
 pipeline {
     agent {
       docker {
-        image 'ccr.ccs.tencentyun.com/cloudbaseframework/cloudbase-framework-runner:1.6.13'
+        image 'ccr.ccs.tencentyun.com/cloudbaseframework/cloudbase-framework-runner:1.6.16'
         reuseNode true
         args '-v /root/.cloudbase-pnpm-cache:/root/.pnpm-store \
         -v /root/.cloudbase-yarn-cache:/usr/local/share/.cache/yarn/v6 \
@@ -34,15 +34,6 @@ pipeline {
                 sh '''
                 # 使用临时密钥登录
                 cloudbase login --apiKeyId "$API_SECRET_ID"  --apiKey "$API_SECRET_KEY" --token "$API_TOKEN"
-
-                # 查看缓存
-                ls /root/.weapps-materials
-                ls /root/.npm
-                ls /root/.pnpm-store
-                ls /root/.weapps-build
-                ls /usr/local/share/.cache/yarn/v6  | wc -l
-                ls /root/.weapps-build/app/h5/node_modules  | wc -l
-                ls /root/.weapps-build/app/mp/node_modules  | wc -l
                 '''
             }
         }
