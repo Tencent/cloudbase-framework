@@ -786,6 +786,10 @@
             "servicePaths": {
               "description": "服务路径配置\n\n如\n\n```json\n{\n   \"hello-world\": \"/helloworld\"\n}\n```",
               "$ref": "#/definitions/Record<string,string>"
+            },
+            "publishIncludeList": {
+              "description": "1.6.16 版本以后支持\n如果指定，则只发布列表中的函数\n字符串格式，格式如 'fn1,fn2'",
+              "type": "string"
             }
           },
           "$schema": "http://json-schema.org/draft-07/schema#"
