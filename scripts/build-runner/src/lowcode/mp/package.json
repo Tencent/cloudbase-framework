@@ -1,0 +1,9 @@
+{
+  "name": "weapps",
+  "version": "1.0.0",
+  "scripts": {},
+  "dependencies": {
+    "mobx": "^5.15.4",
+    "miniprogram-api-promise": "^1.0.4"
+  }
+}
