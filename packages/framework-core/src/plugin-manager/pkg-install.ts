@@ -67,7 +67,7 @@ async function checkNeedUpdate(name: string, version: string, cwd: string) {
     const proxy = getProxy();
     const meta = await packageJson(name, {
       version,
-      ...(proxy ? { agent: httpsProxyAgent(proxy) } : {}),
+      ...(proxy ? { agent: new httpsProxyAgent(proxy) } : {}),
     });
     resolvedVersion = meta.version as string;
   }
