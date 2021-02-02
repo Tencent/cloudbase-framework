@@ -7,7 +7,7 @@
  */
 import path from 'path';
 import packageJson from 'package-json';
-import httpsProxyAgent from 'https-proxy-agent';
+import HttpsProxyAgent from 'https-proxy-agent';
 import { getProxy } from '@cloudbase/toolbox';
 import getLogger from '../logger';
 
@@ -67,7 +67,7 @@ async function checkNeedUpdate(name: string, version: string, cwd: string) {
     const proxy = getProxy();
     const meta = await packageJson(name, {
       version,
-      ...(proxy ? { agent: new httpsProxyAgent(proxy) } : {}),
+      ...(proxy ? { agent: new HttpsProxyAgent(proxy) } : {}),
     });
     resolvedVersion = meta.version as string;
   }
