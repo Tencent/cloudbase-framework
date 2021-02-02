@@ -94,8 +94,15 @@ export interface ICloudFunction {
   /**
    * 函数运行时内存配置
    * @default 128
+   * @deprecated
    */
   memory?: 128 | 256 | 512 | 1024 | 2048;
+
+  /**
+   * 函数运行时内存配置
+   * @default 128
+   */
+  memorySize?: 128 | 256 | 512 | 1024 | 2048;
   /**
    * VPC
    */
@@ -385,7 +392,7 @@ class FunctionPlugin extends Plugin {
             '无服务器执行环境，帮助您在无需购买和管理服务器的情况下运行代码',
           Runtime: functionConfig.runtime,
           FunctionName: functionConfig.name,
-          MemorySize: functionConfig.memory || 128,
+          MemorySize: functionConfig.memorySize || functionConfig.memory || 128,
           Timeout: functionConfig.timeout || 5,
           Environment: {
             Variables: normalizeEnvironments(functionConfig.envVariables),
