@@ -844,6 +844,18 @@
           ],
           "type": "number"
         },
+        "memorySize": {
+          "description": "函数运行时内存配置",
+          "default": 128,
+          "enum": [
+            1024,
+            128,
+            2048,
+            256,
+            512
+          ],
+          "type": "number"
+        },
         "vpc": {
           "description": "VPC",
           "$ref": "#/definitions/IFunctionVPC"
