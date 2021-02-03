@@ -41,6 +41,7 @@ pipeline {
             steps {
                 sh '''
                 cd /root/cloudbase-workspace
+                cd "$PROJ_DIR"
                 CI=true cloudbase framework deploy -e "$ENV_ID" --verbose
                 '''
             }
