@@ -50,4 +50,4 @@ jobs:
         run: |
           echo $PATH
           node -v
-          CLOUDBASE_FX_ENV=dev CI=true envId=${{ secrets.ENV_ID }} node scripts/local-e2e.js
+          sudo CLOUDBASE_FX_ENV=dev CI=true envId=${{ secrets.ENV_ID }} node scripts/local-e2e.js
