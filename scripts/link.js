@@ -83,8 +83,8 @@ async function link(src, dest, packageName) {
   // 删除已存在的文件
   if (fs.existsSync(pathName)) {
     console.log(pathName);
-    del.sync([pathName]);
-    console.log(fs.existsSync(pathName));
+    const deletedFilePaths = await del([pathName]);
+    console.log(deletedFilePaths, fs.existsSync(pathName));
   }
   await creatSymlink(src, pathName, 'junction');
   // 切回源目录
