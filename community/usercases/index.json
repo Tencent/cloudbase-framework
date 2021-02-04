@@ -77,7 +77,7 @@
     "repo": "https://github.com/imaegoo/twikoo",
     "logo": "https://696d-imaegoo-16fe3d-1252243992.tcb.qcloud.la/logo/twikoo.png"
   },
-   {
+  {
     "name": "实时地震",
     "link": "",
     "repo": "",
@@ -94,11 +94,17 @@
     "link": "https://nice-9goo8zpofac7bee9-1304765945.tcloudbaseapp.com/docs/",
     "repo": "https://github.com/nasawz/niceup",
     "logo": "https://md-1256312109.cos.ap-beijing.myqcloud.com/uPic/Group.svg"
-  },  
+  },
   {
     "name": "道德文章",
     "link": "https://daodewenzhang.cn",
     "repo": "",
     "logo": "https://daodewenzhang.cn/img/ic_launcher.png"
+  },
+  {
+    "name": "OneDrive 图床",
+    "link": "https://sosf.beetcb.com/?path=/demo.svg",
+    "repo": "https://github.com/beetcb/sosf",
+    "logo": ""
   }
 ]
