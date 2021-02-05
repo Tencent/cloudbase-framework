@@ -38,10 +38,6 @@ export default async function resolveConfig(
   const logger = getLogger();
   const isCloudBuild = !!process.env.CLOUDBASE_CIID;
 
-  if (isCloudBuild) {
-    logger.debug('TriggerBuildEnvs', process.env);
-  }
-
   // 解析配置文件
   const {
     rcConfig,
