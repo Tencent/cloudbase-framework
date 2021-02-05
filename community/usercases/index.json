@@ -112,5 +112,11 @@
     "link": "https://waline.js.org/",
     "repo": "https://github.com/lizheming/waline",
     "logo": "https://cdn.jsdelivr.net/gh/lizheming/waline/assets/waline.png"
+  },
+  {
+    "name": "编程主页",
+    "link": "https://home.code-nav.cn",
+    "repo": "https://github.com/liyupi/code-nav/tree/master/code-nav-home",
+    "logo": "https://636f-codenav-8grj8px727565176-1256524210.tcb.qcloud.la/img/1610686940692-logo.3c8859f8.png"
   }
 ]
