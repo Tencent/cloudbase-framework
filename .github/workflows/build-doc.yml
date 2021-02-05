@@ -18,8 +18,8 @@ jobs:
       with: 
         submodules: true
     - run: |
-        git config user.name github-actions
-        git config user.email github-actions@github.com
+        git config --global user.name binggg
+        git config --global user.email being99@qq.com
         npm i 
         npm run build:doc
         cd doc
