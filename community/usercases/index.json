@@ -118,5 +118,11 @@
     "link": "https://home.code-nav.cn",
     "repo": "https://github.com/liyupi/code-nav/tree/master/code-nav-home",
     "logo": "https://636f-codenav-8grj8px727565176-1256524210.tcb.qcloud.la/img/1610686940692-logo.3c8859f8.png"
+  },
+  {
+    "name": "全球空气质量监测可视化",
+    "link": "http://worldair.lanhaoo.club/",
+    "repo": "https://github.com/LanHao0/cloudbase-global-aqi-visualize",
+    "logo": "https://github.com/LanHao0/cloudbase-global-aqi-visualize/blob/master/worldAir.png"
   }
 ]
