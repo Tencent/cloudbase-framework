@@ -328,6 +328,15 @@
       "contributions": [
         "example"
       ]
+    },
+    {
+      "login": "LanHao0",
+      "name": "LanHao",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14994590?v=4",
+      "profile": "https://lanhaoo.club/",
+      "contributions": [
+        "example"
+      ]
     }
   ],
   "contributorsPerLine": 7,
