@@ -11,10 +11,20 @@ jobs:
   doc:
     name: Build Doc
     runs-on: ubuntu-latest
-
     
-    
-   
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+      with: 
+        submodules: true
+    - run: |
+        npm i 
+        npm run build:doc
+        cd doc
+        git add .
+        git commit -am "doc(framework): update framework doc"
+        git push
+        cd ../
+        git add .
+        git commit -am "doc(readme): update readme doc"
+        git push
