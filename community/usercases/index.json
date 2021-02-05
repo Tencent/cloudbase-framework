@@ -106,5 +106,11 @@
     "link": "https://sosf.beetcb.com/?path=/demo.svg",
     "repo": "https://github.com/beetcb/sosf",
     "logo": ""
+  },
+  {
+    "name": "Waline 评论系统",
+    "link": "https://waline.js.org/",
+    "repo": "https://github.com/lizheming/waline",
+    "logo": "https://cdn.jsdelivr.net/gh/lizheming/waline/assets/waline.png"
   }
 ]
