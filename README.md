@@ -478,9 +478,7 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-32-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-33-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -528,6 +526,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/Handsomedoggy"><img src="https://avatars2.githubusercontent.com/u/33211616?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Doggy</b></sub></a><br /><a href="#example-Handsomedoggy" title="Examples">💡</a></td>
     <td align="center"><a href="https://github.com/nasawz"><img src="https://avatars2.githubusercontent.com/u/372910?v=4?s=100" width="100px;" alt=""/><br /><sub><b>nasa.wang</b></sub></a><br /><a href="#example-nasawz" title="Examples">💡</a></td>
     <td align="center"><a href="https://github.com/pandagis"><img src="https://avatars2.githubusercontent.com/u/5012180?v=4?s=100" width="100px;" alt=""/><br /><sub><b>pandagis</b></sub></a><br /><a href="#example-pandagis" title="Examples">💡</a></td>
+    <td align="center"><a href="http://www.beetcb.com"><img src="https://avatars.githubusercontent.com/u/63141491?v=4?s=100" width="100px;" alt=""/><br /><sub><b>beet</b></sub></a><br /><a href="#example-beetcb" title="Examples">💡</a></td>
   </tr>
 </table>
 
