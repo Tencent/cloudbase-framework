@@ -18,6 +18,8 @@ jobs:
       with: 
         submodules: true
     - run: |
+        git config user.name binggg
+        git config user.email being99@qq.com
         npm i 
         npm run build:doc
         cd doc
