@@ -25,6 +25,7 @@ jobs:
         npm i 
         npm run build:doc
         cd doc
+        git checkout master
         git status
         git add .
         git commit -am "doc(framework): update framework doc"
