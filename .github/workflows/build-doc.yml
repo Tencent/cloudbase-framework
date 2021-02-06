@@ -17,6 +17,7 @@ jobs:
       uses: actions/checkout@v2
       with: 
         submodules: true
+        token: ${{ secrets.PAT }}
     - run: |
         git config --global user.name binggg
         git config --global user.email being99@qq.com
