@@ -24,13 +24,10 @@ jobs:
         npm run build:doc
         cd doc
         git add .
-        git branch -u origin/master
-        git status
         git commit -am "doc(framework): update framework doc"
-        git push   git push origin HEAD:master
+        git push origin HEAD:master
         cd ../
         git add .
-        git branch -u origin/master
         git status
         git commit -am "doc(readme): update readme doc"
-        git push
+        git push origin HEAD:master
