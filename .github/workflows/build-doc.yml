@@ -25,6 +25,7 @@ jobs:
         npm i 
         npm run build:doc
         cd doc
+        git fetch
         git checkout master
         git status
         git add .
