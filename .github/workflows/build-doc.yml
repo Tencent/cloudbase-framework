@@ -26,9 +26,9 @@ jobs:
         cd doc
         git add .
         git commit -am "doc(framework): update framework doc"
-        git push origin HEAD:master
+        git push origin HEAD:refs/remotes/origin/master
         cd ../
         git add .
         git status
         git commit -am "doc(readme): update readme doc"
-        git push origin HEAD:master
+        git push origin HEAD:refs/remotes/origin/master
