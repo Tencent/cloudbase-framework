@@ -116,10 +116,15 @@ class NextPlugin extends Plugin {
    */
   async init() {
     this.api.logger.debug('NextPlugin: init', this.resolvedInputs);
-
-    if (fs.existsSync('package.json')) {
+    const packageJsonPath = path.resolve(
+      this.resolvedInputs.entry,
+      'package.json'
+    );
+    if (fs.existsSync(packageJsonPath)) {
       this.api.logger.info('npm install');
-      return promisify(exec)('npm install');
+      return promisify(exec)('npm install', {
+        cwd: this.resolvedInputs.entry,
+      });
     }
   }
 
@@ -160,7 +165,9 @@ class NextPlugin extends Plugin {
     const { buildCommand } = this.resolvedInputs;
 
     if (buildCommand) {
-      await promisify(exec)(buildCommand);
+      await promisify(exec)(buildCommand, {
+        cwd: this.resolvedInputs.entry
+      });
     }
 
     this.buildOutput = await this.builder.build(this.resolvedInputs.entry, {
