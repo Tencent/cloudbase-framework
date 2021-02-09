@@ -2,7 +2,7 @@
   "files": [
     "README.md"
   ],
-  "imageSize": 100,
+  "imageSize": 70,
   "commit": false,
   "contributors": [
     {
@@ -348,7 +348,7 @@
       ]
     }
   ],
-  "contributorsPerLine": 7,
+  "contributorsPerLine": 8,
   "projectName": "cloudbase-framework",
   "projectOwner": "Tencent",
   "repoType": "github",
