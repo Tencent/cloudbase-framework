@@ -124,5 +124,11 @@
     "link": "http://worldair.lanhaoo.club/",
     "repo": "https://github.com/LanHao0/cloudbase-global-aqi-visualize",
     "logo": "https://github.com/LanHao0/cloudbase-global-aqi-visualize/blob/master/worldAir.png"
+  },
+  {
+    "name": "cloudbase-access  (快速创建 RESTFul API)",
+    "link": "",
+    "repo": "https://github.com/hal-wang/cloudbase-access",
+    "logo": "https://raw.githubusercontent.com/hal-wang/cloudbase-access/main/logo.png"
   }
 ]
