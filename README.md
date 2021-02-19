@@ -479,7 +479,7 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-37-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-38-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -532,6 +532,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://lanhaoo.club/"><img src="https://avatars.githubusercontent.com/u/14994590?v=4?s=70" width="70px;" alt=""/><br /><sub><b>LanHao</b></sub></a><br /><a href="#example-LanHao0" title="Examples">💡</a></td>
     <td align="center"><a href="https://github.com/manfwh"><img src="https://avatars.githubusercontent.com/u/23977810?v=4?s=70" width="70px;" alt=""/><br /><sub><b>manfwh</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=manfwh" title="Code">💻</a></td>
     <td align="center"><a href="https://blog.hal.wang"><img src="https://avatars.githubusercontent.com/u/39717597?v=4?s=70" width="70px;" alt=""/><br /><sub><b>H</b></sub></a><br /><a href="#example-hal-wang" title="Examples">💡</a></td>
+    <td align="center"><a href="https://github.com/webpoin"><img src="https://avatars.githubusercontent.com/u/5368822?v=4?s=70" width="70px;" alt=""/><br /><sub><b>二鸟</b></sub></a><br /><a href="#example-webpoin" title="Examples">💡</a></td>
   </tr>
 </table>
 
