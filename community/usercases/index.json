@@ -130,5 +130,11 @@
     "link": "",
     "repo": "https://github.com/hal-wang/cloudbase-access",
     "logo": "https://raw.githubusercontent.com/hal-wang/cloudbase-access/main/logo.png"
+  },
+  {
+    "name": "腾讯教育官网",
+    "link": "https://edu.tencent.com/",
+    "repo": "",
+    "logo": "https://edu.tencent.com/favicon.ico"
   }
 ]
