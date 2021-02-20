@@ -23,11 +23,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        with:
-          limit-access-to-actor: true
 
       # Runs a single command using the runners shell
       - name: Install Deps
@@ -56,3 +51,9 @@ jobs:
           echo $PATH
           node -v
           sudo CLOUDBASE_FX_ENV=dev CI=true envId=${{ secrets.ENV_ID }} node scripts/local-e2e.js
+          
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ failure() }}
+        with:
+          limit-access-to-actor: true
