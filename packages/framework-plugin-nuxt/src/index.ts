@@ -15,7 +15,7 @@ import { plugin as FunctionPlugin } from '@cloudbase/framework-plugin-function';
 import { NuxtBuilder } from '@cloudbase/nuxt-builder';
 
 const DEFAULT_INPUTS = {
-  memory: 128,
+  memory: 256,
   timeout: 5,
   runtime: 'Nodejs10.15',
   entry: './',
@@ -145,7 +145,7 @@ class NuxtPlugin extends Plugin {
 
     if (buildCommand) {
       await promisify(exec)(buildCommand, {
-        cwd: this.resolvedInputs.entry
+        cwd: this.resolvedInputs.entry,
       });
     }
 
