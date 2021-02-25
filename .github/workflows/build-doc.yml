@@ -30,7 +30,6 @@ jobs:
           cd ../
           npm run build:doc
           cd doc
-          touch test
           if [ -n "$(git status --porcelain)" ]; then
             git add .
             git commit -am "doc(framework): update framework doc"
