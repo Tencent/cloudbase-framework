@@ -62,13 +62,21 @@ cloudbase framework deploy
         "use": "@cloudbase/framework-plugin-function",
         "inputs": {
           "functionRootPath": "./cloudfunctions",
+          "publishIncludeList": "{{env.publishIncludeList}}",
+          "functionDefaultConfig": {
+            "timeout": 5,
+            "envVariables": {
+              "FOO": "bar"
+            },
+            "runtime": "Nodejs10.15",
+            "memorySize": 128
+          },
           "functions": [
             {
               "name": "helloworld",
-              "timeout": 5,
-              "envVariables": {},
-              "runtime": "Nodejs10.15",
-              "memory": 128
+              "envVariables": {
+                "ABC": "xyz"
+              }
             }
           ],
           "servicePaths": {
@@ -87,24 +95,33 @@ cloudbase framework deploy
 
 函数根目录
 
+### `functionDefaultConfig`
+
+云函数默认配置, 配置格式和单个函数配置格式相同
+
+CloudBaseFramework 1.6.1 以后支持, 单个函数的配置会在该默认配置的基础上进行 merge
+
 ### `functions`
 
 函数配置数组，每个函数的配置格式要求如下：
 
-|       字段        | 是否必填 |                                         类型                                          | 描述                                                                                                                          |
-| :---------------: | :------: | :-----------------------------------------------------------------------------------: | ----------------------------------------------------------------------------------------------------------------------------- |
-|       name        |    是    |                                        String                                         | 云函数名称，即为函数部署后的名称                                                                                              |
-|     triggers      |    否    | [`Array`](https://docs.cloudbase.net/cli/functions/configs.html#cloudfunctiontrigger) | 触发器配置                                                                                                                    |
-|      handler      |    否    |                                        String                                         | 函数处理方法名称，名称格式支持“文件名称.函数名称”形式                                                                         |
-|      ignore       |    否    |                                `String/Array<String>`                                 | 部署/更新云函数代码时的忽略文件，支持 glob 匹配规则                                                                           |
-|      timeout      |    否    |                                        Number                                         | 函数超时时间（1 - 60S）                                                                                                       |
-|   envVariables    |    否    |                                        Object                                         | 包含环境变量的键值对对象                                                                                                      |
-|        vpc        |    否    |           [VPC](https://docs.cloudbase.net/cli/functions/configs.html#vpc)            | 私有网络配置                                                                                                                  |
-|      runtime      |    否    |                                        String                                         | 运行时环境配置，可选值： `Nodejs8.9, Nodejs10.15 Php7, Java8,Go1`                                                             |
-| installDependency |    否    |                                        Boolean                                        | 是否云端安装依赖，目前仅支持 Node.js                                                                                          |
-| functionDistPath  |    否    |                                        String                                         | 函数产物路径，相对于函数根目录 functionRootPath，例如 Go 语言可指定二进制文件路径，Java 可以指定 jar 包文件地址               |
-|      aclRule      |    否    |                                  Record<string, any>                                  | 1.3 版本以后支持，安全规则配置，例如 `{ invoke: true }`，请参考 https://docs.cloudbase.net/cloud-function/security-rules.html |
-|    codeSecret     |    否    |                                        String                                         | 1.4.0 版本以后支持，代码保护密钥，传入此参数将保护代码，在控制台/IDE 中无法看到代码明文，格式为 36 位大小字母和数字           |
+|       字段        | 是否必填 |                                         类型                                          | 描述                                                                                                                            |
+| :---------------: | :------: | :-----------------------------------------------------------------------------------: | ------------------------------------------------------------------------------------------------------------------------------- |
+|       name        |    是    |                                        String                                         | 云函数名称，即为函数部署后的名称                                                                                                |
+|     triggers      |    否    | [`Array`](https://docs.cloudbase.net/cli/functions/configs.html#cloudfunctiontrigger) | 触发器配置                                                                                                                      |
+|      handler      |    否    |                                        String                                         | 函数处理方法名称，名称格式支持“文件名称.函数名称”形式                                                                           |
+|      ignore       |    否    |                                `String/Array<String>`                                 | 部署/更新云函数代码时的忽略文件，支持 glob 匹配规则                                                                             |
+|      timeout      |    否    |                                        Number                                         | 函数超时时间（1 - 60S）                                                                                                         |
+|   envVariables    |    否    |                                        Object                                         | 包含环境变量的键值对对象                                                                                                        |
+|        vpc        |    否    |           [VPC](https://docs.cloudbase.net/cli/functions/configs.html#vpc)            | 私有网络配置                                                                                                                    |
+|      runtime      |    否    |                                        String                                         | 运行时环境配置，可选值： `Nodejs8.9, Nodejs10.15 Php7, Java8,Go1`                                                               |
+|    memorySize     |    否    |                                        Number                                         | 函数内存，默认值为 256，可选 128、256、512、1024、2048                                                                          |
+| installDependency |    否    |                                        Boolean                                        | 是否云端安装依赖，目前仅支持 Node.js                                                                                            |
+| functionDistPath  |    否    |                                        String                                         | 函数产物路径，相对于函数根目录 functionRootPath，例如 Go 语言可指定二进制文件路径，Java 可以指定 jar 包文件地址                 |
+|      aclRule      |    否    |                                  Record<string, any>                                  | 1.3 版本以后支持，安全规则配置，例如 `{ invoke: true }`，请参考 https://docs.cloudbase.net/cloud-function/security-rules.html   |
+|    codeSecret     |    否    |                                        String                                         | 1.4.0 版本以后支持，代码保护密钥，传入此参数将保护代码，在控制台/IDE 中无法看到代码明文，格式为 36 位大小字母和数字             |
+|     publicNet     |    否    |                                        String                                         | 1.6.14 版本以后支持，是否可以在云函数中访问公网，默认情况开启，配置云函数 VPC 后，默认公网访问会关闭 ，取值['ENABLE','DISABLE'] |
+|        eip        |    否    |                                        String                                         | 1.6.14 版本以后支持，是否开启 eip 固定外网 ip 能力，免费环境不可用，取值['ENABLE','DISABLE']                                    |
 
 **注：`runtime` 默认为 `Nodejs10.15`，使用 Node 运行时可不填，使用 Php 和 Java 则必填。**
 
@@ -140,6 +157,12 @@ cloudbase framework deploy
 可选，是否自动创建新版本
 
 选择自动创建新版本，可以在控制台进行流量的灰度和控制，不选择的情况下会自动原位更新
+
+### `publishIncludeList`
+
+1.6.16 版本以后支持,如果指定，则只发布列表中的函数
+
+字符串格式，格式如 'fn1,fn2'
 
 ## 更多插件
 

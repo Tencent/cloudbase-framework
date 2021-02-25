@@ -10,7 +10,6 @@ const spawnPromise = require('./spawn');
 const path = require('path');
 const { readFileSync } = require('fs');
 const https = require('https');
-const { promisify } = require('util');
 
 const markdownFiles = [
   'README.md',
@@ -34,7 +33,7 @@ const config = {
         }"><br /><sub><b>${
           item.name
         }</b></sub></a><br/><a target="_blank" href="${item.link}">🌐</a></td>`;
-      const maxWidth = 5;
+      const maxWidth = 7;
       return `
 ${renderTable(data, renderCell, maxWidth)}
 
@@ -50,29 +49,24 @@ ${renderTable(data, renderCell, maxWidth)}
 
       const data = res.data.slice(0, 14);
 
-      const renderCell = (item) =>
-        `<td style="vertical-align: top;">
-              <a target="_blank" style="min-height:100px; display:block;" href="${
-                item.link + '/tree/master/' + item.workdir
-              }"><img width="80px;" src="https:${
-          item.icon ||
-          '//main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png'
-        }">
+      const renderCell = (item) => `<td style="vertical-align: top;">
+              <a target="_blank" style="min-height:100px; display:block;" href="${`${item.link}/tree/master/${item.workdir}`}"><img width="80px;" src="https:${
+        item.icon ||
+        '//main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png'
+      }">
               <br />
               <b>${
                 item.title
               } <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
               <p style="min-height: 60px;">${item.introduction || ''} ${
-          item.resource ? '，使用' + item.resource + '云资源' : ''
-        }</p>
+        item.resource ? `，使用${item.resource}云资源` : ''
+      }</p>
               <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=${
                 item.link
               }&workDir=${
-          item.workdir
-        }" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>
-              <a target="_blank" href="${
-                item.link + '/tree/master/' + item.workdir
-              }">
+        item.workdir
+      }" target="_blank"><img src="https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg"/></a>
+              <a target="_blank" href="${`${item.link}/tree/master/${item.workdir}`}">
               </a>
               </td>`;
       const maxWidth = 2;
@@ -147,16 +141,6 @@ ${content}
     )
   );
 })();
-
-function getBucketUrl(url) {
-  if (!url.startsWith('cloud://')) {
-    return url;
-  }
-
-  const re = /cloud:\/\/.*?\.(.*?)\/(.*)/;
-  const result = re.exec(url);
-  return `https://${result[1]}.tcb.qcloud.la/${result[2]}`;
-}
 
 async function fetch(url) {
   return new Promise((resolve, reject) => {

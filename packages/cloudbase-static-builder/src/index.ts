@@ -9,7 +9,7 @@ import path from 'path';
 import fs from 'fs';
 import cpy from 'cpy';
 import { Builder } from '@cloudbase/framework-core';
-import { fetchStream, mkdirSync } from '@cloudbase/toolbox';
+import { fetchStream, mkdirSync, getProxy } from '@cloudbase/toolbox';
 
 interface StaticBuilderBuildOptions {
   /**
@@ -35,6 +35,7 @@ interface StaticBuilderOptions {
 }
 
 const CONFIG_FILE_NAME = 'cloudbaseenv.json';
+const CONFIG_SCRIPT_FILE_NAME = '_init_tcb-env.js';
 
 export class StaticBuilder extends Builder {
   private copyRoot: string;
@@ -88,7 +89,7 @@ export class StaticBuilder extends Builder {
     let originConfig;
     if (options.domain && options.config) {
       const url = `https://${options.domain}/${CONFIG_FILE_NAME}`;
-      const streamRes = await fetchStream(url);
+      const streamRes = await fetchStream(url, undefined, getProxy());
       if (streamRes?.status == 200) {
         originConfig = await streamRes.json().catch(() => {
           return {};
@@ -111,6 +112,10 @@ export class StaticBuilder extends Builder {
     fs.writeFileSync(
       path.join(configDistPath, CONFIG_FILE_NAME),
       JSON.stringify(resolvedConfig)
+    );
+    fs.writeFileSync(
+      path.join(configDistPath, CONFIG_SCRIPT_FILE_NAME),
+      `window._tcbEnv = ${JSON.stringify(resolvedConfig)};`
     );
   }
 }

@@ -62,7 +62,8 @@ cloudbase framework deploy
           "path": "/nuxt-ssr",
           "name": "nuxt-ssr",
           "installCommand": "npm install",
-          "buildCommand": "npm run build"
+          "buildCommand": "npm run build",
+          "memory": 512
         }
       }
     }
@@ -93,6 +94,22 @@ Nuxt 配置文件所在目录，默认当前项目所在目录
 ### `buildCommand`
 
 构建命令，如`npm run build`，没有可不传
+
+### `runtime`
+
+云函数运行时版本，选填，默认值 "Nodejs10.15"，可选值 'Nodejs10.15' | 'Nodejs8.9'
+
+### `memory`
+
+云函数运行时内存配置，选填，默认为 256，可选值 128 | 256 | 512 | 1024 | 2048
+
+### `timeout`
+
+函数超时时间（1 - 60S），选填
+
+### `envVariables`
+
+选填，环境变量键值对，会注入运行时的环境变量，环境变量值只能为字符串格式
 
 ## 更多插件
 

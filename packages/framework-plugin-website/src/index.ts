@@ -8,8 +8,6 @@
 import path from 'path';
 import fs from 'fs';
 import os from 'os';
-import { exec } from 'child_process';
-import { promisify } from 'util';
 import merge from 'lodash.merge';
 
 import { Plugin, PluginServiceApi } from '@cloudbase/framework-core';
@@ -25,6 +23,15 @@ const DEFAULT_INPUTS = {
     install: 'npm install --prefer-offline --no-audit --progress=false',
   },
 };
+
+enum PAYMODE {
+  POSTPAID = 'postpaid',
+  PREPAYMENT = 'prepayment',
+}
+
+enum ENV_CHANNEL {
+  LOWCODE = 'low_code',
+}
 
 /**
  * 导出接口用于生成 JSON Schema 来进行智能提示
@@ -81,6 +88,10 @@ class WebsitePlugin extends Plugin {
   protected zipBuilder: ZipBuilder;
   protected resolvedInputs: ResolvedInputs;
   protected buildOutput: BuildResult;
+  protected env?: {
+    PayMode: PAYMODE;
+    EnvChannel: string;
+  };
   // 静态托管信息
   protected website: any;
 
@@ -92,6 +103,7 @@ class WebsitePlugin extends Plugin {
     super(name, api, inputs);
 
     this.resolvedInputs = resolveInputs(this.inputs);
+
     this.builder = new StaticBuilder({
       projectPath: this.api.projectPath,
       copyRoot: path.join(this.api.projectPath, this.resolvedInputs.outputPath),
@@ -125,7 +137,7 @@ class WebsitePlugin extends Plugin {
     const [website, staticConfig] = uploadResults as any;
 
     return {
-      EnvType: 'PostPay',
+      EnvType: this.env?.PayMode === PAYMODE.PREPAYMENT ? 'PrePay' : 'PostPay',
       Resources: Object.assign(
         {},
         this.getStaticResourceSam(
@@ -226,6 +238,15 @@ class WebsitePlugin extends Plugin {
   async build() {
     // cloudPath 会影响 publicPath 和 baseRoute 等配置，需要处理
     this.api.logger.debug('WebsitePlugin: build', this.resolvedInputs);
+
+    this.resolvedInputs.envVariables = Object.assign(
+      {
+        TCB_SERVICE_DOMAIN: await this.fetchServiceDomain(),
+        TCB_ENV_ID: this.api.envId,
+      },
+      this.resolvedInputs.envVariables
+    );
+
     await this.installPackage();
 
     const {
@@ -237,8 +258,10 @@ class WebsitePlugin extends Plugin {
 
     const command = buildCommand || commands?.build;
     if (command) {
-      this.api.logger.info(command);
-      await promisify(exec)(injectEnvVariables(command, envVariables));
+      this.api.logger.info('running', command);
+      await this.api.spawnPromise(command, [], {
+        env: Object.assign({}, process.env, envVariables),
+      });
     }
 
     const includes = [
@@ -277,17 +300,10 @@ class WebsitePlugin extends Plugin {
 
     if (!command) return;
 
-    this.api.logger.info(command);
-    await new Promise((resolve, reject) => {
-      const cmd = exec(injectEnvVariables(command, envVariables));
-      cmd.stdout?.pipe(process.stdout);
-      cmd.stderr?.pipe(process.stderr);
-      cmd.on('close', (code) => {
-        resolve(code);
-      });
-      cmd.on('exit', (code) => {
-        reject(code);
-      });
+    this.api.logger.info('running', command);
+
+    return this.api.spawnPromise(command, [], {
+      env: Object.assign({}, process.env, envVariables),
     });
   }
 
@@ -295,12 +311,14 @@ class WebsitePlugin extends Plugin {
    * 安装依赖
    */
   async installPackage() {
-    const { installCommand, commands } = this.resolvedInputs;
+    const { installCommand, commands, envVariables } = this.resolvedInputs;
     const command = installCommand || commands?.install;
     try {
       if (fs.statSync('package.json')) {
-        this.api.logger.info(command);
-        return promisify(exec)(command);
+        this.api.logger.info('running', command);
+        return this.api.spawnPromise(command, [], {
+          env: Object.assign({}, process.env, envVariables),
+        });
       }
     } catch (e) {}
   }
@@ -310,7 +328,6 @@ class WebsitePlugin extends Plugin {
    */
   async ensurePostPay() {
     const res = await this.api.cloudApi.tcbService.request('DescribeEnvs');
-    this.api.logger.debug('环境信息', res);
 
     let env = res?.EnvList?.[0];
 
@@ -318,11 +335,15 @@ class WebsitePlugin extends Plugin {
       throw new Error(`当前账号下不存在 ${this.api.envId} 环境`);
     }
 
-    if (env.PayMode !== 'postpaid') {
+    if (
+      env.PayMode !== PAYMODE.POSTPAID &&
+      env.EnvChannel !== ENV_CHANNEL.LOWCODE
+    ) {
       throw new Error(
         '网站托管当前只能部署到按量付费的环境下，请先在控制台切换计费方式'
       );
     }
+    this.env = env;
   }
 
   /**
@@ -351,6 +372,17 @@ class WebsitePlugin extends Plugin {
     this.website = website;
 
     return website;
+  }
+
+  async fetchServiceDomain() {
+    const serviceInfo = await this.api.cloudApi.tcbUinService.request(
+      'DescribeCloudBaseGWService',
+      {
+        ServiceId: this.api.envId,
+        EnableRegion: true,
+      }
+    );
+    return serviceInfo.DefaultDomain;
   }
 }
 

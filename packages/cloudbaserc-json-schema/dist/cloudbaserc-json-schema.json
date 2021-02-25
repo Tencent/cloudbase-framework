@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "id": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json",
+  "$id": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json",
   "title": "CloudBase CLI Configuration",
   "type": "object",
   "properties": {
@@ -21,6 +21,11 @@
     "envId": {
       "type": "string",
       "description": "envId 代表环境 ID，是环境的唯一标识。"
+    },
+    "region": {
+      "type": "string",
+      "description": "环境所在地域",
+      "default": "ap-shanghai"
     },
     "functionRoot": {
       "type": "string",
@@ -63,7 +68,7 @@
           }
         },
         "hooks": {
-          "$id": "HooksConfig",
+          "$id": "#HooksConfig",
           "type": "object",
           "title": "生命周期",
           "description": "Framework 1.2.x 版本支持，CloudBase Framework 部署前后的钩子配置，可以在这里自定义应用不同生命周期的执行动作",
@@ -96,7 +101,7 @@
           ],
           "properties": {
             "preDeploy": {
-              "$id": "PreDeployHooksConfig",
+              "$id": "#PreDeployHooksConfig",
               "type": "object",
               "title": "preDeploy 钩子",
               "description": "在执行 framework deploy 之前执行的钩子",
@@ -113,11 +118,15 @@
                 "type",
                 "commands"
               ],
-              "$ref": "#/definitions/hooksExecCommand",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/hooksExecCommand"
+                }
+              ],
               "additionalProperties": true
             },
             "postDeploy": {
-              "$id": "PostDeployHooksConfig",
+              "$id": "#PostDeployHooksConfig",
               "type": "object",
               "title": "postDeploy 钩子",
               "description": "在执行 framework deploy 部署资源成功后执行的钩子",
@@ -135,7 +144,6 @@
     }
   },
   "required": [
-    "envId",
     "framework"
   ],
   "definitions": {
@@ -763,6 +771,11 @@
               "default": "functions",
               "type": "string"
             },
+            "functionDefaultConfig": {
+              "description": "云函数默认配置\nCloudBaseFramework 1.6.1 以后支持\n单个函数的配置会在该默认配置的基础上进行 merge",
+              "default": {},
+              "$ref": "#/definitions/ICloudFunction"
+            },
             "functions": {
               "description": "函数配置数组",
               "type": "array",
@@ -773,6 +786,10 @@
             "servicePaths": {
               "description": "服务路径配置\n\n如\n\n```json\n{\n   \"hello-world\": \"/helloworld\"\n}\n```",
               "$ref": "#/definitions/Record<string,string>"
+            },
+            "publishIncludeList": {
+              "description": "1.6.16 版本以后支持\n如果指定，则只发布列表中的函数\n字符串格式，格式如 'fn1,fn2'",
+              "type": "string"
             }
           },
           "$schema": "http://json-schema.org/draft-07/schema#"
@@ -827,6 +844,18 @@
           ],
           "type": "number"
         },
+        "memorySize": {
+          "description": "函数运行时内存配置",
+          "default": 128,
+          "enum": [
+            1024,
+            128,
+            2048,
+            256,
+            512
+          ],
+          "type": "number"
+        },
         "vpc": {
           "description": "VPC",
           "$ref": "#/definitions/IFunctionVPC"
@@ -861,6 +890,29 @@
         "bumpVersion": {
           "description": "是否自动创建新版本",
           "type": "boolean"
+        },
+        "triggers": {
+          "description": "函数触发器配置",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ICloudFunctionTrigger"
+          }
+        },
+        "publicNet": {
+          "description": "是否可以在云函数访问公网，默认情况开启，配置云函数VPC后，默认公网访问会关闭\n取值['ENABLE','DISABLE']",
+          "enum": [
+            "DISABLE",
+            "ENABLE"
+          ],
+          "type": "string"
+        },
+        "eip": {
+          "description": "是否开启 eip 固定外网 ip 能力，免费环境不可用\n取值['ENABLE','DISABLE']",
+          "enum": [
+            "DISABLE",
+            "ENABLE"
+          ],
+          "type": "string"
         }
       },
       "required": [
@@ -886,6 +938,25 @@
     },
     "Record<string,any>": {
       "type": "object"
+    },
+    "ICloudFunctionTrigger": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "config",
+        "name",
+        "type"
+      ]
     },
     "IFrameworkPluginContainerInputsConfig": {
       "$id": "#/definitions/IFrameworkPluginContainerInputsConfig",
@@ -1173,7 +1244,7 @@
             "$ref": "#/definitions/ICreateIndex"
           }
         },
-        "DropIndexes": {
+        "dropIndexes": {
           "description": "删除的索引",
           "type": "array",
           "items": {

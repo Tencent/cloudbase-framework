@@ -2,7 +2,7 @@
   "files": [
     "README.md"
   ],
-  "imageSize": 100,
+  "imageSize": 70,
   "commit": false,
   "contributors": [
     {
@@ -271,7 +271,8 @@
       "avatar_url": "https://avatars2.githubusercontent.com/u/424491?v=4",
       "profile": "http://imnerd.org",
       "contributions": [
-        "code"
+        "code",
+        "example"
       ]
     },
     {
@@ -282,9 +283,90 @@
       "contributions": [
         "example"
       ]
+    },
+    {
+      "login": "Handsomedoggy",
+      "name": "Doggy",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/33211616?v=4",
+      "profile": "https://github.com/Handsomedoggy",
+      "contributions": [
+        "example"
+      ]
+    },
+    {
+      "login": "nasawz",
+      "name": "nasa.wang",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/372910?v=4",
+      "profile": "https://github.com/nasawz",
+      "contributions": [
+        "example"
+      ]
+    },
+    {
+      "login": "pandagis",
+      "name": "pandagis",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/5012180?v=4",
+      "profile": "https://github.com/pandagis",
+      "contributions": [
+        "example"
+      ]
+    },
+    {
+      "login": "beetcb",
+      "name": "beet",
+      "avatar_url": "https://avatars.githubusercontent.com/u/63141491?v=4",
+      "profile": "http://www.beetcb.com",
+      "contributions": [
+        "example"
+      ]
+    },
+    {
+      "login": "liyupi",
+      "name": "程序员鱼皮",
+      "avatar_url": "https://avatars.githubusercontent.com/u/26037703?v=4",
+      "profile": "https://www.code-nav.cn",
+      "contributions": [
+        "example"
+      ]
+    },
+    {
+      "login": "LanHao0",
+      "name": "LanHao",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14994590?v=4",
+      "profile": "https://lanhaoo.club/",
+      "contributions": [
+        "example"
+      ]
+    },
+    {
+      "login": "manfwh",
+      "name": "manfwh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23977810?v=4",
+      "profile": "https://github.com/manfwh",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "hal-wang",
+      "name": "H",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39717597?v=4",
+      "profile": "https://blog.hal.wang",
+      "contributions": [
+        "example"
+      ]
+    },
+    {
+      "login": "webpoin",
+      "name": "二鸟",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5368822?v=4",
+      "profile": "https://github.com/webpoin",
+      "contributions": [
+        "example"
+      ]
     }
   ],
-  "contributorsPerLine": 7,
+  "contributorsPerLine": 8,
   "projectName": "cloudbase-framework",
   "projectOwner": "Tencent",
   "repoType": "github",

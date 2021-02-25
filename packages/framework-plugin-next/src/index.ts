@@ -7,7 +7,8 @@
  */
 import { exec } from 'child_process';
 import { promisify } from 'util';
-import fs from 'fs';
+import fs from 'fs-extra';
+import path from 'path';
 
 import { Plugin, PluginServiceApi } from '@cloudbase/framework-core';
 import { plugin as FunctionPlugin } from '@cloudbase/framework-plugin-function';
@@ -115,10 +116,15 @@ class NextPlugin extends Plugin {
    */
   async init() {
     this.api.logger.debug('NextPlugin: init', this.resolvedInputs);
-
-    if (fs.existsSync('package.json')) {
+    const packageJsonPath = path.resolve(
+      this.resolvedInputs.entry,
+      'package.json'
+    );
+    if (fs.existsSync(packageJsonPath)) {
       this.api.logger.info('npm install');
-      return promisify(exec)('npm install');
+      return promisify(exec)('npm install', {
+        cwd: this.resolvedInputs.entry,
+      });
     }
   }
 
@@ -149,10 +155,19 @@ class NextPlugin extends Plugin {
   async build() {
     this.api.logger.debug('NextPlugin: build', this.resolvedInputs);
 
+    const nextConfigPath = path.resolve(this.resolvedInputs.entry, 'next.config.js');
+
+    if (!await fs.pathExists(nextConfigPath)) {
+      this.api.logger.info(`create next.config.js and set basePath: ${this.resolvedInputs.path}` );
+      await fs.writeFile(nextConfigPath, `module.exports = { basePath: '${this.resolvedInputs.path}' }`);
+    }
+
     const { buildCommand } = this.resolvedInputs;
 
     if (buildCommand) {
-      await promisify(exec)(buildCommand);
+      await promisify(exec)(buildCommand, {
+        cwd: this.resolvedInputs.entry
+      });
     }
 
     this.buildOutput = await this.builder.build(this.resolvedInputs.entry, {

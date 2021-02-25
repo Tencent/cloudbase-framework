@@ -8,13 +8,14 @@
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import fs from 'fs';
+import path from 'path';
 
 import { Plugin, PluginServiceApi } from '@cloudbase/framework-core';
 import { plugin as FunctionPlugin } from '@cloudbase/framework-plugin-function';
 import { NuxtBuilder } from '@cloudbase/nuxt-builder';
 
 const DEFAULT_INPUTS = {
-  memory: 128,
+  memory: 256,
   timeout: 5,
   runtime: 'Nodejs10.15',
   entry: './',
@@ -101,9 +102,15 @@ class NuxtPlugin extends Plugin {
   async init() {
     this.api.logger.debug('NuxtPlugin: init', this.resolvedInputs);
     const { installCommand } = this.resolvedInputs;
-    if (fs.existsSync('package.json')) {
+    const packageJsonPath = path.resolve(
+      this.resolvedInputs.entry,
+      'package.json'
+    );
+    if (fs.existsSync(packageJsonPath)) {
       this.api.logger.info(installCommand);
-      return promisify(exec)(installCommand);
+      return promisify(exec)(installCommand, {
+        cwd: this.resolvedInputs.entry,
+      });
     }
   }
 
@@ -137,7 +144,9 @@ class NuxtPlugin extends Plugin {
     const { buildCommand } = this.resolvedInputs;
 
     if (buildCommand) {
-      await promisify(exec)(buildCommand);
+      await promisify(exec)(buildCommand, {
+        cwd: this.resolvedInputs.entry,
+      });
     }
 
     this.buildOutput = await this.builder.build(this.resolvedInputs.entry, {

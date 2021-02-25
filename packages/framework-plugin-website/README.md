@@ -77,13 +77,19 @@ cloudbase framework deploy
 
 ### 配置参数说明
 
-### `installCommand`
+### commands
+
+选填，对象格式
+
+自定义命令，声明应用安装/构建的自定义命令，会在当前项目目录下进行执行
+
+#### `commands.install`
 
 安装命令，如`npm install`，没有可不传
 
 默认值 `npm install --prefer-offline --no-audit --progress=false`
 
-### `buildCommand`
+#### `commands.build`
 
 构建命令，如`npm run build`，没有可不传
 
@@ -103,7 +109,21 @@ cloudbase framework deploy
 
 ### `envVariables`
 
-环境变量键值对，会被注入到静态网站根目录下的 `/cloudbaseenv.json`
+环境变量键值对，会被注入到静态网站根目录下，可以在网页 html head 里加入一行代码来获取
+
+```html
+<script src="/_init_tcb-env.js"></script>
+```
+
+在 JS 代码中就可以通过 `window._tcbEnv` 来获取所有的变量
+
+注入的环境变量有：
+
+- `TCB_ENV_ID`: 当前环境的环境 ID
+- `TCB_SERVICE_DOMAIN`: 当前环境的云开发 HTTP 访问的默认域名（云接入域名）
+- 以及用户注入的其他 `envVariables`
+
+> 注意同一环境下不同 web 应用的变量会进行合并，可以在环境变量命名时加以区分
 
 ## 更多插件
 

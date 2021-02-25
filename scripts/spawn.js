@@ -8,32 +8,34 @@
 
 const { spawn } = require('child_process');
 
-async function spawnPromise(command, options) {
+async function spawnPromise(command, options, args) {
   return new Promise((resolve, reject) => {
     const cm = spawn(
       command,
+      args,
       Object.assign(
         {
           shell: true,
-          stdio: 'inherit',
+           // stderr 使用 process.stderr 用于收集错误
+          stdio: ['inherit', 'inherit', 'pipe'],
         },
-        options
-      )
+        options,
+      ),
     );
 
     let stdout = '';
-    cm.stdout &&
-      cm.stdout.on('data', (data) => {
+    cm.stdout
+      && cm.stdout.on('data', (data) => {
         stdout += data;
       });
     let stderr = '';
-    cm.stderr &&
-      cm.stdout.on('data', (data) => {
+    cm.stderr
+      && cm.stderr.on('data', (data) => {
         stderr += data;
       });
 
     cm.on('error', reject);
-    cm.on('close', (code) => (code === 0 ? resolve(stdout) : reject(stderr)));
+    cm.on('close', code => (code === 0 ? resolve(stdout) : reject(stderr)));
   });
 }
 

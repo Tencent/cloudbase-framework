@@ -20,7 +20,7 @@ builder.build(path.resolve(__dirname, './project/entry.js')).then((result) => {
   assert.equal(
     require(output).dependencies.axios,
     require(input).dependencies.axios,
-    '继承了项目中的 axios 依赖'
+    '继承了项目中的 axios 依赖',
   );
   console.log(result);
 });

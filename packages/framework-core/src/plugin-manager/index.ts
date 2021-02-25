@@ -13,14 +13,13 @@ import fs from 'fs';
 
 const corePackageInfo = require('../../package');
 
-import { install } from './pkg-install';
+import { npmInstallWithCheck } from './pkg-install';
 import { emoji } from '../utils/emoji';
 import { Config } from '../types';
 import Context from '../context';
 import Plugin from '../plugin';
 import PluginServiceApi from '../plugin-service-api';
 import { mkdirSync } from '@cloudbase/toolbox';
-import { spawnPromise } from '../utils/spawn';
 
 interface PluginData {
   id: string;
@@ -69,20 +68,7 @@ export default class PluginManager {
    * @param id
    */
   async init(id?: string) {
-    try {
-      await this.pluginInstallPromise;
-      this.context.logger.debug(
-        '插件版本信息',
-        JSON.parse(
-          (await spawnPromise('npm ls', ['--depth=0', '--json'], {
-            cwd: this.pluginRegistry,
-            stdio: 'pipe',
-          })) as string
-        )
-      );
-    } catch (e) {
-      this.context.logger.debug(e);
-    }
+    await this.pluginInstallPromise;
 
     return this.callPluginHook('init', {
       id,
@@ -205,27 +191,13 @@ export default class PluginManager {
 
     let PluginCode: Plugin | undefined;
 
-    try {
-      await this.pluginInstallPromise;
-    } catch (e) {
-      this.context.logger.error(e);
-      throw new Error(
-        `CloudBase Framework: can't install plugin npm package '${pluginData.name}'`
-      );
-    }
+    await this.pluginInstallPromise;
 
-    try {
-      PluginCode = require(path.join(
-        this.pluginRegistry,
-        'node_modules',
-        pluginData.name
-      )).plugin;
-    } catch (e) {
-      this.context.logger.error(e);
-      throw new Error(
-        `CloudBase Framework: can't find plugin '${pluginData.name}'`
-      );
-    }
+    PluginCode = require(path.join(
+      this.pluginRegistry,
+      'node_modules',
+      pluginData.name
+    )).plugin;
 
     if (!PluginCode) {
       this.context.logger.error(
@@ -259,7 +231,7 @@ export default class PluginManager {
    */
   private async installPackage(packageInfo: Record<string, string>) {
     this.context.logger.info(`${emoji('📦')} install plugins`);
-    await install(
+    await npmInstallWithCheck(
       {
         ...packageInfo,
       },

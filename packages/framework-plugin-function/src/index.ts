@@ -10,6 +10,8 @@ import archiver from 'archiver';
 import fs from 'fs';
 import { Plugin, PluginServiceApi, Builder } from '@cloudbase/framework-core';
 import { mkdirSync } from '@cloudbase/toolbox';
+import merge from 'lodash.merge';
+
 /**
  * 导出接口用于生成 JSON Schema 来进行智能提示
  */
@@ -19,6 +21,15 @@ export interface IFrameworkPluginFunctionInputs {
    * @default functions
    */
   functionRootPath?: string;
+
+  /**
+   * 云函数默认配置
+   * CloudBaseFramework 1.6.1 以后支持
+   * 单个函数的配置会在该默认配置的基础上进行 merge
+   * @default {}
+   */
+  functionDefaultConfig?: ICloudFunction;
+
   /**
    * 函数配置数组
    */
@@ -36,6 +47,12 @@ export interface IFrameworkPluginFunctionInputs {
    * ```
    */
   servicePaths?: Record<string, string>;
+  /**
+   * 1.6.16 版本以后支持
+   * 如果指定，则只发布列表中的函数
+   * 字符串格式，格式如 'fn1,fn2'
+   */
+  publishIncludeList?: string;
 }
 
 export interface IFunctionTriggerOptions {
@@ -77,8 +94,15 @@ export interface ICloudFunction {
   /**
    * 函数运行时内存配置
    * @default 128
+   * @deprecated
    */
   memory?: 128 | 256 | 512 | 1024 | 2048;
+
+  /**
+   * 函数运行时内存配置
+   * @default 128
+   */
+  memorySize?: 128 | 256 | 512 | 1024 | 2048;
   /**
    * VPC
    */
@@ -115,6 +139,22 @@ export interface ICloudFunction {
    * 是否自动创建新版本
    */
   bumpVersion?: boolean;
+
+  /**
+   * 函数触发器配置
+   */
+  triggers?: ICloudFunctionTrigger[];
+
+  /**
+   * 是否可以在云函数访问公网，默认情况开启，配置云函数VPC后，默认公网访问会关闭
+   * 取值['ENABLE','DISABLE']
+   */
+  publicNet?: 'ENABLE' | 'DISABLE';
+  /**
+   * 是否开启 eip 固定外网 ip 能力，免费环境不可用
+   * 取值['ENABLE','DISABLE']
+   */
+  eip?: 'ENABLE' | 'DISABLE';
 }
 
 export interface IFunctionVPC {
@@ -157,23 +197,40 @@ class FunctionPlugin extends Plugin {
       functionRootPath: config?.functionRoot || 'cloudfunctions',
       functions: config?.functions,
       servicePaths: {},
+      functionDefaultConfig: config?.functionDefaultConfig,
     };
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
 
-    this.resolvedInputs.functions = this.resolvedInputs.functions.map(
-      (func: any) => {
-        return Object.assign(
+    let publishIncludeList: string[];
+    if (this.resolvedInputs.publishIncludeList) {
+      this.api.logger.debug(
+        'publishIncludeList',
+        this.resolvedInputs.publishIncludeList
+      );
+      publishIncludeList = this.resolvedInputs.publishIncludeList.split(',');
+    }
+
+    this.resolvedInputs.functions = this.resolvedInputs.functions
+      .filter((func) => {
+        if (publishIncludeList) {
+          return publishIncludeList.includes(func.name);
+        } else {
+          return true;
+        }
+      })
+      .map((func: any) => {
+        return merge(
           {},
           {
             runtime: 'Nodejs10.15',
             installDependency: true,
             handler: 'index.main',
           },
+          this.resolvedInputs.functionDefaultConfig,
           func
         );
-      }
-    );
+      });
 
     this.functions = this.resolvedInputs.functions;
     this.functionRootPath = path.isAbsolute(
@@ -193,6 +250,9 @@ class FunctionPlugin extends Plugin {
    */
   async init() {
     this.api.logger.debug('FunctionPlugin: init', this.resolvedInputs);
+    if (!this.functions?.length) {
+      throw new Error('云函数插件配置有误，函数列表为空');
+    }
   }
 
   async compile() {
@@ -335,16 +395,17 @@ class FunctionPlugin extends Plugin {
             '无服务器执行环境，帮助您在无需购买和管理服务器的情况下运行代码',
           Runtime: functionConfig.runtime,
           FunctionName: functionConfig.name,
-          MemorySize: functionConfig.memory || 128,
+          MemorySize: functionConfig.memorySize || functionConfig.memory || 128,
           Timeout: functionConfig.timeout || 5,
           Environment: {
             Variables: normalizeEnvironments(functionConfig.envVariables),
           },
           VpcConfig: {
             VpcId:
-              functionConfig.vpc?.vpcId || networkConfig?.uniqVpcId
+              functionConfig.vpc?.vpcId ||
+              (networkConfig?.uniqVpcId
                 ? '${Outputs.Network.Properties.InstanceId}'
-                : undefined,
+                : undefined),
             SubnetId: functionConfig.vpc?.subnetId,
           },
           HttpPath: this.resolvedInputs.servicePaths[functionConfig.name],
@@ -356,6 +417,8 @@ class FunctionPlugin extends Plugin {
           CodeUri: this.outputs[functionConfig.name]?.codeUri,
           CodeSecret: !!functionConfig.codeSecret,
           Role: 'TCB_QcsRole',
+          PublicNetStatus: functionConfig.publicNet,
+          EipStatus: functionConfig.eip,
         },
         (this.api.bumpVersion || functionConfig.bumpVersion) && {
           NewVersion: true,
@@ -366,6 +429,19 @@ class FunctionPlugin extends Plugin {
         functionConfig.aclRule && {
           AclTag: 'CUSTOM' as AclTag,
           AclRule: this.genAclRule(functionConfig),
+        },
+        functionConfig.triggers?.length && {
+          Events: functionConfig.triggers.reduce((prev, cur) => {
+            (prev as Record<string, any>)[cur.name] = {
+              Type: 'Timer',
+              Properties: {
+                CronExpression: cur.config,
+                Message: cur.name,
+                Enable: true,
+              },
+            };
+            return prev;
+          }, {}),
         }
       ),
     });

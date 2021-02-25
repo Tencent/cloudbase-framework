@@ -71,7 +71,7 @@ export class NextBuilder extends Builder {
     }
 
     // package.json
-    const packageJson = await this.generatePackageJson();
+    const packageJson = await this.generatePackageJson(entry);
     await fs.writeFile(path.resolve(serviceDir, 'package.json'), packageJson);
 
     // next.config.js，需要babel转为es5
@@ -105,17 +105,17 @@ export class NextBuilder extends Builder {
     };
   }
 
-  async resolveOriginalPackageJson() {
+  async resolveOriginalPackageJson(entry: string) {
     const { projectDir } = this;
-    const packageJsonPath = path.resolve(projectDir, 'package.json');
+    const packageJsonPath = path.resolve(projectDir, entry, 'package.json');
     if (!(await fs.pathExists(packageJsonPath))) {
       throw new Error('未找到Next项目的package.json');
     }
     return JSON.parse(await fs.readFile(packageJsonPath, 'utf-8'));
   }
 
-  async generatePackageJson() {
-    const originalPackageJson = await this.resolveOriginalPackageJson();
+  async generatePackageJson(entry: string) {
+    const originalPackageJson = await this.resolveOriginalPackageJson(entry);
     const json = {
       name: originalPackageJson.name,
       dependencies: {
@@ -135,7 +135,11 @@ export class NextBuilder extends Builder {
       });
       output.on('close', resolve);
       archive.on('error', reject);
-      archive.directory(src, false);
+      archive.glob('**/*', {
+        cwd: src,
+        dot: true,
+        follow: true,
+      });
       archive.pipe(output);
       archive.finalize();
     });

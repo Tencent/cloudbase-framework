@@ -40,7 +40,7 @@ export interface ICollectionInputs {
   /**
    * 删除的索引
    */
-  DropIndexes?: IDropIndex[];
+  dropIndexes?: IDropIndex[];
   /**
    * 权限标签。包含以下取值： READONLY：所有用户可读，仅创建者和管理员可写 PRIVATE：仅创建者及管理员可读写 ADMINWRITE：所有用户可读，仅管理员可写 ADMINONLY：仅管理员可读写 CUSTOM：自定义安全规则
    */
@@ -167,7 +167,13 @@ class DatabasePlugin extends Plugin {
         let replacement: Record<string, any> = Array.isArray(value) ? [] : {};
         for (var k in value) {
           if (Object.hasOwnProperty.call(value, k)) {
-            replacement[pascalCase(k)] = value[k];
+            let v = value[k];
+
+            if (k === 'aclRule') {
+              v = JSON.stringify(v);
+            }
+
+            replacement[pascalCase(k)] = v;
           }
         }
         return replacement;

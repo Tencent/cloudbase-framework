@@ -39,6 +39,7 @@ export async function createAndDeployCloudBaseProject({
   Source,
   AddonConfig,
   NetworkConfig,
+  Tags,
 }: {
   Name: string;
   Parameters: Record<string, string>[];
@@ -46,6 +47,7 @@ export async function createAndDeployCloudBaseProject({
   Source: Record<string, any>;
   AddonConfig: string;
   NetworkConfig: string;
+  Tags: string[];
 }) {
   return CloudApi.tcbService.request('CreateAndDeployCloudBaseProject', {
     Name,
@@ -54,6 +56,36 @@ export async function createAndDeployCloudBaseProject({
     Source,
     AddonConfig,
     NetworkConfig,
+    Tags,
     Type: 'framework-oneclick-local',
+  });
+}
+
+/**
+ * 上报部署状态
+ */
+export function reportCloudBaseCIResultCallback({
+  ciId,
+  extensionId,
+  failReason,
+  status,
+  buildLog,
+  failType,
+}: {
+  ciId: string;
+  extensionId?: string;
+  failReason?: string;
+  failType?: string;
+  status: number;
+  buildLog: string;
+}) {
+  return CloudApi.tcbService.request('CloudBaseCIResultCallback', {
+    CIID: ciId,
+    TraceId: ciId,
+    ExtensionID: extensionId,
+    FailReason: failReason,
+    Status: status,
+    BuildLog: buildLog,
+    FailType: failType,
   });
 }

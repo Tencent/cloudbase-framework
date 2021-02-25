@@ -6,13 +6,27 @@
  * Please refer to license text included with this package for license details.
  */
 import { CloudApiService, fetchStream, fetch } from '@cloudbase/cloud-api';
+import {
+  getProxy,
+  getRegion,
+  getCredentialWithoutCheck,
+} from '@cloudbase/toolbox';
 
 export interface ICloudApiOptions {
-  secretId: string;
-  secretKey: string;
-  token: string;
   envId: string;
 }
+
+const getCredential = async () => {
+  const credential = await getCredentialWithoutCheck();
+  if (!credential) {
+    throw new Error('无有效身份信息，请使用 cloudbase login 登录');
+  }
+
+  return {
+    ...credential,
+    tokenExpired: credential.accessTokenExpired,
+  };
+};
 
 export class CloudApi {
   public static tcbService: CloudApiService;
@@ -23,26 +37,22 @@ export class CloudApi {
   public static fetchStream = fetchStream;
   public static fetch = fetch;
 
-  static init({ secretId, secretKey, token, envId }: ICloudApiOptions) {
+  static async init({ envId }: ICloudApiOptions) {
+    const proxy = getProxy();
+    const region = await getRegion();
     CloudApi.envId = envId;
     CloudApi.tcbService = new CloudApiService({
       service: 'tcb',
-      credential: {
-        secretId,
-        secretKey,
-        token,
-      },
+      getCredential,
       baseParams: { EnvId: envId },
-      ...(process.env.http_proxy ? { proxy: process.env.http_proxy } : {}),
+      ...(region ? { region } : {}),
+      ...(proxy ? { proxy } : {}),
     });
     CloudApi.tcbUinService = new CloudApiService({
       service: 'tcb',
-      credential: {
-        secretId,
-        secretKey,
-        token,
-      },
-      ...(process.env.http_proxy ? { proxy: process.env.http_proxy } : {}),
+      getCredential,
+      ...(region ? { region } : {}),
+      ...(proxy ? { proxy } : {}),
     });
   }
 

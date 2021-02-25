@@ -58,9 +58,7 @@ const supportPluginsConfig = [
 ];
 
 supportPluginsConfig.forEach((plugin) => {
-  const inputsSchema = typesSchemasGenerator.getSchemaForSymbol(
-    plugin.inputsInterfaceName
-  );
+  const inputsSchema = typesSchemasGenerator.getSchemaForSymbol(plugin.inputsInterfaceName);
   const { definitions } = inputsSchema;
 
   delete inputsSchema.definitions;
@@ -89,5 +87,5 @@ supportPluginsConfig.forEach((plugin) => {
 
 fs.writeFileSync(
   path.join(__dirname, '../dist/cloudbaserc-json-schema.json'),
-  JSON.stringify(baseSchema, null, 2)
+  JSON.stringify(baseSchema, null, 2),
 );

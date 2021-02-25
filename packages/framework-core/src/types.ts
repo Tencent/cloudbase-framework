@@ -81,6 +81,7 @@ export interface ICloudBaseConfig {
   envId: string;
   functionRoot?: string;
   functions?: ICloudFunction[];
+  functionDefaultConfig?: ICloudFunction;
   servers?: ServerConfig[];
   framework?: Config;
 }

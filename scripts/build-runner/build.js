@@ -14,7 +14,13 @@ const { writeFileSync } = require('fs');
 
 const coreVersion = require('../../lerna.json').version;
 const tag = process.env.BUILD_TAG || 'latest';
-const tagName = `tencentcloudbase/cloudbase-framework-runner:${tag}`;
+const namespaceDockerHub = 'tencentcloudbase';
+const namespaceCcr = 'cloudbaseframework';
+const image = 'cloudbase-framework-runner';
+const imageName = `${namespaceDockerHub}/${image}`;
+const ccrImageName = `${namespaceCcr}/${image}`;
+const tagNameWithVersion = `${imageName}:${coreVersion}`;
+const tagName = `${imageName}:${tag}`;
 
 const promisifyGlob = promisify(glob);
 
@@ -24,10 +30,15 @@ const promisifyGlob = promisify(glob);
   });
   const packages = {
     name: 'cloudbase-framework-registry',
-    dependencies: builtInPlugins.reduce((prev, cur) => {
-      prev[`@cloudbase/${cur}`] = `^${coreVersion}`;
-      return prev;
-    }, {}),
+    dependencies: builtInPlugins.reduce(
+      (prev, cur) => {
+        prev[`@cloudbase/${cur}`] = `^${coreVersion}`;
+        return prev;
+      },
+      {
+        '@cloudbase/framework-plugin-low-code': '0.2.5',
+      }
+    ),
   };
 
   console.log(packages);
@@ -38,12 +49,27 @@ const promisifyGlob = promisify(glob);
   );
 
   await spawnPromise(
-    `docker build --build-arg tag=${tag} --no-cache -t ${tagName} .`,
+    `docker build --build-arg tag=${tag} --no-cache -t ${tagNameWithVersion} .`,
     {
       cwd: path.join(__dirname, './src'),
     }
   );
 
-  // 推送镜像
+  await spawnPromise(`docker tag ${tagNameWithVersion} ${tagName}`, {
+    cwd: path.join(__dirname, './src'),
+  });
+  await spawnPromise(
+    `docker tag ${tagNameWithVersion} ccr.ccs.tencentyun.com/${ccrImageName}:${coreVersion}`,
+    {
+      cwd: path.join(__dirname, './src'),
+    }
+  );
+
+  await // 推送镜像
+  await spawnPromise(`docker push ${tagNameWithVersion}`, {});
   await spawnPromise(`docker push ${tagName}`, {});
+  await spawnPromise(
+    `docker push ccr.ccs.tencentyun.com/${ccrImageName}:${coreVersion}`,
+    {}
+  );
 })();

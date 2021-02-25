@@ -5,10 +5,11 @@
     "dev:all": "npm run bootstrap && npm run link && npm run dev",
     "bootstrap": "lerna bootstrap --no-ci",
     "dev": "lerna run dev --stream --parallel",
-    "prebuild": "rm -rf **/tsconfig.tsbuildinfo",
+    "prebuild": "rimraf '**/tsconfig.tsbuildinfo'",
     "build": "lerna run build",
     "prepublishOnly": "npm run build && lerna run prepublishOnly",
-    "publish": "lerna publish",
+    "publish": "lerna publish --registry https://registry.npmjs.org/",
+    "postpublish": "node scripts/sync-mirrors.js",
     "publish:beta": "lerna publish --canary --preid beta --pre-dist-tag beta",
     "test": "lerna run test",
     "lint": "npx eslint . --fix",
@@ -23,7 +24,6 @@
     "build:markdown": "node scripts/markdown-render.js"
   },
   "devDependencies": {
-    "@tencent/eslint-config-tencent": "^0.12.2",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
     "@typescript-eslint/parser": "^4.6.1",
     "conventional-changelog-cli": "^2.0.34",
@@ -35,9 +35,12 @@
     "typescript": "^4.0.5"
   },
   "dependencies": {
-    "@cloudbase/toolbox": "^0.4.11",
+    "@cloudbase/toolbox": "^0.6.0",
     "del": "^5.1.0",
-    "mdmod": "^0.4.0"
+    "eslint-config-tencent": "^1.0.0",
+    "got": "^11.8.1",
+    "mdmod": "^0.4.0",
+    "rimraf": "^3.0.2"
   },
   "config": {
     "commitizen": {

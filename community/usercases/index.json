@@ -48,6 +48,12 @@
     "logo": ""
   },
   {
+    "name": "ShowMess实时弹幕",
+    "link": "https://f.cloudbase.vip",
+    "repo": "https://github.com/TCloudBase/WXAPP-WEB-ShowMess",
+    "logo": ""
+  },
+  {
     "name": "校拍",
     "link": "",
     "repo": "https://github.com/1377283509/CampusShooting",
@@ -70,5 +76,65 @@
     "link": "https://twikoo.js.org/",
     "repo": "https://github.com/imaegoo/twikoo",
     "logo": "https://696d-imaegoo-16fe3d-1252243992.tcb.qcloud.la/logo/twikoo.png"
+  },
+  {
+    "name": "实时地震",
+    "link": "",
+    "repo": "",
+    "logo": "https://6f6e-one-f81300-1255396116.tcb.qcloud.la/quake_qr.jpg"
+  },
+  {
+    "name": "可道云网盘",
+    "link": "",
+    "repo": "https://github.com/Handsomedoggy/KodExplorer",
+    "logo": "https://github.com/Handsomedoggy/KodExplorer/blob/master/logo.png"
+  },
+  {
+    "name": "NiceUp",
+    "link": "https://nice-9goo8zpofac7bee9-1304765945.tcloudbaseapp.com/docs/",
+    "repo": "https://github.com/nasawz/niceup",
+    "logo": "https://md-1256312109.cos.ap-beijing.myqcloud.com/uPic/Group.svg"
+  },
+  {
+    "name": "道德文章",
+    "link": "https://daodewenzhang.cn",
+    "repo": "",
+    "logo": "https://daodewenzhang.cn/img/ic_launcher.png"
+  },
+  {
+    "name": "OneDrive 图床",
+    "link": "https://sosf.beetcb.com/?path=/demo.svg",
+    "repo": "https://github.com/beetcb/sosf",
+    "logo": ""
+  },
+  {
+    "name": "Waline 评论系统",
+    "link": "https://waline.js.org/",
+    "repo": "https://github.com/lizheming/waline",
+    "logo": "https://cdn.jsdelivr.net/gh/lizheming/waline/assets/waline.png"
+  },
+  {
+    "name": "编程主页",
+    "link": "https://home.code-nav.cn",
+    "repo": "https://github.com/liyupi/code-nav/tree/master/code-nav-home",
+    "logo": "https://636f-codenav-8grj8px727565176-1256524210.tcb.qcloud.la/img/1610686940692-logo.3c8859f8.png"
+  },
+  {
+    "name": "全球空气质量监测可视化",
+    "link": "http://worldair.lanhaoo.club/",
+    "repo": "https://github.com/LanHao0/cloudbase-global-aqi-visualize",
+    "logo": "https://github.com/LanHao0/cloudbase-global-aqi-visualize/blob/master/worldAir.png"
+  },
+  {
+    "name": "cloudbase-access",
+    "link": "",
+    "repo": "https://github.com/hal-wang/cloudbase-access",
+    "logo": "https://raw.githubusercontent.com/hal-wang/cloudbase-access/main/logo.png"
+  },
+  {
+    "name": "腾讯教育官网",
+    "link": "https://edu.tencent.com/",
+    "repo": "",
+    "logo": "https://edu.tencent.com/favicon.ico"
   }
 ]

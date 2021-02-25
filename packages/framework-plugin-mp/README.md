@@ -80,9 +80,29 @@ cloudbase framework deploy
 
 选填，小程序应用的部署私钥内容，需要经过 base64 编码
 
+可以使用 [小程序部署密钥转换小工具](https://framework-1258016615.tcloudbaseapp.com/mp-key-tool/) 来转换为 Base64
+
 ### `privateKeyPath`
 
 选填，小程序应用的部署私钥的本地相对路径，默认值 "./private.key"
+
+
+### commands 
+
+选填，对象格式
+
+自定义命令，声明应用安装/构建的自定义命令，会在当前项目目录下进行执行
+
+
+#### `commands.install`
+
+安装命令，如`npm install`，没有可不传
+
+默认会在小程序目录执行 `npm install --prefer-offline --no-audit --progress=false`
+
+#### `commands.build`
+
+构建命令，如`npm run build`，没有可不传
 
 ### `localPath`
 

@@ -16,14 +16,10 @@ async function copyPlugins() {
   const packagesDir = path.join(__dirname, '../../packages');
   let files = await promisify(fs.readdir)(packagesDir);
 
-  files = files.filter((file) => /^framework-plugin/.test(file));
+  files = files.filter(file => /^framework-plugin/.test(file));
 
-  return Promise.all(
-    files.map((file) =>
-      promisify(fs.copyFile)(
-        path.join(packagesDir, file, 'README.md'),
-        path.join(dest, `${file}.md`)
-      )
-    )
-  );
+  return Promise.all(files.map(file => promisify(fs.copyFile)(
+    path.join(packagesDir, file, 'README.md'),
+    path.join(dest, `${file}.md`),
+  )));
 }

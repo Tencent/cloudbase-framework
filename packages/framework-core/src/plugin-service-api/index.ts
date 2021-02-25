@@ -6,6 +6,7 @@
  * Please refer to license text included with this package for license details.
  */
 import PluginManager from '../plugin-manager';
+import { checkAndGetCredential as getCredential } from '@cloudbase/toolbox';
 import CloudbaseManager from '@cloudbase/manager-node';
 import { Logger } from '../logger';
 import { ResourceProviders } from '../types';
@@ -14,6 +15,7 @@ import { Generator } from '../generator';
 import { CloudApi } from '../api';
 import { emoji } from '../utils/emoji';
 import { SamManager } from '../sam';
+import { spawnPromise } from '../utils/spawn'
 
 /**
  * 插件服务注入为插件提供的 API
@@ -57,7 +59,15 @@ export default class PluginServiceApi {
   }
 
   /**
+   * 获取当前账号 API 密钥信息
+   */
+  get getCredential(): typeof getCredential {
+    return getCredential;
+  }
+
+  /**
    * secretId
+   * @deprecated
    */
   get secretId(): string {
     return this.pluginManager.context.cloudbaseConfig.secretId || '';
@@ -65,6 +75,7 @@ export default class PluginServiceApi {
 
   /**
    * secretKey
+   * @deprecated
    */
   get secretKey(): string {
     return this.pluginManager.context.cloudbaseConfig.secretKey || '';
@@ -72,6 +83,7 @@ export default class PluginServiceApi {
 
   /**
    * token
+   * @deprecated
    */
   get token(): string {
     return this.pluginManager.context.cloudbaseConfig.token || '';
@@ -105,7 +117,9 @@ export default class PluginServiceApi {
     return new Generator();
   }
 
-  /** 云API */
+  /**
+   * 云API
+   */
   get cloudApi() {
     return CloudApi;
   }
@@ -136,5 +150,19 @@ export default class PluginServiceApi {
    */
   get samManager(): SamManager {
     return this.pluginManager.context.samManager;
+  }
+
+  /**
+   * 获取构建的CIId
+   */
+  get ciId(): string {
+    return this.pluginManager.context.ciId;
+  }
+
+  /**
+   * 调用子进程
+   */
+  get spawnPromise() {
+    return spawnPromise
   }
 }

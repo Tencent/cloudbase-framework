@@ -66,7 +66,7 @@ export class NuxtBuilder extends Builder {
     await fse.copy(nuxtDistPath, path.join(serviceDir, '.nuxt'));
 
     // package.json
-    const packageJson = await this.generatePackageJson();
+    const packageJson = await this.generatePackageJson(entry);
     await fse.writeFile(path.join(serviceDir, 'package.json'), packageJson);
 
     // nuxt.config.js，需要babel转为es5
@@ -107,17 +107,17 @@ export class NuxtBuilder extends Builder {
     };
   }
 
-  async resolveOriginalPackageJson() {
+  async resolveOriginalPackageJson(entry: string) {
     const { projectDir } = this;
-    const packageJsonPath = path.resolve(projectDir, 'package.json');
+    const packageJsonPath = path.resolve(projectDir, entry, 'package.json');
     if (!(await fse.pathExists(packageJsonPath))) {
       throw new Error('未找到Nuxt项目的package.json');
     }
     return JSON.parse(await fse.readFile(packageJsonPath, 'utf-8'));
   }
 
-  async generatePackageJson() {
-    const originalPackageJson = await this.resolveOriginalPackageJson();
+  async generatePackageJson(entry: string) {
+    const originalPackageJson = await this.resolveOriginalPackageJson(entry);
     const json = {
       name: originalPackageJson.name,
       dependencies: {
@@ -137,7 +137,11 @@ export class NuxtBuilder extends Builder {
       });
       output.on('close', resolve);
       archive.on('error', reject);
-      archive.directory(src, false);
+      archive.glob('**/*', {
+        cwd: src,
+        dot: true,
+        follow: true,
+      });
       archive.pipe(output);
       archive.finalize();
     });
