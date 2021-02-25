@@ -28,11 +28,11 @@ jobs:
           npm run build:doc
           cd doc
           git fetch
-          git checkout master
+          git checkout main
           git status
           git add .
           git commit -am "doc(framework): update framework doc"
-          git push origin HEAD:refs/remotes/origin/master
+          git push origin HEAD:refs/remotes/origin/main
           cd ../
           git add .
           git status
