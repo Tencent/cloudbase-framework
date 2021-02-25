@@ -1,0 +1,45 @@
+name: "Build Doc"
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ develop ]
+
+jobs:
+  doc:
+    name: Build Doc
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+          token: ${{ secrets.PAT }}
+          fetch-depth: 0
+      - name: Deploy doc
+        run: |
+          git status
+          git config --global user.name binggg
+          git config --global user.email being99@qq.com
+          npm i
+          npm run build:doc
+          cd doc
+          git fetch
+          git checkout master
+          git status
+          git add .
+          git commit -am "doc(framework): update framework doc"
+          git push origin HEAD:refs/remotes/origin/master
+          cd ../
+          git add .
+          git status
+          git commit -am "doc(readme): update readme doc"
+          git push origin HEAD:refs/remotes/origin/master
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ failure() }}
+        with:
+          limit-access-to-actor: true
