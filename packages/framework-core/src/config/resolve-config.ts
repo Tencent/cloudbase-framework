@@ -227,10 +227,11 @@ async function resolveRcConfig(
     const cloudRcJSON = jsonParse(process.env.TCB_RC_JSON);
 
     extraData = getCIProjectInfo();
-    rcConfig =
-      rcConfig ||
-      (cloudRcJSON &&
-        ((await ConfigParser.parseRawConfig(cloudRcJSON)) as ICloudBaseConfig));
+    // CLI 在 RC 文件不存在的情况下也会生成一份默认配置，需要确定有配置 framework 字段的情况下才取用本地配置
+    rcConfig = rcConfig?.framework
+      ? rcConfig
+      : cloudRcJSON &&
+        ((await ConfigParser.parseRawConfig(cloudRcJSON)) as ICloudBaseConfig);
     // 如果是本地构建，且本地存在配置文件
   } else if (config?.framework) {
     logger.debug('本地构建，本地存在配置文件', config);
