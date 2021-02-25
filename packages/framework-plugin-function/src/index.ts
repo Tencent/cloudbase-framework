@@ -250,7 +250,7 @@ class FunctionPlugin extends Plugin {
    */
   async init() {
     this.api.logger.debug('FunctionPlugin: init', this.resolvedInputs);
-    if (this.functions?.length) {
+    if (!this.functions?.length) {
       throw new Error('云函数插件配置有误，函数列表为空');
     }
   }
