@@ -1,0 +1,49 @@
+name: "Build Doc"
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ master ]
+
+jobs:
+  doc:
+    name: Build Doc
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+          token: ${{ secrets.PAT }}
+          fetch-depth: 0
+      - name: Deploy doc
+        run: |
+          git config --global user.name binggg
+          git config --global user.email being99@qq.com
+          npm i
+          cd doc
+          git fetch
+          git checkout main
+          cd ../
+          npm run build:doc
+          cd doc
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -am "doc(framework): update framework doc"
+            git push
+            cd ../
+            git add .
+            git status
+            git commit -am "doc(readme): update readme doc"
+            git push
+          else
+            echo "no changes";
+          fi
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ failure() }}
+        with:
+          limit-access-to-actor: true
