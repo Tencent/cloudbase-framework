@@ -42,7 +42,7 @@
   </td>
   <td align="center">
   <a href="https://github.com/TencentCloudBase/cloudbase-action" target="_blank">
-    <img width="50%" src="https://main.qcloudimg.com/raw/a12fb63b0b4b345687c99ae0c39257d3.png">
+    <img width="50%" src="https://main.qcloudimg.com/raw/da4424d53b1e593c701c85571ca3799b.png">
   </a>
   </td>
 </tr>
