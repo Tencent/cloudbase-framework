@@ -14,6 +14,7 @@ import { Plugin, PluginServiceApi } from '@cloudbase/framework-core';
 import { BuildResult } from '@cloudbase/framework-core/src/types';
 import { StaticBuilder } from '@cloudbase/static-builder';
 import { ZipBuilder } from './zip-builder';
+import { getRegion } from '@cloudbase/toolbox';
 
 const DEFAULT_INPUTS = {
   outputPath: 'dist',
@@ -243,6 +244,8 @@ class WebsitePlugin extends Plugin {
       {
         TCB_SERVICE_DOMAIN: await this.fetchServiceDomain(),
         TCB_ENV_ID: this.api.envId,
+        TCB_REGION:
+          process.env.CLOUDBASE_TCB_CLOUDAPI_REGION || (await getRegion()),
       },
       this.resolvedInputs.envVariables
     );
@@ -388,15 +391,6 @@ class WebsitePlugin extends Plugin {
 
 function resolveInputs(inputs: any) {
   return merge({}, DEFAULT_INPUTS, inputs);
-}
-
-function injectEnvVariables(command: string, envVariables: any): string {
-  const keyword = os.platform() === 'win32' ? 'set' : 'export';
-  const envCommand = Object.keys(envVariables || {}).reduce((cmd, key) => {
-    return cmd + `${keyword} ${key}=${envVariables[key]} && `;
-  }, '');
-
-  return `${envCommand} ${command}`;
 }
 
 export const plugin = WebsitePlugin;

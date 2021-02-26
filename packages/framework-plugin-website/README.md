@@ -121,6 +121,7 @@ cloudbase framework deploy
 
 - `TCB_ENV_ID`: 当前环境的环境 ID
 - `TCB_SERVICE_DOMAIN`: 当前环境的云开发 HTTP 访问的默认域名（云接入域名）
+- `TCB_REGION`: 当前环境的地域
 - 以及用户注入的其他 `envVariables`
 
 > 注意同一环境下不同 web 应用的变量会进行合并，可以在环境变量命名时加以区分
