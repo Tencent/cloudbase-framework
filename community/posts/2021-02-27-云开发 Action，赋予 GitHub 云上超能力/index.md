@@ -31,7 +31,7 @@ tags:
 
 这表明了很多项目对 GitHub Actions 的高度依赖，它在社区也是被高度认可的 👍。拿腾讯云开发来说，通过在项目中引入云开发 Action，即时便拥有了更优雅的自动化开发流程：
 
-- 一体化：开发、代码审查、Issue、PR、构建、部署都不用离开 GitHub，使专注变为常态 :
+- 一体化：开发、代码审查、Issue、PR、构建、部署都不用离开 GitHub，使专注变为常态
 - 一键部署 › 自动部署：使用或了解过 [CloudBase Framework](https://github.com/Tencent/cloudbase-framework) 的用户都知道一键部署这个非常方便的服务，再加上云开发 Action，每次代码变更 (`push` `pr` `star` ...) 就可触发一键部署，不再需要人工干预
 - 对私密型数据更好的保护：密钥一经上传到 GitHub Secrets 之后，便不可能以任何形式明文查看该密钥，这比本地的 `.env` 安全地多 🔐
 
@@ -72,6 +72,96 @@ tcb framework deploy -e "$ENV_ID"
 - 文档优化：利用一个简单的云函数部署，手把手教你配置 ( 就在下面，点它点它 👇 )
 
 [TencentCloudBase/cloudbase-action](https://github.com/TencentCloudBase/cloudbase-action#tencent-cloudbase-github-action)
+
+## 快速上手 V2
+
+枯燥的文字哪有代码有趣 ? 接下来的时间，我们来快速上手一下云开发 Action ：
+
+![https://www.bravonet.my/wp-content/uploads/2020/10/quote-talk-is-cheap-show-me-the-code-linus-torvalds-45-66-13-e1487242875427.jpg](https://www.bravonet.my/wp-content/uploads/2020/10/quote-talk-is-cheap-show-me-the-code-linus-torvalds-45-66-13-e1487242875427.jpg)
+
+**本示例将演示：如何快速部署云函数到 CloudBase (同时设定部署的私密环境变量作为云函数 RUNTIME 的环境变量)**
+
+1.  首先我们需要在项目中引入云开发 Action，编写如下的 Github Action 文件  `.github/workflows/main.yml`
+
+    ```yaml
+    on: [push]
+
+    jobs:
+      deploy:
+        runs-on: ubuntu-latest
+        name: Tencent Cloudbase Github Action Example
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v2
+          - name: Deploy to Tencent CloudBase
+            uses: TencentCloudBase/cloudbase-action@v2
+            with:
+              secretId: ${{secrets.secretId}}
+              secretKey: ${{secrets.secretKey}}
+              envId: ${{secrets.envId}}
+    ```
+
+    <details><summary>关于此配置文件的详细说明</summary>
+      1. `on` 关键字配置了此 Action 的触发机制，填写 `push` 表明会在每次 Git Push 操作后触发
+      2. `steps` 定义了我们要求 GitHub Actions 机器做的同步任务，上例中配置了两个步骤：先拉取最新的代码库，再用云开发 Action 部署
+     </details>
+
+    假设我们在部署时需要设置私密型的环境变量(比如小程序  `appid`  或访问数据库的  `accessToken`)，请在以上代码中新增以下内容：
+
+    ```diff
+     name: Tencent Cloudbase Github Action Example
+    +env:
+    +  accessToken: ${{ secrets.accessToken }}
+    ```
+
+    其中  `env`  下的  `accessToken`  键值对是我们[部署时设置的环境变量](https://docs.github.com/en/actions/reference/environment-variables#about-environment-variables)，它的功能与本地的  `.env`  文件相同
+
+2.  为了使用云开发 Action V2 部署云函数，我们必须要在项目中配置  `cloudbaserc.json`  文件(并引入云函数插件和我们刚刚配置的环境变量)：
+
+    ```json
+    {
+      "envId": "{{env.ENV_ID}}",
+      "version": "2.0",
+      "framework": {
+        "name": "gh-actions-test",
+        "plugins": {
+          "func": {
+            "use": "@cloudbase/framework-plugin-function",
+            "inputs": {
+              "functions": [
+                {
+                  "name": "example",
+                  "memorySize": 128,
+                  "timeout": 5,
+                  "runtime": "Nodejs10.15",
+                  "handler": "index.main",
+                  "envVariables": {
+                    "accessToken": "{{env.accessToken}}"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+    ```
+
+    <details><summary>关于此配置文件的详细说明</summary>
+
+    1.  `envId` 的值无需在意，因为部署时我们会使用 GitHub Actions Secrets 里面的 envId 来重写此值，如果你的项目需要使用一键部署，那么此值可以填写 `"env.ENV_ID"` ，如果不使用，此值也可以留空
+    2.  在配置文件里面，我们通过 `env.accessToken` 来访问 Action 运行时环境变量里的 `accessToken` 的值
+    3.  建议查看 Cloudbase Framework 的配置文档来了解更详细的配置说明：
+
+        [配置说明 | 云开发 CloudBase - 一站式后端云服务](https://docs.cloudbase.net/framework/config.html)
+
+   </details>
+
+3.  在项目 Settings/Secrets 里设置  `secretId`, `secretKey`, `envId`, `accessToken`  信息
+
+    ![https://github.com/TencentCloudBase/cloudbase-action/raw/master/assets/secrets.png](https://github.com/TencentCloudBase/cloudbase-action/raw/master/assets/secrets.png)
+
+4.  配置完成后，提交代码到 Github 时，云开发 Action V2 就会自动部署项目中的  `example`  函数到云开发中，即时函数的环境变量也会设置成功
 
 ## 欢迎贡献
 
