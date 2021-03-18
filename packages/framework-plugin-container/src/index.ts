@@ -161,12 +161,6 @@ export interface IFrameworkPluginContainerInputs {
    */
   buildDir?: string;
   /**
-   * 服务版本名
-   *
-   * @default 1.0.0
-   */
-  version?: string;
-  /**
    * 本地代码文件夹相对于项目根目录的路径
    * @default ./
    */
@@ -225,6 +219,14 @@ export interface IFrameworkPluginContainerInputs {
    * 是否自动创建新版本
    */
   bumpVersion?: boolean;
+
+  /**
+   *
+   * 可选，私有网络 id，字符串格式，如果不填会系统会自动创建私有网络，指定私有网络 id 时会使用用户的私有网络
+   *
+   * 目前只能在**开通**云托管服务时指定，暂时不支持修改
+   */
+  vpcId?: string;
 }
 
 interface IContainerImageInfo {
@@ -424,6 +426,19 @@ class ContainerPlugin extends Plugin {
     return {
       Resources: {
         [this.toConstantCase(this.resolvedInputs.serviceName)]: this.toSAM(),
+        ...(this.resolvedInputs.vpcId
+          ? {
+              Network: {
+                Type: 'CloudBase::VPC',
+                Properties: {
+                  Description: 'VPC 网络配置',
+                  UniqVpcId: this.resolvedInputs.vpcId,
+                  CloudBaseRun: false,
+                  Region: '${TcbEnvRegion}',
+                },
+              },
+            }
+          : {}),
       },
       EntryPoint: [
         {

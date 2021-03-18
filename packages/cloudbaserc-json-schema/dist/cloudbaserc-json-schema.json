@@ -605,11 +605,6 @@
           "default": "./",
           "type": "string"
         },
-        "version": {
-          "description": "服务版本名",
-          "default": "1.0.0",
-          "type": "string"
-        },
         "localPath": {
           "description": "本地代码文件夹相对于项目根目录的路径",
           "default": "./",
@@ -638,6 +633,10 @@
         "bumpVersion": {
           "description": "是否自动创建新版本",
           "type": "boolean"
+        },
+        "vpcId": {
+          "description": "可选，私有网络 id，字符串格式，如果不填会系统会自动创建私有网络，指定私有网络 id 时会使用用户的私有网络\n\n目前只能在**开通**云托管服务时指定，暂时不支持修改",
+          "type": "string"
         }
       },
       "required": [
@@ -1079,11 +1078,6 @@
               "default": "./",
               "type": "string"
             },
-            "version": {
-              "description": "服务版本名",
-              "default": "1.0.0",
-              "type": "string"
-            },
             "localPath": {
               "description": "本地代码文件夹相对于项目根目录的路径",
               "default": "./",
@@ -1112,6 +1106,10 @@
             "bumpVersion": {
               "description": "是否自动创建新版本",
               "type": "boolean"
+            },
+            "vpcId": {
+              "description": "可选，私有网络 id，字符串格式，如果不填会系统会自动创建私有网络，指定私有网络 id 时会使用用户的私有网络\n\n目前只能在**开通**云托管服务时指定，暂时不支持修改",
+              "type": "string"
             }
           },
           "required": [

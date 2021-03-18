@@ -15,6 +15,7 @@ export async function describeCloudBaseGWService() {
   return CloudApi.tcbUinService.request('DescribeCloudBaseGWService', {
     ServiceId: CloudApi.envId,
     EnableRegion: true,
+    EnableUnion: true,
   });
 }
 

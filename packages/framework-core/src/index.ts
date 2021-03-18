@@ -377,16 +377,30 @@ ${entryLogInfo}`);
     await this.pluginManager.build(module);
 
     const compileResult = await this.pluginManager.compile(module);
-    const isHasContainer = !!Object.values(
-      merge({}, ...compileResult).Resources || {}
-    ).filter((resource) => (resource as any).Type === 'CloudBase::CloudBaseRun')
-      .length;
+    const samResources = merge({}, ...compileResult).Resources || {};
+    const isHasContainer = !!Object.values(samResources).filter(
+      (resource) => (resource as any).Type === 'CloudBase::CloudBaseRun'
+    ).length;
 
     await this.hooks.callHook('postCompile');
 
     const samMeta = this.generateSamMeta();
     const hooksSAM = this.hooks.genSAM();
-    const networkSections = this.genNetworkSAM(isHasContainer);
+    const compiledNetworkSAM = Object.entries(samResources)
+      .filter((resource) => {
+        (resource as any).Type === 'CloudBase::VPC';
+      })
+      .map(([key, value]) => {
+        return {
+          Resources: {
+            [key]: value,
+          },
+        };
+      })[0];
+
+    // 优先采用应用编译出来的网络配置
+    const networkSections =
+      compiledNetworkSAM || this.genNetworkSAM(isHasContainer);
     const samSections = [...compileResult, hooksSAM, networkSections];
     this.samManager.generate(samMeta, JSON.parse(JSON.stringify(samSections)));
   }
