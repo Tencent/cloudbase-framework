@@ -436,7 +436,7 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 ## CloudBase Framework 资讯
 
 ### 技术文章
-
+- [一键部署！这样搭建一个文档网站真的很简单！](https://juejin.cn/post/6939690218421223438)
 - [云开发 Action，赋予 GitHub 云上超能力](https://www.cnblogs.com/CloudBase/p/14475491.html)
 - [实战 | 全栈开发一款团购小程序应用](https://juejin.cn/post/6919749369902645256)
 - [开源一个辅助 B 站 UP 办抽奖活动的工具](https://www.cnblogs.com/nasa/p/14167262.html)
