@@ -27,6 +27,7 @@ const DEFAULT_INPUTS = {
   version: '1.0.0',
   localPath: './',
   envVariables: {},
+  ignore: ['.git'],
 };
 const MODE_INPUTS = {
   'low-cost': {
@@ -227,6 +228,13 @@ export interface IFrameworkPluginContainerInputs {
    * 目前只能在**开通**云托管服务时指定，暂时不支持修改
    */
   vpcId?: string;
+
+  /**
+   * 部署时忽略的文件路径，支持通配符
+   *
+   * @default [".git"]
+   */
+  ignore?: string[];
 }
 
 interface IContainerImageInfo {
@@ -405,6 +413,7 @@ class ContainerPlugin extends Plugin {
       const result = await this.builder.build(localPath, {
         path: this.resolvedInputs.servicePath,
         name: this.resolvedInputs.serviceName,
+        ignore: this.resolvedInputs.ignore,
       });
 
       const distFileName = result.containers[0].source;

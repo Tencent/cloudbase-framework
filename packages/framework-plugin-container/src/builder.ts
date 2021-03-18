@@ -27,6 +27,10 @@ interface BuilderBuildOptions {
    * 服务名
    */
   name: string;
+  /**
+   * 忽略的文件glob
+   */
+  ignore?: string[];
 }
 
 export class ContainerBuilder extends Builder {
@@ -45,7 +49,7 @@ export class ContainerBuilder extends Builder {
       `${options.name || 'container'}.zip`
     );
 
-    await this.zipDir(localDir, distFileName);
+    await this.zipDir(localDir, distFileName, options?.ignore || []);
 
     return {
       containers: [
@@ -65,7 +69,7 @@ export class ContainerBuilder extends Builder {
     };
   }
 
-  async zipDir(src: string, dest: string) {
+  async zipDir(src: string, dest: string, ignore?: string[]) {
     return new Promise((resolve, reject) => {
       // create a file to stream archive data to.
       const output = fse.createWriteStream(dest);
@@ -78,6 +82,7 @@ export class ContainerBuilder extends Builder {
         cwd: src,
         dot: true,
         follow: true,
+        ignore,
       });
       archive.pipe(output);
       archive.finalize();
