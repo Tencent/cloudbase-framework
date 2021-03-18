@@ -109,7 +109,7 @@ cloudbase framework deploy
 <table>
 
   <tr><td style="vertical-align: top;">
-              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/daruk-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/cloudbase-cms/upload/2021-01-05/75e7u2jzm0t4qn3q55rc09ysqs5dv9vb-daruk.png">
+              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/daruk-starter"><img width="80px;" src="https:https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/cloudbase-cms/upload/2021-01-05/75e7u2jzm0t4qn3q55rc09ysqs5dv9vb-daruk.png">
               <br />
               <b>Daruk 应用 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
               <p style="min-height: 60px;">Daruk 是一款基于 Koa2，使用 Typescript 开发的轻量级 web 框架 ，使用云函数云资源</p>
@@ -117,7 +117,7 @@ cloudbase framework deploy
               <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/daruk-starter">
               </a>
               </td><td style="vertical-align: top;">
-              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/thinkjs-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/cloudbase-cms/upload/2021-01-05/5e42l6y34472j7018nvdndm6msptrogi-logo (1).png">
+              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/thinkjs-starter"><img width="80px;" src="https:https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/cloudbase-cms/upload/2021-01-05/5e42l6y34472j7018nvdndm6msptrogi-logo (1).png">
               <br />
               <b>ThinkJS 应用 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
               <p style="min-height: 60px;">ThinkJS 是一款可以使用ES6/7 特性开发项目的Node.js 框架，支持TypeScript。 ，使用云函数云资源</p>
@@ -128,7 +128,7 @@ cloudbase framework deploy
 </tr>
 
   <tr><td style="vertical-align: top;">
-              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase-Marketplace/jenkins/tree/master/"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/cloudbase-cms/upload/2020-11-03/2nuqw5gbavvbp60r07ekxtq0r703a3tn-logo.png">
+              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase-Marketplace/jenkins/tree/master/"><img width="80px;" src="https:https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/cloudbase-cms/upload/2020-11-03/2nuqw5gbavvbp60r07ekxtq0r703a3tn-logo.png">
               <br />
               <b>Jenkins <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
               <p style="min-height: 60px;">Jenkins 是一个独立的开源软件项目，是基于 Java 开发的一种持续集成工具，用于监控持续重复的工作，旨在提供一个开放易用的软件平台，使软件的持续集成变成可能。 ，使用云托管,CFS云资源</p>
@@ -136,7 +136,7 @@ cloudbase framework deploy
               <a target="_blank" href="https://github.com/TencentCloudBase-Marketplace/jenkins/tree/master/">
               </a>
               </td><td style="vertical-align: top;">
-              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/go-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600676354450.png">
+              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/go-starter"><img width="80px;" src="https:https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600676354450.png">
               <br />
               <b>Go 云函数 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
               <p style="min-height: 60px;">快速搭建一个基于 GO 语言的简单、可靠、高效的应用 ，使用云函数云资源</p>
@@ -147,7 +147,7 @@ cloudbase framework deploy
 </tr>
 
   <tr><td style="vertical-align: top;">
-              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/java-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600663876737.png">
+              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/java-starter"><img width="80px;" src="https:https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600663876737.png">
               <br />
               <b>Java 云函数示例 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
               <p style="min-height: 60px;">快速构建开放、极简 Java 应用框架 ，使用云函数云资源</p>
@@ -155,7 +155,7 @@ cloudbase framework deploy
               <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/java-starter">
               </a>
               </td><td style="vertical-align: top;">
-              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/php-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600662775076.png">
+              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/php-starter"><img width="80px;" src="https:https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600662775076.png">
               <br />
               <b>PHP 云函数示例 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
               <p style="min-height: 60px;">快速构建灵活、高效的 PHP 应用框架 ，使用云函数云资源</p>
@@ -166,7 +166,7 @@ cloudbase framework deploy
 </tr>
 
   <tr><td style="vertical-align: top;">
-              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/taro-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600672235661.png">
+              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/taro-starter"><img width="80px;" src="https:https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600672235661.png">
               <br />
               <b>Taro 应用 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
               <p style="min-height: 60px;">快速构建 Taro 全栈应用框架 ，使用云函数, 静态托管云资源</p>
@@ -174,7 +174,7 @@ cloudbase framework deploy
               <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/taro-starter">
               </a>
               </td><td style="vertical-align: top;">
-              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/omi-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600670706144.svg">
+              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/omi-starter"><img width="80px;" src="https:https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600670706144.svg">
               <br />
               <b>Omi 应用 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
               <p style="min-height: 60px;">快速构建一个跨框架的 Omi 应用 ，使用云函数, 静态托管云资源</p>
@@ -185,7 +185,7 @@ cloudbase framework deploy
 </tr>
 
   <tr><td style="vertical-align: top;">
-              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/dart"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600665868642.png">
+              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/dart"><img width="80px;" src="https:https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600665868642.png">
               <br />
               <b>Aqueduct (Dart Server) 云托管 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
               <p style="min-height: 60px;">快速构建一个包含多线程 HTTP 服务器框架的 Aqueduct 云托管实例 ，使用云数据库, 云托管云资源</p>
@@ -193,7 +193,7 @@ cloudbase framework deploy
               <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/dart">
               </a>
               </td><td style="vertical-align: top;">
-              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase-Marketplace/nextcloud/tree/master/"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/cloudbase-cms/upload/2020-11-03/y9xcq0xi631eszidmmsiih3inspwl83b-logo.png">
+              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase-Marketplace/nextcloud/tree/master/"><img width="80px;" src="https:https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/cloudbase-cms/upload/2020-11-03/y9xcq0xi631eszidmmsiih3inspwl83b-logo.png">
               <br />
               <b>Nextcloud <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
               <p style="min-height: 60px;">Nextcloud 是一套个人云存储解决方案，内置了图片相册、日历联系人、文件管理、RSS 阅读等丰富的应用。 ，使用云托管,CynosDB,CFS云资源</p>
@@ -204,7 +204,7 @@ cloudbase framework deploy
 </tr>
 
   <tr><td style="vertical-align: top;">
-              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/vuepress"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600664138327.png">
+              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/vuepress"><img width="80px;" src="https:https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600664138327.png">
               <br />
               <b>VuePress 网站应用 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
               <p style="min-height: 60px;">快速构建基于 VuePress 的网站应用 ，使用静态托管云资源</p>
@@ -212,7 +212,7 @@ cloudbase framework deploy
               <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/vuepress">
               </a>
               </td><td style="vertical-align: top;">
-              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/nest-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600434436206.png">
+              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/nest-starter"><img width="80px;" src="https:https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600434436206.png">
               <br />
               <b>Nest 应用 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
               <p style="min-height: 60px;">快速构建一种渐进式的 Node.js 框架，用于构建高效、可靠、可扩展的服务器端应用 ，使用云函数云资源</p>
@@ -223,7 +223,7 @@ cloudbase framework deploy
 </tr>
 
   <tr><td style="vertical-align: top;">
-              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/egg-starter"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600661476916.png">
+              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/egg-starter"><img width="80px;" src="https:https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600661476916.png">
               <br />
               <b>Egg 应用 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
               <p style="min-height: 60px;">快速构建基于 Node.js 和 Koa 的 Egg 企业框架及应用 ，使用云函数云资源</p>
@@ -231,7 +231,7 @@ cloudbase framework deploy
               <a target="_blank" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/egg-starter">
               </a>
               </td><td style="vertical-align: top;">
-              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/next-ssr"><img width="80px;" src="https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600742226934.png">
+              <a target="_blank" style="min-height:100px; display:block;" href="https://github.com/TencentCloudBase/cloudbase-templates/tree/master/next-ssr"><img width="80px;" src="https:https://7163-qcloud-tcb-console-1258344699.tcb.qcloud.la/uploads/1600742226934.png">
               <br />
               <b>Next SSR 应用 <img height="20px;" src="https://main.qcloudimg.com/raw/210d07b1f37b4483c116637e5830a804.svg"></b></a><br/>
               <p style="min-height: 60px;">快速构建一个简单、智能、静态和服务器混合渲染的应用框架 ，使用云函数, 静态托管云资源</p>
