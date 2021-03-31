@@ -22,7 +22,8 @@
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.1.2",
     "regenerator-runtime": "^0.13.5",
-    "rxjs-compat": "^6.6.3"
+    "rxjs-compat": "^6.6.3",
+    "@cloudbase/weda-cloud-sdk": "^0.1.0"
   },
   "devDependencies": {
     "@types/react": "^16.9.49",
@@ -61,6 +62,7 @@
     "mp-webpack-plugin": "latest",
     "webpack": "^4.41.4",
     "webpack-cli": "^4.2.0",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.0",
+    "babel-plugin-transform-default-import": "^1.0.0"
   }
 }

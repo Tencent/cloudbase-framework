@@ -36,7 +36,7 @@ const promisifyGlob = promisify(glob);
         return prev;
       },
       {
-        '@cloudbase/framework-plugin-low-code': '0.2.9',
+        '@cloudbase/framework-plugin-low-code': '0.3.2',
       }
     ),
   };
