@@ -411,7 +411,7 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 
 ## <a name="community"></a> 在线交流群
 
-如果在使用、安装过程中有任何问题，或者建议，欢迎加群讨论、反馈问题，或加云开发小助手微信： Tcloudedu1，发送 CBF 入群。
+如果在使用、安装过程中有任何问题，或者建议，欢迎加群讨论、反馈问题
 
 <table>
   <tr>
@@ -421,14 +421,9 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
     <img src="https://main.qcloudimg.com/raw/d2092f06d0c25cbbdde1f699f9b4b3b1.png" width="100px;" alt=""/>
     </td>
    <td>
-      微信群
+      微信交流群
       <br>
-      <img src="https://main.qcloudimg.com/raw/f62645ae07fec77638db3711791f00e1.png" width="100px;" alt=""/>
-    </td>
-    <td>
-      QQ 群
-      <br>
-      <img src="https://main.qcloudimg.com/raw/52e3e5062e01cc9058689138c9e8f02f.jpg" width="100px;" alt=""/>
+      <img src="https://main.qcloudimg.com/raw/6b913e02c4512155552f24812c796e57.png" width="100px;" alt=""/>
     </td>
   </tr>
 </table>
