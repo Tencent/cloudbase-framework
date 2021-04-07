@@ -1,7 +1,7 @@
 {
     "name": "cloudbase-framework-registry",
     "dependencies": {
-        "@cloudbase/framework-plugin-low-code": "0.3.2",
+        "@cloudbase/framework-plugin-low-code": "0.3.5",
         "@cloudbase/framework-plugin-auth": "^1.7.1",
         "@cloudbase/framework-plugin-container": "^1.7.1",
         "@cloudbase/framework-plugin-dart": "^1.7.1",

@@ -36,7 +36,7 @@ const promisifyGlob = promisify(glob);
         return prev;
       },
       {
-        '@cloudbase/framework-plugin-low-code': '0.3.2',
+        '@cloudbase/framework-plugin-low-code': '0.3.5',
       }
     ),
   };
@@ -64,12 +64,22 @@ const promisifyGlob = promisify(glob);
       cwd: path.join(__dirname, './src'),
     }
   );
+  await spawnPromise(
+    `docker tag ${tagNameWithVersion} ccr.ccs.tencentyun.com/${ccrImageName}:latest`,
+    {
+      cwd: path.join(__dirname, './src'),
+    }
+  );
 
   await // 推送镜像
   await spawnPromise(`docker push ${tagNameWithVersion}`, {});
   await spawnPromise(`docker push ${tagName}`, {});
   await spawnPromise(
     `docker push ccr.ccs.tencentyun.com/${ccrImageName}:${coreVersion}`,
+    {}
+  );
+  await spawnPromise(
+    `docker push ccr.ccs.tencentyun.com/${ccrImageName}:latest`,
     {}
   );
 })();
