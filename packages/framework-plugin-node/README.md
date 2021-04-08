@@ -132,6 +132,10 @@ exports.tcbGetApp = async () => {
 
 选填，底层使用平台，支持 `container`（ 云托管） 和 `function` （云函数）, 默认是 `function`
 
+### `installDeps`
+
+选填，类型 `boolean`，是否需要安装依赖，默认值 `true`, 如果依赖私有 npm 包需要填写 `false`
+
 ### `containerOptions`
 
 选填，当 `platform` 选择 `container` 时，可以支持自定义更多高级设置，例如 CPU 内存等

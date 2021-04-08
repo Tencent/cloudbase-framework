@@ -31,6 +31,7 @@ class NodeFunctionPlugin extends Plugin {
       entry: 'app.js',
       path: '/nodeapp',
       name: 'node',
+      installDeps: true,
     };
 
     this.resolvedInputs = resolveInputs(this.inputs, DEFAULT_INPUTS);
@@ -86,7 +87,7 @@ class NodeFunctionPlugin extends Plugin {
           name: srcFunction.name,
           handler: srcFunction.entry,
           runtime: this.resolvedInputs.runtime,
-          installDependency: true,
+          installDependency: this.resolvedInputs.installDeps,
           ...(this.resolvedInputs.functionOptions || {}),
         },
       ],
