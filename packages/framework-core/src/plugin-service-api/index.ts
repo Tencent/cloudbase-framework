@@ -15,7 +15,7 @@ import { Generator } from '../generator';
 import { CloudApi } from '../api';
 import { emoji } from '../utils/emoji';
 import { SamManager } from '../sam';
-import { spawnPromise } from '../utils/spawn'
+import { spawnPromise } from '../utils/spawn';
 
 /**
  * 插件服务注入为插件提供的 API
@@ -45,6 +45,13 @@ export default class PluginServiceApi {
   }
 
   /**
+   * 项目地域信息
+   */
+  get region(): string | undefined {
+    return this.pluginManager.context.cloudbaseConfig.region;
+  }
+
+  /**
    * 是否产生新版本
    */
   get bumpVersion(): boolean {
@@ -52,7 +59,7 @@ export default class PluginServiceApi {
   }
 
   /**
-   * 是否产生新版本
+   * 新版本的备注信息
    */
   get versionRemark(): string {
     return this.pluginManager.context.versionRemark;
@@ -163,6 +170,6 @@ export default class PluginServiceApi {
    * 调用子进程
    */
   get spawnPromise() {
-    return spawnPromise
+    return spawnPromise;
   }
 }

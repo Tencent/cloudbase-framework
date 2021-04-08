@@ -55,6 +55,7 @@ export interface CloudBaseConfig {
   token?: string;
   envId: string;
   proxy?: string;
+  region?: string;
 }
 
 export interface ResourceProviders {

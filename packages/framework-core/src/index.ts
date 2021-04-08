@@ -32,6 +32,7 @@ import { fetchDomains } from './api/domain';
 import { createAndDeployCloudBaseProject } from './api/app';
 import LifeCycleManager from './lifecycle';
 import { ERRORS, CloudBaseFrameworkError, USER_ERRORS_MAP } from './error';
+import { getRegion } from '@cloudbase/toolbox';
 
 export { default as Plugin } from './plugin';
 export { default as PluginServiceApi } from './plugin-service-api';
@@ -113,6 +114,8 @@ export class CloudBaseFrameworkCore {
       versionRemark,
     } = this.frameworkConfig;
 
+    cloudbaseConfig.region = await getRegion();
+
     // 初始化 logger
     const logger = getLogger(logLevel);
 
@@ -126,6 +129,7 @@ export class CloudBaseFrameworkCore {
     );
 
     logger.info(`EnvId ${chalk.green(cloudbaseConfig.envId)}`);
+    logger.info(`Region ${chalk.green(cloudbaseConfig.region)}`);
 
     if (!projectPath || !cloudbaseConfig) {
       throw new Error('CloudBase Framework: config info missing');
