@@ -136,5 +136,11 @@
     "link": "https://edu.tencent.com/",
     "repo": "",
     "logo": "https://edu.tencent.com/favicon.ico"
+  },
+   {
+    "name": "巨应壁纸",
+    "link": "https://livewallpaper.giantapp.cn/",
+    "repo": "https://github.com/giant-app/LiveWallpaper",
+    "logo": "https://avatars.githubusercontent.com/u/46509523?s=200&v=4"
   }
 ]
