@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/cloudbaserc-json-schema",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "description": "cloudbaserc 配置文件的 JSON Schema 定义",
   "keywords": [
     "cloudbase",
@@ -33,17 +33,17 @@
     "url": "https://github.com/Tencent/cloudbase-framework/issues"
   },
   "dependencies": {
-    "@cloudbase/framework-plugin-auth": "^1.7.2",
-    "@cloudbase/framework-plugin-container": "^1.7.2",
-    "@cloudbase/framework-plugin-dart": "^1.7.2",
-    "@cloudbase/framework-plugin-database": "^1.7.2",
-    "@cloudbase/framework-plugin-deno": "^1.7.2",
-    "@cloudbase/framework-plugin-function": "^1.7.2",
-    "@cloudbase/framework-plugin-mp": "^1.7.2",
-    "@cloudbase/framework-plugin-next": "^1.7.2",
-    "@cloudbase/framework-plugin-node": "^1.7.2",
-    "@cloudbase/framework-plugin-nuxt": "^1.7.2",
-    "@cloudbase/framework-plugin-website": "^1.7.2",
+    "@cloudbase/framework-plugin-auth": "^1.7.3",
+    "@cloudbase/framework-plugin-container": "^1.7.3",
+    "@cloudbase/framework-plugin-dart": "^1.7.3",
+    "@cloudbase/framework-plugin-database": "^1.7.3",
+    "@cloudbase/framework-plugin-deno": "^1.7.3",
+    "@cloudbase/framework-plugin-function": "^1.7.3",
+    "@cloudbase/framework-plugin-mp": "^1.7.3",
+    "@cloudbase/framework-plugin-next": "^1.7.3",
+    "@cloudbase/framework-plugin-node": "^1.7.3",
+    "@cloudbase/framework-plugin-nuxt": "^1.7.3",
+    "@cloudbase/framework-plugin-website": "^1.7.3",
     "typescript-json-schema": "^0.42.0"
   },
   "gitHead": "cda20f169ca40e413f9dfa416d4fc22283cfb17b",
