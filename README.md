@@ -467,7 +467,7 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-39-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-40-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -522,6 +522,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://blog.hal.wang"><img src="https://avatars.githubusercontent.com/u/39717597?v=4?s=70" width="70px;" alt=""/><br /><sub><b>H</b></sub></a><br /><a href="#example-hal-wang" title="Examples">💡</a></td>
     <td align="center"><a href="https://github.com/webpoin"><img src="https://avatars.githubusercontent.com/u/5368822?v=4?s=70" width="70px;" alt=""/><br /><sub><b>二鸟</b></sub></a><br /><a href="#example-webpoin" title="Examples">💡</a></td>
     <td align="center"><a href="https://ryanc.cc"><img src="https://avatars.githubusercontent.com/u/21301288?v=4?s=70" width="70px;" alt=""/><br /><sub><b>Ryan Wang</b></sub></a><br /><a href="#example-ruibaby" title="Examples">💡</a></td>
+    <td align="center"><a href="http://www.uctoo.com"><img src="https://avatars.githubusercontent.com/u/5507211?v=4?s=70" width="70px;" alt=""/><br /><sub><b>UCToo</b></sub></a><br /><a href="#blog-uctoo" title="Blogposts">📝</a></td>
   </tr>
 </table>
 

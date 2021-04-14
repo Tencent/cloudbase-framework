@@ -375,6 +375,15 @@
       "contributions": [
         "example"
       ]
+    },
+    {
+      "login": "uctoo",
+      "name": "UCToo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5507211?v=4",
+      "profile": "http://www.uctoo.com",
+      "contributions": [
+        "blog"
+      ]
     }
   ],
   "contributorsPerLine": 8,
