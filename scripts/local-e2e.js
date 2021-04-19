@@ -24,7 +24,6 @@ main().catch((e) => {
 async function main() {
   await forkTemplate();
   await link();
-  await login();
   const templates = await getTemplates();
   console.log(templates);
 
@@ -46,14 +45,6 @@ async function forkTemplate() {
   );
 }
 
-async function login() {
-  await spawnPromise(
-    `cloudbase login --apiKeyId  ${process.env.SecretId} --apiKey ${process.env.SecretKey}`,
-    {
-      cwd,
-    },
-  );
-}
 
 async function getTemplates() {
   return new Promise((resolve, reject) => {
