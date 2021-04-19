@@ -9,7 +9,7 @@ defaults:
 # events but only for the master branch
 on:
   push:
-    branches: [master]
+    branches: [master,develop]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -31,25 +31,18 @@ jobs:
           sudo npm install -g @cloudbase/cli@latest lerna@3.20.2
           cd scripts && npm install && cd ..
 
-      - name: Login
-        run: |
-          echo $PATH
-          node -v
-          cloudbase login --apiKeyId  ${{ secrets.SECRET_ID }} --apiKey ${{ secrets.SECRET_KEY }}
 
       # Runs a set of commands using the runners shell
       - name: Build
         run: |
           echo $PATH
+          node -v
+          cloudbase logout
+          cloudbase login --apiKeyId  ${{ secrets.SECRET_ID }} --apiKey ${{ secrets.SECRET_KEY }}
+          echo 'login success'
           npm install 
           npm run bootstrap
           npm run build
-        
-      # Runs a set of commands using the runners shell
-      - name: Init Template
-        run: |
-          echo $PATH
-          node -v
           sudo CLOUDBASE_FX_ENV=dev CI=true envId=${{ secrets.ENV_ID }} node scripts/local-e2e.js
           
       - name: Setup tmate session
