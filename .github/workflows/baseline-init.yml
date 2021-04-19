@@ -37,6 +37,7 @@ jobs:
           node -v
           cloudbase logout
           cloudbase login --apiKeyId  ${{ secrets.SECRET_ID }} --apiKey ${{ secrets.SECRET_KEY }}
+          echo 'login success'
 
       # Runs a set of commands using the runners shell
       - name: Build
