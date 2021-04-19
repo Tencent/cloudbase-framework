@@ -24,7 +24,12 @@ const tagName = `${imageName}:${tag}`;
 
 const promisifyGlob = promisify(glob);
 
-(async () => {
+main().catch((e) => {
+  console.log('构建镜像失败', e);
+  process.exit(1);
+});
+
+async function main() {
   const builtInPlugins = await promisifyGlob('framework-plugin-*', {
     cwd: path.join(__dirname, '../../packages'),
   });
@@ -82,4 +87,4 @@ const promisifyGlob = promisify(glob);
     `docker push ccr.ccs.tencentyun.com/${ccrImageName}:latest`,
     {}
   );
-})();
+}
