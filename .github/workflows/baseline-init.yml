@@ -46,10 +46,6 @@ jobs:
           npm install 
           npm run bootstrap
           npm run build
-        
-      # Runs a set of commands using the runners shell
-      - name: Init Template
-        run: |
           echo $PATH
           node -v
           sudo CLOUDBASE_FX_ENV=dev CI=true envId=${{ secrets.ENV_ID }} node scripts/local-e2e.js
