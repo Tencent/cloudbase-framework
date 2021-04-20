@@ -37,13 +37,10 @@ jobs:
         run: |
           echo $PATH
           node -v
-          cloudbase logout
-          cloudbase login --apiKeyId  ${{ secrets.SECRET_ID }} --apiKey ${{ secrets.SECRET_KEY }}
-          echo 'login success'
           npm install 
           npm run bootstrap
           npm run build
-          sudo CLOUDBASE_FX_ENV=dev CI=true envId=${{ secrets.ENV_ID }} node scripts/local-e2e.js
+          sudo CLOUDBASE_FX_ENV=dev CI=true envId=${{ secrets.ENV_ID }} SecretId=${{ secrets.SECRET_ID }} SecretKey=${{ secrets.SECRET_KEY }} node scripts/local-e2e.js
           
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
