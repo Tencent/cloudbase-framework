@@ -22,6 +22,7 @@ main().catch((e) => {
 });
 
 async function main() {
+  await logout();
   await login();
   await forkTemplate();
   await link();
@@ -48,7 +49,18 @@ async function forkTemplate() {
   );
 }
 
+async function logout() {
+  await spawnPromise(`cloudbase logout`, {
+    cwd,
+  });
+}
+
 async function login() {
+  console.log(
+    'login',
+    process.env.SecretId.length,
+    process.env.SecretKey.length
+  );
   await spawnPromise(
     `cloudbase login --apiKeyId  ${process.env.SecretId} --apiKey ${process.env.SecretKey}`,
     {
