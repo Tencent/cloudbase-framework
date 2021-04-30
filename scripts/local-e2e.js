@@ -30,7 +30,7 @@ async function main() {
   console.log(templates);
 
   for (template of templates.filter(
-    (template) => !['taro-starter', 'deno', 'dart'].includes(template.path)
+    (template) => !['taro-starter', 'deno', 'dart', 'cms-microapp-vue'].includes(template.path)
   )) {
     await installTemplate(template);
   }
