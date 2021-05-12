@@ -579,7 +579,8 @@
         "policyType": {
           "description": "策略类型(cpu)，默认值 `cpu`",
           "enum": [
-            "cpu"
+            "cpu",
+            "mem"
           ],
           "type": "string"
         },
@@ -1062,7 +1063,8 @@
             "policyType": {
               "description": "策略类型(cpu)，默认值 `cpu`",
               "enum": [
-                "cpu"
+                "cpu",
+                "mem"
               ],
               "type": "string"
             },
