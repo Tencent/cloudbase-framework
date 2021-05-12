@@ -39,12 +39,8 @@ export default async function resolveConfig(
   const isCloudBuild = !!process.env.CLOUDBASE_CIID;
 
   // 解析配置文件
-  const {
-    rcConfig,
-    extraData,
-    projectName,
-    originProjectInfo,
-  } = await resolveRcConfig(projectPath, config, envId);
+  const { rcConfig, extraData, projectName, originProjectInfo } =
+    await resolveRcConfig(projectPath, config, envId);
 
   // 针对 cloudbaserc.js 等脚本文件，会创建一份单独的 json 配置文件
   const independentFrameworkConfig = await readFrameworkConfig(projectPath);
@@ -141,6 +137,7 @@ export default async function resolveConfig(
 
   const validateRes = validate(
     Object.assign({}, rcConfig, {
+      envId: envId,
       framework: finalFrameworkConfig,
     })
   );
@@ -180,15 +177,8 @@ async function getCloudProjectInfo(projectName: string | undefined) {
 }
 
 function getProjectDataFromProjectInfo(projectInfo: any) {
-  const {
-    Tags,
-    Parameters,
-    Source,
-    AddonConfig,
-    NetworkConfig,
-    Name,
-    RcJson,
-  } = projectInfo;
+  const { Tags, Parameters, Source, AddonConfig, NetworkConfig, Name, RcJson } =
+    projectInfo;
 
   return {
     rcConfig: jsonParse(RcJson),
@@ -232,6 +222,7 @@ async function resolveRcConfig(
       ? rcConfig
       : cloudRcJSON &&
         ((await ConfigParser.parseRawConfig(cloudRcJSON)) as ICloudBaseConfig);
+    projectName = rcConfig?.framework?.name;
     // 如果是本地构建，且本地存在配置文件
   } else if (config?.framework) {
     logger.debug('本地构建，本地存在配置文件', config);
