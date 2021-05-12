@@ -134,7 +134,7 @@ cloudbase framework deploy
 
 ### `policyType`
 
-选填，策略类型(cpu)，默认值 `cpu`
+选填，策略类型(cpu)，默认值 `cpu` ,支持 `cpu | mem`
 
 ### `policyThreshold`
 
