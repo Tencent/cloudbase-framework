@@ -133,7 +133,7 @@ export interface IFrameworkPluginContainerInputs {
   /**
    * 策略类型(cpu)，默认值 `cpu`
    */
-  policyType?: 'cpu';
+  policyType?: 'cpu' | 'mem';
   /**
    * 策略阈值，1-100, 默认值 `60`
    *
