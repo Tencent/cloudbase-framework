@@ -146,15 +146,6 @@ class WebsitePlugin extends Plugin {
     this.api.logger.debug('website uploadResults', uploadResults);
     const [website, staticConfig] = uploadResults as any;
 
-    console.log(
-        this.getStaticResourceSam(
-          'Website',
-          '为开发者提供静态网页托管的能力，包括HTML、CSS、JavaScript、字体等常见资源。',
-          website.codeUri,
-          website.cloudPath
-        ),
-        )
-
     return {
       EnvType: this.env?.PayMode === PAYMODE.PREPAYMENT ? 'PrePay' : 'PostPay',
       Resources: Object.assign(
