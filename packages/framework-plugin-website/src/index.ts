@@ -80,6 +80,10 @@ export interface IFrameworkPluginWebsiteInputs {
    * @default { build: "npm run build" }
    */
   commands?: Record<string, string>;
+  /**
+   * Http 访问服务触发路径，没有可不填
+   */
+  httpPath?: string
 }
 
 type ResolvedInputs = typeof DEFAULT_INPUTS & IFrameworkPluginWebsiteInputs;
@@ -126,6 +130,11 @@ class WebsitePlugin extends Plugin {
     this.api.logger.info(
       `Website 插件会部署应用资源到当前静态托管的 ${this.resolvedInputs.cloudPath} 目录下`
     );
+    if (this.resolvedInputs.httpPath) {
+      this.api.logger.info(
+        `Website 插件会配置触发路径为 ${this.resolvedInputs.httpPath} 的HTTP访问服务到静态托管`
+      );
+    }
     await Promise.all([this.ensurePostPay(), this.fetchHostingInfo()]);
   }
 
@@ -152,7 +161,7 @@ class WebsitePlugin extends Plugin {
           '配置文件',
           staticConfig.codeUri,
           staticConfig.cloudPath
-        )
+        ),
       ),
       EntryPoint: [
         {
@@ -170,6 +179,7 @@ class WebsitePlugin extends Plugin {
     codeUri: string,
     deployPath: string
   ) {
+    const httpPathConfig = this.resolvedInputs.httpPath && name === 'Website' ? { HttpPath: this.resolvedInputs.httpPath } : {}
     return {
       [name]: {
         Type: 'CloudBase::StaticStore',
@@ -179,6 +189,7 @@ class WebsitePlugin extends Plugin {
             '为开发者提供静态网页托管的能力，静态资源（HTML、CSS、JavaScript、字体等）的分发由对象存储 COS 和拥有多个边缘网点的 CDN 提供支持',
           CodeUri: codeUri,
           DeployPath: deployPath,
+          ...httpPathConfig
         },
       },
     };
