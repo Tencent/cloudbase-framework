@@ -234,7 +234,7 @@ export interface IFrameworkPluginContainerInputs {
    /**
     * 可选，vpc子网列表，不填会自动选择vpc下所有合适的
     */
-   uniqSubnetList: string[];
+   uniqSubnetList?: string[];
 
   /**
    * 部署时忽略的文件路径，支持通配符
