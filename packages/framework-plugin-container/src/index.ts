@@ -28,6 +28,8 @@ const DEFAULT_INPUTS = {
   localPath: './',
   envVariables: {},
   ignore: ['.git'],
+  uniqVpcId: '${Outputs.Network.Properties.UniqVpcId}',
+  uniqSubnetList: []
 };
 const MODE_INPUTS = {
   'low-cost': {
@@ -227,7 +229,12 @@ export interface IFrameworkPluginContainerInputs {
    *
    * 目前只能在**开通**云托管服务时指定，暂时不支持修改
    */
-  vpcId?: string;
+   uniqVpcId?: string;
+
+   /**
+    * 可选，vpc子网列表，不填会自动选择vpc下所有合适的
+    */
+   uniqSubnetList: string[];
 
   /**
    * 部署时忽略的文件路径，支持通配符
@@ -435,19 +442,6 @@ class ContainerPlugin extends Plugin {
     return {
       Resources: {
         [this.toConstantCase(this.resolvedInputs.serviceName)]: this.toSAM(),
-        ...(this.resolvedInputs.vpcId
-          ? {
-              Network: {
-                Type: 'CloudBase::VPC',
-                Properties: {
-                  Description: 'VPC 网络配置',
-                  UniqVpcId: this.resolvedInputs.vpcId,
-                  CloudBaseRun: false,
-                  Region: '${TcbEnvRegion}',
-                },
-              },
-            }
-          : {}),
       },
       EntryPoint: [
         {
@@ -515,6 +509,8 @@ class ContainerPlugin extends Plugin {
       customLogs,
       initialDelaySeconds,
       bumpVersion,
+      uniqSubnetList,
+      uniqVpcId
     } = this.resolvedInputs;
 
     let otherProperties;
@@ -545,6 +541,19 @@ class ContainerPlugin extends Plugin {
         break;
       default:
         break;
+    }
+
+    let vpcProperties;
+
+    if (uniqVpcId) {
+      vpcProperties = {
+        uniqVpcId,
+        ...(uniqSubnetList ? { uniqSubnetList } : {})
+      };
+    } else {
+      vpcProperties= {
+        uniqVpcId: '${Outputs.Network.Properties.UniqVpcId}'
+      };
     }
 
     let volumeMountsInfo;
@@ -613,7 +622,8 @@ class ContainerPlugin extends Plugin {
         this.api.versionRemark && {
           VersionRemark: this.api.versionRemark,
         },
-        volumeMountsInfo
+        volumeMountsInfo,
+        vpcProperties
       ),
     };
   }

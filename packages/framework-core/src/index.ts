@@ -404,22 +404,30 @@ ${entryLogInfo}`);
 
     // 优先采用应用编译出来的网络配置
     const networkSections =
-      compiledNetworkSAM || this.genNetworkSAM(isHasContainer);
+      compiledNetworkSAM || this.genNetworkSAM();
     const samSections = [...compileResult, hooksSAM, networkSections];
     this.samManager.generate(samMeta, JSON.parse(JSON.stringify(samSections)));
   }
 
-  private genNetworkSAM(isHasContainer: boolean) {
-    // 没有网络配置
+  private genNetworkSAM() {
     if (
+      // 没有网络配置
       !this.appConfig.network ||
-      !Object.keys(this.appConfig.network).length
+      !Object.keys(this.appConfig.network).length ||
+      // 没有vpcId，也没有容器
+      !this.appConfig.network.uniqVpcId
     ) {
-      return {};
-    }
-    // 没有vpcId，也没有容器
-    if (!this.appConfig.network.uniqVpcId && !isHasContainer) {
-      return {};
+      return {
+        Resources: {
+          Network: {
+            Type: 'CloudBase::VPC',
+            Properties: {
+              Description: 'VPC 网络配置',
+              Region: '${TcbEnvRegion}',
+            },
+          },
+        },
+      };
     }
 
     return {
@@ -429,7 +437,6 @@ ${entryLogInfo}`);
           Properties: {
             Description: 'VPC 网络配置',
             UniqVpcId: this.appConfig.network.uniqVpcId,
-            CloudBaseRun: this.appConfig.network.cloudBaseRun,
             Region: this.appConfig.network.region || '${TcbEnvRegion}',
           },
         },
