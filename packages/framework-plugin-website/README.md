@@ -101,6 +101,9 @@ cloudbase framework deploy
 
 静态资源部署到云开发环境的路径，默认为根目录。
 
+### `httpPath`
+可选，建立到静态网站托管的 HTTP 访问服务触发路径
+
 ### `ignore`
 
 静态资源部署时忽略的文件路径，支持通配符
