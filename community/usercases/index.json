@@ -148,5 +148,11 @@
     "link": "https://halo-3g3qa0vw9c69d2f6-1252930343.ap-shanghai.app.tcloudbase.com",
     "repo": "https://github.com/halo-dev/tencent-cloudbase-halo",
     "logo": "https://github.com/halo-dev/tencent-cloudbase-halo/raw/master/logo.png"
+  },
+   {
+    "name": "兰空图床",
+    "link": "tc.southbaa.com",
+    "repo": "https://github.com/wisp-x/lsky-pro",
+    "logo": "https://raw.githubusercontent.com/wisp-x/lsky-pro/master/public/static/app/images/logo.png"
   }
 ]
