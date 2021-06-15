@@ -467,7 +467,7 @@ CloudBase Framework 的版本变更日志请参阅 [changelog](https://github.co
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-41-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-42-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -526,6 +526,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://xin-tan.com"><img src="https://avatars.githubusercontent.com/u/26399528?v=4?s=70" width="70px;" alt=""/><br /><sub><b>心谭</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=dongyuanxin" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/LRCong"><img src="https://avatars.githubusercontent.com/u/48516864?v=4?s=70" width="70px;" alt=""/><br /><sub><b>LRCong</b></sub></a><br /><a href="https://github.com/Tencent/cloudbase-framework/commits?author=LRCong" title="Code">💻</a></td>
   </tr>
 </table>
 
