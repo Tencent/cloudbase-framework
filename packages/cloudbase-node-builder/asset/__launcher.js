@@ -18,7 +18,7 @@ module.exports.main = async (event, context) => {
 
   // support for async load app
   if (entry && entry.tcbGetApp && typeof entry.tcbGetApp === 'function') {
-    app = await entry.tcbGetApp();
+    app = await entry.tcbGetApp(event, context);
   }
 
   return serverless(app, {
