@@ -384,6 +384,15 @@
       "contributions": [
         "blog"
       ]
+    },
+    {
+      "login": "dongyuanxin",
+      "name": "心谭",
+      "avatar_url": "https://avatars.githubusercontent.com/u/26399528?v=4",
+      "profile": "https://xin-tan.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 8,
