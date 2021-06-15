@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.8.0] - 2021-06-15
+
+### Features
+
+- 新增 云托管 vpc 子网配置
+- 新增 静态托管支持 http 访问地址
+
+### Bugfixes
+
+- 修复 Node 插件未透传云函数 context 信息的问题
+
 ## [1.6.16] - 2021-01-29
 
 ### Features
