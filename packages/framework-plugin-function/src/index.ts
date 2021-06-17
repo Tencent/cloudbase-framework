@@ -48,6 +48,21 @@ export interface IFrameworkPluginFunctionInputs {
    */
   servicePaths?: Record<string, string>;
   /**
+   * 服务配置
+   *
+   * 如
+   *
+   * ```json
+   * {
+   *   "hello-world": {
+   *     "httpPath": "/helloworld",
+   *     "httpPathEnableAuth": false
+   *   }
+   * }
+   * ```
+   */
+  serviceConfig?: Record<string, IServiceConfig>,
+  /**
    * 1.6.16 版本以后支持
    * 如果指定，则只发布列表中的函数
    * 字符串格式，格式如 'fn1,fn2'
@@ -166,6 +181,11 @@ export interface IFunctionVPC {
    * 子网id
    */
   subnetId: string;
+}
+
+export interface IServiceConfig {
+  httpPath: string
+  httpPathEnableAuth?: boolean
 }
 
 type ResolveInputs = IFrameworkPluginFunctionInputs & {
@@ -419,6 +439,10 @@ class FunctionPlugin extends Plugin {
           Role: 'TCB_QcsRole',
           PublicNetStatus: functionConfig.publicNet,
           EipStatus: functionConfig.eip,
+        },
+        this.resolvedInputs.serviceConfig?.[functionConfig.name] && {
+          HttpPath: this.resolvedInputs.serviceConfig?.[functionConfig.name].httpPath,
+          HttpPathEnableAuth: this.resolvedInputs.serviceConfig?.[functionConfig.name].httpPathEnableAuth || false
         },
         (this.api.bumpVersion || functionConfig.bumpVersion) && {
           NewVersion: true,
