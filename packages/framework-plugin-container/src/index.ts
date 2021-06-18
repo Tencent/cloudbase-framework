@@ -28,7 +28,7 @@ const DEFAULT_INPUTS = {
   localPath: './',
   envVariables: {},
   ignore: ['.git'],
-  uniqVpcId: '${Outputs.Network.Properties.InstanceId}',
+  uniqVpcId: '${Outputs.Network.Properties.UniqVpcId}',
   uniqSubnetList: []
 };
 const MODE_INPUTS = {
@@ -552,7 +552,7 @@ class ContainerPlugin extends Plugin {
       };
     } else {
       vpcProperties= {
-        uniqVpcId: '${Outputs.Network.Properties.InstanceId}'
+        uniqVpcId: '${Outputs.Network.Properties.UniqVpcId}'
       };
     }
 
