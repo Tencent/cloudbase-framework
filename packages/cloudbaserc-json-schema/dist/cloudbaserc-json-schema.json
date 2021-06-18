@@ -639,16 +639,9 @@
           "description": "是否自动创建新版本",
           "type": "boolean"
         },
-        "uniqVpcId": {
+        "vpcId": {
           "description": "可选，私有网络 id，字符串格式，如果不填会系统会自动创建私有网络，指定私有网络 id 时会使用用户的私有网络\n\n目前只能在**开通**云托管服务时指定，暂时不支持修改",
           "type": "string"
-        },
-        "uniqSubnetList": {
-          "description": "可选，vpc子网列表，不填会自动选择vpc下所有合适的",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
         },
         "ignore": {
           "description": "部署时忽略的文件路径，支持通配符",
@@ -810,7 +803,7 @@
             },
             "serviceConfig": {
               "description": "服务配置\n\n如\n\n```json\n{\n   \"hello-world\": {\n     \"httpPath\": \"/helloworld\",\n     \"httpPathEnableAuth\": false\n   }\n}\n```",
-              "$ref": "#/definitions/Record<string,IServiceCloud>"
+              "$ref": "#/definitions/Record<string,IServiceConfig>"
             },
             "publishIncludeList": {
               "description": "1.6.16 版本以后支持\n如果指定，则只发布列表中的函数\n字符串格式，格式如 'fn1,fn2'",
@@ -983,7 +976,7 @@
         "type"
       ]
     },
-    "Record<string,IServiceCloud>": {
+    "Record<string,IServiceConfig>": {
       "type": "object"
     },
     "IFrameworkPluginContainerInputsConfig": {
@@ -1137,16 +1130,9 @@
               "description": "是否自动创建新版本",
               "type": "boolean"
             },
-            "uniqVpcId": {
+            "vpcId": {
               "description": "可选，私有网络 id，字符串格式，如果不填会系统会自动创建私有网络，指定私有网络 id 时会使用用户的私有网络\n\n目前只能在**开通**云托管服务时指定，暂时不支持修改",
               "type": "string"
-            },
-            "uniqSubnetList": {
-              "description": "可选，vpc子网列表，不填会自动选择vpc下所有合适的",
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
             },
             "ignore": {
               "description": "部署时忽略的文件路径，支持通配符",
