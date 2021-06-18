@@ -547,12 +547,12 @@ class ContainerPlugin extends Plugin {
 
     if (uniqVpcId) {
       vpcProperties = {
-        UniqVpcId: uniqVpcId,
-        ...(uniqSubnetList ? { UniqSubnetList: uniqSubnetList } : {})
+        uniqVpcId,
+        ...(uniqSubnetList ? { uniqSubnetList } : {})
       };
     } else {
       vpcProperties= {
-        UniqVpcId: '${Outputs.Network.Properties.InstanceId}'
+        uniqVpcId: '${Outputs.Network.Properties.InstanceId}'
       };
     }
 
