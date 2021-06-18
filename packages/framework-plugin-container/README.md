@@ -140,35 +140,6 @@ cloudbase framework deploy
 
 选填，策略阈值，1-100, 默认值 `60`
 
-### `uniqVpcId`
-
-选填，vpcid，不填则则由系统自动选择
-
-### `uniqSubnetList`
-
-选填，vpc子网，不填则自动选择vpc下所有合适的
-
-例如
-```json
-{
-  "envId": "{{envId}}",
-  "framework": {
-    "plugins": {
-      "client": {
-        "use": "@cloudbase/framework-plugin-container",
-        "inputs": {
-          "serviceName": "node-api",
-          "servicePath": "/node-api",
-          "localPath": "./",
-          "uniqVpcId": "vpc-5koor0a4",
-          "uniqSubnetList": ["subnet-fdj24n34j2", "subnet-fdj24n34j3"]
-        }
-      }
-    }
-  }
-}
-```
-
 ### `containerPort`
 
 选填，服务端口，默认值 `80`
