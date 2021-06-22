@@ -402,6 +402,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Zeyull",
+      "name": "Rin Hoshizora",
+      "avatar_url": "https://avatars.githubusercontent.com/u/50110204?v=4",
+      "profile": "https://github.com/Zeyull",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 8,
