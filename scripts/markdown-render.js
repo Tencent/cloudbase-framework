@@ -50,7 +50,7 @@ ${renderTable(data, renderCell, maxWidth)}
       const data = res.data.slice(0, 14);
 
       const renderCell = (item) => `<td style="vertical-align: top;">
-              <a target="_blank" style="min-height:100px; display:block;" href="${`${item.link}/tree/master/${item.workdir}`}"><img width="80px;" src="https:${
+              <a target="_blank" style="min-height:100px; display:block;" href="${`${item.link}/tree/master/${item.workdir}`}"><img width="80px;" src="${
         item.icon ||
         '//main.qcloudimg.com/raw/d56f7877c8fec451718459a3aa8bbc9a.png'
       }">
