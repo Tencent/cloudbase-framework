@@ -24,17 +24,17 @@ Cloud Development CloudBase Framework is based on cloud development underlying r
 - The application framework layer provides SDKs and components for different languages and frameworks, while abstracting the underlying cloud resources
 - The CI/CD layer can implement functions such as cloud deployment, code platform integration, grayscale release, and upgrade rollback
 
-![](D:\download\cloudbase framework.png)
+![](https://main.qcloudimg.com/raw/6cc6e73df6be8a1a402739bc37946187.png)
 
 ## Roadmap
 
-![](D:\download\road map.png)
+![](https://main.qcloudimg.com/raw/258fe3cbd8f73f52ea64fb5880930604.png)
 
 🚀 Indicates the function that has been implemented
 
 | Milestone                                                    | Status |
 | ------------------------------------------------------------ | ------ |
-| The core functions of the framework support plug-in mechanism and adapt to Cloudbase CLI |        |
+| The core functions of the framework support plug-in mechanism and adapt to Cloudbase CLI | 🚀      |
 | Develop Website plugin to support the deployment of front-end static projects | 🚀      |
 | Automatic detection of front-end frameworks (mainstream frameworks such as Vue/React) Use Website plugin | 🚀      |
 | Develop Nuxt plugin to support Nuxt SSR project              | 🚀      |
