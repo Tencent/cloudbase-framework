@@ -34,11 +34,11 @@
     "@cloudbase/toolbox": "^0.6.0",
     "@types/lodash.merge": "^4.6.6",
     "@types/node-fetch": "^2.5.7",
-    "archiver": "^4.0.2",
+    "archiver": "^5.3.0",
     "lodash.merge": "^4.6.2"
   },
   "devDependencies": {
-    "@types/archiver": "^3.1.0",
+    "@types/archiver": "^5.1.0",
     "jest": "^26.0.1",
     "typescript": "^3.9.2"
   },
