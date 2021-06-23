@@ -81,7 +81,7 @@ export class ContainerBuilder extends Builder {
       archive.glob('**/*', {
         cwd: src,
         dot: true,
-        follow: true,
+        follow: false,
         ignore,
       });
       archive.pipe(output);
