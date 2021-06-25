@@ -23,4 +23,6 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Login
-        run: docker -v
+        run: |
+          docker -v
+          docker login --username=100013422079 ccr.ccs.tencentyun.com
