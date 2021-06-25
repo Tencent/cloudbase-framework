@@ -25,4 +25,4 @@ jobs:
       - name: Login
         run: |
           docker -v
-          docker login --username=100013422079 ccr.ccs.tencentyun.com
+          docker login --username=100013422079  --password=${{ secrets.CCR_PASSWORD }} ccr.ccs.tencentyun.com
