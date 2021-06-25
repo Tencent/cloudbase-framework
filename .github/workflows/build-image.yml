@@ -28,4 +28,6 @@ jobs:
           docker login --username=100013422079  --password=${{ secrets.CCR_PASSWORD }} ccr.ccs.tencentyun.com
           
       - name: Build and push image
-        run: npm run build:image
+        run: |
+          npm i 
+          npm run build:image
