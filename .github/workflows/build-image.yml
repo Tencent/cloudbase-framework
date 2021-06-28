@@ -25,7 +25,7 @@ jobs:
       - name: Build
         run: |
           docker -v
-          echo ${{ secrets.DOCKERIO_PASSWORD }}  | docker login -u ${{ secrets.DOCKERIO_USRNAME }}
+          echo ${{ secrets.DOCKERIO_PASSWORD }}  | docker login -u ${{ secrets.DOCKERIO_USRNAME }}  --password-stdin
           echo ${{ secrets.CCR_PASSWORD }}  | docker login -u ${{ secrets.CCR_USRNAME }} --password-stdin ccr.ccs.tencentyun.com
           npm i 
           npm run build:image
