@@ -28,7 +28,7 @@ jobs:
           echo ${{ secrets.DOCKERIO_PASSWORD }}  | docker login -u ${{ secrets.DOCKERIO_USRNAME }} --password-stdin index.docker.io/v1/
           echo ${{ secrets.CCR_PASSWORD }}  | docker login -u ${{ secrets.CCR_USRNAME }} --password-stdin ccr.ccs.tencentyun.com
           
-#       - name: Build and push image
-#         run: |
-#           npm i 
-#           npm run build:image
+      - name: Build and push image
+        run: |
+          npm i 
+          npm run build:image
