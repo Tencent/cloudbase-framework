@@ -25,7 +25,8 @@ jobs:
       - name: Login
         run: |
           docker -v
-          docker login --username=100013422079  --password=${{ secrets.CCR_PASSWORD }} ccr.ccs.tencentyun.com
+          docker login --username={{ secrets.DOCKERIO_USRNAME }}  --password=${{ secrets.DOCKERIO_PASSWORD }}
+          docker login --username={{ secrets.CCR_USRNAME }}  --password=${{ secrets.CCR_PASSWORD }} ccr.ccs.tencentyun.com
           
       - name: Build and push image
         run: |
