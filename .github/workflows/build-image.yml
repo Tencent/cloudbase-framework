@@ -26,9 +26,8 @@ jobs:
         run: |
           docker -v
           docker login --username={{ secrets.DOCKERIO_USRNAME }}  --password=${{ secrets.DOCKERIO_PASSWORD }} index.docker.io/v1/
-          docker login --username={{ secrets.CCR_USRNAME }}  --password=${{ secrets.CCR_PASSWORD }} ccr.ccs.tencentyun.com
           
-      - name: Build and push image
-        run: |
-          npm i 
-          npm run build:image
+#       - name: Build and push image
+#         run: |
+#           npm i 
+#           npm run build:image
