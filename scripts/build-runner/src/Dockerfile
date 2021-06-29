@@ -28,9 +28,9 @@ RUN apk add --update curl bash git openssh && \
     # 低代码：内置官方 react 组件库
     mkdir -p /root/.weapps-materials/gsd-h5-react@0.0.61 && \
     cd /root/.weapps-materials/ && \
-    curl https://user-source-1303824488.cos.ap-shanghai.myqcloud.com/materials/gsd-h5-react@0.0.61/source.zip -o gsd-h5-react@0.0.61.zip && \
+    curl https://user-source-1303824488.cos.ap-shanghai.myqcloud.com/materials/gsd-h5-react%400.0.61/source-full.zip -o gsd-h5-react@0.0.61.zip && \
     unzip gsd-h5-react@0.0.61.zip -d gsd-h5-react@0.0.61 && \
-    cd gsd-h5-react@0.0.61 && yarn && \
+    cd gsd-h5-react@0.0.61 && \
     # 低代码：内置官方 mp 组件库
     mkdir -p /root/.weapps-materials/gsd-h5-react-mp@0.0.61 && \
     cd /root/.weapps-materials/ && \
