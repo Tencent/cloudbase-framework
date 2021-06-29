@@ -12,10 +12,16 @@
     "logo": "https://nowpic.gtimg.com/feeds_pic/ajNVdqHZLLCSibq1Mbc4x7v3q63wjgXdKJUbUuynLCj1RUbuu0yOvdw/"
   },
   {
-    "name": "云开发低码平台",
+    "name": "腾讯云微搭低代码平台",
     "link": "https://cloud.tencent.com/product/lowcode",
     "repo": "",
     "logo": "https://main.qcloudimg.com/raw/fe8883203548358b9a337bc07723796b.png"
+  },
+  {
+    "name": "腾讯云开源应用中心",
+    "link": "https://app.cloud.tencent.com/",
+    "repo": "",
+    "logo": "https://main.qcloudimg.com/raw/5d1e69047b5e63d1d858447a43871045.png"
   },
   {
     "name": "心悦俱乐部",
