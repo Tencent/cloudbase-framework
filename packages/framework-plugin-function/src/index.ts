@@ -317,7 +317,7 @@ class FunctionPlugin extends Plugin {
         zipFileName: zipName,
         isNeedZip,
         ignore: func.installDependency
-          ? ['node_modules/**/*', 'node_modules', ...(func.ignore || [])]
+          ? ['node_modules/**/*', 'node_modules', '.git/**', ...(func.ignore || [])]
           : [...(func.ignore || [])],
       };
     });
