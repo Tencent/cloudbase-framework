@@ -411,6 +411,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "justyouhappy",
+      "name": "justyouhappy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23497220?v=4",
+      "profile": "https://github.com/justyouhappy",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 8,
