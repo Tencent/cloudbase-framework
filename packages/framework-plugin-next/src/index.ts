@@ -20,6 +20,7 @@ const DEFAULT_INPUTS = {
   name: 'next-ssr',
   path: '/next-ssr',
   buildCommand: 'npm run build',
+  installCommand:'npm install',
 };
 
 /**
@@ -50,6 +51,12 @@ export interface IFrameworkPluginNextInputs {
    * @default npm run build
    */
   buildCommand?: string;
+  /**
+   * 安装命令，如`npm install`，没有可不传
+   *
+   * @default npm run build
+   */
+  installCommand?: string;
 
   /**
    * 函数运行时版本
@@ -121,8 +128,8 @@ class NextPlugin extends Plugin {
       'package.json'
     );
     if (fs.existsSync(packageJsonPath)) {
-      this.api.logger.info('npm install');
-      return promisify(exec)('npm install', {
+      this.api.logger.info(`package install: ${this.resolvedInputs.installCommand}`);
+      return promisify(exec)(this.resolvedInputs.installCommand, {
         cwd: this.resolvedInputs.entry,
       });
     }
