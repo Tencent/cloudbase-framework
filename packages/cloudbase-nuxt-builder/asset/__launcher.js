@@ -5,7 +5,6 @@
  *
  * Please refer to license text included with this package for license details.
  */
-require = require('esm')(module);
 const path = require('path');
 const Koa = require('koa');
 const { Nuxt } = require('nuxt');

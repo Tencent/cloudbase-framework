@@ -9,6 +9,7 @@ import path from 'path';
 import fse from 'fs-extra';
 import archiver from 'archiver';
 import { Builder } from '@cloudbase/framework-core';
+import { transform } from '@babel/core';
 
 const launcher = fse.readFileSync(
   path.resolve(__dirname, '../asset/__launcher.js'),
@@ -32,6 +33,18 @@ interface NuxtBuilderBuildOptions {
    * 函数名或者服务名
    */
   name: string;
+}
+
+async function transformToEs5(code: string) {
+  return new Promise((resolve, reject) => {
+    transform(code, { presets: ['@babel/preset-env'] }, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result.code);
+      }
+    });
+  });
 }
 
 export class NuxtBuilder extends Builder {
@@ -70,10 +83,9 @@ export class NuxtBuilder extends Builder {
     await fse.writeFile(path.join(serviceDir, 'package.json'), packageJson);
 
     // nuxt.config.js，需要babel转为es5
-    await fse.copy(
-      path.join(entry, 'nuxt.config.js'),
-      path.join(serviceDir, 'nuxt.config.js')
-    );
+    const nuxtConfigJsContent = await fse.readFile(path.join(entry, 'nuxt.config.js'), 'utf-8');
+    const es5NuxtConfigJsContent = await transformToEs5(nuxtConfigJsContent);
+    await fse.writeFile(path.join(serviceDir, 'nuxt.config.js'), es5NuxtConfigJsContent);
 
     // launcher
     await fse.writeFile(
