@@ -24,6 +24,8 @@
     "build:markdown": "node scripts/markdown-render.js"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.14.7",
+    "@tencent/eslint-config-tencent": "^0.15.2",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
     "@typescript-eslint/parser": "^4.6.1",
     "conventional-changelog-cli": "^2.0.34",
