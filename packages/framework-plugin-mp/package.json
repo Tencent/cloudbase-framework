@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@cloudbase/framework-core": "^1.8.10",
-    "miniprogram-ci": "^1.0.76"
+    "miniprogram-ci": "1.0.76"
   },
   "devDependencies": {
     "jest": "^26.0.1",
