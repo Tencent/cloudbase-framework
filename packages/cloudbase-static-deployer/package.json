@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/static-deployer",
-  "version": "1.8.9",
+  "version": "1.8.10",
   "description": "云开发 CloudBase 静态网站部署工具",
   "author": "Weijia Wang <starkwang@126.com>",
   "homepage": "",
@@ -25,7 +25,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@cloudbase/framework-core": "^1.8.9"
+    "@cloudbase/framework-core": "^1.8.10"
   },
   "devDependencies": {
     "@types/node": "^13.13.5",
