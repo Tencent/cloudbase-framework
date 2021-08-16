@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/framework-plugin-next",
-  "version": "1.8.8",
+  "version": "1.8.9",
   "description": "云开发 Tencent CloudBase Framework Next SSR Plugin 插件，将项目下的 Next 应用一键部署云开发环境，提供自动弹性伸缩的高性能 Next 服务。",
   "author": "Tencent CloudBase Team",
   "homepage": "https://github.com/Tencent/cloudbase-framework#readme",
@@ -30,9 +30,9 @@
     "url": "https://github.com/Tencent/cloudbase-framework/issues"
   },
   "dependencies": {
-    "@cloudbase/framework-core": "^1.8.8",
-    "@cloudbase/framework-plugin-function": "^1.8.8",
-    "@cloudbase/next-builder": "^1.8.8",
+    "@cloudbase/framework-core": "^1.8.9",
+    "@cloudbase/framework-plugin-function": "^1.8.9",
+    "@cloudbase/next-builder": "^1.8.9",
     "@types/fs-extra": "^9.0.5",
     "fs-extra": "^8.1.0"
   },
