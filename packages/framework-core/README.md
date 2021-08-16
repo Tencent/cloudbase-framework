@@ -80,7 +80,7 @@ npm install -g @cloudbase/cli@latest
 2. **初始化一个应用**
 
 ```bash
-cloudbase init
+cloudbase new
 ```
 
 3. **部署应用**
