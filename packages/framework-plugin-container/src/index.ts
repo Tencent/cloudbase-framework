@@ -230,6 +230,12 @@ export interface IFrameworkPluginContainerInputs {
   vpcId?: string;
 
   /**
+   * uploadType为repository时，必选
+   * 表示仓库URL对应的平台类型
+   */
+  repositoryType?: 'github' | 'gitlab' | 'coding' | 'gitee'
+
+  /**
    * 部署时忽略的文件路径，支持通配符
    *
    * @default [".git"]
@@ -315,11 +321,11 @@ class ContainerPlugin extends Plugin {
 
     let cloudInputs = latestVersionDetail
       ? {
-          cpu: latestVersionDetail.Cpu,
-          mem: latestVersionDetail.Mem,
-          maxNum: latestVersionDetail.MaxNum,
-          minNum: latestVersionDetail.MinNum,
-        }
+        cpu: latestVersionDetail.Cpu,
+        mem: latestVersionDetail.Mem,
+        maxNum: latestVersionDetail.MaxNum,
+        minNum: latestVersionDetail.MinNum,
+      }
       : {};
 
     let modeInputs = this.inputs.mode ? MODE_INPUTS[this.inputs.mode] : {};
@@ -437,16 +443,16 @@ class ContainerPlugin extends Plugin {
         [this.toConstantCase(this.resolvedInputs.serviceName)]: this.toSAM(),
         ...(this.resolvedInputs.vpcId
           ? {
-              Network: {
-                Type: 'CloudBase::VPC',
-                Properties: {
-                  Description: 'VPC 网络配置',
-                  UniqVpcId: this.resolvedInputs.vpcId,
-                  CloudBaseRun: false,
-                  Region: '${TcbEnvRegion}',
-                },
+            Network: {
+              Type: 'CloudBase::VPC',
+              Properties: {
+                Description: 'VPC 网络配置',
+                UniqVpcId: this.resolvedInputs.vpcId,
+                CloudBaseRun: false,
+                Region: '${TcbEnvRegion}',
               },
-            }
+            },
+          }
           : {}),
       },
       EntryPoint: [
@@ -515,6 +521,7 @@ class ContainerPlugin extends Plugin {
       customLogs,
       initialDelaySeconds,
       bumpVersion,
+      repositoryType
     } = this.resolvedInputs;
 
     let otherProperties;
@@ -605,6 +612,7 @@ class ContainerPlugin extends Plugin {
           VersionRemark: versionRemark,
           CustomLogs: customLogs,
           InitialDelaySeconds: initialDelaySeconds,
+          RepositoryType: repositoryType
         },
         otherProperties,
         (this.api.bumpVersion || bumpVersion) && {
