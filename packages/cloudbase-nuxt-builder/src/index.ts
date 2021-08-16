@@ -40,7 +40,8 @@ async function transformToEs5(code: string) {
     transform(code, { presets: ['@babel/preset-env'] }, (err, result) => {
       if (err) {
         reject(err);
-      } else {
+      }
+      if (result) {
         resolve(result.code);
       }
     });
@@ -83,9 +84,15 @@ export class NuxtBuilder extends Builder {
     await fse.writeFile(path.join(serviceDir, 'package.json'), packageJson);
 
     // nuxt.config.js，需要babel转为es5
-    const nuxtConfigJsContent = await fse.readFile(path.join(entry, 'nuxt.config.js'), 'utf-8');
+    const nuxtConfigJsContent = await fse.readFile(
+      path.join(entry, 'nuxt.config.js'),
+      'utf-8'
+    );
     const es5NuxtConfigJsContent = await transformToEs5(nuxtConfigJsContent);
-    await fse.writeFile(path.join(serviceDir, 'nuxt.config.js'), es5NuxtConfigJsContent);
+    await fse.writeFile(
+      path.join(serviceDir, 'nuxt.config.js'),
+      es5NuxtConfigJsContent
+    );
 
     // launcher
     await fse.writeFile(

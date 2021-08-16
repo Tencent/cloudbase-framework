@@ -18,14 +18,16 @@
     "@babel/core": "^7.15.0",
     "@babel/preset-env": "^7.15.0",
     "@cloudbase/framework-core": "^1.8.3",
+    "@types/babel-core": "^6.25.7",
     "@types/fs-extra": "^8.1.0",
     "archiver": "^5.3.0",
     "fs-extra": "^8.1.0"
   },
   "devDependencies": {
     "@types/archiver": "^5.1.0",
+    "@types/babel__core": "^7.1.15",
     "@types/node": "^13.13.5",
     "typescript": "^3.8.3"
   },
-  "gitHead": "cda20f169ca40e413f9dfa416d4fc22283cfb17b"
+  "gitHead": "60d4c7b093dae286460cb0fe4e3aeca4e26d660c"
 }
