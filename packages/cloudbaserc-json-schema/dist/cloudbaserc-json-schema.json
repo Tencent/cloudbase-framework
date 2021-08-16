@@ -1464,6 +1464,11 @@
               "default": "npm run build",
               "type": "string"
             },
+            "installCommand": {
+              "description": "安装命令，如`npm install`，没有可不传",
+              "default": "npm run build",
+              "type": "string"
+            },
             "runtime": {
               "description": "函数运行时版本",
               "default": "\"Nodejs10.15",
