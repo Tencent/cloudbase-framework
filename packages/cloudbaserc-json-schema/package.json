@@ -46,7 +46,7 @@
     "@cloudbase/framework-plugin-website": "^1.8.12",
     "typescript-json-schema": "^0.42.0"
   },
-  "gitHead": "7cae97f1dcaba63e21b5a1b502dbfa805de6a18b",
+  "gitHead": "5b0574d6b7067bce6c518e85e872f7ddae7a1764",
   "devDependencies": {
     "cli-watch": "^1.0.7"
   }
