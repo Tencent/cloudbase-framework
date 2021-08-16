@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/nuxt-builder",
-  "version": "1.8.5-alpha.0",
+  "version": "1.8.5",
   "description": "云开发 CloudBase Nuxt 构建工具",
   "main": "lib/index.js",
   "scripts": {
