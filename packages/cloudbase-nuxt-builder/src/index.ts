@@ -37,14 +37,17 @@ interface NuxtBuilderBuildOptions {
 
 async function transformToEs5(code: string) {
   return new Promise((resolve, reject) => {
-    transform(code, { presets: ['@babel/preset-env'] }, (err, result) => {
-      if (err) {
-        reject(err);
-      }
-      if (result) {
-        resolve(result.code);
-      }
-    });
+    transform(code, {
+        presets: [['@babel/preset-env', { targets: { node: '10.15' } }]]
+      },
+      (err, result) => {
+        if (err) {
+          reject(err);
+        }
+        if (result) {
+          resolve(result.code);
+        }
+      });
   });
 }
 
