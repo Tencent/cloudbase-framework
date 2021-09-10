@@ -167,7 +167,7 @@ async function getCloudProjectInfo(projectName: string | undefined) {
       })
     ).ProjectList;
 
-    if (projectList.length) {
+    if (projectList?.length) {
       const projectInfo = projectList[0];
       projectData = getProjectDataFromProjectInfo(projectInfo);
     }

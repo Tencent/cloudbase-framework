@@ -81,6 +81,7 @@ export async function run(
     const logger = getLogger();
     logger.info('✨ done');
   } catch (e) {
+    console.log(e)
     await globalErrorHandler(e);
     process.exit(1);
   }
