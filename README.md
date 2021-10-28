@@ -265,7 +265,7 @@ cloudbase framework deploy
 
 插件的配置写在 cloudbaserc 文件中，目前仅支持 JSON 文件，后续会支持 YAML。
 
-请参考完整的[插件文档](https://docs.cloudbase.net/framework/plugins/)
+请参考完整的[插件文档](https://docs.cloudbase.net/framework/plugins/index)
 
 插件的配置可以手动填写，也可以自动生成，目前针对前端框架支持自动识别填写插件。
 
