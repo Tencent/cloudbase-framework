@@ -32,6 +32,7 @@ enum PAYMODE {
 
 enum ENV_CHANNEL {
   LOWCODE = 'low_code',
+  SCENEMODULE = 'scene_module'
 }
 
 /**
@@ -237,12 +238,12 @@ class WebsitePlugin extends Plugin {
   /**
    * 删除资源
    */
-  async remove() {}
+  async remove() { }
 
   /**
    * 生成代码
    */
-  async genCode() {}
+  async genCode() { }
 
   /**
    * 构建
@@ -334,7 +335,7 @@ class WebsitePlugin extends Plugin {
           env: Object.assign({}, process.env, envVariables),
         });
       }
-    } catch (e) {}
+    } catch (e) { }
   }
 
   /**
@@ -351,7 +352,8 @@ class WebsitePlugin extends Plugin {
 
     if (
       env.PayMode !== PAYMODE.POSTPAID &&
-      env.EnvChannel !== ENV_CHANNEL.LOWCODE
+      env.EnvChannel !== ENV_CHANNEL.LOWCODE &&
+      env.EnvChannel !== ENV_CHANNEL.SCENEMODULE
     ) {
       throw new Error(
         '网站托管当前只能部署到按量付费的环境下，请先在控制台切换计费方式'
