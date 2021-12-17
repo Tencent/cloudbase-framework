@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/cloudbaserc-json-schema",
-  "version": "1.8.16",
+  "version": "1.8.17-beta.1+ba8fe282",
   "description": "cloudbaserc 配置文件的 JSON Schema 定义",
   "keywords": [
     "cloudbase",
@@ -43,10 +43,10 @@
     "@cloudbase/framework-plugin-next": "^1.8.16",
     "@cloudbase/framework-plugin-node": "^1.8.16",
     "@cloudbase/framework-plugin-nuxt": "^1.8.16",
-    "@cloudbase/framework-plugin-website": "^1.8.16",
+    "@cloudbase/framework-plugin-website": "^1.8.17-beta.1+ba8fe282",
     "typescript-json-schema": "^0.42.0"
   },
-  "gitHead": "5b0574d6b7067bce6c518e85e872f7ddae7a1764",
+  "gitHead": "ba8fe28244529e44241fba6eabfda11d6f1347a6",
   "devDependencies": {
     "cli-watch": "^1.0.7"
   }
