@@ -132,6 +132,10 @@ cloudbase framework deploy
 
 选填，最大副本数，1-50，默认值 `10`
 
+### `serviceVersion`
+
+选填，服务版本号，默认值空
+
 ### `policyType`
 
 选填，策略类型(cpu)，默认值 `cpu` ,支持 `cpu | mem`

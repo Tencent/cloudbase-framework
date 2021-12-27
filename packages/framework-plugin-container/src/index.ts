@@ -19,6 +19,7 @@ const DEFAULT_INPUTS = {
   mem: 0.5,
   minNum: 0,
   maxNum: 10,
+  serviceVersion: '',
   policyType: 'cpu',
   policyThreshold: 60,
   containerPort: 80,
@@ -131,8 +132,12 @@ export interface IFrameworkPluginContainerInputs {
    */
   maxNum?: number;
   /**
-   * 策略类型(cpu)，默认值 `cpu`
+   * 服务版本，默认值 ''
    */
+  serviceVersion?: string;
+  /**
+ * 策略类型(cpu)，默认值 `cpu`
+ */
   policyType?: 'cpu' | 'mem';
   /**
    * 策略阈值，1-100, 默认值 `60`
@@ -392,17 +397,17 @@ class ContainerPlugin extends Plugin {
   /**
    * 执行本地命令
    */
-  async run() {}
+  async run() { }
 
   /**
    * 删除资源
    */
-  async remove() {}
+  async remove() { }
 
   /**
    * 生成代码
    */
-  async genCode() {}
+  async genCode() { }
 
   /**
    * 构建
@@ -506,6 +511,7 @@ class ContainerPlugin extends Plugin {
       mem,
       minNum,
       maxNum,
+      serviceVersion,
       policyType,
       policyThreshold,
       containerPort,
@@ -602,6 +608,7 @@ class ContainerPlugin extends Plugin {
           Mem: mem,
           MinNum: minNum,
           MaxNum: maxNum,
+          ServiceVersion: serviceVersion,
           PolicyType: policyType,
           PolicyThreshold: policyThreshold,
           ContainerPort: containerPort,
@@ -662,7 +669,7 @@ class ContainerPlugin extends Plugin {
           return 0;
         }
       );
-    } catch (e) {}
+    } catch (e) { }
 
     if (versionsOrderByUpdatedTime.length) {
       let latestVersion = versionsOrderByUpdatedTime[0];
