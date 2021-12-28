@@ -580,6 +580,10 @@
           "default": 10,
           "type": "number"
         },
+        "serviceVersion": {
+          "description": "服务版本，默认值 ''",
+          "type": "string"
+        },
         "policyType": {
           "description": "策略类型(cpu)，默认值 `cpu`",
           "enum": [
@@ -1080,6 +1084,10 @@
               "maximum": 50,
               "default": 10,
               "type": "number"
+            },
+            "serviceVersion": {
+              "description": "服务版本，默认值 ''",
+              "type": "string"
             },
             "policyType": {
               "description": "策略类型(cpu)，默认值 `cpu`",

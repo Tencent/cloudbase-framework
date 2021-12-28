@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/cloudbaserc-json-schema",
-  "version": "1.8.17",
+  "version": "1.8.18-beta.1+66fe3482",
   "description": "cloudbaserc 配置文件的 JSON Schema 定义",
   "keywords": [
     "cloudbase",
@@ -33,20 +33,20 @@
     "url": "https://github.com/Tencent/cloudbase-framework/issues"
   },
   "dependencies": {
-    "@cloudbase/framework-plugin-auth": "^1.8.16",
-    "@cloudbase/framework-plugin-container": "^1.8.16",
-    "@cloudbase/framework-plugin-dart": "^1.8.16",
-    "@cloudbase/framework-plugin-database": "^1.8.16",
-    "@cloudbase/framework-plugin-deno": "^1.8.16",
-    "@cloudbase/framework-plugin-function": "^1.8.16",
-    "@cloudbase/framework-plugin-mp": "^1.8.16",
-    "@cloudbase/framework-plugin-next": "^1.8.16",
-    "@cloudbase/framework-plugin-node": "^1.8.16",
-    "@cloudbase/framework-plugin-nuxt": "^1.8.16",
-    "@cloudbase/framework-plugin-website": "^1.8.17",
+    "@cloudbase/framework-plugin-auth": "^1.8.18-beta.1+66fe3482",
+    "@cloudbase/framework-plugin-container": "^1.8.18-beta.1+66fe3482",
+    "@cloudbase/framework-plugin-dart": "^1.8.18-beta.1+66fe3482",
+    "@cloudbase/framework-plugin-database": "^1.8.18-beta.1+66fe3482",
+    "@cloudbase/framework-plugin-deno": "^1.8.18-beta.1+66fe3482",
+    "@cloudbase/framework-plugin-function": "^1.8.18-beta.1+66fe3482",
+    "@cloudbase/framework-plugin-mp": "^1.8.18-beta.1+66fe3482",
+    "@cloudbase/framework-plugin-next": "^1.8.18-beta.1+66fe3482",
+    "@cloudbase/framework-plugin-node": "^1.8.18-beta.1+66fe3482",
+    "@cloudbase/framework-plugin-nuxt": "^1.8.18-beta.1+66fe3482",
+    "@cloudbase/framework-plugin-website": "^1.8.18-beta.1+66fe3482",
     "typescript-json-schema": "^0.42.0"
   },
-  "gitHead": "ba8fe28244529e44241fba6eabfda11d6f1347a6",
+  "gitHead": "66fe3482ae0f85ee5f441208354b4d2d7a8511d5",
   "devDependencies": {
     "cli-watch": "^1.0.7"
   }
