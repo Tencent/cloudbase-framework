@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/next-builder",
-  "version": "1.9.2",
+  "version": "1.9.3",
   "description": "云开发 CloudBase Next 构建工具",
   "main": "lib/index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@cloudbase/framework-core": "^1.9.2",
+    "@cloudbase/framework-core": "^1.9.3",
     "@types/fs-extra": "^8.1.0",
     "archiver": "^5.3.0",
     "fs-extra": "^8.1.0"
@@ -23,7 +23,7 @@
   "devDependencies": {
     "@types/archiver": "^3.1.0",
     "@types/node": "^13.13.5",
-   "typescript": "^4.0.5"
+    "typescript": "^4.0.5"
   },
   "gitHead": "66fe3482ae0f85ee5f441208354b4d2d7a8511d5"
 }
