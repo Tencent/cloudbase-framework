@@ -584,7 +584,7 @@ export class FunctionBuilder extends Builder {
         zlib: { level: 9 }, // Sets the compression level.
       });
       output.on('close', () => {
-        resolve();
+        resolve(void 0);
       });
       archive.on('error', reject);
       archive.file(src, {
@@ -603,7 +603,7 @@ export class FunctionBuilder extends Builder {
         zlib: { level: 9 }, // Sets the compression level.
       });
       output.on('close', () => {
-        resolve();
+        resolve(void 0);
       });
       archive.on('error', reject);
       archive.glob(
