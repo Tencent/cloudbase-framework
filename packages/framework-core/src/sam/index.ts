@@ -101,7 +101,7 @@ export class SamManager {
         if (typeof createSamSuccessCallback === 'function') {
           await createSamSuccessCallback(extensionId);
         }
-      } catch (e) {
+      } catch (e: any) {
         if (e.code === 'ResourceInUse') {
           extensionId = e.original.Message;
 

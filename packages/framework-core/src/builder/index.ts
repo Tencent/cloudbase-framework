@@ -35,5 +35,5 @@ export abstract class Builder {
     return fs.remove(this.distDir);
   }
 
-  abstract async build(...args: any): Promise<BuildResult>;
+  abstract build(...args: any): Promise<BuildResult>;
 }

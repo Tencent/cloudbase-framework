@@ -82,7 +82,7 @@ export async function run(
     logger.info('✨ done');
   } catch (e) {
     console.log(e)
-    await globalErrorHandler(e);
+    await globalErrorHandler(e as Error);
     process.exit(1);
   }
 }
