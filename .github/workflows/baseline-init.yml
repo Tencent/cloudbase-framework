@@ -28,7 +28,7 @@ jobs:
       - name: Install Deps
         run: |
           echo $PATH
-          sudo npm install -g @cloudbase/cli@latest lerna@3.20.2
+          sudo npm install -g @cloudbase/cli@latest lerna@3.20.2 pnpm
           cd scripts && npm install && cd ..
 
 
@@ -37,8 +37,7 @@ jobs:
         run: |
           echo $PATH
           node -v
-          npm install 
-          npm run bootstrap
+          pnpm install 
           npm run build
           sudo chown -R $USER:$USER /usr/local/lib/
           CLOUDBASE_FX_ENV=dev CI=false envId=${{ secrets.ENV_ID }} SecretId=${{ secrets.SECRET_ID }} SecretKey=${{ secrets.SECRET_KEY }} node scripts/local-e2e.js

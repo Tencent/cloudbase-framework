@@ -52,8 +52,8 @@
 ### 本地开发
 
 ```bash
-npm install 
-npm run dev:all
+pnpm install 
+pnpm run dev:all
 ```
 
 ### 本地测试
