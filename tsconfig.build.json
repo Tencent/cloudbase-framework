@@ -10,6 +10,7 @@
     "target": "es2015",
     "lib": ["ES6", "ScriptHost"],
     "module": "commonjs",
-    "strict": true
+    "strict": true,
+    "typeRoots": ["node_modules/@types"]
   }
 }
