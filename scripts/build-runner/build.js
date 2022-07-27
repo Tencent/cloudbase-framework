@@ -42,6 +42,7 @@ async function main() {
       },
       {
         '@cloudbase/framework-plugin-low-code': '0.3.5',
+        "postcss": "^8.4.14",
       }
     ),
   };

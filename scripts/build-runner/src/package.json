@@ -12,6 +12,7 @@
         "@cloudbase/framework-plugin-next": "^1.8.0",
         "@cloudbase/framework-plugin-node": "^1.8.0",
         "@cloudbase/framework-plugin-nuxt": "^1.8.0",
-        "@cloudbase/framework-plugin-website": "^1.8.0"
+        "@cloudbase/framework-plugin-website": "^1.8.0",
+        "postcss": "^8.4.14"
     }
 }
