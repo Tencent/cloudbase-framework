@@ -97,6 +97,7 @@ class WebsitePlugin extends Plugin {
   protected env?: {
     PayMode: PAYMODE;
     EnvChannel: string;
+    EnvType: string;
   };
   // 静态托管信息
   protected website: any;
@@ -146,9 +147,9 @@ class WebsitePlugin extends Plugin {
     const uploadResults = await this.upload();
     this.api.logger.debug('website uploadResults', uploadResults);
     const [website, staticConfig] = uploadResults as any;
-
+    const isBAAS = this.env?.EnvType === 'baas';
     return {
-      EnvType: this.env?.PayMode === PAYMODE.PREPAYMENT ? 'PrePay' : 'PostPay',
+      EnvType: isBAAS ? this.env?.EnvType : this.env?.PayMode === PAYMODE.PREPAYMENT ? 'PrePay' : 'PostPay',
       Resources: Object.assign(
         {},
         this.getStaticResourceSam(
@@ -339,7 +340,7 @@ class WebsitePlugin extends Plugin {
   }
 
   /**
-   * 确保开启了按量付费
+   * 确保非BAAS环境开启了按量付费
    */
   async ensurePostPay() {
     const res = await this.api.cloudApi.tcbService.request('DescribeEnvs');
@@ -351,6 +352,7 @@ class WebsitePlugin extends Plugin {
     }
 
     if (
+      env.EnvType !== 'baas' &&
       env.PayMode !== PAYMODE.POSTPAID &&
       env.EnvChannel !== ENV_CHANNEL.LOWCODE &&
       env.EnvChannel !== ENV_CHANNEL.SCENEMODULE

@@ -43,7 +43,7 @@ export class SamManager {
    */
   generate(meta: Record<string, any>, samSections: Record<string, any>[]) {
     let EntryPoint = samSections
-      .map((sam) => sam.EntryPoint)
+      .map((sam) => sam?.EntryPoint)
       .reduce((prev, cur) => {
         prev = [...prev, ...(cur || [])];
         return prev;
