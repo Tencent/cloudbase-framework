@@ -147,9 +147,8 @@ class WebsitePlugin extends Plugin {
     const uploadResults = await this.upload();
     this.api.logger.debug('website uploadResults', uploadResults);
     const [website, staticConfig] = uploadResults as any;
-    const isBAAS = this.env?.EnvType === 'baas';
     return {
-      EnvType: isBAAS ? this.env?.EnvType : this.env?.PayMode === PAYMODE.PREPAYMENT ? 'PrePay' : 'PostPay',
+      EnvType: this.env?.PayMode === PAYMODE.PREPAYMENT ? 'PrePay' : 'PostPay',
       Resources: Object.assign(
         {},
         this.getStaticResourceSam(
