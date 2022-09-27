@@ -17,15 +17,10 @@ RUN apk add --update curl bash git openssh && \
     # 安装 CLI 及 PNPM
     npm install -g @cloudbase/cli@$tag pnpm && \
     echo $tag && \
-    # 全局安装 Deno
-    curl -fsSL https://deno.land/x/install/install.sh | sh && \
-    echo 'export DENO_INSTALL="/root/.deno"\nexport PATH="$DENO_INSTALL/bin:$PATH"' >> ~/.profile && \
     # 全局安装插件
     cd /root/cloudbase-framework/registry/ && \
     npm install --no-package-lock && \
     rm -rf package-lock.json && \
-    # 更新 shell profile
-    . ~/.profile && \
     # 低代码：内置官方 react 组件库
     mkdir -p /root/.weapps-materials/gsd-h5-react@0.0.61 && \
     cd /root/.weapps-materials/ && \
