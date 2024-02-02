@@ -352,6 +352,7 @@ class WebsitePlugin extends Plugin {
 
     if (
       env.EnvType !== 'baas' &&
+      env.EnvType !== 'hosting' &&
       env.PayMode !== PAYMODE.POSTPAID &&
       env.EnvChannel !== ENV_CHANNEL.LOWCODE &&
       env.EnvChannel !== ENV_CHANNEL.SCENEMODULE
