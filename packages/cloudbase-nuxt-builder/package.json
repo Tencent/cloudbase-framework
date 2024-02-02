@@ -1,6 +1,6 @@
 {
   "name": "@cloudbase/nuxt-builder",
-  "version": "1.9.8",
+  "version": "1.9.7",
   "description": "云开发 CloudBase Nuxt 构建工具",
   "main": "lib/index.js",
   "scripts": {
@@ -17,7 +17,7 @@
   "dependencies": {
     "@babel/core": "^7.15.0",
     "@babel/preset-env": "^7.15.0",
-    "@cloudbase/framework-core": "^1.9.8",
+    "@cloudbase/framework-core": "^1.9.7",
     "@types/babel-core": "^6.25.7",
     "@types/fs-extra": "^8.1.0",
     "archiver": "^5.3.0",
