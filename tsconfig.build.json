@@ -10,6 +10,7 @@
     "target": "es2015",
     "lib": ["ES6", "ScriptHost"],
     "module": "commonjs",
+    "skipLibCheck": true,
     "strict": true
   }
 }
