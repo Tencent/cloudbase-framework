@@ -44,6 +44,7 @@
     "@cloudbase/framework-plugin-node": "^1.9.13",
     "@cloudbase/framework-plugin-nuxt": "^1.9.13",
     "@cloudbase/framework-plugin-website": "^1.9.13",
+    "@types/lodash": "4.14.108",
     "typescript-json-schema": "^0.42.0"
   },
   "gitHead": "485ceb1d3020e5684eece085d446585fe24164d5",

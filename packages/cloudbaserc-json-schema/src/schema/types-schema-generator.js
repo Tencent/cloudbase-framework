@@ -15,6 +15,7 @@ const settings = {
 
 // optionally pass ts compiler options
 const compilerOptions = {
+  skipLibCheck: true,
   strictNullChecks: true,
   esModuleInterop: true,
 };
