@@ -105,7 +105,7 @@ export interface ICloudFunction {
    * 运行时环境配置，可选值： `Nodejs12.16,Nodejs8.9, Nodejs10.15 Php7, Java8, Go1`
    * @default Nodejs10.15
    */
-  runtime?: 'Nodejs12.16' | 'Nodejs10.15' | 'Nodejs8.9' | 'Php7' | 'Java8' | 'Go1';
+  runtime?: 'Nodejs16.13' |'Nodejs12.16' | 'Nodejs10.15' | 'Nodejs8.9' | 'Php7' | 'Java8' | 'Go1';
   /**
    * 函数运行时内存配置
    * @default 128
