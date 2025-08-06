@@ -20,8 +20,7 @@ RUN apk add --update curl bash git openssh && \
     ls -la /root/cloudbase-framework/registry
 
 RUN cd /root/cloudbase-framework/registry/ && \
-    yarn && \
-    rm -rf yarn.lock
+    yarn
 
 
 CMD ["node", "/usr/opts/index.js"]
