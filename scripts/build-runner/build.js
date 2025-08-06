@@ -1,7 +1,7 @@
 /**
  * Tencent is pleased to support the open source community by making CloudBaseFramework - 云原生一体化部署工具 available.
  *
- * Copyright (C) 2020 THL A29 Limited, a Tencent company.  All rights reserved.
+ * Copyright (C) 2025 Tencent.  All rights reserved.
  *
  * Please refer to license text included with this package for license details.
  */
@@ -41,8 +41,7 @@ async function main() {
         return prev;
       },
       {
-        '@cloudbase/framework-plugin-low-code': '0.3.5',
-        "postcss": "^8.4.14",
+        '@cloudbase/framework-plugin-low-code-installer': '1.0.0',
       }
     ),
   };
@@ -78,7 +77,7 @@ async function main() {
   );
 
   await // 推送镜像
-  await spawnPromise(`docker push ${tagNameWithVersion}`, {});
+    await spawnPromise(`docker push ${tagNameWithVersion}`, {});
   await spawnPromise(`docker push ${tagName}`, {});
   await spawnPromise(
     `docker push ccr.ccs.tencentyun.com/${ccrImageName}:${coreVersion}`,

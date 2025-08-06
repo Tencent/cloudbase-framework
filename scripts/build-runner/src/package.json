@@ -1,18 +1,16 @@
 {
     "name": "cloudbase-framework-registry",
     "dependencies": {
-        "@cloudbase/framework-plugin-low-code": "0.3.5",
-        "@cloudbase/framework-plugin-auth": "^1.8.0",
-        "@cloudbase/framework-plugin-container": "^1.8.0",
-        "@cloudbase/framework-plugin-dart": "^1.8.0",
-        "@cloudbase/framework-plugin-database": "^1.8.0",
-        "@cloudbase/framework-plugin-deno": "^1.8.0",
-        "@cloudbase/framework-plugin-function": "^1.8.0",
-        "@cloudbase/framework-plugin-mp": "^1.8.0",
-        "@cloudbase/framework-plugin-next": "^1.8.0",
-        "@cloudbase/framework-plugin-node": "^1.8.0",
-        "@cloudbase/framework-plugin-nuxt": "^1.8.0",
-        "@cloudbase/framework-plugin-website": "^1.8.0",
-        "postcss": "^8.4.14"
+        "@cloudbase/framework-plugin-low-code-installer": "1.0.0",
+        "@cloudbase/framework-plugin-auth": "^1.9.7",
+        "@cloudbase/framework-plugin-container": "^1.9.7",
+        "@cloudbase/framework-plugin-dart": "^1.9.7",
+        "@cloudbase/framework-plugin-database": "^1.9.7",
+        "@cloudbase/framework-plugin-function": "^1.9.7",
+        "@cloudbase/framework-plugin-mp": "^1.9.7",
+        "@cloudbase/framework-plugin-next": "^1.9.7",
+        "@cloudbase/framework-plugin-node": "^1.9.7",
+        "@cloudbase/framework-plugin-nuxt": "^1.9.7",
+        "@cloudbase/framework-plugin-website": "^1.9.7"
     }
 }

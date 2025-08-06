@@ -1,3 +1,7 @@
+> [!TIP]
+> 想要更智能的开发体验？试试 [CloudBase AI ToolKit](https://github.com/TencentCloudBase/CloudBase-AI-ToolKit) - 用自然语言描述需求，AI 帮你生成代码并自动部署到云端。
+> [快速上手](https://github.com/TencentCloudBase/CloudBase-AI-ToolKit)
+
 <a href="https://github.com/Tencent/cloudbase-framework">![](https://main.qcloudimg.com/raw/d0f4f8cf03d1267c396eb4cf3570031b.png)</a>
 
 <p align="center"><a href="/Tencent/cloudbase-framework/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Github License"></a> <a href="https://www.npmjs.com/package/@cloudbase/framework-core" rel="nofollow"><img src="https://img.shields.io/npm/v/@cloudbase/framework-core" alt="Npm version"></a> <a href="https://lernajs.io/" rel="nofollow"><img src="https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg" alt="lerna"></a> <a href="https://www.npmjs.com/package/@cloudbase/cli" rel="nofollow"><img src="https://img.shields.io/npm/dw/@cloudbase/framework-core" alt="download"></a> <a href="https://github.com/Tencent/cloudbase-framework/issues"><img src="https://img.shields.io/github/issues/Tencent/cloudbase-framework" alt="issue"></a> <a href="https://github.com/Tencent/cloudbase-framework/pulls"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a> <a href="https://github.com/Tencent/cloudbase-framework/actions?query=workflow%3ABaseline-Init"><img src="https://github.com/Tencent/cloudbase-framework/workflows/Baseline-Init/badge.svg"></a> <a href='https://gitee.com/TencentCloudBase/cloudbase-framework/stargazers'><img src='https://gitee.com/TencentCloudBase/cloudbase-framework/badge/star.svg?theme=dark' alt='star'></img></a> <a href="https://github.com/Tencent/cloudbase-framework"><img alt="star" src="https://img.shields.io/github/stars/Tencent/cloudbase-framework?style=social" ></a>
@@ -63,16 +67,23 @@
 
 ## Table of Contents
 
-- [快速开始](#quick-start)
-- [项目示例](#examples)
-- [插件](#plugins)
-- [配置示例](#conf)
-- [Changelog](#changelog)
+- [Table of Contents](#table-of-contents)
+- [ 快速开始](#-快速开始)
+- [项目示例](#项目示例)
+- [插件](#插件)
+  - [自动检测生成插件配置流程](#自动检测生成插件配置流程)
+  - [目前支持的插件列表](#目前支持的插件列表)
+- [ 配置示例](#-配置示例)
+- [ Changelog](#-changelog)
 - [License](#license)
-- [优秀应用案例](#user)
-- [在线交流群](#community)
-- [Contributors](#contributor)
-- [贡献指南](#contribute)
+- [优秀应用案例](#优秀应用案例)
+- [在线交流群](#在线交流群)
+- [CloudBase Framework 资讯](#cloudbase-framework-资讯)
+  - [技术文章](#技术文章)
+  - [演讲](#演讲)
+  - [新闻](#新闻)
+- [ Contributors ✨](#-contributors-)
+- [贡献指南](#贡献指南)
 
 ## <a name="quick-start"></a> 快速开始
 
