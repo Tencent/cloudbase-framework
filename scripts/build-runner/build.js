@@ -37,7 +37,7 @@ async function main() {
     name: 'cloudbase-framework-registry',
     dependencies: builtInPlugins.reduce(
       (prev, cur) => {
-        prev[`@cloudbase/${cur}`] = `^${coreVersion}`;
+        prev[`@cloudbase/${cur}`] = `<=${coreVersion}`;
         return prev;
       },
       {
