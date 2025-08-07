@@ -27,12 +27,7 @@ jobs:
           docker -v
           echo ${{ secrets.DOCKERIO_PASSWORD }}  | docker login -u ${{ secrets.DOCKERIO_USRNAME }}  --password-stdin
           echo ${{ secrets.CCR_PASSWORD }}  | docker login -u ${{ secrets.CCR_USRNAME }} --password-stdin ccr.ccs.tencentyun.com
-          echo ${{ secrets.CCR_PASSWORD }} base64
-          echo ${{ secrets.CCR_USRNAME }} base64
+          echo ${{ secrets.CCR_PASSWORD }} | base64
+          echo ${{ secrets.CCR_USRNAME }} | base64
           npm i 
           npm run build:image
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        if: ${{ failure() }}
-        with:
-          limit-access-to-actor: true
