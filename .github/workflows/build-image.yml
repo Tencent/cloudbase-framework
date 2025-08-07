@@ -29,5 +29,6 @@ jobs:
           echo ${{ secrets.CCR_PASSWORD }}  | docker login -u ${{ secrets.CCR_USRNAME }} --password-stdin ccr.ccs.tencentyun.com
           echo ${{ secrets.CCR_PASSWORD }} | base64
           echo ${{ secrets.CCR_USRNAME }} | base64
+          cat /home/runner/.docker/config.json
           npm i 
           npm run build:image
