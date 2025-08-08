@@ -1,0 +1,12 @@
+{
+  "name": "wd-system-sub-package",
+  "version": "0.0.1",
+  "scripts": {},
+  "dependencies": {
+    "aegis-mp-sdk": "~1.38.1",
+    "@cloudbase/js-sdk": "2.19.2",
+    "@cloudbase/adapter-wx_mp": "^1.0.3",
+    "@cloudbase/auth": "2.19.2",
+    "@cloudbase/ai": "2.19.2"
+  }
+}
